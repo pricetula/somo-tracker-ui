@@ -2,6 +2,6 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 </script>
 
-<h1 class="bg-red-300">Welcome to SvelteKit</h1>
+<h1>Welcome to SvelteKit</h1>
 <p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
-<Button class="bg-red-400">Button</Button>
+<Button>Button</Button>

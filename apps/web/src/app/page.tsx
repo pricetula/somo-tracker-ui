@@ -6,7 +6,7 @@ export default function Home() {
         <div>
             <h1>Welcome to SvelteKit</h1>
             <p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
-            <Button className="bg-red-400">Button</Button>
+            <Button>Button</Button>
         </div>
     );
 }
