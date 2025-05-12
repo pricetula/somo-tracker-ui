@@ -108,6 +108,9 @@ importers:
       jsdom:
         specifier: ^26.0.0
         version: 26.1.0
+      lucide-svelte:
+        specifier: ^0.510.0
+        version: 0.510.0(svelte@5.28.2)
       prettier:
         specifier: ^3.4.2
         version: 3.5.3
@@ -3229,6 +3232,11 @@ packages:
     resolution: {integrity: sha512-xCJHn6Uh5qF6PGml25vveCTrHJZcqS1G1MVzWZK54ZQsOiCVJk4fwY3oyo5EXS2S+aqvTpWYIfJN+PesJ0quxg==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
+  lucide-svelte@0.510.0:
+    resolution: {integrity: sha512-xlXtd1SIiKjUNlmP9j8jtNRpvl+BrEX8zYRry/sEjdUU2eSthbmdKhlyGZmP+HEMbxYz1Si+Aq30jqafLdErNQ==}
+    peerDependencies:
+      svelte: ^3 || ^4 || ^5.0.0-next.42
 
   lz-string@1.5.0:
     resolution: {integrity: sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ==}
@@ -8289,6 +8297,10 @@ snapshots:
   lucide-react@0.509.0(react@19.1.0):
     dependencies:
       react: 19.1.0
+
+  lucide-svelte@0.510.0(svelte@5.28.2):
+    dependencies:
+      svelte: 5.28.2
 
   lz-string@1.5.0: {}
 
