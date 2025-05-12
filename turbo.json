@@ -37,6 +37,9 @@
       "dependsOn": [
         "^test"
       ]
+    },
+    "test:e2e": {
+      "outputs": []
     }
   }
 }
