@@ -4,9 +4,7 @@
 	"tailwind": {
 		"config": "tailwind.config.ts",
 		"css": "src/app.css",
-		"baseColor": "neutral",
-		"cssVariables": true,
-		"prefix": ""
+		"baseColor": "neutral"
 	},
 	"aliases": {
 		"components": "$lib/components",
