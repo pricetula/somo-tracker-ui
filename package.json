@@ -21,5 +21,10 @@
     "onlyBuiltDependencies": [
       "esbuild"
     ]
-  }
+  },
+  "workspaces": [
+    "apps/web",
+    "apps/public",
+    "packages/tailwindcss"
+  ]
 }
