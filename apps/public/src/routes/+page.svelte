@@ -16,7 +16,7 @@
 		property="og:description"
 		content="Real-time academic tracking and performance insights for educators and students."
 	/>
-	<meta property="og:image" content="/preview.jpg" />
+	<!-- <meta property="og:image" content="/preview.jpg" /> -->
 	<!-- Replace with actual image -->
 	<meta property="og:url" content="https://somo-tracker-web.onrender.com" />
 	<meta property="og:type" content="website" />
@@ -28,7 +28,7 @@
 		name="twitter:description"
 		content="Real-time academic tracking and performance insights for educators and students."
 	/>
-	<meta name="twitter:image" content="/preview.jpg" />
+	<!-- <meta name="twitter:image" content="/preview.jpg" /> -->
 
 	<link rel="canonical" href="https://somo-tracker-web.onrender.com" />
 </svelte:head>
