@@ -20,7 +20,7 @@ test.describe('Landing Page', () => {
     });
 
     test('displays the main header', async ({ page }) => {
-        await expect(page.locator('h1')).toHaveText('SomoTracker');
+        await expect(page.locator('h1')).toHaveText('SomoTracker 🚀');
     });
 
     test('shows key features section', async ({ page }) => {

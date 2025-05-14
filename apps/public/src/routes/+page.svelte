@@ -101,8 +101,8 @@
 		</ol>
 	</section>
 
-	<section aria-labelledby="features" class="mb-24 w-full max-w-[800px]">
-		<h2 id="features" class="mb-12 border-b border-dashed pb-2 text-center text-lg font-semibold">
+	<section aria-labelledby="sync-data" class="mb-24 w-full max-w-[800px]">
+		<h2 id="sync-data" class="mb-12 border-b border-dashed pb-2 text-center text-lg font-semibold">
 			Streamline Your Data with Google Sheets
 		</h2>
 		<p class="flex justify-center px-4">
