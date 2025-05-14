@@ -15,10 +15,12 @@
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.2",
     "@repo/ui": "workspace:*",
+    "better-auth": "^1.2.7",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.509.0",
     "next": "^15.3.0",
+    "pg": "^8.16.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
@@ -28,6 +30,7 @@
     "@repo/typescript-config": "workspace:*",
     "@somo-tracker-ui/tailwindcss": "workspace:*",
     "@types/node": "^22.15.3",
+    "@types/pg": "^8.15.1",
     "@types/react": "19.1.0",
     "@types/react-dom": "19.1.1",
     "eslint": "^9.26.0",
