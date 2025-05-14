@@ -38,5 +38,8 @@
     "apps/web",
     "apps/public",
     "packages/tailwindcss"
-  ]
+  ],
+  "dependencies": {
+    "three": "^0.176.0"
+  }
 }
