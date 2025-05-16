@@ -17,11 +17,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { ServerResponse } from "@/lib/types"
 
-interface SigninProps {
-    onSubmit(values: SigninSchema): Promise<ServerResponse>
-}
-
-export function Signin({ onSubmit }: SigninProps) {
+export function Signin() {
     const router = useRouter()
     const { toast } = useToast()
     const [isSubmitting, setIsSubmitting] = React.useState(false)
@@ -36,10 +32,17 @@ export function Signin({ onSubmit }: SigninProps) {
 
     async function submitFunc(values: SigninSchema) {
         setIsSubmitting(true)
-        const resp = await onSubmit(values)
+        const resp = await fetch('/api/signin', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(values),
+        })
         setIsSubmitting(false)
-        if (resp.errorCode && resp.message) {
-            setError(resp.message)
+        if (!resp.ok) {
+            const data = await resp.json()
+            setError(data.message)
             return
         }
         router.push("/institute")
@@ -54,36 +57,38 @@ export function Signin({ onSubmit }: SigninProps) {
     }
 
     return (
-        <Form {...form}>
-            <form onSubmit={form.handleSubmit(submitFunc)} className="space-y-8">
-                <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Email</FormLabel>
-                            <FormControl>
-                                <Input placeholder="Email" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="password"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Password</FormLabel>
-                            <FormControl>
-                                <Input placeholder="Password" type="password" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <Button type="submit" disabled={isSubmitting}>Submit</Button>
-            </form>
-        </Form>
+        <div className="h-screen flex items-center justify-center">
+            <Form {...form}>
+                <form onSubmit={form.handleSubmit(submitFunc)} className="w-[90%] max-w-[500px] space-y-8">
+                    <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Email</FormLabel>
+                                <FormControl>
+                                    <Input placeholder="Email" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="password"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Password</FormLabel>
+                                <FormControl>
+                                    <Input placeholder="Password" type="password" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <Button type="submit" disabled={isSubmitting}>Submit</Button>
+                </form>
+            </Form>
+        </div>
     )
 }

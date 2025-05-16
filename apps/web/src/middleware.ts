@@ -12,7 +12,7 @@ export async function middleware(req: NextRequest) {
     const protectedPaths = ["/institute"]
 
     const isProtected = protectedPaths.some((path) => req.nextUrl.pathname.startsWith(path))
-    console.log("session", session)
+
     if (isProtected && !session?.user?.id) {
         const loginUrl = new URL("/signin", req.url)
         return NextResponse.redirect(loginUrl)

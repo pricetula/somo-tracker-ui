@@ -1,12 +1,13 @@
+"use client"
 import { useRouter } from "next/navigation"
 import { authClient } from "@/lib/auth-client"
 
-export default async function Page() {
+export default function Page() {
     const router = useRouter()
-    await authClient.signOut({
+    authClient.signOut({
         fetchOptions: {
             onSuccess: () => {
-                router.push("/login")
+                router.push("/signin")
             },
         },
     })
