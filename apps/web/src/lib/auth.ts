@@ -1,12 +1,13 @@
 import { betterAuth } from "better-auth"
 import { Pool } from "pg"
-import { sendEmailVerification } from "./email"
+import { sendEmailVerification, sendPasswordReset } from "./email"
 
 export const auth = betterAuth({
     emailVerification: {
         sendOnSignUp: true,
         requireEmailVerification: true,
         sendEmailVerification,
+        sendPasswordReset,
     },
     emailAndPassword: {
         enabled: true

@@ -58,3 +58,26 @@ export async function sendEmailVerification({
         from: process.env.OWNER_EMAIL || '',
     });
 }
+
+// sendPasswordReset function to send a password reset email
+export async function sendPasswordReset({
+    user,
+    url,
+}: {
+    user: {
+        email: string;
+    };
+    url: string;
+}) {
+    const subject = 'Reset your password';
+    const html = `
+        <p>Click the link below to reset your password:</p>
+        <a href="${url}">Reset Password</a>
+    `;
+    await sendEmail({
+        html,
+        subject,
+        to: user.email,
+        from: process.env.OWNER_EMAIL || '',
+    });
+}
