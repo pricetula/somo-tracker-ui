@@ -2,6 +2,8 @@
 import React from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
+import { useRouter } from "next/navigation"
+import { useToast } from "@/hooks/use-toast"
 import { type SignupSchema, signupSchema } from "@/lib/schemas/signup"
 import { Button } from "@/components/ui/button"
 import {
@@ -14,11 +16,9 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 
-interface SignupProps {
-    onSubmit(values: SignupSchema): void
-}
-
-export function Signup({ onSubmit }: SignupProps) {
+export function Signup() {
+    const router = useRouter()
+    const { toast } = useToast()
     const [isSubmitting, setIsSubmitting] = React.useState(false)
 
     const form = useForm<SignupSchema>({
@@ -33,8 +33,28 @@ export function Signup({ onSubmit }: SignupProps) {
 
     async function submitFunc(values: SignupSchema) {
         setIsSubmitting(true)
-        await onSubmit(values)
+        const resp = await fetch('/api/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(values),
+        })
         setIsSubmitting(false)
+        if (!resp.ok) {
+            const data = await resp.json()
+            setError(data.message)
+            return
+        }
+        router.push("/institute")
+    }
+
+    function setError(description: string) {
+        toast({
+            description,
+            variant: "destructive",
+            title: "Failed to sign in",
+        })
     }
 
     return (

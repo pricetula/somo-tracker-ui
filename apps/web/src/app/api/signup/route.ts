@@ -9,8 +9,8 @@ export async function POST(req: Request) {
     let resp: any = null
 
     try {
-        // Call the signInEmail method from the auth object to sign in the user
-        resp = await auth.api.signInEmail({
+        // Call the signUpEmail method from the auth object to sign in the user
+        resp = await auth.api.signUpEmail({
             body,
             asResponse: true,
             headers: req.headers,
