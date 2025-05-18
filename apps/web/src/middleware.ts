@@ -9,11 +9,11 @@ export async function middleware(req: NextRequest) {
         headers: await headers(),
     })
 
-    const protectedPaths = ["/institute"]
+    const publicPaths = ["/signin", "/signup"]
 
-    const isProtected = protectedPaths.some((path) => req.nextUrl.pathname.startsWith(path))
+    const isPublic = publicPaths.some((path) => req.nextUrl.pathname.startsWith(path))
 
-    if (isProtected && !session?.user?.id) {
+    if (!isPublic && !session?.user?.id) {
         const loginUrl = new URL("/signin", req.url)
         return NextResponse.redirect(loginUrl)
     }
