@@ -13,6 +13,6 @@ export const auth = betterAuth({
         enabled: true
     },
     database: new Pool({
-        connectionString: process.env.BETTER_AUTH_DB_URL,
+        connectionString: process.env.BETTER_AUTH_DB_POSTGRES_URL,
     }),
 })
