@@ -6,7 +6,6 @@ export const signinSchema = z.object({
         .string()
         .min(1, { message: "Email is required" })
         .email({ message: "Invalid email address" }),
-    password: checkPasswordStrength(),
 })
 
 export type SigninSchema = z.infer<typeof signinSchema>

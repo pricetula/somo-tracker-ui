@@ -1,36 +1,19 @@
-"use server"
-import { headers } from "next/headers"
-import { NextResponse } from "next/server"
-import { auth } from "@/lib/auth"
-import type { NextRequest } from "next/server"
+import { type NextRequest } from 'next/server'
+import { updateSession } from '@/lib/supabase/middleware'
 
-export async function middleware(req: NextRequest) {
-    const session = await auth.api.getSession({
-        headers: await headers(),
-    })
-
-    const publicPaths = ["/signin", "/signup"]
-
-    const isPublic = publicPaths.some((path) => req.nextUrl.pathname.startsWith(path))
-
-    if (!isPublic && !session?.user?.id) {
-        const loginUrl = new URL("/signin", req.url)
-        return NextResponse.redirect(loginUrl)
-    }
-
-    return NextResponse.next()
+export async function middleware(request: NextRequest) {
+    return await updateSession(request)
 }
 
 export const config = {
-    runtime: "nodejs",
     matcher: [
         /*
          * Match all request paths except for the ones starting with:
-         * - api (API routes)
          * - _next/static (static files)
          * - _next/image (image optimization files)
-         * - favicon.ico, sitemap.xml, robots.txt (metadata files)
+         * - favicon.ico (favicon file)
+         * Feel free to modify this pattern to include more paths.
          */
-        "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
+        '/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|xml|txt|jpg|jpeg|gif|webp)$).*)',
     ],
 }
