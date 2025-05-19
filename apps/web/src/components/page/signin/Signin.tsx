@@ -1,8 +1,8 @@
 "use client"
 import React from "react"
 import { useForm } from "react-hook-form"
-import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useToast } from "@/hooks/use-toast"
 import { type SigninSchema, signinSchema } from "@/lib/schemas/signin"
 import { Button } from "@/components/ui/button"
 import {
@@ -20,7 +20,7 @@ interface SigninProps {
 }
 
 export function Signin({ signInWithEmail }: SigninProps) {
-    const router = useRouter()
+    const { toast } = useToast()
     const [isSubmitting, setIsSubmitting] = React.useState(false)
 
     const form = useForm<SigninSchema>({
@@ -34,7 +34,12 @@ export function Signin({ signInWithEmail }: SigninProps) {
         setIsSubmitting(true)
         await signInWithEmail(email)
         setIsSubmitting(false)
-        router.push("/institute")
+        toast({
+            variant: "default",
+            title: "Sign-in link sent",
+            description: "Check your email for the sign-in link to sign-in.",
+        })
+        form.reset()
     }
 
     return (
