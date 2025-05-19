@@ -32,12 +32,12 @@ export function Signin({ signInWithEmail }: SigninProps) {
 
     async function submitFunc({ email }: SigninSchema) {
         setIsSubmitting(true)
-        await signInWithEmail(email)
+        // await signInWithEmail(email)
         setIsSubmitting(false)
         toast({
             variant: "default",
-            title: "Sign-in link sent",
-            description: "Check your email for the sign-in link to sign-in.",
+            title: "Link sent",
+            description: "Check your email to sign-in.",
         })
         form.reset()
     }
@@ -53,13 +53,13 @@ export function Signin({ signInWithEmail }: SigninProps) {
                             <FormItem>
                                 <FormLabel>Email</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="Email" {...field} />
+                                    <Input placeholder="Where we will send your magic link to sign-in" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}
                     />
-                    <Button type="submit" disabled={isSubmitting}>Submit</Button>
+                    <Button type="submit" disabled={isSubmitting}>{`Send${isSubmitting ? 'ing' : ''}`}</Button>
                 </form>
             </Form>
         </div>
