@@ -32,7 +32,7 @@ export function Signin({ signInWithEmail }: SigninProps) {
 
     async function submitFunc({ email }: SigninSchema) {
         setIsSubmitting(true)
-        // await signInWithEmail(email)
+        await signInWithEmail(email)
         setIsSubmitting(false)
         toast({
             variant: "default",
