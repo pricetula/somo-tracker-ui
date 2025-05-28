@@ -18,9 +18,6 @@ import {
     SidebarContent,
     SidebarFooter,
     SidebarHeader,
-    SidebarMenu,
-    SidebarMenuButton,
-    SidebarMenuItem,
     SidebarRail,
 } from "@/components/ui/sidebar"
 import { SchoolSwitcher } from "../school-switcher/SchoolSwitcher"
