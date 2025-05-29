@@ -20,9 +20,13 @@ export default async function Layout({ children }: { children: React.ReactNode }
 
     try {
         const user = await getMe(session.access_token)
-    } catch (error) {
-        console.error("Error fetching user data:", error);
-        return 'error.message'
+        console.log("User:", user)
+    } catch (error: any) {
+        if (error.message === "Unauthorized") {
+            // If the user is not found, redirect to signout
+            permanentRedirect("/signout")
+        }
+        throw Error(error.message)
     }
 
     return (
