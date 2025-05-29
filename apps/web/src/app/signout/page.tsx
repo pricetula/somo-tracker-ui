@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
 
 export default function Page() {
+    const router = useRouter()
     async function signOut() {
-        const router = useRouter()
         const supabase = await createClient()
         const { error } = await supabase.auth.signOut()
         if (error) {
