@@ -6,7 +6,7 @@
 	let { children } = $props();
 </script>
 
-<main class="container mx-auto">
+<main class="container mx-auto px-4">
 	<Nav />
 	{@render children()}
 </main>
