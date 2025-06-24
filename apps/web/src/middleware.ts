@@ -1,7 +1,29 @@
-import { type NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
-export async function middleware(request: NextRequest) {
-    return NextResponse.next()
+export function middleware(request: NextRequest) {
+    // Get the auth cookie
+    const authCookie = request.cookies.get('auth');
+
+    // Define public routes (routes that don't require authentication)
+    const publicPaths = ['/signin', '/signup', '/verify'];
+    const isPublicPath = publicPaths.some(path =>
+        request.nextUrl.pathname.startsWith(path)
+    );
+
+    // If user is authenticated and trying to access auth routes
+    if (authCookie && isPublicPath) {
+        return NextResponse.redirect(new URL('/', request.url));
+    }
+    // If user is not authenticated and trying to access protected route
+    else if (!authCookie && !isPublicPath) {
+        const signinUrl = new URL('/signin', request.url);
+        // Optional: Add redirect parameter to return after signin
+        signinUrl.searchParams.set('redirect', request.nextUrl.pathname);
+        return NextResponse.redirect(signinUrl);
+    }
+
+    return NextResponse.next();
 }
 
 export const config = {
@@ -16,3 +38,4 @@ export const config = {
         '/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|xml|txt|jpg|jpeg|gif|webp)$).*)',
     ],
 }
+

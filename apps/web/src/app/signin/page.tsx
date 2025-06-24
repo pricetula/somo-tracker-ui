@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { Signin } from "@/components/page/signin"
+import { COOKIE } from "@/lib/constants";
 
 export default function Page() {
     async function sendOtpCodeToEmail(email: string) {
@@ -40,7 +41,7 @@ export default function Page() {
 
             const cookieStore = await cookies()
 
-            cookieStore.set('auth', JSON.stringify(data), {
+            cookieStore.set(COOKIE.AUTH, JSON.stringify(data), {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === 'production',
                 sameSite: 'lax',
