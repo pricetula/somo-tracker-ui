@@ -29,6 +29,7 @@ import {
     SidebarMenuItem,
     useSidebar,
 } from "@/components/ui/sidebar"
+import { logout } from "@/lib/actions/auth"
 
 export function NavUser({
     user,
@@ -103,8 +104,12 @@ export function NavUser({
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem>
-                            <LogOut />
-                            Log out
+                            <form action={logout}>
+                                <button type="submit" className="flex items-center gap-2">
+                                    <LogOut />
+                                    <span>Log out</span>
+                                </button>
+                            </form>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
