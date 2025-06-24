@@ -1,7 +1,8 @@
 "use client"
+
 import React from "react"
 import { useForm } from "react-hook-form"
-import router from "next/router"
+import { useRouter } from "next/navigation"
 import { useSearchParams } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useToast } from "@/hooks/use-toast"
@@ -42,6 +43,9 @@ export function Signin({ verifyOtpCode, sendOtpCodeToEmail }: SigninProps) {
             emailSent: false,
         },
     })
+    // In your signin success handler
+    const searchParams = useSearchParams()
+    const router = useRouter()
     const emailSent = form.watch("emailSent")
 
 
@@ -63,6 +67,14 @@ export function Signin({ verifyOtpCode, sendOtpCodeToEmail }: SigninProps) {
                 title: "Success",
                 description: "You are now logged in.",
             })
+            const redirect = searchParams.get('redirect');
+
+            // After successful signin
+            if (redirect) {
+                router.push(redirect);
+            } else {
+                router.push('/');
+            }
             form.reset()
             return
         }
@@ -83,16 +95,6 @@ export function Signin({ verifyOtpCode, sendOtpCodeToEmail }: SigninProps) {
             title: "Link sent",
             description: "Check your email to sign-in.",
         })
-        // In your signin success handler
-        const searchParams = useSearchParams();
-        const redirect = searchParams.get('redirect');
-
-        // After successful signin
-        if (redirect) {
-            router.push(redirect);
-        } else {
-            router.push('/');
-        }
     }
 
     return (
