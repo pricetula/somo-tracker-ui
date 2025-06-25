@@ -1,25 +1,25 @@
 export interface User {
-    id: string
+    id?: string
     email: string
     phone: string
-    firstName: string
-    lastName: string
-    photoUrl: string
-    externalAuthId: string
-    createdAt: string
-    updatedAt: string
-    deletedAt: string
-    userSetting: UserSetting
+    first_name: string
+    last_name: string
+    photo_url: string
+    external_auth_id?: string
+    created_at?: string
+    updated_at?: string
+    deleted_at?: string
+    user_setting?: UserSetting
 }
 
 export interface UserSetting {
-    userId: string
-    isActive: boolean
+    user_id: string
+    is_active: boolean
     theme: string
 }
 
 export interface UserRole {
-    userId: string
+    user_id: string
     role: Role
 }
 

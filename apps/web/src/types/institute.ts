@@ -1,28 +1,28 @@
 import { User } from "./user"
 
 export interface Institute {
-    id: string
+    id?: string
     name: string
     description: string
     address: string
-    website: string
-    createdAt: string
-    updatedAt: string
-    deletedAt: string
-    instituteSetting: InstituteSetting
-    contactUser: User
+    website?: string
+    created_at?: string
+    updated_at?: string
+    deleted_at?: string
+    institute_setting?: InstituteSetting
+    contact_user: User
 }
 
 export interface InstituteSetting {
-    instituteId: string
+    institute_id: string
     isActive: boolean
-    logoUrl: string
+    logo_url: string
     timezone: string
 }
 
 export interface InstituteUser {
-    userId: string
-    instituteId: string
+    user_id: string
+    institute_id: string
     user: User
     institute: Institute
 }

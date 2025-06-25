@@ -15,12 +15,18 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { Separator } from "@/components/ui/separator"
+import { Institute } from "@/types/institute"
 
 interface Props {
-    createInstitute(i: CreateInstituteSchema): Promise<any>
+    createInstitute(i: Institute): Promise<any>;
+    tokenPayload: {
+        email: string;
+        picture: string;
+    }
 }
 
-export function CreateInstitute({ createInstitute }: Props) {
+export function CreateInstitute({ createInstitute, tokenPayload }: Props) {
     const { toast } = useToast()
     const [isSubmitting, setIsSubmitting] = React.useState(false)
     const form = useForm<CreateInstituteSchema>({
@@ -30,19 +36,29 @@ export function CreateInstitute({ createInstitute }: Props) {
             description: "",
             address: "",
             website: "",
-            contactUser: {
-                email: "",
-                phone: "",
-                firstName: "",
-                lastName: "",
-                photoUrl: "",
-            },
+            contactUserEmail: tokenPayload.email,
+            contactUserPhone: "",
+            contactUserFirstName: "",
+            contactUserLastName: "",
+            contactUserPhotoUrl: tokenPayload.picture,
         },
     })
 
     async function submitFunc(data: CreateInstituteSchema) {
         setIsSubmitting(true)
-        const resp = await createInstitute(data)
+        const resp = await createInstitute({
+            name: data.name,
+            description: data.description,
+            address: data.address,
+            website: data.website || '',
+            contact_user: {
+                email: data.contactUserEmail,
+                phone: data.contactUserPhone,
+                first_name: data.contactUserFirstName,
+                last_name: data.contactUserLastName,
+                photo_url: data.contactUserPhotoUrl,
+            }
+        })
         if (!resp.success) {
             toast({
                 variant: "destructive",
@@ -64,11 +80,15 @@ export function CreateInstitute({ createInstitute }: Props) {
     return (
         <div className="h-screen flex items-center justify-center">
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(submitFunc)} className="w-[90%] max-w-[500px] space-y-8">
-                    <div>
+                <form onSubmit={form.handleSubmit(submitFunc)} className="w-[90%] max-w-[500px] space-y-4">
+                    <section className="flex flex-col gap-2">
+                        <header>
+                            <h2 className="text-lg font-bold">Contact</h2>
+                        </header>
+                        <Separator className="mb-2" />
                         <FormField
                             control={form.control}
-                            name="contactUser.email"
+                            name="contactUserEmail"
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Email</FormLabel>
@@ -81,7 +101,7 @@ export function CreateInstitute({ createInstitute }: Props) {
                         />
                         <FormField
                             control={form.control}
-                            name="contactUser.phone"
+                            name="contactUserPhone"
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Phone</FormLabel>
@@ -92,48 +112,40 @@ export function CreateInstitute({ createInstitute }: Props) {
                                 </FormItem>
                             )}
                         />
-                        <FormField
-                            control={form.control}
-                            name="contactUser.firstName"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>First name</FormLabel>
-                                    <FormControl>
-                                        <Input placeholder="First name of the contact user" {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="contactUser.lastName"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Last name</FormLabel>
-                                    <FormControl>
-                                        <Input placeholder="Last name of the contact user" {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="contactUser.photoUrl"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Photo URL</FormLabel>
-                                    <FormControl>
-                                        <Input placeholder="Photo URL of the contact user" {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                    </div>
-
-                    <div>
+                        <div className="flex gap-4">
+                            <FormField
+                                control={form.control}
+                                name="contactUserFirstName"
+                                render={({ field }) => (
+                                    <FormItem className="w-1/2">
+                                        <FormLabel>First name</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="First name of the contact user" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="contactUserLastName"
+                                render={({ field }) => (
+                                    <FormItem className="w-1/2">
+                                        <FormLabel>Last name</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Last name of the contact user" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
+                    </section>
+                    <section className="flex flex-col gap-2 mb-2">
+                        <header>
+                            <h2 className="text-lg font-bold">Institute</h2>
+                        </header>
+                        <Separator className="mb-2" />
                         <FormField
                             control={form.control}
                             name="name"
@@ -186,8 +198,13 @@ export function CreateInstitute({ createInstitute }: Props) {
                                 </FormItem>
                             )}
                         />
-                    </div>
-                    <Button type="submit" disabled={isSubmitting}>{`Create${isSubmitting ? 'ing' : ''}`}</Button>
+                    </section>
+                    <Button
+                        type="submit"
+                        disabled={isSubmitting}
+                    >
+                        {`Create${isSubmitting ? 'ing' : ''}`}
+                    </Button>
                 </form>
             </Form>
         </div>

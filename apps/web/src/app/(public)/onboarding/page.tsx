@@ -1,31 +1,54 @@
+import { jwtDecode } from "jwt-decode"
 import { CreateInstitute } from "@/feature/onboarding/create-institute/CreateInstitute";
-import { CreateInstituteSchema } from "@/lib/schemas/create-institute";
+import { getAccessToken, getAuthData } from "@/lib/auth"
+import { Institute } from "@/types/institute";
 
-async function createInstitute(i: CreateInstituteSchema) {
-    "use server";
-    try {
-        const res = await fetch(`${process.env.API_URL}institute`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(i),
-        });
-
-        if (!res.ok) {
-            const err = await res.json();
-            return { success: false, data: null, error: err.error || res.statusText };
-        }
-
-        const data = await res.json();
-
-        return { success: true, data, error: "" };
-    } catch (err) {
-        return { success: false, data: null, error: "Network/server error" };
+export default async function Page() {
+    let tokenPayload = {
+        email: "",
+        picture: "",
     }
-}
+    const authData = await getAuthData()
+    if (authData?.id_token) {
+        const decoded = jwtDecode<{
+            email: string;
+            picture: string;
+        }>(authData.id_token)
+        tokenPayload = {
+            email: decoded.email,
+            picture: decoded.picture,
+        }
+    }
 
+    async function createInstitute(i: Institute) {
+        "use server";
+        try {
+            const body = JSON.stringify(i)
+            const accessToken = await getAccessToken()
+            const res = await fetch(`${process.env.API_URL}institutes`, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                    "Content-Type": "application/json",
+                },
+                body,
+            });
 
-export default function Page() {
+            if (!res.ok) {
+                const err = await res.text();
+                return { success: false, data: null, error: err || res.statusText };
+            }
+
+            const data = await res.json();
+
+            return { success: true, data, error: "" };
+        } catch (err: any) {
+            console.error(err)
+            return { success: false, data: null, error: err.message };
+        }
+    }
+
     return (
-        <CreateInstitute createInstitute={createInstitute} />
+        <CreateInstitute createInstitute={createInstitute} tokenPayload={tokenPayload} />
     )
 }
