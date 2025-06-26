@@ -1,21 +1,23 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
+// Define public routes (routes that don't require authentication)
+const publicPaths = ['/signin', '/signup', '/verify'];
+
 export function middleware(request: NextRequest) {
     // Get the auth cookie
     const authCookie = request.cookies.get('auth');
 
-    // Define public routes (routes that don't require authentication)
-    const publicPaths = ['/signin', '/signup', '/verify'];
+    // check if route is public
     const isPublicPath = publicPaths.some(path =>
         request.nextUrl.pathname.startsWith(path)
     );
 
-    // If user is authenticated and trying to access auth routes
+    // If user is authenticated and trying to access public routes
     if (authCookie && isPublicPath) {
         return NextResponse.redirect(new URL('/', request.url));
     }
-    // If user is not authenticated and trying to access protected route
+    // If user is not authenticated and trying to access protected route, redirect them to signin page
     else if (!authCookie && !isPublicPath) {
         const signinUrl = new URL('/signin', request.url);
         // Optional: Add redirect parameter to return after signin
