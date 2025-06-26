@@ -128,7 +128,7 @@ export function SigninForm({ verifyOtpCode, sendOtpCodeToEmail }: SigninProps) {
                     name="email"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Email</FormLabel>
+                            <FormLabel htmlFor="email">Email</FormLabel>
                             <FormControl>
                                 <Input placeholder="Email for OTP Sign-in" {...field} />
                             </FormControl>
@@ -144,7 +144,7 @@ export function SigninForm({ verifyOtpCode, sendOtpCodeToEmail }: SigninProps) {
                             name="code"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Verify code</FormLabel>
+                                    <FormLabel htmlFor="code">Verify code</FormLabel>
                                     <FormControl>
                                         <InputOTP maxLength={6} {...field}>
                                             <InputOTPGroup>
