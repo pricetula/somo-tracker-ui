@@ -1,5 +1,3 @@
-export default function Page() {
-    return (
-        <article>signin</article>
-    )
-}
+import { Signin } from "@/features/auth/components/login/Signin";
+
+export default Signin
