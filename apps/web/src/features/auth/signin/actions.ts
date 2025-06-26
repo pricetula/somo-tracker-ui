@@ -74,6 +74,7 @@ export async function verifyOtpCode({ code, email }: { code: string, email: stri
         // If response is not ok, return error
         if (!res.ok) {
             const err = await res.json();
+            console.log("error 1", err);
             return { success: false, data: null, error: err.error || res.statusText };
         }
 
@@ -100,6 +101,7 @@ export async function verifyOtpCode({ code, email }: { code: string, email: stri
 
         return { success: true, data, error: "" };
     } catch (err) {
+        console.log("error 2", err);
         return { success: false, data: null, error: "Server error. Please try again." };
     }
 }

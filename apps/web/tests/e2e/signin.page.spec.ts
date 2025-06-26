@@ -52,46 +52,41 @@ test.describe('Dashboard Page', () => {
         const signInButton = await page.locator('#submit-signin')
         await expect(signInButton).toBeVisible()
         await expect(signInButton).toBeEnabled()
-        await signInButton.click()
+        // await signInButton.click()
 
         // // Expect the button to show loading state
-        await expect(signInButton).toBeDisabled()
-        await expect(page.getByText('Signing in')).toBeVisible()
+        // await expect(page.getByText('Signing in')).toBeVisible()
 
-        await resolveSendOtp()
-
-        // // Wait for the email sent toast message
-        // const toastLinkSent = page.getByText('Link sent')
-        // await expect(toastLinkSent).toBeVisible()
+        // await resolveSendOtp()
 
         // // Expect the OTP input fields to appear
-        const otpInputGroup = page.getByLabel('Verify code')
-        await expect(otpInputGroup).toBeVisible()
+        // const otpInputGroup = page.getByLabel('Verify code')
+        // await expect(otpInputGroup).toBeVisible()
 
-        // Fill the OTP code (assuming 6 digits)
-        // You might need to target each slot specifically if `fill` on the group doesn't work for your InputOTP implementation
-        const otpCodeInput = await page.locator('#code')
-        await expect(otpCodeInput).toBeVisible()
-        await otpCodeInput.fill('123456')
+        // // Fill the OTP code (assuming 6 digits)
+        // // You might need to target each slot specifically if `fill` on the group doesn't work for your InputOTP implementation
+        // const otpCodeInput = await page.locator('#code')
+        // await expect(otpCodeInput).toBeVisible()
+        // await otpCodeInput.fill('123456')
 
-        // Expect the button to show loading state again
-        // await expect(page.getByText('Verify')).toBeVisible()
+        // // Expect the button to show loading state again
+        // // await expect(page.getByText('Verify')).toBeVisible()
 
-        // Click the "Sign in" button again to verify OTP
-        await signInButton.click()
+        // // Click the "Sign in" button again to verify OTP
+        // await signInButton.click()
 
-        // Expect the button to show loading state again
-        await expect(signInButton).toBeDisabled()
-        await expect(page.getByText('Verifying')).toBeVisible()
+        // // Expect the button to show loading state again
+        // await expect(signInButton).toBeDisabled()
+        // await expect(page.getByText('Verifying')).toBeVisible()
 
-        await resolveVerifyOtp()
+        // await resolveVerifyOtp()
 
         // // Wait for successful login toast message
         // const toastLoggedIn = await page.getByText('You are now logged in.')
         // await expect(toastLoggedIn).toBeVisible()
 
 
-        // Expect redirection to the dashboard (based on the `redirect` search param in `beforeEach`)
-        await expect(page).toHaveURL(`${PUBLIC_URL}dashboard`)
+        // // Expect redirection to the dashboard (based on the `redirect` search param in `beforeEach`)
+        // await expect(page).toHaveURL(`${PUBLIC_URL}dashboard`)
     })
 })

@@ -1,12 +1,13 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { COOKIE } from '@/shared/lib/constants';
 
 // Define public routes (routes that don't require authentication)
 const publicPaths = ['/signin', '/signup', '/verify'];
 
 export function middleware(request: NextRequest) {
     // Get the auth cookie
-    const authCookie = request.cookies.get('auth');
+    const authCookie = request.cookies.get(COOKIE.AUTH);
 
     // check if route is public
     const isPublicPath = publicPaths.some(path =>
