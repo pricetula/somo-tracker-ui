@@ -12,6 +12,16 @@ import { AuthCookie } from "../types";
 export async function sendOtpCodeToEmail(email: string): Promise<ActionResponse<string>> {
     "use server";
     try {
+        // Check if email is provided otherwise throw error
+        if (!email) {
+            return { success: false, data: "", error: "Email is required" };
+        }
+
+        // Check if API_URL is set otherwise throw error
+        if (!process.env.API_URL) {
+            return { success: false, data: "", error: "API url not set" };
+        }
+
         const res = await fetch(`${process.env.API_URL}auth-send-code`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -45,6 +55,16 @@ interface AuthResponse extends AuthCookie {
 export async function verifyOtpCode({ code, email }: { code: string, email: string }): Promise<ActionResponse<AuthResponse | null>> {
     "use server";
     try {
+        // Check if code and email are provided otherwise throw error
+        if (!code || !email) {
+            return { success: false, data: null, error: "Code and email are required" };
+        }
+
+        // Check if API_URL is set otherwise throw error
+        if (!process.env.API_URL) {
+            return { success: false, data: null, error: "API url not set" };
+        }
+
         const res = await fetch(`${process.env.API_URL}auth-verify-code`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
