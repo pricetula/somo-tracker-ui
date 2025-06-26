@@ -70,6 +70,10 @@ export function SigninForm({ verifyOtpCode, sendOtpCodeToEmail }: SigninProps) {
                     title: "Error",
                     description: resp.error,
                 })
+                if (resp.error.includes("verification code has expired")) {
+                    form.reset()
+                    form.setValue("emailSent", false)
+                }
                 setIsSubmitting(false)
                 return
             }
