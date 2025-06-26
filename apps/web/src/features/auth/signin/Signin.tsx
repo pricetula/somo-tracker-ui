@@ -1,10 +1,11 @@
 import React from "react"
 import { SigninForm } from "./SigninForm"
+import { sendOtpCodeToEmail, verifyOtpCode } from "./actions"
 
 export function Signin() {
     return (
         <div className="h-3/4 flex items-center justify-center">
-            <SigninForm />
+            <SigninForm sendOtpCodeToEmail={sendOtpCodeToEmail} verifyOtpCode={verifyOtpCode} />
         </div>
     )
 }
