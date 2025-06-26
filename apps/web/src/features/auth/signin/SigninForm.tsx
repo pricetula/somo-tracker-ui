@@ -130,7 +130,7 @@ export function SigninForm({ verifyOtpCode, sendOtpCodeToEmail }: SigninProps) {
                         <FormItem>
                             <FormLabel>Email</FormLabel>
                             <FormControl>
-                                <Input placeholder="Email which we will send OTP code to sign in" {...field} />
+                                <Input placeholder="Email for OTP Sign-in" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
