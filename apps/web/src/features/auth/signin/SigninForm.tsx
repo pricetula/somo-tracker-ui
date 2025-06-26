@@ -130,7 +130,7 @@ export function SigninForm({ verifyOtpCode, sendOtpCodeToEmail }: SigninProps) {
                         <FormItem>
                             <FormLabel htmlFor="email">Email</FormLabel>
                             <FormControl>
-                                <Input placeholder="Email for OTP Sign-in" {...field} />
+                                <Input id="email" placeholder="Email for OTP Sign-in" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -146,7 +146,7 @@ export function SigninForm({ verifyOtpCode, sendOtpCodeToEmail }: SigninProps) {
                                 <FormItem>
                                     <FormLabel htmlFor="code">Verify code</FormLabel>
                                     <FormControl>
-                                        <InputOTP maxLength={6} {...field}>
+                                        <InputOTP id="code" maxLength={6} {...field}>
                                             <InputOTPGroup>
                                                 <InputOTPSlot index={0} />
                                                 <InputOTPSlot index={1} />
@@ -164,16 +164,16 @@ export function SigninForm({ verifyOtpCode, sendOtpCodeToEmail }: SigninProps) {
                     )
                 }
 
-                <Button type="submit" disabled={isSubmitting} className="min-w-[130px]">
+                <Button type="submit" id="submit-signin" disabled={isSubmitting} className="min-w-[130px]">
                     {
                         isSubmitting
                             ? (
                                 <span className="flex items-center gap-1">
                                     <Loader2Icon className="animate-spin" />
-                                    <span>Signing in</span>
+                                    <span>{emailSent ? "Verifying" : "Signing in"}</span>
                                 </span>
                             )
-                            : <span>Sign in</span>
+                            : <span>{emailSent ? "Verify" : "Sign in"}</span>
                     }
                 </Button>
             </form>
