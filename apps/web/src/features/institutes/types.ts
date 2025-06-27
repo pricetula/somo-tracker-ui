@@ -5,18 +5,18 @@ export interface Institute {
     name: string
     description: string
     address: string
-    contactUserId: string
+    contact_user_id: string
     website: string
-    createdAt: string
-    updatedAt: string
-    deletedAt: string
-    contactUser: User
-    instituteSetting: InstituteSetting
+    created_at: string
+    updated_at: string
+    deleted_at: string
+    contact_user: User
+    institute_setting: InstituteSetting
 }
 
 export interface InstituteSetting {
-    instituteId: string
-    isActive: boolean
-    logoUrl: string
+    institute_id: string
+    is_active: boolean
+    logo_url: string
     timezone: string
 }
