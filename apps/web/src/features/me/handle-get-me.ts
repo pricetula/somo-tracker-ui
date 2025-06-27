@@ -1,13 +1,13 @@
 "use server"
 
 import { redirect } from "next/navigation";
-// import { handleLogout } from "@/features/auth/handle-logout";
 import { getMe } from "./get-me";
+import { InstituteUser } from "./types";
 
-export async function handleGetMe() {
+export async function handleGetMe(): Promise<InstituteUser> {
     const me = await getMe();
     if (!me?.user?.id && !me?.institute?.id) {
-        return redirect("/onboarding");
+        redirect("/onboarding");
     }
-    // handleLogout()
+    return me;
 }
