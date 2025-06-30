@@ -1,6 +1,7 @@
 "use client"
 
 import React from "react"
+import { Loader2Icon } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
@@ -13,11 +14,11 @@ import {
 } from "@/shared/components/ui/form"
 import { Input } from "@/shared/components/ui/input"
 import { Button } from "@/shared/components/ui/button"
+import { School } from "../types"
 import {
     createSchoolSchema,
     type CreateSchoolSchema,
-} from "../form-schema"
-import { School } from "../types"
+} from "./form-schema"
 
 interface CreateSchoolProps {
     onSubmitSchool(School: School): Promise<any>
@@ -45,7 +46,7 @@ export function CreateSchoolForm({ onSubmitSchool }: CreateSchoolProps) {
     async function submitFunc(i: CreateSchoolSchema) {
         // Set isSubmitting to true to disable the submit button and show the loader
         setIsSubmitting(true)
-        onSubmitSchool({
+        const school = await onSubmitSchool({
             name: i.name,
             description: i.description,
             address: i.address,
@@ -54,6 +55,7 @@ export function CreateSchoolForm({ onSubmitSchool }: CreateSchoolProps) {
             education_system_id: i.education_system_id,
             contact_user_id: i.contact_user_id,
         })
+        console.log('school--------', school)
         setIsSubmitting(false)
     }
 
@@ -112,8 +114,17 @@ export function CreateSchoolForm({ onSubmitSchool }: CreateSchoolProps) {
                         </FormItem>
                     )}
                 />
-                <Button type="submit" id="submit-signin" disabled={isSubmitting} className="min-w-[130px]">
-                    Submit
+                <Button type="submit" id="submit-create-school" disabled={isSubmitting} className="min-w-[130px]">
+                    {
+                        isSubmitting
+                            ? (
+                                <span className="flex items-center gap-1">
+                                    <Loader2Icon className="animate-spin" />
+                                    <span>Creating</span>
+                                </span>
+                            )
+                            : "Create"
+                    }
                 </Button>
             </form>
         </Form>

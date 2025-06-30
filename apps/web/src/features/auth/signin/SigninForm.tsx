@@ -126,7 +126,7 @@ export function SigninForm({ verifyOtpCode, sendOtpCodeToEmail }: SigninProps) {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(submitFunc)} className="w-[90%] max-w-[500px] space-y-8">
+            <form onSubmit={form.handleSubmit(submitFunc)} className="w-[90%] max-w-[300px] space-y-8">
                 <FormField
                     control={form.control}
                     name="email"

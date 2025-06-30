@@ -23,14 +23,12 @@ async function getAuthCookieContent(): Promise<AuthCookie | null> {
 
         // Basic validation to ensure it has the expected tokens
         if (typeof content.id_token !== "string" || typeof content.access_token !== "string") {
-            console.warn("Auth cookie content is missing expected tokens.");
-            return null;
+            throw new Error("Auth cookie content is missing expected tokens.");
         }
 
         return content;
-    } catch (error) {
-        console.error("Failed to parse auth cookie:", error);
-        return null;
+    } catch (error: any) {
+        throw new Error(`Failed to get auth cookie content: ${error.message}`);
     }
 }
 
@@ -71,9 +69,8 @@ export async function getPayloadFromIdToken(): Promise<JwtPayload | null> {
             picture: decoded.picture,
             email: decoded.email,
         };
-    } catch (error) {
-        console.error("Failed to decode or parse ID token payload:", error);
-        return null;
+    } catch (error: any) {
+        throw new Error(`Failed to decode or parse ID token payload: ${error.message}`);
     }
 }
 
@@ -83,5 +80,8 @@ export async function getPayloadFromIdToken(): Promise<JwtPayload | null> {
  */
 export async function deleteAuthCookie() {
     const cookieStore = await cookies();
-    cookieStore.delete(COOKIE.AUTH);
+    cookieStore.delete({
+        name: COOKIE.AUTH,
+        path: '/',
+    });
 }
