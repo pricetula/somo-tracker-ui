@@ -4,7 +4,7 @@ import { sendOtpCodeToEmail, verifyOtpCode } from "./actions"
 
 export function Signin() {
     return (
-        <div className="h-3/4 flex items-center justify-center">
+        <div className="h-full flex items-center justify-center">
             <SigninForm sendOtpCodeToEmail={sendOtpCodeToEmail} verifyOtpCode={verifyOtpCode} />
         </div>
     )

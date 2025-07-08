@@ -26,7 +26,16 @@ export function middleware(request: NextRequest) {
         return NextResponse.redirect(signinUrl);
     }
 
-    return NextResponse.next();
+    // If user is authenticated and trying to access protected route, continue with the request
+    // Add the pathname to the request headers for later use in the application
+    const requestHeaders = new Headers(request.headers)
+    requestHeaders.set('x-pathname', request.nextUrl.pathname)
+
+    return NextResponse.next({
+        request: {
+            headers: requestHeaders,
+        },
+    });
 }
 
 export const config = {
