@@ -19,6 +19,7 @@ import {
     createSchoolSchema,
     type CreateSchoolSchema,
 } from "./form-schema"
+import { useMeStore } from "@/features/me/store"
 
 interface CreateSchoolProps {
     onSubmitSchool(School: School): Promise<any>
@@ -27,6 +28,8 @@ interface CreateSchoolProps {
 export function CreateSchoolForm({ onSubmitSchool }: CreateSchoolProps) {
     // State to be set to true when email is being sent or verifying code
     const [isSubmitting, setIsSubmitting] = React.useState(false)
+    // Get the current institute user from the store
+    const { me } = useMeStore()
 
     // Initialize the form with the resolver and default values
     const form = useForm<CreateSchoolSchema>({
@@ -41,6 +44,18 @@ export function CreateSchoolForm({ onSubmitSchool }: CreateSchoolProps) {
             contact_user_id: "",
         },
     })
+
+    React.useEffect(() => {
+        if (me?.institute?.id) {
+            // If the user is logged in and has an institute, set the institute_id
+            form.setValue("institute_id", me.institute.id)
+            form.setValue("name", me.institute.name)
+            form.setValue("description", me.institute.description)
+            form.setValue("address", me.institute.address)
+            form.setValue("website", me.institute.website)
+            form.setValue("contact_user_id", me.userId)
+        }
+    }, [me])
 
 
     async function submitFunc(i: CreateSchoolSchema) {

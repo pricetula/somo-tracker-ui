@@ -5,9 +5,13 @@ import { getMe } from "./get-me";
 import { InstituteUser } from "./types";
 
 export async function handleGetMe(): Promise<InstituteUser> {
-    const me = await getMe();
-    if (!me?.user?.id && !me?.institute?.id) {
-        redirect("/onboarding");
+    try {
+        const me = await getMe();
+        if (!me?.user?.id && !me?.institute?.id) {
+            redirect("/onboarding");
+        }
+        return me;
+    } catch (error) {
+        redirect("/signout");
     }
-    return me;
 }
