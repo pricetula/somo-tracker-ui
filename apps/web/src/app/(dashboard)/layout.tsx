@@ -3,12 +3,12 @@ import { MeHydrator } from "@/features/me/store-hydrator"
 import { handleGetSchools } from "@/features/school/handle-get-school"
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
-    const me = await handleGetMe()
-    const schools = await handleGetSchools()
+    // const me = await handleGetMe()
+    // const schools = await handleGetSchools()
     return (
         <main>
             {children}
-            <MeHydrator me={me} />
+            {/* <MeHydrator me={me} /> */}
         </main>
     )
 }

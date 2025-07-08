@@ -1,3 +1,3 @@
-import { CreateInstitute } from "@/features/onboarding/create-institute";
+import { CreateInstitute } from "@/features/institutes/create-institute";
 
 export default CreateInstitute
