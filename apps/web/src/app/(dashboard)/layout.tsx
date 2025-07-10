@@ -25,8 +25,10 @@ export default async function Layout({ children }: { children: React.ReactNode }
             redirect("/onboarding");
         }
     } catch (error) {
+        console.log("Error getting user:", error);
+        throw error;
         // If there is an error getting the user, redirect to signout
-        redirect("/signout");
+        // redirect("/signout");
     }
 
     try {
