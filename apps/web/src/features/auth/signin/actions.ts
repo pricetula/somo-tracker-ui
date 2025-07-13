@@ -22,7 +22,7 @@ export async function sendOtpCodeToEmail(email: string): Promise<ActionResponse<
             return { success: false, data: "", error: "API url not set" };
         }
 
-        const res = await fetch(`${process.env.API_URL}auth-send-code`, {
+        const res = await fetch(`${process.env.API_URL}auth/send-code`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email }),
@@ -65,7 +65,7 @@ export async function verifyOtpCode({ code, email }: { code: string, email: stri
             return { success: false, data: null, error: "API url not set" };
         }
 
-        const res = await fetch(`${process.env.API_URL}auth-verify-code`, {
+        const res = await fetch(`${process.env.API_URL}auth/verify-code`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ code, email }),

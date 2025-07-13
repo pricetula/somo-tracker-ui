@@ -7,7 +7,7 @@ export async function getMe(): Promise<InstituteUser> {
     const resp = await getApi({ uri: "/me", token })
     if (!resp.ok) {
         const { error } = await resp.json()
-        const err = new Error(`Failed to fetch me: ${error || resp.statusText}`);
+        const err = new Error(error || resp.statusText);
         err.name = resp.statusText;
         throw err;
     }
