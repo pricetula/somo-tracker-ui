@@ -1,10 +1,14 @@
 import { createInstitute } from "./actions";
-import { FormWrapper } from "./FormWrapper";
+import { CreateInstituteForm } from "./CreateInstituteForm";
 
-export function CreateInstitute() {
+interface CreateInstituteProps {
+    onSuccess(): void;
+}
+
+export function CreateInstitute({ onSuccess }: CreateInstituteProps) {
     return (
         <div className="h-full flex items-center justify-center">
-            <FormWrapper createInstitute={createInstitute} />
+            <CreateInstituteForm onSubmit={createInstitute} onSuccess={onSuccess} />
         </div>
     )
 }
