@@ -1,5 +1,7 @@
-export function Page() {
+import { OnboardNewAdmin } from "@/features/admin/onboard-new-admin"
+
+export default function Page() {
     return (
-        <div>create admin</div>
+        <OnboardNewAdmin />
     );
 }

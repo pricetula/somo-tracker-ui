@@ -1,10 +1,10 @@
 import { getAccessTokenFromAuthCookie } from "@/features/auth/utils/cookies";
 import { postApi } from "@/shared/lib/api";
-import { CreateAdminSchema } from "./form-schema";
+import { OnboardNewAdminSchema } from "./form-schema";
 import { ActionResponse } from "@/shared/types/actions";
 import { User } from "@/shared/types/user";
 
-export async function createAdmin(adminData: CreateAdminSchema): Promise<ActionResponse<User | null>> {
+export async function onboardNewAdmin(adminData: OnboardNewAdminSchema): Promise<ActionResponse<User | null>> {
     "use server";
     try {
         const token = await getAccessTokenFromAuthCookie();

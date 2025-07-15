@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-export const createAdminSchema = z.object({
+export const onboardNewAdminSchema = z.object({
     email: z
         .string()
         .trim()
@@ -26,4 +26,4 @@ export const createAdminSchema = z.object({
     external_auth_id: z.string().trim().optional(),
 })
 
-export type CreateAdminSchema = z.infer<typeof createAdminSchema>
+export type OnboardNewAdminSchema = z.infer<typeof onboardNewAdminSchema>

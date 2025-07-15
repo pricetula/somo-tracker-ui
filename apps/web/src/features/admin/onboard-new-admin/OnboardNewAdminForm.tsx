@@ -2,6 +2,7 @@
 
 import React from "react"
 import { useForm } from "react-hook-form"
+import { redirect } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
     Form,
@@ -14,24 +15,23 @@ import {
 import { Input } from "@/shared/components/ui/input"
 import { Button } from "@/shared/components/ui/button"
 import {
-    createAdminSchema,
-    type CreateAdminSchema,
+    onboardNewAdminSchema,
+    type OnboardNewAdminSchema,
 } from "./form-schema"
 import { ActionResponse } from "@/shared/types/actions"
 import { User } from "@/shared/types/user"
 
-interface CreateAdminProps {
-    onSubmit(i: CreateAdminSchema): Promise<ActionResponse<User | null>>
-    onSuccess(): void
+interface OnboardNewAdminProps {
+    onSubmit(i: OnboardNewAdminSchema): Promise<ActionResponse<User | null>>
 }
 
-export function CreateAdminForm({ onSubmit, onSuccess }: CreateAdminProps) {
+export function OnboardNewAdminForm({ onSubmit }: OnboardNewAdminProps) {
     // State to be set to true when email is being sent or verifying code
     const [isSubmitting, setIsSubmitting] = React.useState(false)
 
     // Initialize the form with the resolver and default values
-    const form = useForm<CreateAdminSchema>({
-        resolver: zodResolver(createAdminSchema),
+    const form = useForm<OnboardNewAdminSchema>({
+        resolver: zodResolver(onboardNewAdminSchema),
         defaultValues: {
             email: "",
             first_name: "",
@@ -43,12 +43,12 @@ export function CreateAdminForm({ onSubmit, onSuccess }: CreateAdminProps) {
     })
 
 
-    async function submitFunc(i: CreateAdminSchema) {
+    async function submitFunc(i: OnboardNewAdminSchema) {
         // Set isSubmitting to true to disable the submit button and show the loader
         setIsSubmitting(true)
         await onSubmit(i)
         setIsSubmitting(false)
-        onSuccess()
+        redirect("/create-institute")
     }
 
     return (
