@@ -2,6 +2,7 @@ import { redirect } from "next/navigation"
 import { getMe } from "@/features/me/get-me"
 import { MeHydrator } from "@/features/me/store-hydrator"
 import { getAccessTokenFromAuthCookie } from "@/features/auth/utils/cookies"
+import { DashboardLayout } from "@/shared/components/layout/dashboard-layout";
 
 // This layout is used for the dashboard and requires the user to be logged in
 export default async function Layout({ children }: { children: React.ReactNode }) {
@@ -23,9 +24,11 @@ export default async function Layout({ children }: { children: React.ReactNode }
 
 
     return (
-        <main className="h-screen overflow-y-auto">
-            {children}
-            <MeHydrator me={me} />
-        </main>
+        <DashboardLayout>
+            <main className="h-screen overflow-y-auto">
+                {children}
+                <MeHydrator me={me} />
+            </main>
+        </DashboardLayout>
     )
 }
