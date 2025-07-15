@@ -1,8 +1,9 @@
-import { Dashboard } from "@/components/page/dashboard"
-
+"use client"
 
 export default function Home() {
     return (
-        <Dashboard />
+        <article>
+            dashboard
+        </article>
     )
 }

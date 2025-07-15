@@ -14,6 +14,12 @@ const customJestConfig: Config.InitialOptions = {
     testMatch: ['**/src/**/*.test.[jt]s?(x)'],
     // Ignore the e2e tests
     testPathIgnorePatterns: ['/node_modules/', '/tests/e2e/'],
+    moduleNameMapper: {
+        '^@/(.*)$': '<rootDir>/src/$1',
+    },
+    // transform: {
+    //     '^.+\\.(ts|tsx|js|jsx)$': 'babel-jest', // Or ts-jest if you prefer
+    // },
 };
 
 export default createJestConfig(customJestConfig);
