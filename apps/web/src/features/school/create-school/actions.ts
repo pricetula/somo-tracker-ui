@@ -1,3 +1,4 @@
+"use server";
 import { postApi } from "@/shared/lib/api";
 import { getAccessTokenFromAuthCookie } from "@/features/auth/utils/cookies";
 import { ActionResponse } from "@/shared/types/actions";

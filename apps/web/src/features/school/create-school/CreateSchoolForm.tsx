@@ -1,6 +1,7 @@
 "use client"
 
 import React from "react"
+import { useRouter } from "next/navigation"
 import { Loader2Icon } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -21,14 +22,22 @@ import {
     createSchoolSchema,
     type CreateSchoolSchema,
 } from "./form-schema"
+import { useSchoolsStore } from "../store"
 
 interface CreateSchoolProps {
     onSubmit(School: School): Promise<ActionResponse<School | null>>
 }
 
 export function CreateSchoolForm({ onSubmit }: CreateSchoolProps) {
+    // Get the router instance to navigate after form submission
+    const router = useRouter()
+
+    // Get the function to add a school to the store
+    const addSchool = useSchoolsStore((s) => s.addSchool)
+
     // State to be set to true when email is being sent or verifying code
     const [isSubmitting, setIsSubmitting] = React.useState(false)
+
     // Get the current institute user from the store
     const { me } = useMeStore()
 
@@ -58,7 +67,6 @@ export function CreateSchoolForm({ onSubmit }: CreateSchoolProps) {
         }
     }, [me])
 
-
     async function submitFunc(i: CreateSchoolSchema) {
         // Set isSubmitting to true to disable the submit button and show the loader
         setIsSubmitting(true)
@@ -72,6 +80,10 @@ export function CreateSchoolForm({ onSubmit }: CreateSchoolProps) {
             contact_user_id: i.contact_user_id,
         })
         setIsSubmitting(false)
+        if (school.data) {
+            addSchool(school.data)
+        }
+        router.push("/")
     }
 
     return (
