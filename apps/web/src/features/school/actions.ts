@@ -1,4 +1,4 @@
-import { createSchoolFn } from "./create-school/create-school";
+import { createSchoolFn } from "./create-school/actions";
 import { School } from "./types";
 
 /**

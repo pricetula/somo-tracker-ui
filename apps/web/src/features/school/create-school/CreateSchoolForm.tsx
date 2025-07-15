@@ -14,18 +14,19 @@ import {
 } from "@/shared/components/ui/form"
 import { Input } from "@/shared/components/ui/input"
 import { Button } from "@/shared/components/ui/button"
+import { useMeStore } from "@/features/me/store"
+import { ActionResponse } from "@/shared/types/actions"
 import { School } from "../types"
 import {
     createSchoolSchema,
     type CreateSchoolSchema,
 } from "./form-schema"
-import { useMeStore } from "@/features/me/store"
 
 interface CreateSchoolProps {
-    onSubmitSchool(School: School): Promise<any>
+    onSubmit(School: School): Promise<ActionResponse<School | null>>
 }
 
-export function CreateSchoolForm({ onSubmitSchool }: CreateSchoolProps) {
+export function CreateSchoolForm({ onSubmit }: CreateSchoolProps) {
     // State to be set to true when email is being sent or verifying code
     const [isSubmitting, setIsSubmitting] = React.useState(false)
     // Get the current institute user from the store
@@ -61,7 +62,7 @@ export function CreateSchoolForm({ onSubmitSchool }: CreateSchoolProps) {
     async function submitFunc(i: CreateSchoolSchema) {
         // Set isSubmitting to true to disable the submit button and show the loader
         setIsSubmitting(true)
-        const school = await onSubmitSchool({
+        const school = await onSubmit({
             name: i.name,
             description: i.description,
             address: i.address,
@@ -70,7 +71,6 @@ export function CreateSchoolForm({ onSubmitSchool }: CreateSchoolProps) {
             education_system_id: i.education_system_id,
             contact_user_id: i.contact_user_id,
         })
-        console.log('school--------', school)
         setIsSubmitting(false)
     }
 
