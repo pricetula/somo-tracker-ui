@@ -2,6 +2,7 @@
 
 import React from "react"
 import { useForm } from "react-hook-form"
+import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
     Form,
@@ -22,10 +23,11 @@ import { Institute } from "../types"
 
 interface CreateInstituteProps {
     onSubmit(institute: CreateInstituteSchema): Promise<ActionResponse<Institute | null>>
-    onSuccess(): void
 }
 
-export function CreateInstituteForm({ onSubmit, onSuccess }: CreateInstituteProps) {
+export function CreateInstituteForm({ onSubmit }: CreateInstituteProps) {
+    const router = useRouter()
+
     // State to be set to true when email is being sent or verifying code
     const [isSubmitting, setIsSubmitting] = React.useState(false)
 
@@ -35,7 +37,6 @@ export function CreateInstituteForm({ onSubmit, onSuccess }: CreateInstituteProp
         defaultValues: {
             name: "",
             description: "",
-            address: "",
             website: "",
         },
     })
@@ -44,9 +45,13 @@ export function CreateInstituteForm({ onSubmit, onSuccess }: CreateInstituteProp
     async function submitFunc(i: CreateInstituteSchema) {
         // Set isSubmitting to true to disable the submit button and show the loader
         setIsSubmitting(true)
-        await onSubmit(i)
+        const { error } = await onSubmit(i)
         setIsSubmitting(false)
-        onSuccess()
+        if (error) {
+            console.error("Error creating institute:", error)
+            return
+        }
+        router.push("/")
     }
 
     return (
@@ -73,19 +78,6 @@ export function CreateInstituteForm({ onSubmit, onSuccess }: CreateInstituteProp
                             <FormLabel htmlFor="description">Description</FormLabel>
                             <FormControl>
                                 <Input id="description" placeholder="Description" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="address"
-                    render={({ field }) => (
-                        <FormItem className="mb-4">
-                            <FormLabel htmlFor="address">Address</FormLabel>
-                            <FormControl>
-                                <Input id="address" placeholder="Address" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>

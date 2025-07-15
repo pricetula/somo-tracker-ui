@@ -1,5 +1,7 @@
+import { CreateInstitute } from "@/features/institutes/create-institute";
+
 export default function Page() {
     return (
-        <div>create institute</div>
+        <CreateInstitute />
     );
 }

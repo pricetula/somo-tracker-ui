@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation"
 import { getMe } from "@/features/me/get-me"
 import { MeHydrator } from "@/features/me/store-hydrator"
-import { InstituteUser } from "@/features/me/types"
 import { getAccessTokenFromAuthCookie } from "@/features/auth/utils/cookies"
 
 // This layout is used for the dashboard and requires the user to be logged in
@@ -15,19 +14,13 @@ export default async function Layout({ children }: { children: React.ReactNode }
     }
 
     // Variable to hold me data which is the current user and their institute
-    let me: InstituteUser | undefined;
+    let me = await getMe(token);
 
-    try {
-        // Try to get the current user and their institute
-        me = await getMe(token);
-    } catch (error: any) {
-        // If failed to get user info, redirect to create admin onboarding
-        if (error.message && error.message.includes("Failed to get user info")) {
-            redirect("/create-admin");
-        }
-        // If any other error, redirect to signout
-        redirect("/signout");
+    // If me institute is not defined, redirect to the create institute page
+    if (!me?.institute) {
+        redirect("/create-institute");
     }
+
 
     return (
         <main className="h-screen overflow-y-auto">

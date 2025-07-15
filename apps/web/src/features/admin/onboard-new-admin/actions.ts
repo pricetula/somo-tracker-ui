@@ -15,7 +15,11 @@ export async function onboardNewAdmin(adminData: OnboardNewAdminSchema): Promise
         });
         const data = await resp.json();
         if (!resp.ok) {
-            throw new Error(data.error || "Failed to create admin");
+            return {
+                success: false,
+                data: null,
+                error: data.error || "Failed to onboard new admin",
+            };
         }
         // Assuming the response contains the created admin data
         return { success: true, data, error: "" };

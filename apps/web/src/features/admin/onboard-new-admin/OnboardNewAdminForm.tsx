@@ -46,8 +46,12 @@ export function OnboardNewAdminForm({ onSubmit }: OnboardNewAdminProps) {
     async function submitFunc(i: OnboardNewAdminSchema) {
         // Set isSubmitting to true to disable the submit button and show the loader
         setIsSubmitting(true)
-        await onSubmit(i)
+        const { error } = await onSubmit(i)
         setIsSubmitting(false)
+        if (error) {
+            console.error(error)
+            return
+        }
         redirect("/create-institute")
     }
 

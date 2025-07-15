@@ -14,9 +14,9 @@ export default function Page() {
                 }
             })
     }
-    React.useEffect(() => {
-        signout()
-    }, [])
+    // React.useEffect(() => {
+    //     signout()
+    // }, [])
     return (
         <div>
             <p>You have been signed out.</p>
