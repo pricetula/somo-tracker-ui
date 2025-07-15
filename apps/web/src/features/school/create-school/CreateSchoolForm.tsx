@@ -23,9 +23,10 @@ import {
     type CreateSchoolSchema,
 } from "./form-schema"
 import { useSchoolsStore } from "../store"
+import { EducationSystemComboBox } from "@/features/education-system/education-system-combo-box"
 
 interface CreateSchoolProps {
-    onSubmit(School: School): Promise<ActionResponse<School | null>>
+    onSubmit(School: CreateSchoolSchema): Promise<ActionResponse<School | null>>
 }
 
 export function CreateSchoolForm({ onSubmit }: CreateSchoolProps) {
@@ -49,21 +50,17 @@ export function CreateSchoolForm({ onSubmit }: CreateSchoolProps) {
             description: "",
             address: "",
             website: "",
-            institute_id: "",
             education_system_id: "",
-            contact_user_id: "",
         },
     })
 
     React.useEffect(() => {
         if (me?.institute?.id) {
             // If the user is logged in and has an institute, set the institute_id
-            form.setValue("institute_id", me.institute.id)
             form.setValue("name", me.institute.name)
             form.setValue("description", me.institute.description)
             form.setValue("address", me.institute.address)
             form.setValue("website", me.institute.website)
-            form.setValue("contact_user_id", me.userId)
         }
     }, [me])
 
@@ -74,10 +71,8 @@ export function CreateSchoolForm({ onSubmit }: CreateSchoolProps) {
             name: i.name,
             description: i.description,
             address: i.address,
-            website: i.website || "",
-            institute_id: i.institute_id,
+            website: i?.website || '',
             education_system_id: i.education_system_id,
-            contact_user_id: i.contact_user_id,
         })
         setIsSubmitting(false)
         if (school.data) {
@@ -136,6 +131,25 @@ export function CreateSchoolForm({ onSubmit }: CreateSchoolProps) {
                             <FormLabel htmlFor="website">Website</FormLabel>
                             <FormControl>
                                 <Input id="website" placeholder="Website" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="education_system_id"
+                    render={({ field }) => (
+                        <FormItem className="mb-4">
+                            <FormLabel htmlFor="education_system_id">Website</FormLabel>
+                            <FormControl>
+                                <EducationSystemComboBox
+                                    id="education_system_id"
+                                    initValue={field.value}
+                                    onSetValue={(educationSystem) => {
+                                        form.setValue("education_system_id", educationSystem.id)
+                                    }}
+                                />
                             </FormControl>
                             <FormMessage />
                         </FormItem>

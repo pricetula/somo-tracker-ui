@@ -19,15 +19,7 @@ export const createSchoolSchema = z.object({
         .string()
         .trim()
         .optional(),
-    institute_id: z
-        .string()
-        .trim()
-        .min(1, { message: "Required." }),
     education_system_id: z
-        .string()
-        .trim()
-        .min(1, { message: "Required." }),
-    contact_user_id: z
         .string()
         .trim()
         .min(1, { message: "Required." }),

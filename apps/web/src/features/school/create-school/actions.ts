@@ -3,8 +3,9 @@ import { postApi } from "@/shared/lib/api";
 import { getAccessTokenFromAuthCookie } from "@/features/auth/utils/cookies";
 import { ActionResponse } from "@/shared/types/actions";
 import { School } from "../types";
+import { CreateSchoolSchema } from "./form-schema";
 
-export async function createSchool(i: School): Promise<ActionResponse<School | null>> {
+export async function createSchool(i: CreateSchoolSchema): Promise<ActionResponse<School | null>> {
     try {
         const token = await getAccessTokenFromAuthCookie();
         const resp = await postApi({

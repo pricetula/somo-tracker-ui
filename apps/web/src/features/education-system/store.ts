@@ -2,15 +2,15 @@ import { create } from "zustand"
 import { EducationSystem } from "./types"
 
 interface EducationSystemsState {
-    schools: EducationSystem[]
-    addEducationSystem: (school: EducationSystem) => void
-    setEducationSystems: (schools: EducationSystem[]) => void
+    educationSystems: EducationSystem[]
+    addEducationSystem: (educationSystem: EducationSystem) => void
+    setEducationSystems: (educationSystems: EducationSystem[]) => void
     clearEducationSystems: () => void
 }
 
 export const useEducationSystemsStore = create<EducationSystemsState>((set) => ({
-    schools: [],
-    addEducationSystem: (school) => set((state) => ({ schools: [...state.schools, school] })),
-    setEducationSystems: (schools) => set({ schools }),
-    clearEducationSystems: () => set({ schools: [] })
+    educationSystems: [],
+    addEducationSystem: (educationSystem) => set((state) => ({ educationSystems: [...state.educationSystems, educationSystem] })),
+    setEducationSystems: (educationSystems) => set({ educationSystems }),
+    clearEducationSystems: () => set({ educationSystems: [] })
 }))
