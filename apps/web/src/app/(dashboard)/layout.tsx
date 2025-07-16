@@ -13,7 +13,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
 
     // If there is no token, redirect to the signin page
     if (!token) {
-        redirect("/signin");
+        redirect("/signout");
     }
 
     // Variable to hold me data which is the current user and their institute
