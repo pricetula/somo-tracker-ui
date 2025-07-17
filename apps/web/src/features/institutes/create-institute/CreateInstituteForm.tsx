@@ -38,6 +38,9 @@ export function CreateInstituteForm({ onSubmit }: CreateInstituteProps) {
             name: "",
             description: "",
             website: "",
+            email: "",
+            first_name: "",
+            last_name: "",
         },
     })
 
@@ -57,6 +60,47 @@ export function CreateInstituteForm({ onSubmit }: CreateInstituteProps) {
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(submitFunc)} className="w-[90%] max-w-[500px] space-y-8">
+                <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                        <FormItem className="mb-4">
+                            <FormLabel htmlFor="email">User Email</FormLabel>
+                            <FormControl>
+                                <Input id="email" type="email" placeholder="Email" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="first_name"
+                    render={({ field }) => (
+                        <FormItem className="mb-4">
+                            <FormLabel htmlFor="first_name">First Name</FormLabel>
+                            <FormControl>
+                                <Input id="first_name" placeholder="First Name" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="last_name"
+                    render={({ field }) => (
+                        <FormItem className="mb-4">
+                            <FormLabel htmlFor="last_name">Last Name</FormLabel>
+                            <FormControl>
+                                <Input id="last_name" placeholder="Last Name" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+
+
                 <FormField
                     control={form.control}
                     name="name"

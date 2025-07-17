@@ -4,8 +4,8 @@ import { EducationSystem } from "../types";
 export async function getEducationSystems(token: string): Promise<EducationSystem[]> {
     const resp = await getApi({ uri: "/education-systems", token })
     if (!resp.ok) {
-        const { error } = await resp.json();
-        const err = new Error(error || resp.statusText);
+        const text = await resp.text();
+        const err = new Error(text || resp.statusText);
         err.name = resp.statusText;
         throw err;
     }

@@ -14,6 +14,18 @@ export const createInstituteSchema = z.object({
         .string()
         .trim()
         .optional(),
+    email: z
+        .string()
+        .trim()
+        .email({ message: "Invalid email." }),
+    first_name: z
+        .string()
+        .trim()
+        .min(1, { message: "First name required." }),
+    last_name: z
+        .string()
+        .trim()
+        .min(1, { message: "Last name required." }),
 })
 
 export type CreateInstituteSchema = z.infer<typeof createInstituteSchema>
