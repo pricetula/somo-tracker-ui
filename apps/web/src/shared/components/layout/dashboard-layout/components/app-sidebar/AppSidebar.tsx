@@ -117,11 +117,11 @@ const data = {
             items: [
                 {
                     title: "General",
-                    url: "#",
+                    url: "/settings",
                 },
                 {
-                    title: "Team",
-                    url: "#",
+                    title: "Invitaions",
+                    url: "/settings/invitations",
                 },
                 {
                     title: "Billing",
