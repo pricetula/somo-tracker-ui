@@ -1,5 +1,9 @@
+import { CreateInvitation } from "../create-invitation"
+
 export async function InvitationsList() {
     return (
-        <div>invitations</div>
+        <div>
+            <CreateInvitation />
+        </div>
     )
 }

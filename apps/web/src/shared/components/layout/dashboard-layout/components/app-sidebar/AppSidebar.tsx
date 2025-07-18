@@ -120,7 +120,7 @@ const data = {
                     url: "/settings",
                 },
                 {
-                    title: "Invitaions",
+                    title: "Invitations",
                     url: "/settings/invitations",
                 },
                 {
