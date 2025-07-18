@@ -32,12 +32,7 @@ export async function CreateSchool() {
     }
 
     // Variable to hold me data which is the current user and their institute
-    let educationSystems: EducationSystem[] = []
-    try {
-        educationSystems = await getEducationSystems(token);
-    } catch (error) {
-        console.log(error)
-    }
+    let educationSystems: EducationSystem[] = await getEducationSystems(token);
 
     return (
         <div className="h-full flex items-center justify-center">
