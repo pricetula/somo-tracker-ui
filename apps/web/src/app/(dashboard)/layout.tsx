@@ -33,12 +33,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
     }
 
     // get the schools for the current user
-    let schools: School[] = []
-    try {
-        schools = await getSchools(token);
-    } catch (error) {
-        console.log(error)
-    }
+    let schools: School[] = await getSchools(token);
 
     // If there are no schools, redirect to the create school page
     if (!schools?.length) {
