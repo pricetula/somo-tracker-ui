@@ -17,7 +17,7 @@ export async function createInvitation(body: { email_addresses: string[] }): Pro
         const resp = await postApi({
             token,
             body: d,
-            uri: "/invitation",
+            uri: "/invitations",
         })
         if (!resp.ok) {
             const err = await resp.text();
