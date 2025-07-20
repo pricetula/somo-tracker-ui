@@ -1,7 +1,13 @@
 "use client"
 
-import { ChevronRight, type LucideIcon } from "lucide-react"
-
+import { usePathname } from "next/navigation"
+import {
+    BookOpen,
+    Bot,
+    Settings2,
+    SquareTerminal,
+    ChevronRight,
+} from "lucide-react"
 import {
     Collapsible,
     CollapsibleContent,
@@ -17,21 +23,93 @@ import {
     SidebarMenuSubButton,
     SidebarMenuSubItem,
 } from "@/shared/components/ui/sidebar"
+import React from "react"
 
-export function NavMain({
-    items,
-}: {
-    items: {
-        title: string
-        url: string
-        icon?: LucideIcon
-        isActive?: boolean
-        items?: {
-            title: string
-            url: string
-        }[]
-    }[]
-}) {
+export function NavMain() {
+    const pathname = usePathname()
+
+    const items = [
+        {
+            title: "Playground",
+            url: "#",
+            icon: SquareTerminal,
+            items: [
+                {
+                    title: "History",
+                    url: "#",
+                },
+                {
+                    title: "Starred",
+                    url: "#",
+                },
+                {
+                    title: "Settings",
+                    url: "#",
+                },
+            ],
+        },
+        {
+            title: "Models",
+            url: "#",
+            icon: Bot,
+            items: [
+                {
+                    title: "Genesis",
+                    url: "#",
+                },
+                {
+                    title: "Explorer",
+                    url: "#",
+                },
+                {
+                    title: "Quantum",
+                    url: "#",
+                },
+            ],
+        },
+        {
+            title: "Documentation",
+            url: "/documentation",
+            icon: BookOpen,
+            items: [
+                {
+                    title: "Introduction",
+                    url: "#",
+                },
+                {
+                    title: "Get Started",
+                    url: "#",
+                },
+                {
+                    title: "Tutorials",
+                    url: "#",
+                },
+                {
+                    title: "Changelog",
+                    url: "#",
+                },
+            ],
+        },
+        {
+            title: "Settings",
+            url: "/settings",
+            icon: Settings2,
+            items: [
+                {
+                    title: "General",
+                    url: "/settings",
+                },
+                {
+                    title: "Invitations",
+                    url: "/settings/invitations",
+                },
+                {
+                    title: "Billing",
+                    url: "/settings/billing",
+                },
+            ],
+        },
+    ]
     return (
         <SidebarGroup>
             <SidebarGroupLabel>Platform</SidebarGroupLabel>
@@ -40,7 +118,7 @@ export function NavMain({
                     <Collapsible
                         key={item.title}
                         asChild
-                        defaultOpen={item.isActive}
+                        defaultOpen={pathname.includes(item.url)}
                         className="group/collapsible"
                     >
                         <SidebarMenuItem>
