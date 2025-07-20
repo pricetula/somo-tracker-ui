@@ -1,7 +1,3 @@
-export default function Page() {
-    return (
-        <article>
-            members
-        </article>
-    )
-}
+import { MembersList } from "@/features/members/members-list";
+
+export default MembersList
