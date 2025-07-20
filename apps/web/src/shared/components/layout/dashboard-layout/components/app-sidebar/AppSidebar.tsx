@@ -22,6 +22,7 @@ import {
 } from "@/shared/components/ui/sidebar"
 import { SchoolSwitcher } from "../school-switcher/SchoolSwitcher"
 import { NavMain } from "../nav-main"
+import { NavPlatform } from "../nav-platform"
 import { NavUser } from "../nav-user"
 
 const data = {
@@ -161,6 +162,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </SidebarHeader>
             <SidebarContent>
                 <NavMain />
+                <NavPlatform />
             </SidebarContent>
             <SidebarFooter>
                 <NavUser />
