@@ -3,10 +3,11 @@
 import { usePathname } from "next/navigation"
 import {
     BookOpen,
-    Bot,
+    Building,
     Settings2,
     SquareTerminal,
     ChevronRight,
+    Users
 } from "lucide-react"
 import {
     Collapsible,
@@ -30,12 +31,12 @@ export function NavMain() {
 
     const items = [
         {
-            title: "Playground",
-            url: "#",
-            icon: SquareTerminal,
+            title: "School",
+            url: "/schools",
+            icon: Building,
             items: [
                 {
-                    title: "History",
+                    title: "Dashboard",
                     url: "#",
                 },
                 {
@@ -49,20 +50,24 @@ export function NavMain() {
             ],
         },
         {
-            title: "Models",
+            title: "Members",
             url: "#",
-            icon: Bot,
+            icon: Users,
             items: [
                 {
-                    title: "Genesis",
+                    title: "Admins",
                     url: "#",
                 },
                 {
-                    title: "Explorer",
+                    title: "Faculty",
                     url: "#",
                 },
                 {
-                    title: "Quantum",
+                    title: "Students",
+                    url: "#",
+                },
+                {
+                    title: "Guardians",
                     url: "#",
                 },
             ],
