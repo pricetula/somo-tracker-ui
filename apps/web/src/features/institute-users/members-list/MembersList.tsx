@@ -260,7 +260,7 @@ export function MembersList() {
                                     data-state={row.getIsSelected() && "selected"}
                                 >
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell className="py-1" key={cell.id} width={cell.id && cell.id.includes("actions") ? 60 : "auto"}>
+                                        <TableCell className="p-0" key={cell.id} width={cell.id && cell.id.includes("actions") ? 60 : "auto"}>
                                             {flexRender(
                                                 cell.column.columnDef.cell,
                                                 cell.getContext()
