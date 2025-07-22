@@ -9,7 +9,7 @@ import { AuthCookie, JwtPayload } from "../types";
  * Internal helper function to safely get and parse the "auth" cookie.
  * @returns Parsed AuthCookieContent object, or null if the cookie is missing or invalid.
  */
-async function getAuthCookieContent(): Promise<AuthCookie | null> {
+export async function getAuthCookieContent(): Promise<AuthCookie | null> {
     try {
         const cookieStore = await cookies();
         const authCookie = cookieStore.get(COOKIE.AUTH);

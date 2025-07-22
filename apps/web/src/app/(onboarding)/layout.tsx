@@ -1,8 +1,9 @@
+import { redirect } from "next/navigation";
 import { getAccessTokenFromAuthCookie } from "@/features/auth/utils/cookies";
 import { getMe } from "@/features/me/get-me";
 import { MeHydrator } from "@/features/me/store-hydrator";
+import { InstituteUser } from "@/features/me/types";
 import { Nav } from "@/shared/components/layout/nav/Nav";
-import { redirect } from "next/navigation";
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
     // Get the access token from the auth cookie
@@ -14,7 +15,13 @@ export default async function Layout({ children }: { children: React.ReactNode }
     }
 
     // Variable to hold me data which is the current user and their institute
-    let me = await getMe(token);
+    let me: InstituteUser | null
+
+    try {
+        me = await getMe(token);
+    } catch (error) {
+        redirect("/signout");
+    }
 
     return (
         <main className="container mx-auto px-4 h-screen">
