@@ -1,7 +1,7 @@
 import { COOKIE } from "@/shared/lib/constants";
 import { ActionResponse } from "@/shared/types/actions";
 import { cookies } from "next/headers";
-import { AuthCookie } from "../types";
+import { AuthCookie } from "../../types";
 
 /**
  * Sends an OTP code to the provided email address.
