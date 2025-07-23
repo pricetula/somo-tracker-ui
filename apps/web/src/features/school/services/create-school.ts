@@ -19,8 +19,8 @@ export async function createSchool(d: CreateSchool): Promise<CreateSchoolRespons
 
         // Check if response is not ok and set error
         if (!resp.ok) {
-            const err = await resp.json()
-            r.error = err.error || "Failed to create school"
+            const err = await resp.text()
+            r.error = err || "Failed to create school"
             return r
         }
 
