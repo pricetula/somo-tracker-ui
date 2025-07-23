@@ -1,10 +1,10 @@
 "use client"
 
 import React from "react"
+import { toast } from "sonner"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Loader2Icon } from "lucide-react"
 import { useForm } from "react-hook-form"
-import { useToast } from "@/shared/hooks/use-toast"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
     Form,
@@ -52,8 +52,6 @@ export function SigninForm({ verifyOtpCode, sendOtpCodeToEmail }: SigninProps) {
     // Watch for changes to emailSent which when true, we show the code input
     const emailSent = form.watch("emailSent")
     // Use toast to show success and error messages
-    const { toast } = useToast()
-
     async function submitFunc({ email, code, emailSent }: SigninSchema) {
         // Set isSubmitting to true to disable the submit button and show the loader
         setIsSubmitting(true)
@@ -65,11 +63,7 @@ export function SigninForm({ verifyOtpCode, sendOtpCodeToEmail }: SigninProps) {
 
             // If verification fails, show error message and return
             if (!resp.success) {
-                toast({
-                    variant: "destructive",
-                    title: "Error",
-                    description: resp.error,
-                })
+                toast.error(resp.error)
                 if (resp.error.includes("verification code has expired")) {
                     form.reset()
                     form.setValue("emailSent", false)
@@ -79,11 +73,7 @@ export function SigninForm({ verifyOtpCode, sendOtpCodeToEmail }: SigninProps) {
             }
 
             // If verification succeeds, show success message and redirect to the redirect URL
-            toast({
-                variant: "default",
-                title: "Success",
-                description: "You are now logged in.",
-            })
+            toast("You are now logged in.")
 
             // Get the redirect URL from the search params if it exists
             const redirect = searchParams.get('redirect');
@@ -105,11 +95,7 @@ export function SigninForm({ verifyOtpCode, sendOtpCodeToEmail }: SigninProps) {
 
         // If sending email fails, show error message and return
         if (!resp.success) {
-            toast({
-                variant: "destructive",
-                title: "Error",
-                description: resp.error,
-            })
+            toast.error(resp.error)
             setIsSubmitting(false)
             return
         }
@@ -117,11 +103,7 @@ export function SigninForm({ verifyOtpCode, sendOtpCodeToEmail }: SigninProps) {
         // If sending email succeeds, show success message and set emailSent to true
         form.setValue("emailSent", true)
         setIsSubmitting(false)
-        toast({
-            variant: "default",
-            title: "Link sent",
-            description: "Check your email to sign-in.",
-        })
+        toast("Check your email to sign-in.")
     }
 
     return (
