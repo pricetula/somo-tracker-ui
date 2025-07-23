@@ -1,9 +1,8 @@
 import { redirect } from "next/navigation";
-import { getEducationSystems } from "@/features/education-system/queries/get-education-system";
-import { EducationSystemsHydrator } from "@/features/education-system/store-hydrator";
+import { getEducationSystems } from "@/features/education-system/services/get-education-system";
+import { EducationSystemsHydrator } from "@/features/education-system/store";
 import { InstituteUser } from "@/features/me/types";
 import { getMe } from "@/features/me/services/get-me";
-import { EducationSystem } from "@/features/education-system/types";
 import { createSchool } from "../../services/create-school";
 import { CreateSchoolForm } from "./CreateSchoolForm";
 
@@ -23,7 +22,7 @@ export async function CreateSchool() {
     }
 
     // Variable to hold me data which is the current user and their institute
-    let educationSystems: EducationSystem[] = await getEducationSystems();
+    let { data: educationSystems } = await getEducationSystems();
 
     return (
         <div className="h-full flex items-center justify-center">

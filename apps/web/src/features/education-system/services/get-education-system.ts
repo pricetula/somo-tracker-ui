@@ -1,23 +1,23 @@
 import { authenticatedGet } from "@/features/auth/utils/authenticated-get";
 import { ActionResponse } from "@/shared/types/actions";
-import { School } from "../types";
+import { EducationSystem } from "../types";
 
-type GetSchoolsResponse = ActionResponse<School[]>
+type GetEducationSystemsResponse = ActionResponse<EducationSystem[]>;
 
-export async function getSchools(): Promise<GetSchoolsResponse> {
+export async function getEducationSystems(): Promise<GetEducationSystemsResponse> {
     // Initialize response variable to return
-    let r: GetSchoolsResponse = { success: false, data: [], error: "" }
+    let r: GetEducationSystemsResponse = { success: false, data: [], error: "" }
 
     try {
-        // Attempt to get schools
+        // Attempt to get education systems
         const resp = await authenticatedGet({
-            uri: "/schools",
+            uri: "/education-systems",
         })
 
         // Check if response is not ok and set error
         if (!resp.ok) {
             const err = await resp.json()
-            r.error = err.error || "Failed to get schools"
+            r.error = err.error || "Failed to get education systems"
             return r
         }
 
@@ -29,7 +29,7 @@ export async function getSchools(): Promise<GetSchoolsResponse> {
         if (err instanceof Error) {
             r.error = err.message
         } else {
-            r.error = "Unknown error, failed to get schools"
+            r.error = "Unknown error, failed to get education systems"
         }
     }
 

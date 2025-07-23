@@ -16,8 +16,8 @@ import {
     CommandItem,
     CommandList,
 } from "@/shared/components/ui/command"
-import { useEducationSystemsStore } from "../store"
-import { EducationSystem } from "../types"
+import { useEducationSystemsStore } from "../../store"
+import { EducationSystem } from "../../types"
 
 interface EducationSystemComboBoxProps {
     id: string

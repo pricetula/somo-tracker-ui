@@ -1,8 +1,8 @@
 "use client"
 
 import { useEffect } from "react"
+import { EducationSystem } from "../types"
 import { useEducationSystemsStore } from "./store"
-import { EducationSystem } from "./types"
 
 interface EducationSystemsHydratorProps {
     educationSystems: EducationSystem[]
