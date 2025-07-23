@@ -1,6 +1,7 @@
 "use client"
 
 import React from "react"
+import { toast } from "sonner"
 import { useForm } from "react-hook-form"
 import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -14,12 +15,12 @@ import {
 } from "@/shared/components/ui/form"
 import { Input } from "@/shared/components/ui/input"
 import { Button } from "@/shared/components/ui/button"
+import { ActionResponse } from "@/shared/types/actions"
 import {
     createInstituteSchema,
     type CreateInstituteSchema,
 } from "./form-schema"
-import { ActionResponse } from "@/shared/types/actions"
-import { Institute } from "../types"
+import { Institute } from "../../types"
 
 interface CreateInstituteProps {
     createInstitute(institute: CreateInstituteSchema): Promise<ActionResponse<Institute | null>>
@@ -44,17 +45,25 @@ export function CreateInstituteForm({ createInstitute }: CreateInstituteProps) {
         },
     })
 
-
+    // Submit function
     async function submitFunc(i: CreateInstituteSchema) {
         // Set isSubmitting to true to disable the submit button and show the loader
         setIsSubmitting(true)
+
+        // Run create institute action to create institute and admin user
         const { error } = await createInstitute(i)
+
+        // Set isSubmitting to false after running action
         setIsSubmitting(false)
+
+        // Check if an error occurs then display as toast
         if (error) {
-            console.error("Error creating institute:", error)
+            toast(error)
             return
         }
-        router.push("/")
+
+        // If creation was successfull then redirect to create school page
+        window.location.href = "/create-school"
     }
 
     return (
