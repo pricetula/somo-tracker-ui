@@ -1,3 +1,5 @@
+"use server"
+
 import { ActionResponse } from "@/shared/types/actions"
 import { authenticatedPost } from "@/features/auth/utils/authenticated-post"
 import { CreateInstitute, Institute } from "../types"
@@ -17,8 +19,8 @@ export async function createInstitute(d: CreateInstitute): Promise<CreateInstitu
 
         // Check if response is not ok and set error
         if (!resp.ok) {
-            const err = await resp.json()
-            r.error = err.error || "Failed to create institute"
+            const err = await resp.text()
+            r.error = err || "Failed to create institute"
             return r
         }
 

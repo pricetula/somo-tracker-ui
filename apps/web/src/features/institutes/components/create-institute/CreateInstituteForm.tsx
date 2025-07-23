@@ -3,7 +3,6 @@
 import React from "react"
 import { toast } from "sonner"
 import { useForm } from "react-hook-form"
-import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
     Form,
@@ -16,19 +15,17 @@ import {
 import { Input } from "@/shared/components/ui/input"
 import { Button } from "@/shared/components/ui/button"
 import { ActionResponse } from "@/shared/types/actions"
+import { Institute } from "../../types"
 import {
     createInstituteSchema,
     type CreateInstituteSchema,
 } from "./form-schema"
-import { Institute } from "../../types"
 
 interface CreateInstituteProps {
     createInstitute(institute: CreateInstituteSchema): Promise<ActionResponse<Institute | null>>
 }
 
 export function CreateInstituteForm({ createInstitute }: CreateInstituteProps) {
-    const router = useRouter()
-
     // State to be set to true when email is being sent or verifying code
     const [isSubmitting, setIsSubmitting] = React.useState(false)
 
@@ -53,11 +50,16 @@ export function CreateInstituteForm({ createInstitute }: CreateInstituteProps) {
         // Run create institute action to create institute and admin user
         const { error } = await createInstitute(i)
 
-        // Set isSubmitting to false after running action
-        setIsSubmitting(false)
 
         // Check if an error occurs then display as toast
         if (error) {
+            // Set isSubmitting to false after getting error
+            setIsSubmitting(false)
+
+            // Reset form fields
+            form.reset()
+
+            // Show error message on a toast
             toast(error)
             return
         }

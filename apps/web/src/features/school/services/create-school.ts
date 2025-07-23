@@ -1,3 +1,5 @@
+"use server"
+
 import { ActionResponse } from "@/shared/types/actions"
 import { authenticatedPost } from "@/features/auth/utils/authenticated-post"
 import { CreateSchool, School } from "../types"

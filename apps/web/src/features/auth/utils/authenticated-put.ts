@@ -20,7 +20,7 @@ export async function authenticatedPut(d: ApiInput): Promise<Response> {
 
     // If response is not ok then check what the error is
     if (!resp.ok) {
-        const { error } = await resp.json()
+        const error = await resp.text()
 
         // Check to see if error is caused by access token expiry
         if (error && error.includes('"exp" not satisfied')) {
@@ -33,6 +33,9 @@ export async function authenticatedPut(d: ApiInput): Promise<Response> {
             // Make get request again
             return await putApi(d)
         }
+
+        // Throw error if not related to token expiry
+        throw new AuthenticatedGetError(error)
     }
     return resp
 }

@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { useRouter } from "next/navigation"
+import { toast } from "sonner"
 import { Loader2Icon } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -19,7 +19,6 @@ import { ActionResponse } from "@/shared/types/actions"
 import { EducationSystemComboBox } from "@/features/education-system/components/education-system-combo-box"
 import { InstituteUser } from "@/features/me/types"
 import { School } from "../../types"
-import { useSchoolsStore } from "../../store"
 import {
     createSchoolSchema,
     type CreateSchoolSchema,
@@ -31,12 +30,6 @@ interface CreateSchoolProps {
 }
 
 export function CreateSchoolForm({ me, createSchool }: CreateSchoolProps) {
-    // Get the router instance to navigate after form submission
-    const router = useRouter()
-
-    // Get the function to add a school to the store
-    const addSchool = useSchoolsStore((s) => s.addSchool)
-
     // State to be set to true when email is being sent or verifying code
     const [isSubmitting, setIsSubmitting] = React.useState(false)
 
@@ -65,18 +58,31 @@ export function CreateSchoolForm({ me, createSchool }: CreateSchoolProps) {
     async function submitFunc(i: CreateSchoolSchema) {
         // Set isSubmitting to true to disable the submit button and show the loader
         setIsSubmitting(true)
-        const school = await createSchool({
+
+        // Run create school action to create school
+        const { error } = await createSchool({
             name: i.name,
             description: i.description,
             address: i.address,
             website: i?.website || '',
             education_system_id: i.education_system_id,
         })
-        setIsSubmitting(false)
-        if (school.data) {
-            addSchool(school.data)
+
+        // Check if an error occurs then display as toast
+        if (error) {
+            // Set isSubmitting to false after getting error
+            setIsSubmitting(false)
+
+            // Reset form fields
+            form.reset()
+
+            // Show error message on a toast
+            toast(error)
+            return
         }
-        router.push("/")
+
+        // If creation was successfull then redirect to dashboard page
+        window.location.href = "/"
     }
 
     return (
