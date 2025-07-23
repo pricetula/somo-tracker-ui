@@ -22,10 +22,10 @@ import { ActionResponse } from "@/shared/types/actions"
 import { Institute } from "../types"
 
 interface CreateInstituteProps {
-    onSubmit(institute: CreateInstituteSchema): Promise<ActionResponse<Institute | null>>
+    createInstitute(institute: CreateInstituteSchema): Promise<ActionResponse<Institute | null>>
 }
 
-export function CreateInstituteForm({ onSubmit }: CreateInstituteProps) {
+export function CreateInstituteForm({ createInstitute }: CreateInstituteProps) {
     const router = useRouter()
 
     // State to be set to true when email is being sent or verifying code
@@ -48,7 +48,7 @@ export function CreateInstituteForm({ onSubmit }: CreateInstituteProps) {
     async function submitFunc(i: CreateInstituteSchema) {
         // Set isSubmitting to true to disable the submit button and show the loader
         setIsSubmitting(true)
-        const { error } = await onSubmit(i)
+        const { error } = await createInstitute(i)
         setIsSubmitting(false)
         if (error) {
             console.error("Error creating institute:", error)
