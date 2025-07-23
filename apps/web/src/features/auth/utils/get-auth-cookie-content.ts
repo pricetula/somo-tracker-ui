@@ -1,9 +1,8 @@
 import "server-only";
 
-import { jwtDecode } from "jwt-decode"
 import { cookies } from "next/headers";
 import { COOKIE } from "@/shared/lib/constants";
-import { AuthCookie, JwtPayload } from "../types";
+import { AuthCookie } from "../types";
 
 /**
  * Internal helper function to safely get and parse the "auth" cookie.
@@ -30,14 +29,4 @@ export async function getAuthCookieContent(): Promise<AuthCookie | null> {
     } catch (error: any) {
         throw new Error(`Failed to get auth cookie content: ${error.message}`);
     }
-}
-
-/**
- * Extracts the access token from the "auth" cookie.
- * This function should only be called on the server.
- * @returns The access token string, or undefined if not found or cookie is invalid.
- */
-export async function getAccessTokenFromAuthCookie(): Promise<string> {
-    const content = await getAuthCookieContent();
-    return content?.access_token || "";
 }
