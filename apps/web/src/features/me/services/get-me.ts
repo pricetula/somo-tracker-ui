@@ -1,5 +1,5 @@
-import { InstituteUser } from "../types";
 import { authenticatedGet } from "@/features/auth/utils/authenticated-get";
+import { InstituteUser } from "../types";
 
 export async function getMe(): Promise<InstituteUser> {
     const resp = await authenticatedGet({ uri: "/me" })

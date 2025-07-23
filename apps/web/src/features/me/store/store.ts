@@ -1,5 +1,5 @@
 import { create } from "zustand"
-import { InstituteUser } from "./types"
+import { InstituteUser } from "../types"
 
 interface MeState {
     me: InstituteUser | null
