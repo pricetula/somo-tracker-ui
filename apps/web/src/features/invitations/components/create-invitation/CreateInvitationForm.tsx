@@ -14,20 +14,20 @@ import {
 } from "@/shared/components/ui/form"
 import { Input } from "@/shared/components/ui/input"
 import { Button } from "@/shared/components/ui/button"
-import { ActionResponse } from "@/shared/types/actions"
+import { Separator } from "@/shared/components/ui/separator"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/components/ui/tooltip"
+import { CreateInvitation } from "../../types"
+import { CreateInvitationResponse } from "../../services/create-invitation"
 import {
     invitationsSchema,
     type InvitationsSchema,
 } from "./form-schema"
-import { Separator } from "@/shared/components/ui/separator"
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/components/ui/tooltip"
 
 interface CreateInvitationFormProps {
-    onSubmit(data: { email_addresses: string[] }): Promise<ActionResponse<null>>
+    createInvitation(d: CreateInvitation): Promise<CreateInvitationResponse>
 }
 
-
-export function CreateInvitationForm({ onSubmit }: CreateInvitationFormProps) {
+export function CreateInvitationForm({ createInvitation }: CreateInvitationFormProps) {
     // Initialize the form with the resolver and default values
     // Default to at least one email field
     const form = useForm<InvitationsSchema>({
@@ -55,7 +55,7 @@ export function CreateInvitationForm({ onSubmit }: CreateInvitationFormProps) {
         // Extract only the email values from the submitted data
         const email_addresses = data.emails.map(emailField => emailField.value)
         // Pass the extracted email values to your onSubmit handler
-        await onSubmit({ email_addresses })
+        await createInvitation({ email_addresses })
     }
 
     return (

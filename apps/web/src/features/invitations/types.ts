@@ -7,3 +7,7 @@ export interface Invitation {
     created_at: string
     updated_at: string
 }
+
+export interface CreateInvitation {
+    email_addresses: string[]
+}

@@ -1,20 +1,10 @@
 import { format } from "date-fns"
-import { redirect } from "next/navigation"
-import { getAccessTokenFromAuthCookie } from "@/features/auth/utils/get-access-token-from-auth-cookie"
+import { getInvitations } from "../../services/get-invitations"
 import { CreateInvitation } from "../create-invitation"
-import { getInvitations } from "../queries"
 
 export async function InvitationsList() {
-    // Get the access token from the auth cookie
-    const token = await getAccessTokenFromAuthCookie()
-
-    // If there is no token, redirect to the signin page
-    if (!token) {
-        redirect("/signout")
-    }
-
     // Get the invitations from api
-    let invitations = (await getInvitations()) || []
+    let { data: invitations } = await getInvitations()
 
     return (
         <div>
