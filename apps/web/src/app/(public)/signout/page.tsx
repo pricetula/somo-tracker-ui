@@ -1,3 +1,3 @@
-import { Signout } from "@/features/auth/signout"
+import { Signout } from "@/features/auth/components/signout"
 
 export default Signout
