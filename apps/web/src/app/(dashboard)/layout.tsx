@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation"
-import { getMe } from "@/features/me/get-me"
-import { MeHydrator } from "@/features/me/store-hydrator"
+import { getMe } from "@/features/me/services/get-me"
+import { MeHydrator } from "@/features/me/store"
 import { SchoolsHydrator } from "@/features/school/store";
 import { DashboardLayout } from "@/shared/components/layout/dashboard-layout";
 import { getSchools } from "@/features/school/services/get-school";

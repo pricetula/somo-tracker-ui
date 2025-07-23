@@ -1,4 +1,4 @@
-import { InstituteUser } from "./types";
+import { InstituteUser } from "../types";
 import { authenticatedGet } from "@/features/auth/utils/authenticated-get";
 
 export async function getMe(): Promise<InstituteUser> {

@@ -1,8 +1,8 @@
 "use client"
 
 import { useEffect } from "react"
-import { useMeStore } from "@/features/me/store"
-import { InstituteUser } from "./types"
+import { InstituteUser } from "../types"
+import { useMeStore } from "./store"
 
 interface MeHydratorProps {
     me: InstituteUser

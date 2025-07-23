@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation"
 import { InstituteUser } from "@/features/me/types"
-import { getMe } from "@/features/me/get-me"
+import { getMe } from "@/features/me/services/get-me"
 import { CreateInstituteForm } from "./CreateInstituteForm"
 import { createInstitute } from "../../services/create-institute"
 
