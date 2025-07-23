@@ -10,6 +10,8 @@ class AuthenticatedPutError extends Error { }
 
 class AuthenticatedDeleteError extends Error { }
 
+class AccessTokenMissingError extends Error { }
+
 export {
     TokenRefreshFailedError,
     SaveAuthToCookieError,
@@ -17,4 +19,5 @@ export {
     AuthenticatedPostError,
     AuthenticatedPutError,
     AuthenticatedDeleteError,
+    AccessTokenMissingError,
 }

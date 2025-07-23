@@ -1,7 +1,7 @@
 "use server";
 import { postApi } from "@/shared/lib/api";
-import { getAccessTokenFromAuthCookie } from "@/features/auth/utils/cookies";
 import { ActionResponse } from "@/shared/types/actions";
+import { getAccessTokenFromAuthCookie } from "@/features/auth/utils/get-access-token-from-auth-cookie";
 import { School } from "../types";
 import { CreateSchoolSchema } from "./form-schema";
 

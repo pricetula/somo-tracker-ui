@@ -1,8 +1,8 @@
-import { getApi } from "@/shared/lib/api";
+import { authenticatedGet } from "@/features/auth/utils/authenticated-get";
 import { Invitation } from "../types";
 
-export async function getInvitations(token: string): Promise<Invitation[]> {
-    const resp = await getApi({ uri: "/invitations", token })
+export async function getInvitations(): Promise<Invitation[]> {
+    const resp = await authenticatedGet({ uri: "/invitations" })
     if (!resp.ok) {
         const text = await resp.text();
         const err = new Error(text || resp.statusText);

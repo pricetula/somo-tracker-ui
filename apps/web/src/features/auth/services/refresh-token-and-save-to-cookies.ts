@@ -1,8 +1,8 @@
 import { postApi } from "@/shared/lib/api"
 import { TokenRefreshFailedError } from "../errors"
-import { getAuthCookieContent } from "../utils/cookies"
 import { AuthCookie } from "../types"
 import { saveAuthToCookie } from "../utils/save-auth-to-cookie"
+import { getAuthCookieContent } from "../utils/get-auth-cookie-content"
 
 /**
  * Refreshes the token and saves it to the cookie.

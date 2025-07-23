@@ -1,8 +1,8 @@
-import { getApi } from "@/shared/lib/api";
+import { authenticatedGet } from "@/features/auth/utils/authenticated-get";
 import { EducationSystem } from "../types";
 
-export async function getEducationSystems(token: string): Promise<EducationSystem[]> {
-    const resp = await getApi({ uri: "/education-systems", token })
+export async function getEducationSystems(): Promise<EducationSystem[]> {
+    const resp = await authenticatedGet({ uri: "/education-systems" })
     if (!resp.ok) {
         const text = await resp.text();
         const err = new Error(text || resp.statusText);

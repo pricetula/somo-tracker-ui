@@ -1,8 +1,8 @@
-import { getAccessTokenFromAuthCookie } from "@/features/auth/utils/cookies";
 import { postApi } from "@/shared/lib/api";
-import { OnboardNewAdminSchema } from "./form-schema";
 import { ActionResponse } from "@/shared/types/actions";
 import { User } from "@/shared/types/user";
+import { getAccessTokenFromAuthCookie } from "@/features/auth/utils/get-access-token-from-auth-cookie";
+import { OnboardNewAdminSchema } from "./form-schema";
 
 export async function onboardNewAdmin(adminData: OnboardNewAdminSchema): Promise<ActionResponse<User | null>> {
     "use server";

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAccessTokenFromAuthCookie } from "@/features/auth/utils/cookies";
 import { getApi } from "@/shared/lib/api";
+import { getAccessTokenFromAuthCookie } from "@/features/auth/utils/get-access-token-from-auth-cookie";
 
 export async function GET(request: NextRequest) {
     try {

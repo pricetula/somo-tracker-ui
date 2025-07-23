@@ -1,7 +1,7 @@
 import { Institute } from "@/features/institutes/types";
 import { ActionResponse } from "@/shared/types/actions";
-import { getAccessTokenFromAuthCookie } from "@/features/auth/utils/cookies";
 import { postApi } from "@/shared/lib/api";
+import { getAccessTokenFromAuthCookie } from "@/features/auth/utils/get-access-token-from-auth-cookie";
 
 /**
  * Creates a new institute.

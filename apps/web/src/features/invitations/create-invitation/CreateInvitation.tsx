@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { getAccessTokenFromAuthCookie } from "@/features/auth/utils/cookies";
+import { getAccessTokenFromAuthCookie } from "@/features/auth/utils/get-access-token-from-auth-cookie";
 import { createInvitation } from "./actions";
 import { CreateInvitationForm } from "./CreateInvitationForm";
 

@@ -1,6 +1,6 @@
 import { format } from "date-fns"
 import { redirect } from "next/navigation"
-import { getAccessTokenFromAuthCookie } from "@/features/auth/utils/cookies"
+import { getAccessTokenFromAuthCookie } from "@/features/auth/utils/get-access-token-from-auth-cookie"
 import { CreateInvitation } from "../create-invitation"
 import { getInvitations } from "../queries"
 
@@ -14,7 +14,7 @@ export async function InvitationsList() {
     }
 
     // Get the invitations from api
-    let invitations = (await getInvitations(token)) || []
+    let invitations = (await getInvitations()) || []
 
     return (
         <div>

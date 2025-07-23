@@ -2,12 +2,18 @@ import { putApi } from "@/shared/lib/api"
 import { ApiInput } from "@/shared/lib/api/types"
 import { refreshTokenAndSaveToCookie } from "../services/refresh-token-and-save-to-cookies"
 import { AuthenticatedGetError } from "../errors"
+import { getAccessTokenFromAuthCookie } from "./get-access-token-from-auth-cookie";
 
 export async function authenticatedPut(d: ApiInput): Promise<Response> {
+    // Get the access token from the auth cookie
+    const token = await getAccessTokenFromAuthCookie();
+
     // Check and make sure access token exists
-    if (!d.token) {
+    if (!token) {
         throw new AuthenticatedGetError("Token is required")
     }
+
+    d.token = token
 
     // Make get request
     const resp = await putApi(d)
