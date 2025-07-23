@@ -1,11 +1,10 @@
 import { redirect } from "next/navigation"
 import { getMe } from "@/features/me/get-me"
 import { MeHydrator } from "@/features/me/store-hydrator"
-import { SchoolsHydrator } from "@/features/school/store-hydrator";
+import { SchoolsHydrator } from "@/features/school/store";
 import { DashboardLayout } from "@/shared/components/layout/dashboard-layout";
-import { getSchools } from "@/features/school/queries";
+import { getSchools } from "@/features/school/services/get-school";
 import { InstituteUser } from "@/features/me/types";
-import { School } from "@/features/school/types";
 
 // This layout is used for the dashboard and requires the user to be logged in
 export default async function Layout({ children }: { children: React.ReactNode }) {
@@ -24,7 +23,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
     }
 
     // get the schools for the current user
-    let schools: School[] = await getSchools();
+    let { data: schools } = await getSchools();
 
     // If there are no schools, redirect to the create school page
     if (!schools?.length) {
