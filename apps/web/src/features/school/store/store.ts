@@ -1,5 +1,5 @@
 import { create } from "zustand"
-import { School } from "./types"
+import { School } from "../types"
 
 interface SchoolsState {
     schools: School[]

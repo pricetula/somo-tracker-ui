@@ -15,21 +15,22 @@ import {
 } from "@/shared/components/ui/form"
 import { Input } from "@/shared/components/ui/input"
 import { Button } from "@/shared/components/ui/button"
-import { useMeStore } from "@/features/me/store"
 import { ActionResponse } from "@/shared/types/actions"
-import { School } from "../types"
+import { EducationSystemComboBox } from "@/features/education-system/education-system-combo-box"
+import { InstituteUser } from "@/features/me/types"
+import { School } from "../../types"
+import { useSchoolsStore } from "../../store"
 import {
     createSchoolSchema,
     type CreateSchoolSchema,
 } from "./form-schema"
-import { useSchoolsStore } from "../store"
-import { EducationSystemComboBox } from "@/features/education-system/education-system-combo-box"
 
 interface CreateSchoolProps {
-    onSubmit(School: CreateSchoolSchema): Promise<ActionResponse<School | null>>
+    me: InstituteUser
+    createSchool(School: CreateSchoolSchema): Promise<ActionResponse<School | null>>
 }
 
-export function CreateSchoolForm({ onSubmit }: CreateSchoolProps) {
+export function CreateSchoolForm({ me, createSchool }: CreateSchoolProps) {
     // Get the router instance to navigate after form submission
     const router = useRouter()
 
@@ -38,9 +39,6 @@ export function CreateSchoolForm({ onSubmit }: CreateSchoolProps) {
 
     // State to be set to true when email is being sent or verifying code
     const [isSubmitting, setIsSubmitting] = React.useState(false)
-
-    // Get the current institute user from the store
-    const { me } = useMeStore()
 
     // Initialize the form with the resolver and default values
     const form = useForm<CreateSchoolSchema>({
@@ -67,7 +65,7 @@ export function CreateSchoolForm({ onSubmit }: CreateSchoolProps) {
     async function submitFunc(i: CreateSchoolSchema) {
         // Set isSubmitting to true to disable the submit button and show the loader
         setIsSubmitting(true)
-        const school = await onSubmit({
+        const school = await createSchool({
             name: i.name,
             description: i.description,
             address: i.address,

@@ -4,7 +4,7 @@ import { EducationSystemsHydrator } from "@/features/education-system/store-hydr
 import { InstituteUser } from "@/features/me/types";
 import { getMe } from "@/features/me/get-me";
 import { EducationSystem } from "@/features/education-system/types";
-import { createSchool } from "./actions";
+import { createSchool } from "../../services/create-school";
 import { CreateSchoolForm } from "./CreateSchoolForm";
 
 export async function CreateSchool() {
@@ -27,7 +27,7 @@ export async function CreateSchool() {
 
     return (
         <div className="h-full flex items-center justify-center">
-            <CreateSchoolForm onSubmit={createSchool} />
+            <CreateSchoolForm me={me} createSchool={createSchool} />
             <EducationSystemsHydrator educationSystems={educationSystems} />
         </div>
     )

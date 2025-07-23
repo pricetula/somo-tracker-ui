@@ -1,4 +1,4 @@
-import { CreateSchool } from "@/features/school/create-school";
+import { CreateSchool } from "@/features/school/components/create-school";
 
 export default function Page() {
     return (
