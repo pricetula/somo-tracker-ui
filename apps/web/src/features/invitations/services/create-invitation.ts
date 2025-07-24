@@ -19,8 +19,8 @@ export async function createInvitation(d: CreateInvitation): Promise<CreateInvit
 
         // Check if response is not ok and set error
         if (!resp.ok) {
-            const err = await resp.json()
-            r.error = err.error || "Failed to create invitation"
+            const err = await resp.text()
+            r.error = err || "Failed to create invitation"
             return r
         }
 

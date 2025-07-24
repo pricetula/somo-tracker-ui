@@ -4,7 +4,7 @@ import { InstituteUser } from "../types";
 export async function getMe(): Promise<InstituteUser> {
     const resp = await authenticatedGet({ uri: "/me" })
     if (!resp.ok) {
-        const { error } = await resp.json()
+        const error = await resp.text()
 
         const err = new Error(error || resp.statusText);
 

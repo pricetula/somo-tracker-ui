@@ -16,8 +16,8 @@ export async function getSchools(): Promise<GetSchoolsResponse> {
 
         // Check if response is not ok and set error
         if (!resp.ok) {
-            const err = await resp.json()
-            r.error = err.error || "Failed to get schools"
+            const err = await resp.text()
+            r.error = err || "Failed to get schools"
             return r
         }
 

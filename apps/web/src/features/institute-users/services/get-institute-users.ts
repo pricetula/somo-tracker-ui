@@ -1,23 +1,23 @@
 import { authenticatedGet } from "@/features/auth/utils/authenticated-get";
 import { ActionResponse } from "@/shared/types/actions";
-import { Invitation } from "../types";
+import { InstituteUsers } from "../types";
 
-type GetInvitationsResponse = ActionResponse<Invitation[]>
+type GetInstituteUsersResponse = ActionResponse<InstituteUsers[]>
 
-export async function getInvitations(): Promise<GetInvitationsResponse> {
+export async function getInstituteUsers(): Promise<GetInstituteUsersResponse> {
     // Initialize response variable to return
-    let r: GetInvitationsResponse = { success: false, data: [], error: "" }
+    let r: GetInstituteUsersResponse = { success: false, data: [], error: "" }
 
     try {
         // Attempt to get invitations
         const resp = await authenticatedGet({
-            uri: "/invitations",
+            uri: "/institute-users?limit=10",
         })
 
         // Check if response is not ok and set error
         if (!resp.ok) {
             const err = await resp.text()
-            r.error = err || "Failed to get invitations"
+            r.error = err || "Failed to get institute users"
             return r
         }
 
@@ -29,7 +29,7 @@ export async function getInvitations(): Promise<GetInvitationsResponse> {
         if (err instanceof Error) {
             r.error = err.message
         } else {
-            r.error = "Unknown error, failed to get invitations"
+            r.error = "Unknown error, failed to get institute users"
         }
     }
 
