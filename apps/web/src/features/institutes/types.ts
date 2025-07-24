@@ -20,3 +20,12 @@ export interface InstituteSetting {
     logo_url: string
     timezone: string
 }
+
+export interface CreateInstitute {
+    email: string
+    name: string
+    description: string
+    first_name: string
+    last_name: string
+    website?: string | undefined
+}

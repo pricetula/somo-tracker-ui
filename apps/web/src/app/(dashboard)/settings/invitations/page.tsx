@@ -1,3 +1,3 @@
-import { InvitationsList } from "@/features/invitations/invitations-list"
+import { InvitationsList } from "@/features/invitations/components/invitations-list"
 
 export default InvitationsList

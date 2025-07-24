@@ -1,4 +1,4 @@
-import { deleteAuthCookie } from "@/features/auth/utils/cookies"
+import { deleteAuthCookie } from "@/features/auth/utils/delete-auth-cookie"
 
 export async function POST() {
     try {

@@ -8,7 +8,7 @@ import {
     LogOut,
     Sparkles,
 } from "lucide-react"
-
+import Link from "next/link"
 import {
     Avatar,
     AvatarFallback,
@@ -107,10 +107,10 @@ export function NavUser() {
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem>
-                            <button type="submit" className="flex items-center gap-2">
+                            <Link href="/signout" className="flex items-center gap-2">
                                 <LogOut />
                                 <span>Log out</span>
-                            </button>
+                            </Link>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

@@ -29,3 +29,11 @@ export interface SchoolSetting {
     academic_year_start: string
     academic_year_end: string
 }
+
+export interface CreateSchool {
+    name: string
+    address: string
+    description: string
+    education_system_id: string
+    website?: string | undefined
+}

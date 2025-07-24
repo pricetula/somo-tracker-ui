@@ -32,24 +32,20 @@ export function NavPlatform() {
     const items = [
         {
             title: "Documentation",
-            url: "/documentation",
+            url: "/docs",
             icon: BookOpen,
             items: [
                 {
                     title: "Introduction",
-                    url: "#",
+                    url: "/docs",
                 },
                 {
                     title: "Get Started",
-                    url: "#",
+                    url: "/docs/getting-started",
                 },
                 {
-                    title: "Tutorials",
-                    url: "#",
-                },
-                {
-                    title: "Changelog",
-                    url: "#",
+                    title: "Inviting members",
+                    url: "/docs/inviting-members",
                 },
             ],
         },
