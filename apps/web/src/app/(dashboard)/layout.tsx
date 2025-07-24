@@ -32,7 +32,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
 
     return (
         <DashboardLayout>
-            <main className="h-screen overflow-y-auto">
+            <main className="h-[90vh] overflow-y-auto">
                 {children}
                 <MeHydrator me={me} />
                 <SchoolsHydrator schools={schools} />

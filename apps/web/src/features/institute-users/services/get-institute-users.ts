@@ -4,14 +4,14 @@ import { InstituteUsers } from "../types";
 
 type GetInstituteUsersResponse = ActionResponse<InstituteUsers[]>
 
-export async function getInstituteUsers(): Promise<GetInstituteUsersResponse> {
+export async function getInstituteUsers(limit = 10, offset = 0): Promise<GetInstituteUsersResponse> {
     // Initialize response variable to return
     let r: GetInstituteUsersResponse = { success: false, data: [], error: "" }
 
     try {
         // Attempt to get invitations
         const resp = await authenticatedGet({
-            uri: "/institute-users?limit=10",
+            uri: `/institute-users?limit=${limit}&offset=${offset}}`,
         })
 
         // Check if response is not ok and set error

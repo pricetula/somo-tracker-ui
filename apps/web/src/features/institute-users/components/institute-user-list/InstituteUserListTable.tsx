@@ -6,7 +6,6 @@ import {
     flexRender,
     getCoreRowModel,
     getFilteredRowModel,
-    getPaginationRowModel,
     getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table"
@@ -92,6 +91,7 @@ export function InstituteUserListTable({ instituteUsers }: InstituteUserListTabl
             header: "Email",
             cell: ({ getValue }) => {
                 const email = getValue() as string
+                if (!email) return "-"
                 return (<a className="lowercase" href={`mailto:${email}`}>{email}</a>)
             },
             meta: {
@@ -119,7 +119,7 @@ export function InstituteUserListTable({ instituteUsers }: InstituteUserListTabl
                 return (
                     <RoleSelector
                         id="role"
-                        initValue={role}
+                        value={role}
                         onSetValue={console.log}
                     />
                 )
@@ -156,14 +156,17 @@ export function InstituteUserListTable({ instituteUsers }: InstituteUserListTabl
         },
     ], [])
     const [rowSelection, setRowSelection] = React.useState({})
-
-    React.useEffect(() => { console.log(rowSelection) }, [rowSelection])
+    const [roles, setRoles] = React.useState<string[]>([])
+    const [fetchedInstituteUsers, setFetchedInstituteUsers] = React.useState<InstituteUsers[]>(instituteUsers)
+    const filteredInstituteUsers = React.useMemo(() => {
+        if (roles.length === 0) return fetchedInstituteUsers
+        return fetchedInstituteUsers.filter((instituteUser) => roles.includes(instituteUser.role))
+    }, [roles, fetchedInstituteUsers])
 
     const table = useReactTable({
         columns,
-        data: instituteUsers,
+        data: filteredInstituteUsers,
         getCoreRowModel: getCoreRowModel(),
-        getPaginationRowModel: getPaginationRowModel(),
         getSortedRowModel: getSortedRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
         onRowSelectionChange: setRowSelection,
@@ -172,10 +175,24 @@ export function InstituteUserListTable({ instituteUsers }: InstituteUserListTabl
         },
     })
 
+    async function getInstituteUsers() {
+        const lastInstituteUser = instituteUsers[instituteUsers.length - 1]
+        let uri = "/api/institute-users?limit=10"
+        if (roles.length > 0) {
+            uri += `&roles=${roles.join(",")}`
+        }
+        if (lastInstituteUser?.user?.created_at) {
+            uri += `&last_seen_created_at=${new Date(lastInstituteUser.user.created_at).toISOString()}`
+        }
+        const resp = await fetch(uri)
+        const data = await resp.json()
+        setFetchedInstituteUsers((prev) => [...prev, ...data])
+    }
+
     return (
         <article className="w-full">
             <nav className="flex items-center justify-between mb-1">
-                <FilterButton onCheckedRoles={console.log} />
+                <FilterButton onCheckedRoles={setRoles} />
             </nav>
             <section className="rounded-md border">
                 <Table>
@@ -236,18 +253,10 @@ export function InstituteUserListTable({ instituteUsers }: InstituteUserListTabl
                     <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => table.previousPage()}
-                        disabled={!table.getCanPreviousPage()}
+                        onClick={getInstituteUsers}
+                    // disabled={allInstituteUsers?.length < 10}
                     >
-                        Previous
-                    </Button>
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => table.nextPage()}
-                        disabled={!table.getCanNextPage()}
-                    >
-                        Next
+                        Load more
                     </Button>
                 </div>
             </div>

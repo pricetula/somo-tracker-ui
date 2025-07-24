@@ -20,25 +20,15 @@ import { roleOptions } from "@/shared/utils/constants"
 
 interface RoleSelectorProps {
     id: string
-    initValue?: string
+    value?: string
     onSetValue(v: string): void
 }
 
-export function RoleSelector({ id, initValue, onSetValue }: RoleSelectorProps) {
+export function RoleSelector({ id, value, onSetValue }: RoleSelectorProps) {
     const [open, setOpen] = React.useState(false)
-    const [value, setValue] = React.useState("")
-    const selectedOption = value && roleOptions.find((option) => option.value === value) || null
 
-    React.useEffect(() => {
-        if (!selectedOption && initValue) {
-            setValue(initValue)
-        }
-    }, [initValue, selectedOption])
-
-    React.useEffect(() => {
-        if (value) {
-            onSetValue(value)
-        }
+    const selectedOption = React.useMemo(() => {
+        return value && roleOptions.find((option) => option.value === value) || null
     }, [value])
 
     return (
@@ -52,23 +42,23 @@ export function RoleSelector({ id, initValue, onSetValue }: RoleSelectorProps) {
                 >
                     {selectedOption?.label ? (
                         <span className={cn("p-.5 px-2 rounded-md", selectedOption.bgColor)}>{selectedOption.label}</span>
-                    ) : "Select education system..."}
+                    ) : "Select role"}
                     <ChevronsUpDown className="opacity-50" />
                 </Button>
             </PopoverTrigger>
             <PopoverContent className="w-[200px] p-0">
                 <Command>
-                    <CommandInput placeholder="Search education system..." className="h-9" />
+                    <CommandInput placeholder="Search role" className="h-9" />
                     <CommandList>
-                        <CommandEmpty>No education system found.</CommandEmpty>
+                        <CommandEmpty>No role found.</CommandEmpty>
                         <CommandGroup>
                             {roleOptions.map((option) => (
                                 <CommandItem
                                     key={option.value}
                                     value={option.value}
                                     onSelect={(currentValue) => {
-                                        setValue(currentValue === value ? "" : currentValue)
                                         setOpen(false)
+                                        onSetValue(currentValue)
                                     }}
                                 >
                                     {option.label}

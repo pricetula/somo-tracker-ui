@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getApi } from "@/shared/lib/api";
-import { getAccessTokenFromAuthCookie } from "@/features/auth/utils/get-access-token-from-auth-cookie";
+import { authenticatedGet } from "@/features/auth/utils/authenticated-get";
 
 export async function GET(request: NextRequest) {
     try {
@@ -55,19 +54,11 @@ export async function GET(request: NextRequest) {
             uri += `?${queryParams.join("&")}`;
         }
 
-        // 2. Authentication and Authorization
-        const token = await getAccessTokenFromAuthCookie();
-        if (!token) {
-            // If no token, return 401 Unauthorized
-            return new NextResponse(JSON.stringify({ message: "Authentication required." }), { status: 401 });
-        }
-
-        const resp = await getApi({ uri, token });
+        const resp = await authenticatedGet({ uri });
 
         if (!resp.ok) {
             // 3. Improved Error Handling and Logging (server-side)
             const errorText = await resp.text();
-            console.error(`API call failed: ${resp.status} - ${errorText}`);
             return new NextResponse(
                 JSON.stringify({ message: errorText || "An unknown error occurred with the upstream API." }),
                 { status: resp.status }
