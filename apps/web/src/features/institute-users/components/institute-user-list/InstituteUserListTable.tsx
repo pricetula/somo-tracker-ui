@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { toast } from "sonner"
 import {
     ColumnDef,
     flexRender,
@@ -35,14 +36,15 @@ import {
 } from "@/shared/components/ui/table"
 import { RoleSelector } from "@/shared/components/role-selector"
 import { BulkActions } from "@/shared/components/bulk-actions"
-import { InstituteUsers } from "../../types"
+import { GetInstituteUsersParams, GetInstituteUsersResponse, InstituteUsers } from "../../types"
 import { FilterButton } from "./FilterButton"
 
 interface InstituteUserListTableProps {
     instituteUsers: InstituteUsers[]
+    getInstituteUsers(i: GetInstituteUsersParams): Promise<GetInstituteUsersResponse>
 }
 
-export function InstituteUserListTable({ instituteUsers }: InstituteUserListTableProps) {
+export function InstituteUserListTable({ instituteUsers, getInstituteUsers }: InstituteUserListTableProps) {
     const columns: ColumnDef<InstituteUsers>[] = React.useMemo(() => [
         {
             id: "select",
@@ -185,19 +187,23 @@ export function InstituteUserListTable({ instituteUsers }: InstituteUserListTabl
         },
     })
 
-    async function getInstituteUsers() {
+    async function handleGetInstituteUsers() {
         const lastInstituteUser = filteredInstituteUsers[filteredInstituteUsers.length - 1]
-        let uri = "/api/institute-users?limit=10"
-        if (roles.length > 0) {
-            uri += `&roles=${roles.join(",")}`
-        }
+        let lastSeenCreatedAt = ""
         if (lastInstituteUser?.user?.created_at) {
-            uri += `&last_seen_created_at=${new Date(lastInstituteUser.user.created_at).toISOString()}`
+            lastSeenCreatedAt = new Date(lastInstituteUser.user.created_at).toISOString()
         }
         setIsSubmitting(true)
-        const resp = await fetch(uri)
-        const data = await resp.json()
+        const { data, error } = await getInstituteUsers({
+            roles: roles.join(","),
+            limit: 10,
+            lastSeenCreatedAt,
+        })
         setIsSubmitting(false)
+        if (error) {
+            toast.error(error)
+            return
+        }
         if (!data?.length) {
             setIsNoMoreUsers(true)
             return
@@ -264,7 +270,7 @@ export function InstituteUserListTable({ instituteUsers }: InstituteUserListTabl
                 <Button
                     variant="outline"
                     size="sm"
-                    onClick={getInstituteUsers}
+                    onClick={handleGetInstituteUsers}
                     disabled={isNoMoreUsers}
                 >
                     {
