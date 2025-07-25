@@ -15,6 +15,7 @@ import {
     Trash,
     ArrowDownCircle,
     MoreHorizontal,
+    Loader2Icon,
 } from "lucide-react"
 import { Button } from "@/shared/components/ui/button"
 import { Checkbox } from "@/shared/components/ui/checkbox"
@@ -33,6 +34,7 @@ import {
     TableRow,
 } from "@/shared/components/ui/table"
 import { RoleSelector } from "@/shared/components/role-selector"
+import { BulkActions } from "@/shared/components/bulk-actions"
 import { InstituteUsers } from "../../types"
 import { FilterButton } from "./FilterButton"
 
@@ -161,6 +163,7 @@ export function InstituteUserListTable({ instituteUsers }: InstituteUserListTabl
             },
         },
     ], [])
+    const [isSubmitting, setIsSubmitting] = React.useState(false)
     const [isNoMoreUsers, setIsNoMoreUsers] = React.useState(false)
     const [roles, setRoles] = React.useState<string[]>([])
     const [rowSelection, setRowSelection] = React.useState({})
@@ -191,8 +194,10 @@ export function InstituteUserListTable({ instituteUsers }: InstituteUserListTabl
         if (lastInstituteUser?.user?.created_at) {
             uri += `&last_seen_created_at=${new Date(lastInstituteUser.user.created_at).toISOString()}`
         }
+        setIsSubmitting(true)
         const resp = await fetch(uri)
         const data = await resp.json()
+        setIsSubmitting(false)
         if (!data?.length) {
             setIsNoMoreUsers(true)
             return
@@ -262,12 +267,30 @@ export function InstituteUserListTable({ instituteUsers }: InstituteUserListTabl
                     onClick={getInstituteUsers}
                     disabled={isNoMoreUsers}
                 >
-                    <ArrowDownCircle />
-                    <span>
-                        Load more
-                    </span>
+                    {
+                        isSubmitting
+                            ? (
+                                <>
+                                    <Loader2Icon className="animate-spin" />
+                                    <span>
+                                        Loading ...
+                                    </span>
+                                </>
+                            )
+                            : (
+                                <>
+                                    <ArrowDownCircle />
+                                    <span>
+                                        Load more
+                                    </span>
+                                </>
+                            )
+                    }
                 </Button>
             </div>
+            <BulkActions
+                open={!!Object.keys(rowSelection).length}
+            >sss</BulkActions>
         </article>
     )
 }
