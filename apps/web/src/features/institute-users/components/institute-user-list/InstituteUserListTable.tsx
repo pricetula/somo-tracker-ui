@@ -10,15 +10,18 @@ import {
     useReactTable,
 } from "@tanstack/react-table"
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/components/ui/avatar"
-import { MoreHorizontal } from "lucide-react"
+import {
+    Edit,
+    Trash,
+    ArrowDownCircle,
+    MoreHorizontal,
+} from "lucide-react"
 import { Button } from "@/shared/components/ui/button"
 import { Checkbox } from "@/shared/components/ui/checkbox"
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/shared/components/ui/dropdown-menu"
 import {
@@ -140,23 +143,27 @@ export function InstituteUserListTable({ instituteUsers }: InstituteUserListTabl
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                            <DropdownMenuItem
-                                onClick={() => navigator.clipboard.writeText(me.user_id)}
-                            >
-                                Copy payment ID
+                            <DropdownMenuItem>
+                                <Edit />
+                                <span>
+                                    Edit
+                                </span>
                             </DropdownMenuItem>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem>View customer</DropdownMenuItem>
-                            <DropdownMenuItem>View payment details</DropdownMenuItem>
+                            <DropdownMenuItem className="text-red-600 focus:bg-red-100 focus:text-red-600">
+                                <Trash />
+                                <span>
+                                    Delete
+                                </span>
+                            </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
                 )
             },
         },
     ], [])
-    const [rowSelection, setRowSelection] = React.useState({})
+    const [isNoMoreUsers, setIsNoMoreUsers] = React.useState(false)
     const [roles, setRoles] = React.useState<string[]>([])
+    const [rowSelection, setRowSelection] = React.useState({})
     const [fetchedInstituteUsers, setFetchedInstituteUsers] = React.useState<InstituteUsers[]>(instituteUsers)
     const filteredInstituteUsers = React.useMemo(() => {
         if (roles.length === 0) return fetchedInstituteUsers
@@ -176,7 +183,7 @@ export function InstituteUserListTable({ instituteUsers }: InstituteUserListTabl
     })
 
     async function getInstituteUsers() {
-        const lastInstituteUser = instituteUsers[instituteUsers.length - 1]
+        const lastInstituteUser = filteredInstituteUsers[filteredInstituteUsers.length - 1]
         let uri = "/api/institute-users?limit=10"
         if (roles.length > 0) {
             uri += `&roles=${roles.join(",")}`
@@ -186,6 +193,10 @@ export function InstituteUserListTable({ instituteUsers }: InstituteUserListTabl
         }
         const resp = await fetch(uri)
         const data = await resp.json()
+        if (!data?.length) {
+            setIsNoMoreUsers(true)
+            return
+        }
         setFetchedInstituteUsers((prev) => [...prev, ...data])
     }
 
@@ -244,21 +255,18 @@ export function InstituteUserListTable({ instituteUsers }: InstituteUserListTabl
                     </TableBody>
                 </Table>
             </section>
-            <div className="flex items-center justify-end space-x-2 py-4">
-                <div className="text-muted-foreground flex-1 text-sm">
-                    {table.getFilteredSelectedRowModel().rows.length} of{" "}
-                    {table.getFilteredRowModel().rows.length} row(s) selected.
-                </div>
-                <div className="space-x-2">
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={getInstituteUsers}
-                    // disabled={allInstituteUsers?.length < 10}
-                    >
+            <div className="flex items-center justify-center pt-4">
+                <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={getInstituteUsers}
+                    disabled={isNoMoreUsers}
+                >
+                    <ArrowDownCircle />
+                    <span>
                         Load more
-                    </Button>
-                </div>
+                    </span>
+                </Button>
             </div>
         </article>
     )
