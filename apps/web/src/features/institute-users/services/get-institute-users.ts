@@ -1,17 +1,33 @@
+"use server"
+
 import { authenticatedGet } from "@/features/auth/utils/authenticated-get";
-import { ActionResponse } from "@/shared/types/actions";
-import { InstituteUsers } from "../types";
+import { GetInstituteUsersParams, GetInstituteUsersResponse } from "../types";
 
-type GetInstituteUsersResponse = ActionResponse<InstituteUsers[]>
-
-export async function getInstituteUsers(limit = 10, offset = 0): Promise<GetInstituteUsersResponse> {
+export async function getInstituteUsers(i: GetInstituteUsersParams = { limit: 10, roles: "", lastSeenCreatedAt: "" }): Promise<GetInstituteUsersResponse> {
     // Initialize response variable to return
     let r: GetInstituteUsersResponse = { success: false, data: [], error: "" }
 
     try {
+        let uri = "/institute-users"
+
+        // Array to hold all query parameters
+        let queryParams = []
+
+        // Check if limit was added then push onto query param list
+        if (i.limit) queryParams.push(`limit=${i.limit}`)
+
+        // Check if roles was set then add to query param list
+        if (i.roles) queryParams.push(`roles=${i.roles}`)
+
+        // Check if last seen created at was set then add to query param list
+        if (i.lastSeenCreatedAt) queryParams.push(`last_seen_created_at=${i.lastSeenCreatedAt}`)
+
+        // Concatenate the query params to uri
+        if (queryParams.length) uri += `?${queryParams.join("&")}`
+
         // Attempt to get invitations
         const resp = await authenticatedGet({
-            uri: `/institute-users?limit=${limit}&offset=${offset}}`,
+            uri,
         })
 
         // Check if response is not ok and set error

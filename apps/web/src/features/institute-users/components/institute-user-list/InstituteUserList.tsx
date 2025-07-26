@@ -6,6 +6,6 @@ export async function InstituteUserList() {
     // Get the invitations from api
     let { data: instituteUsers } = await getInstituteUsers()
     return (
-        <InstituteUserListTable instituteUsers={instituteUsers} />
+        <InstituteUserListTable instituteUsers={instituteUsers} getInstituteUsers={getInstituteUsers} />
     )
 }
