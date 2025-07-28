@@ -13,6 +13,7 @@ import {
     ArrowDownCircle,
     Loader2Icon,
 } from "lucide-react"
+import { Input } from "@/shared/components/ui/input"
 import { Button } from "@/shared/components/ui/button"
 import {
     Table,
@@ -69,6 +70,7 @@ export function InstituteUserListTable({ instituteUsers, getInstituteUsers }: In
             limit: 10,
             lastSeenCreatedAt,
         })
+        console.log({ data, error })
         setIsSubmitting(false)
         if (error) {
             toast.error(error)
@@ -86,60 +88,64 @@ export function InstituteUserListTable({ instituteUsers, getInstituteUsers }: In
     }
 
     return (
-        <article className="w-full">
+        <article className="w-full p-2">
             <nav className="flex items-center justify-between mb-1">
                 <FilterButton onCheckedRoles={setRoles} />
+                <Input
+                    id="filter-input"
+                    placeholder="Search"
+                    onClick={(e) => { e.stopPropagation() }}
+                    className="w-[180px] py-1 h-8 text-sm"
+                />
             </nav>
-            <section className="rounded-md border">
-                <Table>
-                    <TableHeader>
-                        {table.getHeaderGroups().map((headerGroup) => (
-                            <TableRow key={headerGroup.id}>
-                                {headerGroup.headers.map((header) => {
-                                    return (
-                                        <TableHead key={header.id} className={(header.column.columnDef.meta as any)?.className}>
-                                            {header.isPlaceholder
-                                                ? null
-                                                : flexRender(
-                                                    header.column.columnDef.header,
-                                                    header.getContext()
-                                                )}
-                                        </TableHead>
-                                    )
-                                })}
-                            </TableRow>
-                        ))}
-                    </TableHeader>
-                    <TableBody>
-                        {table.getRowModel().rows?.length ? (
-                            table.getRowModel().rows.map((row) => (
-                                <TableRow
-                                    key={row.id}
-                                    data-state={row.getIsSelected() && "selected"}
-                                >
-                                    {row.getVisibleCells().map((cell) => (
-                                        <TableCell className="py-1" key={cell.id} width={cell.id && cell.id.includes("actions") ? 60 : "auto"}>
-                                            {flexRender(
-                                                cell.column.columnDef.cell,
-                                                cell.getContext()
+            <Table wrapperClassName="max-h-[80vh] border rounded-sm">
+                <TableHeader className="sticky top-0 bg-background z-10">
+                    {table.getHeaderGroups().map((headerGroup) => (
+                        <TableRow key={headerGroup.id}>
+                            {headerGroup.headers.map((header) => {
+                                return (
+                                    <TableHead key={header.id} className={(header.column.columnDef.meta as any)?.className}>
+                                        {header.isPlaceholder
+                                            ? null
+                                            : flexRender(
+                                                header.column.columnDef.header,
+                                                header.getContext()
                                             )}
-                                        </TableCell>
-                                    ))}
-                                </TableRow>
-                            ))
-                        ) : (
-                            <TableRow>
-                                <TableCell
-                                    colSpan={columns.length}
-                                    className="h-24 text-center"
-                                >
-                                    No results.
-                                </TableCell>
+                                    </TableHead>
+                                )
+                            })}
+                        </TableRow>
+                    ))}
+                </TableHeader>
+                <TableBody>
+                    {table.getRowModel().rows?.length ? (
+                        table.getRowModel().rows.map((row) => (
+                            <TableRow
+                                key={row.id}
+                                data-state={row.getIsSelected() && "selected"}
+                            >
+                                {row.getVisibleCells().map((cell) => (
+                                    <TableCell className="py-1" key={cell.id} width={cell.id && cell.id.includes("actions") ? 60 : "auto"}>
+                                        {flexRender(
+                                            cell.column.columnDef.cell,
+                                            cell.getContext()
+                                        )}
+                                    </TableCell>
+                                ))}
                             </TableRow>
-                        )}
-                    </TableBody>
-                </Table>
-            </section>
+                        ))
+                    ) : (
+                        <TableRow>
+                            <TableCell
+                                colSpan={columns.length}
+                                className="h-24 text-center"
+                            >
+                                No results.
+                            </TableCell>
+                        </TableRow>
+                    )}
+                </TableBody>
+            </Table>
             <div className="flex items-center justify-center pt-4">
                 <Button
                     variant="outline"
@@ -168,6 +174,7 @@ export function InstituteUserListTable({ instituteUsers, getInstituteUsers }: In
                     }
                 </Button>
             </div>
+
             <BulkActions
                 open={!!Object.keys(rowSelection).length}
             >sss</BulkActions>
