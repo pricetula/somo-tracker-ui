@@ -12,7 +12,7 @@ import {
     DropdownMenuSubTrigger,
     DropdownMenuTrigger,
 } from "@/shared/components/ui/dropdown-menu"
-import { Input } from "@/shared/components/ui/input"
+
 import { roleOptions } from "@/shared/utils/constants"
 
 interface FilterButtonProps {
@@ -45,14 +45,6 @@ export function FilterButton({ onCheckedRoles }: FilterButtonProps) {
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56" align="start">
-                <DropdownMenuItem id="filter-input-menu-item">
-                    <Input
-                        id="filter-input"
-                        placeholder="Search"
-                        onClick={(e) => { e.stopPropagation() }}
-                        className="py-1 h-8 text-sm"
-                    />
-                </DropdownMenuItem>
                 <DropdownMenuSub>
                     <DropdownMenuSubTrigger>Roles</DropdownMenuSubTrigger>
                     <DropdownMenuPortal>
