@@ -49,6 +49,7 @@
   },
   "dependencies": {
     "@sveltejs/adapter-vercel": "^5.7.2",
+    "class-variance-authority": "^0.7.1",
     "mode-watcher": "0.5.1"
   }
 }
