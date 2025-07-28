@@ -13,6 +13,7 @@ import {
     ArrowDownCircle,
     Loader2Icon,
 } from "lucide-react"
+import { useRouter, useSearchParams } from "next/navigation"
 import { Input } from "@/shared/components/ui/input"
 import { Button } from "@/shared/components/ui/button"
 import {
@@ -36,16 +37,23 @@ interface InstituteUserListTableProps {
 }
 
 export function InstituteUserListTable({ instituteUsers, getInstituteUsers }: InstituteUserListTableProps) {
+    const router = useRouter()
+    const searchParams = useSearchParams()
+    const queryRoles = React.useMemo(() => {
+        let roles = searchParams.get("roles")
+        if (!roles) return []
+        return roles.split(",").map((role) => role.toUpperCase())
+    }, [searchParams])
+
     const columns = useInstituteUsersColumns(handleRequestUpdateInstituteUserRole)
     const [isSubmitting, setIsSubmitting] = React.useState(false)
     const [isNoMoreUsers, setIsNoMoreUsers] = React.useState(false)
-    const [roles, setRoles] = React.useState<string[]>([])
     const [rowSelection, setRowSelection] = React.useState({})
     const [fetchedInstituteUsers, setFetchedInstituteUsers] = React.useState<InstituteUsers[]>(instituteUsers)
     const filteredInstituteUsers = React.useMemo(() => {
-        if (roles.length === 0) return fetchedInstituteUsers
-        return fetchedInstituteUsers.filter((instituteUser) => roles.includes(instituteUser.role))
-    }, [roles, fetchedInstituteUsers])
+        if (queryRoles.length === 0) return fetchedInstituteUsers
+        return fetchedInstituteUsers.filter((instituteUser) => queryRoles.includes(instituteUser.role))
+    }, [queryRoles, fetchedInstituteUsers])
 
     const table = useReactTable({
         columns: columns,
@@ -59,7 +67,7 @@ export function InstituteUserListTable({ instituteUsers, getInstituteUsers }: In
         },
     })
 
-    async function handleGetInstituteUsers() {
+    async function handleGetInstituteUsers(roles: string[]) {
         const lastInstituteUser = filteredInstituteUsers[filteredInstituteUsers.length - 1]
         let lastSeenCreatedAt = ""
         if (lastInstituteUser?.user?.created_at) {
@@ -88,15 +96,32 @@ export function InstituteUserListTable({ instituteUsers, getInstituteUsers }: In
     }
 
     function onRemoveRole(role: string) {
-        setRoles((prev) => prev.filter((r) => r !== role))
+        const r = queryRoles.filter((r) => r !== role)
+        redirectWithNewRoles(r)
+        handleGetInstituteUsers(r)
+    }
+
+    function onAddRole(roles: string[]) {
+        redirectWithNewRoles(roles)
+        handleGetInstituteUsers(roles)
+    }
+
+    function redirectWithNewRoles(roles: string[]) {
+        const params = new URLSearchParams()
+        if (roles.length) {
+            params.set("roles", roles.join(","))
+        } else {
+            params.delete("roles")
+        }
+        return router.push(`/users?${params.toString()}`)
     }
 
     return (
         <article className="w-full p-2">
             <nav className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                    <FilterButton selectedRoles={roles} onCheckedRoles={setRoles} />
-                    <ActiveFilterRoles filteredRoles={roles} onRemoveRole={onRemoveRole} />
+                    <FilterButton selectedRoles={queryRoles} onCheckedRoles={onAddRole} />
+                    <ActiveFilterRoles filteredRoles={queryRoles} onRemoveRole={onRemoveRole} />
                 </div>
                 <Input
                     id="filter-input"
@@ -157,7 +182,7 @@ export function InstituteUserListTable({ instituteUsers, getInstituteUsers }: In
                 <Button
                     variant="outline"
                     size="sm"
-                    onClick={handleGetInstituteUsers}
+                    onClick={() => handleGetInstituteUsers(queryRoles)}
                     disabled={isNoMoreUsers}
                 >
                     {

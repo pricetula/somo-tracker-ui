@@ -34,7 +34,9 @@ export function ActiveFilterRoles({ filteredRoles, onRemoveRole }: ActiveFilterR
                         `${role.bgColor} hover:${role.bgColor}`,
                     )}>
                         <span>{role.label}</span>
-                        <X size={12} onClick={() => onRemoveRole(role.value)} className="cursor-pointer" />
+                        <button onClick={() => onRemoveRole(role.value)}>
+                            <X size={12} className="cursor-pointer" />
+                        </button>
                     </Badge>
                 ))
             }

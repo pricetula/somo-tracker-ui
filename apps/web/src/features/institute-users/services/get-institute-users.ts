@@ -17,7 +17,7 @@ export async function getInstituteUsers(i: GetInstituteUsersParams = { limit: 10
         if (i.limit) queryParams.push(`limit=${i.limit}`)
 
         // Check if roles was set then add to query param list
-        if (i.roles) queryParams.push(`roles=${i.roles}`)
+        if (i.roles) queryParams.push(`roles=${i.roles.toUpperCase()}`)
 
         // Check if last seen created at was set then add to query param list
         if (i.lastSeenCreatedAt) queryParams.push(`last_seen_created_at=${i.lastSeenCreatedAt}`)
