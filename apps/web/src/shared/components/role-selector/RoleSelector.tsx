@@ -28,10 +28,6 @@ interface RoleSelectorProps {
 export function RoleSelector({ id, value, onSetValue }: RoleSelectorProps) {
     const [open, setOpen] = React.useState(false)
 
-    const selectedOption = React.useMemo(() => {
-        return value && roleOptions.find((option) => option.value === value) || null
-    }, [value])
-
     return (
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
@@ -41,8 +37,8 @@ export function RoleSelector({ id, value, onSetValue }: RoleSelectorProps) {
                     role="combobox"
                     aria-expanded={open}
                 >
-                    {selectedOption?.label ? (
-                        <RoleDisplay role={selectedOption.label} />
+                    {value ? (
+                        <RoleDisplay role={value} />
                     ) : "Select role"}
                     <ChevronsUpDown className="opacity-50" />
                 </Button>

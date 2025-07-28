@@ -1,6 +1,6 @@
 export const mappedRoles = new Map([
     [
-        "Admin",
+        "ADMIN",
         {
             value: "ADMIN",
             label: "Admin",
@@ -8,7 +8,7 @@ export const mappedRoles = new Map([
         },
     ],
     [
-        "Faculty",
+        "FACULTY",
         {
             value: "FACULTY",
             label: "Faculty",
@@ -16,7 +16,7 @@ export const mappedRoles = new Map([
         },
     ],
     [
-        "Student",
+        "STUDENT",
         {
             value: "STUDENT",
             label: "Student",
@@ -24,7 +24,7 @@ export const mappedRoles = new Map([
         },
     ],
     [
-        "Guardian",
+        "GUARDIAN",
         {
             value: "GUARDIAN",
             label: "Guardian",

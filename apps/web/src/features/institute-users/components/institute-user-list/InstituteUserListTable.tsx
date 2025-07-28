@@ -28,6 +28,7 @@ import { GetInstituteUsersParams, GetInstituteUsersResponse, InstituteUsers } fr
 import { FilterButton } from "./FilterButton"
 import { ConfirmMemberRoleChange } from "./ConfirmMemberRoleChange"
 import { useInstituteUsersColumns } from "./hooks"
+import { ActiveFilterRoles } from "./ActiveFilterRoles"
 
 interface InstituteUserListTableProps {
     instituteUsers: InstituteUsers[]
@@ -90,7 +91,10 @@ export function InstituteUserListTable({ instituteUsers, getInstituteUsers }: In
     return (
         <article className="w-full p-2">
             <nav className="flex items-center justify-between mb-4">
-                <FilterButton onCheckedRoles={setRoles} />
+                <div className="flex items-center gap-2">
+                    <FilterButton onCheckedRoles={setRoles} />
+                    <ActiveFilterRoles filteredRoles={roles} />
+                </div>
                 <Input
                     id="filter-input"
                     placeholder="Search"

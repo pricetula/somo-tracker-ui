@@ -70,7 +70,7 @@ export function useInstituteUsersColumns(
                     )
                 },
                 meta: {
-                    className: "w-[400px]",
+                    className: "min-w-[260px]",
                 },
             },
             {
