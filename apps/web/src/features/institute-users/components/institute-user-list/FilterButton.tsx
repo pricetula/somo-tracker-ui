@@ -16,19 +16,17 @@ import {
 import { roleOptions } from "@/shared/utils/constants"
 
 interface FilterButtonProps {
+    selectedRoles: string[]
     onCheckedRoles: (checkedRoles: string[]) => void
 }
 
-export function FilterButton({ onCheckedRoles }: FilterButtonProps) {
-    const [checkedRoles, setCheckedRoles] = React.useState<string[]>([])
-
+export function FilterButton({ selectedRoles, onCheckedRoles }: FilterButtonProps) {
     function handleClickedCheckbox(e: any, roleValue: string) {
         e.preventDefault()
-        const isRoleChecked = checkedRoles.includes(roleValue)
+        const isRoleChecked = selectedRoles.includes(roleValue)
         const l = !isRoleChecked
-            ? [...checkedRoles, roleValue]
-            : checkedRoles.filter((role) => role !== roleValue)
-        setCheckedRoles(l)
+            ? [...selectedRoles, roleValue]
+            : selectedRoles.filter((role) => role !== roleValue)
         onCheckedRoles(l)
     }
 
@@ -52,7 +50,7 @@ export function FilterButton({ onCheckedRoles }: FilterButtonProps) {
                             {roleOptions.map((role) => (
                                 <DropdownMenuItem key={role.value} onClick={(e) => handleClickedCheckbox(e, role.value)}>
                                     <Checkbox
-                                        checked={checkedRoles.includes(role.value)}
+                                        checked={selectedRoles.includes(role.value)}
                                     />
                                     <span>{role.label}</span>
                                 </DropdownMenuItem>

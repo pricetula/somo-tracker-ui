@@ -48,7 +48,7 @@ export function InstituteUserListTable({ instituteUsers, getInstituteUsers }: In
     }, [roles, fetchedInstituteUsers])
 
     const table = useReactTable({
-        columns: columns(),
+        columns: columns,
         data: filteredInstituteUsers,
         getCoreRowModel: getCoreRowModel(),
         getSortedRowModel: getSortedRowModel(),
@@ -71,7 +71,6 @@ export function InstituteUserListTable({ instituteUsers, getInstituteUsers }: In
             limit: 10,
             lastSeenCreatedAt,
         })
-        console.log({ data, error })
         setIsSubmitting(false)
         if (error) {
             toast.error(error)
@@ -88,12 +87,16 @@ export function InstituteUserListTable({ instituteUsers, getInstituteUsers }: In
         console.log(instituteUsers)
     }
 
+    function onRemoveRole(role: string) {
+        setRoles((prev) => prev.filter((r) => r !== role))
+    }
+
     return (
         <article className="w-full p-2">
             <nav className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                    <FilterButton onCheckedRoles={setRoles} />
-                    <ActiveFilterRoles filteredRoles={roles} />
+                    <FilterButton selectedRoles={roles} onCheckedRoles={setRoles} />
+                    <ActiveFilterRoles filteredRoles={roles} onRemoveRole={onRemoveRole} />
                 </div>
                 <Input
                     id="filter-input"
