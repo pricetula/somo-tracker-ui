@@ -89,7 +89,7 @@ export function InstituteUserListTable({ instituteUsers, getInstituteUsers }: In
 
     return (
         <article className="w-full p-2">
-            <nav className="flex items-center justify-between mb-1">
+            <nav className="flex items-center justify-between mb-4">
                 <FilterButton onCheckedRoles={setRoles} />
                 <Input
                     id="filter-input"
@@ -98,7 +98,7 @@ export function InstituteUserListTable({ instituteUsers, getInstituteUsers }: In
                     className="w-[180px] py-1 h-8 text-sm"
                 />
             </nav>
-            <Table wrapperClassName="max-h-[80vh] border rounded-sm">
+            <Table wrapperClassName="max-h-[78vh] border rounded-sm">
                 <TableHeader className="sticky top-0 bg-background z-10">
                     {table.getHeaderGroups().map((headerGroup) => (
                         <TableRow key={headerGroup.id}>

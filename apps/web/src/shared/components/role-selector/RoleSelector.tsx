@@ -17,6 +17,7 @@ import {
     CommandList,
 } from "@/shared/components/ui/command"
 import { roleOptions } from "@/shared/utils/constants"
+import { RoleDisplay } from "@/shared/components/role-display"
 
 interface RoleSelectorProps {
     id: string
@@ -41,7 +42,7 @@ export function RoleSelector({ id, value, onSetValue }: RoleSelectorProps) {
                     aria-expanded={open}
                 >
                     {selectedOption?.label ? (
-                        <span className={cn("p-.5 px-2 rounded-md", selectedOption.bgColor)}>{selectedOption.label}</span>
+                        <RoleDisplay role={selectedOption.label} />
                     ) : "Select role"}
                     <ChevronsUpDown className="opacity-50" />
                 </Button>

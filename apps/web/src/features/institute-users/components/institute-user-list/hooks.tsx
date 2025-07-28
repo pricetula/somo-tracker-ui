@@ -4,7 +4,7 @@ import * as React from "react"
 import {
     ColumnDef,
 } from "@tanstack/react-table"
-import { Avatar, AvatarFallback, AvatarImage } from "@/shared/components/ui/avatar"
+import { Avatar, AvatarImage } from "@/shared/components/ui/avatar"
 import {
     Edit,
     Trash,
@@ -20,6 +20,7 @@ import {
 } from "@/shared/components/ui/dropdown-menu"
 import { RoleSelector } from "@/shared/components/role-selector"
 import { InstituteUsers } from "../../types"
+import { CustomAvatarFallback } from "@/shared/components/custom-avatar-fallback"
 
 export function useInstituteUsersColumns(
     handleRequestUpdateInstituteUserRole: (instituteUsers: InstituteUsers) => void
@@ -62,9 +63,9 @@ export function useInstituteUsersColumns(
                         <div className="flex items-center gap-2">
                             <Avatar className="h-8 w-8 rounded-lg">
                                 <AvatarImage src={row.original.user.photo_url} alt={name} />
-                                <AvatarFallback className="rounded-lg">{abbreviatedName}</AvatarFallback>
+                                <CustomAvatarFallback name={abbreviatedName || ""} />
                             </Avatar>
-                            <span>{name}</span>
+                            <span className="capitalize">{name}</span>
                         </div>
                     )
                 },
