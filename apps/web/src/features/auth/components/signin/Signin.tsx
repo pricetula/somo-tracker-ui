@@ -1,6 +1,7 @@
 import React, { Suspense } from "react"
+import { sendOtpCodeToEmail } from "../../services/send-otp-code-to-email"
+import { verifyOtpCode } from "../../services/verify-otp-code"
 import { SigninForm } from "./SigninForm"
-import { sendOtpCodeToEmail, verifyOtpCode } from "./actions"
 
 export function Signin() {
     return (

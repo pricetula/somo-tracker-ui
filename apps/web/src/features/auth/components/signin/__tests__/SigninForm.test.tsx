@@ -1,147 +1,169 @@
-// SigninForm.test.tsx
 /**
  * @jest-environment jsdom
  */
 
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { SigninForm } from '../SigninForm'; // Adjust path if necessary
-import '@testing-library/jest-dom'; // For extended matchers
+import React from "react"
+import { render, screen, waitFor } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
+import { SigninForm } from "../SigninForm"
+import "@testing-library/jest-dom"
+import { toast } from "sonner"
 
-// -----------------------------------------------------------------------------
-// MOCKING DEPENDENCIES
-// -----------------------------------------------------------------------------
-
-// Mock the next/navigation module
-// Jest will automatically pick up the mock from __mocks__/next/navigation.js
-jest.mock('next/navigation');
-
-// Mock the custom useToast hook
-// Jest will automatically pick up the mock from __mocks__/@/shared/hooks/use-toast.js
-jest.mock('@/shared/hooks/use-toast');
-
-// Mock `lucide-react`'s Loader2Icon since it's an SVG component and might cause issues
-// if not handled properly in JSDOM or if it's not crucial to test its rendering logic.
-// We'll just return a simple div.
-jest.mock('lucide-react', () => ({
-    Loader2Icon: () => <div data-testid="loader-icon" />,
-}));
-
-// Mock the shared UI components that are often simple wrappers or might have
-// internal dependencies that are not needed for this component's logic testing.
-// This is a common practice to isolate the component under test.
-jest.mock('@/shared/components/ui/form', () => ({
-    Form: ({ children, ...props }) => <div>{children}</div>,
-    FormControl: ({ children }) => <div>{children}</div>,
-    // UPDATED: FormField mock to correctly pass 'id' from 'name' prop
-    FormField: ({ render, name }) => {
-        const fieldProps = {
-            name: name,
-            id: name, // This is crucial for linking the label and input
-            value: '', // Provide a default value for controlled inputs
-            onChange: jest.fn(),
-            onBlur: jest.fn(),
-            ref: jest.fn(), // Mock the ref as it's often passed
-        };
-        return render({ field: fieldProps });
-    },
-    FormItem: ({ children }) => <div>{children}</div>,
-    FormLabel: ({ children, ...rest }) => <label {...rest}>{children}</label>,
-    FormMessage: () => <div />,
-}));
-
-jest.mock('@/shared/components/ui/input', () => ({
-    Input: (props) => <input {...props} />,
-}));
-
-jest.mock('@/shared/components/ui/input-otp', () => ({
-    InputOTP: ({ children, ...props }) => <div {...props}>{children}</div>,
-    InputOTPGroup: ({ children }) => <div>{children}</div>,
-    InputOTPSlot: (props) => <input data-testid={`otp-slot-${props.index}`} {...props} />,
-}));
-
-jest.mock('@/shared/components/ui/button', () => ({
-    Button: ({ children, ...props }) => <button {...props}>{children}</button>,
-}));
-
-// Mock the form-schema
-// We'll use the original signinSchema, but ensure any other types are mocked if needed.
-// IMPORTANT: Changed './form-schema' to '../form-schema' to correctly resolve the path from the test file.
-jest.mock('../form-schema', () => ({
-    signinSchema: {
-        // Mock a simplified schema for testing purposes if the original is too complex
-        // For this component, the original Zod schema imported should work fine if Zod is installed.
-        // If issues arise, a simplified mock might be needed.
-        // For now, let's assume the original `signinSchema` import works with `zodResolver`.
-    },
-    // Ensure `type SigninSchema` is also available if it's used directly in the test file
-    // For this example, we don't directly use SigninSchema in the test.
-}));
+// Mock ResizeObserver
+const ResizeObserverMock = jest.fn(() => ({
+    observe: jest.fn(),
+    unobserve: jest.fn(),
+    disconnect: jest.fn(),
+}))
+global.ResizeObserver = ResizeObserverMock
 
 
-// -----------------------------------------------------------------------------
-// TEST SUITE
-// -----------------------------------------------------------------------------
+// Mock dependencies
+jest.mock("sonner", () => ({
+    toast: Object.assign(jest.fn(), {
+        error: jest.fn(),
+    }),
+}))
 
-describe('SigninForm', () => {
-    // Mock implementations for the props
-    const mockSendOtpCodeToEmail = jest.fn();
-    const mockVerifyOtpCode = jest.fn();
+const mockPush = jest.fn()
+const mockGet = jest.fn()
 
-    // Import the mocked useRouter and useSearchParams from next/navigation
-    // so we can access their mock implementations for assertions
-    const { useRouter, useSearchParams } = require('next/navigation');
-    const { useToast } = require('@/shared/hooks/use-toast');
+jest.mock("next/navigation", () => ({
+    useRouter: () => ({
+        push: mockPush,
+    }),
+    useSearchParams: () => ({
+        get: mockGet,
+    }),
+}))
+
+const mockSendOtpCodeToEmail = jest.fn()
+const mockVerifyOtpCode = jest.fn()
+
+describe("SigninForm", () => {
+    beforeAll(() => {
+        Object.defineProperty(document, "elementFromPoint", {
+            // Make sure it"s configurable so we can redefine it if needed,
+            // and writable so Jest can track calls if we use jest.fn() later.
+            configurable: true,
+            value: jest.fn(() => null), // Use jest.fn() if you want to track calls
+        })
+    })
 
     beforeEach(() => {
-        // Reset mocks before each test to ensure isolation
-        mockSendOtpCodeToEmail.mockClear();
-        mockVerifyOtpCode.mockClear();
-        useRouter().push.mockClear();
-        useSearchParams().get.mockClear();
-        useToast().toast.mockClear();
+        jest.clearAllMocks()
+    })
 
-        // Reset default mock return values for hooks if needed
-        useRouter.mockImplementation(() => ({
-            push: jest.fn(),
-            replace: jest.fn(),
-            prefetch: jest.fn(),
-            route: '/',
-            pathname: '/',
-            query: {},
-            asPath: '/',
-        }));
-        useSearchParams.mockImplementation(() => ({
-            get: jest.fn((param) => {
-                if (param === 'redirect') {
-                    return '/dashboard'; // Default for tests
-                }
-                return null;
-            }),
-        }));
-        useToast.mockImplementation(() => ({
-            toast: jest.fn(),
-        }));
-    });
+    it("should render the initial form with email input and submit button", () => {
+        render(<SigninForm sendOtpCodeToEmail={mockSendOtpCodeToEmail} verifyOtpCode={mockVerifyOtpCode} />)
 
-    it('renders the email input and sign in button initially', () => {
-        render(
-            <SigninForm
-                sendOtpCodeToEmail={mockSendOtpCodeToEmail}
-                verifyOtpCode={mockVerifyOtpCode}
-            />
-        );
+        expect(screen.getByLabelText(/email/i)).toBeInTheDocument()
+        expect(screen.getByRole("button", { name: /sign in/i })).toBeInTheDocument()
+        expect(screen.queryByLabelText(/verify code/i)).not.toBeInTheDocument()
+    })
 
-        // Check if the email input is present
-        expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
-        expect(screen.getByPlaceholderText(/email for otp sign-in/i)).toBeInTheDocument();
+    it("should show an error message if email is invalid", async () => {
+        const user = userEvent.setup()
+        render(<SigninForm sendOtpCodeToEmail={mockSendOtpCodeToEmail} verifyOtpCode={mockVerifyOtpCode} />)
 
-        // Check if the sign in button is present and not disabled
-        const signInButton = screen.getByRole('button', { name: /sign in/i });
-        expect(signInButton).toBeInTheDocument();
-        expect(signInButton).not.toBeDisabled();
+        await user.type(screen.getByLabelText(/email/i), "invalid-email")
+        await user.click(screen.getByRole("button", { name: /sign in/i }))
 
-        // Check that the OTP input is NOT initially rendered
-        expect(screen.queryByLabelText(/verify code/i)).not.toBeInTheDocument();
-    });
-});
+        expect(await screen.findByText("Invalid email address format.")).toBeInTheDocument()
+    })
+
+    it("should call sendOtpCodeToEmail on valid email submission", async () => {
+        const user = userEvent.setup()
+        mockSendOtpCodeToEmail.mockResolvedValue({ success: true, data: {}, error: "" })
+        render(<SigninForm sendOtpCodeToEmail={mockSendOtpCodeToEmail} verifyOtpCode={mockVerifyOtpCode} />)
+
+        await user.type(screen.getByLabelText(/email/i), "test@example.com")
+        await user.click(screen.getByRole("button", { name: /sign in/i }))
+
+        await waitFor(() => {
+            expect(mockSendOtpCodeToEmail).toHaveBeenCalledWith("test@example.com")
+            expect(toast).toHaveBeenCalledWith("Check your email to sign-in.")
+        })
+
+        expect(await screen.findByLabelText(/verify code/i)).toBeInTheDocument()
+        expect(screen.getByRole("button", { name: /verify/i })).toBeInTheDocument()
+    })
+
+    it("should show an error toast if sendOtpCodeToEmail fails", async () => {
+        const user = userEvent.setup()
+        mockSendOtpCodeToEmail.mockResolvedValue({ success: false, data: null, error: "Failed to send email" })
+        render(<SigninForm sendOtpCodeToEmail={mockSendOtpCodeToEmail} verifyOtpCode={mockVerifyOtpCode} />)
+
+        await user.type(screen.getByLabelText(/email/i), "test@example.com")
+        await user.click(screen.getByRole("button", { name: /sign in/i }))
+
+        await waitFor(() => {
+            expect(mockSendOtpCodeToEmail).toHaveBeenCalledWith("test@example.com")
+            expect(toast.error).toHaveBeenCalledWith("Failed to send email")
+        })
+    })
+
+    it("should call verifyOtpCode on code submission", async () => {
+        const user = userEvent.setup()
+        mockSendOtpCodeToEmail.mockResolvedValue({ success: true, data: {}, error: "" })
+        mockVerifyOtpCode.mockResolvedValue({ success: true, data: {}, error: "" })
+
+        render(<SigninForm sendOtpCodeToEmail={mockSendOtpCodeToEmail} verifyOtpCode={mockVerifyOtpCode} />)
+
+        await user.type(screen.getByLabelText(/email/i), "test@example.com")
+        await user.click(screen.getByRole("button", { name: /sign in/i }))
+
+        await screen.findByLabelText(/verify code/i)
+
+        await user.type(screen.getByLabelText(/verify code/i), "123456")
+        await user.click(screen.getByRole("button", { name: /verify/i }))
+
+        await waitFor(() => {
+            expect(mockVerifyOtpCode).toHaveBeenCalledWith({ code: "123456", email: "test@example.com" })
+            expect(toast).toHaveBeenCalledWith("You are now logged in.")
+            expect(mockPush).toHaveBeenCalledWith("/")
+        })
+    })
+
+    it("should show an error toast if verifyOtpCode fails", async () => {
+        const user = userEvent.setup()
+        mockSendOtpCodeToEmail.mockResolvedValue({ success: true, data: {}, error: "" })
+        mockVerifyOtpCode.mockResolvedValue({ success: false, data: null, error: "Invalid code" })
+
+        render(<SigninForm sendOtpCodeToEmail={mockSendOtpCodeToEmail} verifyOtpCode={mockVerifyOtpCode} />)
+
+        await user.type(screen.getByLabelText(/email/i), "test@example.com")
+        await user.click(screen.getByRole("button", { name: /sign in/i }))
+
+        await screen.findByLabelText(/verify code/i)
+
+        await user.type(screen.getByLabelText(/verify code/i), "111111")
+        await user.click(screen.getByRole("button", { name: /verify/i }))
+
+        await waitFor(() => {
+            expect(mockVerifyOtpCode).toHaveBeenCalledWith({ code: "111111", email: "test@example.com" })
+            expect(toast.error).toHaveBeenCalledWith("Invalid code")
+        })
+    })
+
+    it("should redirect to the given redirect URL on successful login", async () => {
+        const user = userEvent.setup()
+        mockSendOtpCodeToEmail.mockResolvedValue({ success: true, data: {}, error: "" })
+        mockVerifyOtpCode.mockResolvedValue({ success: true, data: {}, error: "" })
+        mockGet.mockReturnValue("/dashboard")
+
+        render(<SigninForm sendOtpCodeToEmail={mockSendOtpCodeToEmail} verifyOtpCode={mockVerifyOtpCode} />)
+
+        await user.type(screen.getByLabelText(/email/i), "test@example.com")
+        await user.click(screen.getByRole("button", { name: /sign in/i }))
+
+        await screen.findByLabelText(/verify code/i)
+
+        await user.type(screen.getByLabelText(/verify code/i), "123456")
+        await user.click(screen.getByRole("button", { name: /verify/i }))
+
+        await waitFor(() => {
+            expect(mockPush).toHaveBeenCalledWith("/dashboard")
+        })
+    })
+})

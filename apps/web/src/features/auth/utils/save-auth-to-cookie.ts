@@ -8,9 +8,6 @@ export async function saveAuthToCookie(data: AuthCookie): Promise<void> {
         throw new SaveAuthToCookieError("No data found in refresh token response")
     }
 
-    // Obtain cookie handler
-    const cookieStore = await cookies()
-
     if (!data.access_token) {
         throw new SaveAuthToCookieError("No access token found in refresh token response")
     }
@@ -22,6 +19,9 @@ export async function saveAuthToCookie(data: AuthCookie): Promise<void> {
     if (!data.id_token) {
         throw new SaveAuthToCookieError("No id token found in refresh token response")
     }
+
+    // Obtain cookie handler
+    const cookieStore = await cookies()
 
     // Store the new refreshed token data obtained to cookies
     cookieStore.set(COOKIE.AUTH, JSON.stringify({
