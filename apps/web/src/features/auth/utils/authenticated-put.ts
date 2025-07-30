@@ -1,3 +1,5 @@
+"use server"
+
 import { putApi } from "@/shared/lib/api"
 import { ApiInput } from "@/shared/lib/api/types"
 import { refreshTokenAndSaveToCookie } from "../services/refresh-token-and-save-to-cookies"
