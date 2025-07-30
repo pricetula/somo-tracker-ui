@@ -1,11 +1,11 @@
+"use server"
+
 import { cookies } from "next/headers"
 import { COOKIE } from "@/shared/lib/constants"
 import { SaveAuthToCookieError } from "../errors";
 import { AuthCookie } from "../types";
 
 export async function saveAuthToCookie(data: AuthCookie): Promise<void> {
-    "use server"
-
     if (!data) {
         throw new SaveAuthToCookieError("No data found in refresh token response")
     }
