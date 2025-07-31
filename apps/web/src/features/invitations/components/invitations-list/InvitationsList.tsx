@@ -13,7 +13,7 @@ export async function InvitationsList() {
                 {invitations.map((invitation) => (
                     <li
                         key={invitation.id}
-                        className="bg-white shadow-sm rounded-2xl p-4 border border-gray-200"
+                        className="bg-white shadow-sm rounded-2xl p-4 border"
                     >
                         <div className="flex justify-between items-center">
                             <div>
