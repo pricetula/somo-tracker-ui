@@ -1,11 +1,11 @@
 "use client"
 
 import { useEffect } from "react"
-import { InstituteUser } from "../types"
+import { User } from "@/shared/types/user"
 import { useMeStore } from "./store"
 
 interface MeHydratorProps {
-    me: InstituteUser
+    me: User
 }
 
 // Hydrates the me store with the me data from the server

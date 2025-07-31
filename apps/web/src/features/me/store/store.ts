@@ -1,9 +1,9 @@
 import { create } from "zustand"
-import { InstituteUser } from "../types"
+import { User } from "@/shared/types/user"
 
 interface MeState {
-    me: InstituteUser | null
-    setMe: (me: InstituteUser) => void
+    me: User | null
+    setMe: (me: User) => void
     clearMe: () => void
 }
 
