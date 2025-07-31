@@ -10,7 +10,11 @@ export async function getMe(): Promise<User | null> {
             err.name = resp.statusText;
             throw err;
         }
-        return await resp.json();
+        const meData = await resp.json();
+        if (meData.id === "00000000-0000-0000-0000-000000000000") {
+            return null
+        }
+        return meData
     } catch (error: any) {
         if (error.message?.includes("sql: no rows")) {
             return null

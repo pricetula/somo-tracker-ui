@@ -68,7 +68,7 @@ export function CreateInstituteForm({ createInstitute }: CreateInstituteProps) {
         }
 
         // If creation was successfull then redirect to create school page
-        window.location.href = "/create-school"
+        window.location.href = "/"
     }
 
     return (
