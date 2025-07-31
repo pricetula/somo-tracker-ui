@@ -10,10 +10,18 @@ export const createInstituteSchema = z.object({
         .string()
         .trim()
         .min(1, { message: "Required." }),
+    address: z
+        .string()
+        .trim()
+        .optional(),
     website: z
         .string()
         .trim()
         .optional(),
+    education_system_id: z
+        .string()
+        .trim()
+        .min(1, { message: "Required." }),
     email: z
         .string()
         .trim()

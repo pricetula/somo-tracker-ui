@@ -15,6 +15,7 @@ import {
 import { Input } from "@/shared/components/ui/input"
 import { Button } from "@/shared/components/ui/button"
 import { ActionResponse } from "@/shared/types/actions"
+import { EducationSystemComboBox } from "@/features/education-system/components/education-system-combo-box"
 import { Institute } from "../../types"
 import {
     createInstituteSchema,
@@ -35,7 +36,9 @@ export function CreateInstituteForm({ createInstitute }: CreateInstituteProps) {
         defaultValues: {
             name: "",
             description: "",
+            address: "",
             website: "",
+            education_system_id: "",
             email: "",
             first_name: "",
             last_name: "",
@@ -73,12 +76,83 @@ export function CreateInstituteForm({ createInstitute }: CreateInstituteProps) {
             <form onSubmit={form.handleSubmit(submitFunc)} className="w-[90%] max-w-[500px] space-y-8">
                 <FormField
                     control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                        <FormItem className="mb-4">
+                            <FormLabel htmlFor="name">School Name</FormLabel>
+                            <FormControl>
+                                <Input id="name" placeholder="School Name" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="description"
+                    render={({ field }) => (
+                        <FormItem className="mb-4">
+                            <FormLabel htmlFor="description">School Description</FormLabel>
+                            <FormControl>
+                                <Input id="description" placeholder="Add School Description" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="address"
+                    render={({ field }) => (
+                        <FormItem className="mb-4">
+                            <FormLabel htmlFor="address">School Address</FormLabel>
+                            <FormControl>
+                                <Input id="address" placeholder="Add School Address" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="website"
+                    render={({ field }) => (
+                        <FormItem className="mb-4">
+                            <FormLabel htmlFor="website">School Website</FormLabel>
+                            <FormControl>
+                                <Input id="website" placeholder="Add SchoolWebsite" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="education_system_id"
+                    render={({ field }) => (
+                        <FormItem className="mb-4">
+                            <FormLabel htmlFor="education_system_id">Add School Education System</FormLabel>
+                            <FormControl>
+                                <EducationSystemComboBox
+                                    id="education_system_id"
+                                    initValue={field.value}
+                                    onSetValue={(educationSystem) => {
+                                        form.setValue("education_system_id", educationSystem.id)
+                                    }}
+                                />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
                     name="email"
                     render={({ field }) => (
                         <FormItem className="mb-4">
                             <FormLabel htmlFor="email">User Email</FormLabel>
                             <FormControl>
-                                <Input id="email" type="email" placeholder="Email" {...field} />
+                                <Input id="email" type="email" placeholder="Add User Email" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -91,7 +165,7 @@ export function CreateInstituteForm({ createInstitute }: CreateInstituteProps) {
                         <FormItem className="mb-4">
                             <FormLabel htmlFor="first_name">First Name</FormLabel>
                             <FormControl>
-                                <Input id="first_name" placeholder="First Name" {...field} />
+                                <Input id="first_name" placeholder="Add User First Name" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -104,48 +178,7 @@ export function CreateInstituteForm({ createInstitute }: CreateInstituteProps) {
                         <FormItem className="mb-4">
                             <FormLabel htmlFor="last_name">Last Name</FormLabel>
                             <FormControl>
-                                <Input id="last_name" placeholder="Last Name" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-
-
-                <FormField
-                    control={form.control}
-                    name="name"
-                    render={({ field }) => (
-                        <FormItem className="mb-4">
-                            <FormLabel htmlFor="name">Institute Name</FormLabel>
-                            <FormControl>
-                                <Input id="name" placeholder="Institute Name" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="description"
-                    render={({ field }) => (
-                        <FormItem className="mb-4">
-                            <FormLabel htmlFor="description">Description</FormLabel>
-                            <FormControl>
-                                <Input id="description" placeholder="Description" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="website"
-                    render={({ field }) => (
-                        <FormItem className="mb-4">
-                            <FormLabel htmlFor="website">Website</FormLabel>
-                            <FormControl>
-                                <Input id="website" placeholder="Website" {...field} />
+                                <Input id="last_name" placeholder="Add User Last Name" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
