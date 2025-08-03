@@ -15,7 +15,7 @@ export function Signout() {
             })
     }
     React.useEffect(() => {
-        // signout()
+        signout()
     }, [])
     return (
         <div>

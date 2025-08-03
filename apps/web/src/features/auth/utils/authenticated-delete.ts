@@ -3,7 +3,7 @@
 import { deleteApi } from "@/shared/lib/api"
 import { ApiInput } from "@/shared/lib/api/types"
 import { refreshTokenAndSaveToCookie } from "../services/refresh-token-and-save-to-cookies"
-import { AuthenticatedGetError } from "../errors"
+import { AuthenticatedDeleteError } from "../errors"
 import { getAccessTokenFromAuthCookie } from "./get-access-token-from-auth-cookie";
 
 export async function authenticatedDelete(d: ApiInput): Promise<Response> {
@@ -12,20 +12,26 @@ export async function authenticatedDelete(d: ApiInput): Promise<Response> {
 
     // Check and make sure access token exists
     if (!token) {
-        throw new AuthenticatedGetError("Token is required")
+        throw new AuthenticatedDeleteError("Token is required")
     }
 
     d.token = token
 
-    // Make get request
-    const resp = await deleteApi(d)
+    try {
+        // Make get request
+        const resp = await deleteApi(d)
 
-    // If response is not ok then check what the error is
-    if (!resp.ok) {
-        const error = await resp.text()
+        // If response is not ok then check what the error is
+        if (!resp.ok) {
+            const error = await resp.text()
 
+            // Throw error if not related to token expiry
+            throw new AuthenticatedDeleteError(error)
+        }
+        return resp
+    } catch (err: any) {
         // Check to see if error is caused by access token expiry
-        if (error && error.includes('"exp" not satisfied')) {
+        if (err?.message && err.message.includes("exp")) {
             // Attempt to get new access token
             const newTokenData = await refreshTokenAndSaveToCookie()
 
@@ -35,9 +41,7 @@ export async function authenticatedDelete(d: ApiInput): Promise<Response> {
             // Make get request again
             return await deleteApi(d)
         }
-
-        // Throw error if not related to token expiry
-        throw new AuthenticatedGetError(error)
+        throw err
     }
-    return resp
+
 }

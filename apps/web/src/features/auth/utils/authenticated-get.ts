@@ -17,15 +17,21 @@ export async function authenticatedGet(d: ApiInput): Promise<Response> {
 
     d.token = token
 
-    // Make get request
-    const resp = await getApi(d)
+    try {
+        // Make get request
+        const resp = await getApi(d)
 
-    // If response is not ok then check what the error is
-    if (!resp.ok) {
-        const error = await resp.text()
+        // If response is not ok then check what the error is
+        if (!resp.ok) {
+            const error = await resp.text()
 
+            // Throw error if not related to token expiry
+            throw new AuthenticatedGetError(error)
+        }
+        return resp
+    } catch (err: any) {
         // Check to see if error is caused by access token expiry
-        if (error && error.includes('"exp" not satisfied')) {
+        if (err?.message && err.message.includes("exp")) {
             // Attempt to get new access token
             const newTokenData = await refreshTokenAndSaveToCookie()
 
@@ -35,9 +41,6 @@ export async function authenticatedGet(d: ApiInput): Promise<Response> {
             // Make get request again
             return await getApi(d)
         }
-
-        // Throw error if not related to token expiry
-        throw new AuthenticatedGetError(error)
+        throw err
     }
-    return resp
 }

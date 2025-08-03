@@ -3,6 +3,7 @@ import { getMe } from "@/features/me/services/get-me"
 import { MeHydrator } from "@/features/me/store"
 import { DashboardLayout } from "@/shared/components/layout/dashboard-layout";
 import { User } from "@/shared/types/user";
+import { TokenRefreshFailedError } from "@/features/auth/errors";
 
 // This layout is used for the dashboard and requires the user to be logged in
 export default async function Layout({ children }: { children: React.ReactNode }) {
@@ -12,7 +13,11 @@ export default async function Layout({ children }: { children: React.ReactNode }
     try {
         me = await getMe();
     } catch (error: any) {
-        redirect("/signout");
+        if (error instanceof TokenRefreshFailedError) {
+            redirect("/signout");
+        } else {
+            me = null;
+        }
     }
 
     // If me institute is not defined, redirect to the create institute page
