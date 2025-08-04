@@ -9,15 +9,10 @@ export interface School {
     name: string
     description: string
     address: string
-    contact_user_id: string
     website: string
     created_at?: string
     updated_at?: string
     deleted_at?: string
-    school_setting?: SchoolSetting
-    institute?: Institute
-    education_system?: EducationSystem
-    contact_user?: User
 }
 
 export interface SchoolSetting {

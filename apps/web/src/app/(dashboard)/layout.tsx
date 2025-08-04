@@ -14,6 +14,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
     let me: User | null
 
     try {
+        // get me from api
         me = await getMe();
     } catch (error: any) {
         if (error instanceof TokenRefreshFailedError) {
@@ -28,9 +29,11 @@ export default async function Layout({ children }: { children: React.ReactNode }
         redirect("/create-institute");
     }
 
+    // variable to hold list of schools
     let schools: School[];
 
     try {
+        // get schools from api
         const resp = await getSchools();
         if (resp.success && resp.data) {
             schools = resp.data

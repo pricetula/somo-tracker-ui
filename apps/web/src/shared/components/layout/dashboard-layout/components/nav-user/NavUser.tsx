@@ -33,15 +33,15 @@ import { useMeStore } from "@/features/me/store"
 
 export function NavUser() {
     const { isMobile } = useSidebar()
-    const user = useMeStore((store) => store.me)?.user
+    const me = useMeStore((store) => store.me)
 
-    if (!user) {
+    if (!me?.id) {
         return null
     }
 
-    const fullName = `${user.first_name} ${user.last_name}`
+    const fullName = `${me.first_name} ${me.last_name}`
 
-    const abbreviatedName = `${user.first_name[0]}${user.last_name[0]}`
+    const abbreviatedName = `${me.first_name[0]}${me.last_name[0]}`
 
 
 
@@ -55,12 +55,12 @@ export function NavUser() {
                             className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
                         >
                             <Avatar className="h-8 w-8 rounded-lg">
-                                <AvatarImage src={user.photo_url} alt={fullName} />
+                                <AvatarImage src={me.photo_url} alt={fullName} />
                                 <AvatarFallback className="rounded-lg">{abbreviatedName}</AvatarFallback>
                             </Avatar>
                             <div className="grid flex-1 text-left text-sm leading-tight">
                                 <span className="truncate font-semibold">{fullName}</span>
-                                <span className="truncate text-xs">{user.email}</span>
+                                <span className="truncate text-xs">{me.email}</span>
                             </div>
                             <ChevronsUpDown className="ml-auto size-4" />
                         </SidebarMenuButton>
@@ -74,12 +74,12 @@ export function NavUser() {
                         <DropdownMenuLabel className="p-0 font-normal">
                             <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                                 <Avatar className="h-8 w-8 rounded-lg">
-                                    <AvatarImage src={user.photo_url} alt={fullName} />
+                                    <AvatarImage src={me.photo_url} alt={fullName} />
                                     <AvatarFallback className="rounded-lg">{abbreviatedName}</AvatarFallback>
                                 </Avatar>
                                 <div className="grid flex-1 text-left text-sm leading-tight">
                                     <span className="truncate font-semibold">{fullName}</span>
-                                    <span className="truncate text-xs">{user.email}</span>
+                                    <span className="truncate text-xs">{me.email}</span>
                                 </div>
                             </div>
                         </DropdownMenuLabel>

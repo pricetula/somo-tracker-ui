@@ -18,20 +18,27 @@ import {
     SidebarMenuItem,
     useSidebar,
 } from "@/shared/components/ui/sidebar"
+import { useSchoolsStore } from "@/features/school/store"
+import { useMeStore } from "@/features/me/store"
+import { School } from "@/features/school/types"
 
-export function SchoolSwitcher({
-    schools,
-}: {
-    schools: {
-        name: string
-        logo: React.ElementType
-    }[]
-}) {
+export function SchoolSwitcher() {
     const { isMobile } = useSidebar()
-    const [activeSchool, setActiveSchool] = React.useState(schools[0])
+    const me = useMeStore((s) => s.me)
+    const schools = useSchoolsStore((s) => s.schools)
+
+    if (!schools.length) {
+        return null
+    }
+
+    const activeSchool = schools.find((school) => school.id === me?.active_school_id)
 
     if (!activeSchool) {
         return null
+    }
+
+    function setActiveSchool(s: School) {
+        console.log("schoool", s)
     }
 
     return (
@@ -44,7 +51,7 @@ export function SchoolSwitcher({
                             className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
                         >
                             <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                                <activeSchool.logo className="size-4" />
+                                {activeSchool.name[0]?.toUpperCase?.()}
                             </div>
                             <div className="grid flex-1 text-left text-sm leading-tight">
                                 <span className="truncate font-semibold">
@@ -55,7 +62,7 @@ export function SchoolSwitcher({
                         </SidebarMenuButton>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent
-                        className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
+                        className="w-[--radix-dropdown-menu-trigger-width] min-w-64 rounded-lg"
                         align="start"
                         side={isMobile ? "bottom" : "right"}
                         sideOffset={4}
@@ -63,16 +70,16 @@ export function SchoolSwitcher({
                         <DropdownMenuLabel className="text-xs text-muted-foreground">
                             Schools
                         </DropdownMenuLabel>
-                        {schools.map((team, index) => (
+                        {schools.map((school, index) => (
                             <DropdownMenuItem
-                                key={team.name}
-                                onClick={() => setActiveSchool(team)}
+                                key={school.name}
+                                onClick={() => setActiveSchool(school)}
                                 className="gap-2 p-2"
                             >
                                 <div className="flex size-6 items-center justify-center rounded-sm border">
-                                    <team.logo className="size-4 shrink-0" />
+                                    {school.name[0]?.toUpperCase?.()}
                                 </div>
-                                {team.name}
+                                {school.name}
                                 <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
                             </DropdownMenuItem>
                         ))}
