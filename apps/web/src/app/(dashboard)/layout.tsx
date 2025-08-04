@@ -4,6 +4,9 @@ import { MeHydrator } from "@/features/me/store"
 import { DashboardLayout } from "@/shared/components/layout/dashboard-layout";
 import { User } from "@/shared/types/user";
 import { TokenRefreshFailedError } from "@/features/auth/errors";
+import { School } from "@/features/school/types";
+import { getSchools } from "@/features/school/services/get-school";
+import { SchoolsHydrator } from "@/features/school/store";
 
 // This layout is used for the dashboard and requires the user to be logged in
 export default async function Layout({ children }: { children: React.ReactNode }) {
@@ -25,11 +28,25 @@ export default async function Layout({ children }: { children: React.ReactNode }
         redirect("/create-institute");
     }
 
+    let schools: School[];
+
+    try {
+        const resp = await getSchools();
+        if (resp.success && resp.data) {
+            schools = resp.data
+        } else {
+            schools = []
+        }
+    } catch (error: any) {
+        schools = []
+    }
+
     return (
         <DashboardLayout>
             <main className="h-[90vh] overflow-y-auto">
                 {children}
                 <MeHydrator me={me} />
+                <SchoolsHydrator schools={schools} />
             </main>
         </DashboardLayout>
     )
