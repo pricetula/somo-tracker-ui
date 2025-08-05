@@ -17,7 +17,6 @@ import { Input } from "@/shared/components/ui/input"
 import { Button } from "@/shared/components/ui/button"
 import { ActionResponse } from "@/shared/types/actions"
 import { EducationSystemComboBox } from "@/features/education-system/components/education-system-combo-box"
-import { InstituteUser } from "@/features/me/types"
 import { School } from "../../types"
 import {
     createSchoolSchema,
@@ -25,11 +24,10 @@ import {
 } from "./form-schema"
 
 interface CreateSchoolProps {
-    me: InstituteUser
     createSchool(School: CreateSchoolSchema): Promise<ActionResponse<School | null>>
 }
 
-export function CreateSchoolForm({ me, createSchool }: CreateSchoolProps) {
+export function CreateSchoolForm({ createSchool }: CreateSchoolProps) {
     // State to be set to true when email is being sent or verifying code
     const [isSubmitting, setIsSubmitting] = React.useState(false)
 
@@ -44,16 +42,6 @@ export function CreateSchoolForm({ me, createSchool }: CreateSchoolProps) {
             education_system_id: "",
         },
     })
-
-    React.useEffect(() => {
-        if (me?.institute?.id) {
-            // If the user is logged in and has an institute, set the institute_id
-            form.setValue("name", me.institute.name)
-            form.setValue("description", me.institute.description)
-            form.setValue("address", me.institute.address)
-            form.setValue("website", me.institute.website)
-        }
-    }, [me])
 
     async function submitFunc(i: CreateSchoolSchema) {
         // Set isSubmitting to true to disable the submit button and show the loader

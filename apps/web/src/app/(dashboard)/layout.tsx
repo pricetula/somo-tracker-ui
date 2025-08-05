@@ -9,7 +9,7 @@ import { getSchools } from "@/features/school/services/get-school";
 import { SchoolsHydrator } from "@/features/school/store";
 
 // This layout is used for the dashboard and requires the user to be logged in
-export default async function Layout({ children }: { children: React.ReactNode }) {
+export default async function Layout({ children, modal }: { modal: React.ReactNode, children: React.ReactNode }) {
     // Variable to hold me data which is the current user and their institute
     let me: User | null
 
@@ -50,6 +50,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
                 {children}
                 <MeHydrator me={me} />
                 <SchoolsHydrator schools={schools} />
+                {modal}
             </main>
         </DashboardLayout>
     )
