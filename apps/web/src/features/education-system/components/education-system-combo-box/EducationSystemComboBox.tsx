@@ -1,5 +1,6 @@
 "use client"
-import * as React from "react"
+
+import { useState, useEffect } from "react"
 import { Check, ChevronsUpDown } from "lucide-react"
 import { cn } from "@/shared/lib/utils"
 import { Button } from "@/shared/components/ui/button"
@@ -27,17 +28,17 @@ interface EducationSystemComboBoxProps {
 
 export function EducationSystemComboBox({ id, initValue, onSetValue }: EducationSystemComboBoxProps) {
     const educationSystems = useEducationSystemsStore((s) => s.educationSystems)
-    const [open, setOpen] = React.useState(false)
-    const [value, setValue] = React.useState("")
+    const [open, setOpen] = useState(false)
+    const [value, setValue] = useState("")
     const selectedEducationSystem = value && educationSystems.find((educationSystem) => educationSystem.id === value) || null
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (!selectedEducationSystem && initValue) {
             setValue(initValue)
         }
     }, [initValue, selectedEducationSystem])
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (selectedEducationSystem) {
             onSetValue(selectedEducationSystem)
         }

@@ -1,6 +1,6 @@
 "use client"
 
-import * as React from "react"
+import { useMemo, useState } from "react"
 import { toast } from "sonner"
 import {
     flexRender,
@@ -39,18 +39,18 @@ interface InstituteUserListTableProps {
 export function InstituteUserListTable({ instituteUsers, getInstituteUsers }: InstituteUserListTableProps) {
     const router = useRouter()
     const searchParams = useSearchParams()
-    const queryRoles = React.useMemo(() => {
+    const queryRoles = useMemo(() => {
         let roles = searchParams.get("roles")
         if (!roles) return []
         return roles.split(",").map((role) => role.toUpperCase())
     }, [searchParams])
 
     const columns = useInstituteUsersColumns(handleRequestUpdateInstituteUserRole)
-    const [isSubmitting, setIsSubmitting] = React.useState(false)
-    const [isNoMoreUsers, setIsNoMoreUsers] = React.useState(false)
-    const [rowSelection, setRowSelection] = React.useState({})
-    const [fetchedInstituteUsers, setFetchedInstituteUsers] = React.useState<InstituteUsers[]>(instituteUsers)
-    const filteredInstituteUsers = React.useMemo(() => {
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [isNoMoreUsers, setIsNoMoreUsers] = useState(false)
+    const [rowSelection, setRowSelection] = useState({})
+    const [fetchedInstituteUsers, setFetchedInstituteUsers] = useState<InstituteUsers[]>(instituteUsers)
+    const filteredInstituteUsers = useMemo(() => {
         if (queryRoles.length === 0) return fetchedInstituteUsers
         return fetchedInstituteUsers.filter((instituteUser) => queryRoles.includes(instituteUser.role))
     }, [queryRoles, fetchedInstituteUsers])

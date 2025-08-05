@@ -1,4 +1,3 @@
-import * as React from "react"
 import { getInstituteUsers } from "../../services/get-institute-users"
 import { InstituteUserListTable } from "./InstituteUserListTable"
 

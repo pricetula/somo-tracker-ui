@@ -1,5 +1,6 @@
 "use client"
-import * as React from "react"
+
+import { useState } from "react"
 import { Check, ChevronsUpDown } from "lucide-react"
 import { cn } from "@/shared/lib/utils"
 import { Button } from "@/shared/components/ui/button"
@@ -26,7 +27,7 @@ interface RoleSelectorProps {
 }
 
 export function RoleSelector({ id, value, onSetValue }: RoleSelectorProps) {
-    const [open, setOpen] = React.useState(false)
+    const [open, setOpen] = useState(false)
 
     return (
         <Popover open={open} onOpenChange={setOpen}>

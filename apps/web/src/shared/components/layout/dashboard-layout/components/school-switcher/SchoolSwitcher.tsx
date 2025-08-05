@@ -1,6 +1,6 @@
 "use client"
 
-import * as React from "react"
+import { Suspense } from "react"
 import { ChevronsUpDown, Plus } from "lucide-react"
 import Link from "next/link"
 import {
@@ -46,20 +46,22 @@ export function SchoolSwitcher() {
             <SidebarMenuItem>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <SidebarMenuButton
-                            size="lg"
-                            className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-                        >
-                            <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                                {activeSchool.name[0]?.toUpperCase?.()}
-                            </div>
-                            <div className="grid flex-1 text-left text-sm leading-tight">
-                                <span className="truncate font-semibold">
-                                    {activeSchool.name}
-                                </span>
-                            </div>
-                            <ChevronsUpDown className="ml-auto" />
-                        </SidebarMenuButton>
+                        <Suspense>
+                            <SidebarMenuButton
+                                size="lg"
+                                className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                            >
+                                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+                                    {activeSchool.name[0]?.toUpperCase?.()}
+                                </div>
+                                <div className="grid flex-1 text-left text-sm leading-tight">
+                                    <span className="truncate font-semibold">
+                                        {activeSchool.name}
+                                    </span>
+                                </div>
+                                <ChevronsUpDown className="ml-auto" />
+                            </SidebarMenuButton>
+                        </Suspense>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent
                         className="w-[--radix-dropdown-menu-trigger-width] min-w-64 rounded-lg"
