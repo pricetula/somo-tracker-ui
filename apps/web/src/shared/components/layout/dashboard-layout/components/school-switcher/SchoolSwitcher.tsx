@@ -1,6 +1,5 @@
 "use client"
 
-import { Suspense } from "react"
 import { ChevronsUpDown, Plus } from "lucide-react"
 import Link from "next/link"
 import {
@@ -18,6 +17,7 @@ import {
     SidebarMenuItem,
     useSidebar,
 } from "@/shared/components/ui/sidebar"
+import { Skeleton } from "@/shared/components/ui/skeleton"
 import { useSchoolsStore } from "@/features/school/store"
 import { useMeStore } from "@/features/me/store"
 import { School } from "@/features/school/types"
@@ -28,13 +28,13 @@ export function SchoolSwitcher() {
     const schools = useSchoolsStore((s) => s.schools)
 
     if (!schools.length) {
-        return null
+        return <Skeleton className="h-[42px] w-[208px]" />
     }
 
     const activeSchool = schools.find((school) => school.id === me?.active_school_id)
 
     if (!activeSchool) {
-        return null
+        return <Skeleton className="h-[42px] w-[208px]" />
     }
 
     function setActiveSchool(s: School) {
@@ -46,22 +46,20 @@ export function SchoolSwitcher() {
             <SidebarMenuItem>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Suspense>
-                            <SidebarMenuButton
-                                size="lg"
-                                className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-                            >
-                                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                                    {activeSchool.name[0]?.toUpperCase?.()}
-                                </div>
-                                <div className="grid flex-1 text-left text-sm leading-tight">
-                                    <span className="truncate font-semibold">
-                                        {activeSchool.name}
-                                    </span>
-                                </div>
-                                <ChevronsUpDown className="ml-auto" />
-                            </SidebarMenuButton>
-                        </Suspense>
+                        <SidebarMenuButton
+                            size="lg"
+                            className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                        >
+                            <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+                                {activeSchool.name[0]?.toUpperCase?.()}
+                            </div>
+                            <div className="grid flex-1 text-left text-sm leading-tight">
+                                <span className="truncate font-semibold">
+                                    {activeSchool.name}
+                                </span>
+                            </div>
+                            <ChevronsUpDown className="ml-auto" />
+                        </SidebarMenuButton>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent
                         className="w-[--radix-dropdown-menu-trigger-width] min-w-64 rounded-lg"

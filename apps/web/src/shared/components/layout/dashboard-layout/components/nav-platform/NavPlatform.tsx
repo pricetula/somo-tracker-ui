@@ -1,5 +1,7 @@
 "use client"
 
+import React from "react"
+import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
     BookOpen,
@@ -24,7 +26,6 @@ import {
     SidebarMenuSubButton,
     SidebarMenuSubItem,
 } from "@/shared/components/ui/sidebar"
-import React from "react"
 
 export function NavPlatform() {
     const pathname = usePathname()
@@ -93,9 +94,9 @@ export function NavPlatform() {
                                     {item.items?.map((subItem) => (
                                         <SidebarMenuSubItem key={subItem.title}>
                                             <SidebarMenuSubButton asChild>
-                                                <a href={subItem.url}>
+                                                <Link href={subItem.url}>
                                                     <span>{subItem.title}</span>
-                                                </a>
+                                                </Link>
                                             </SidebarMenuSubButton>
                                         </SidebarMenuSubItem>
                                     ))}
