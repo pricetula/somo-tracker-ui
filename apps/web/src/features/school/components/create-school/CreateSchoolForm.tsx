@@ -7,21 +7,15 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
     Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
 } from "@/shared/components/ui/form"
-import { Input } from "@/shared/components/ui/input"
 import { Button } from "@/shared/components/ui/button"
 import { ActionResponse } from "@/shared/types/actions"
-import { EducationSystemComboBox } from "@/features/education-system/components/education-system-combo-box"
 import { School } from "../../types"
 import {
     createSchoolSchema,
     type CreateSchoolSchema,
 } from "./form-schema"
+import { CreateSchoolFields } from "./CreateSchoolFields"
 
 interface CreateSchoolProps {
     createSchool(School: CreateSchoolSchema): Promise<ActionResponse<School | null>>
@@ -76,77 +70,7 @@ export function CreateSchoolForm({ createSchool }: CreateSchoolProps) {
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(submitFunc)} className="w-[90%] max-w-[500px] space-y-8">
-                <FormField
-                    control={form.control}
-                    name="name"
-                    render={({ field }) => (
-                        <FormItem className="mb-4">
-                            <FormLabel htmlFor="name">School Name</FormLabel>
-                            <FormControl>
-                                <Input id="name" placeholder="School Name" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="description"
-                    render={({ field }) => (
-                        <FormItem className="mb-4">
-                            <FormLabel htmlFor="description">Description</FormLabel>
-                            <FormControl>
-                                <Input id="description" placeholder="Description" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="address"
-                    render={({ field }) => (
-                        <FormItem className="mb-4">
-                            <FormLabel htmlFor="address">Address</FormLabel>
-                            <FormControl>
-                                <Input id="address" placeholder="Address" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="website"
-                    render={({ field }) => (
-                        <FormItem className="mb-4">
-                            <FormLabel htmlFor="website">Website</FormLabel>
-                            <FormControl>
-                                <Input id="website" placeholder="Website" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="education_system_id"
-                    render={({ field }) => (
-                        <FormItem className="mb-4">
-                            <FormLabel htmlFor="education_system_id">Website</FormLabel>
-                            <FormControl>
-                                <EducationSystemComboBox
-                                    id="education_system_id"
-                                    initValue={field.value}
-                                    onSetValue={(educationSystem) => {
-                                        form.setValue("education_system_id", educationSystem.id)
-                                    }}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
+                <CreateSchoolFields form={form} />
                 <Button type="submit" id="submit-create-school" disabled={isSubmitting} className="min-w-[130px]">
                     {
                         isSubmitting

@@ -7,6 +7,9 @@ import { TokenRefreshFailedError } from "@/features/auth/errors";
 import { School } from "@/features/school/types";
 import { getSchools } from "@/features/school/services/get-school";
 import { SchoolsHydrator } from "@/features/school/store";
+import { EducationSystem } from "@/features/education-system/types";
+import { getEducationSystems } from "@/features/education-system/services/get-education-system";
+import { EducationSystemsHydrator } from "@/features/education-system/store";
 
 // This layout is used for the dashboard and requires the user to be logged in
 export default async function Layout({ children, modal }: { modal: React.ReactNode, children: React.ReactNode }) {
@@ -44,12 +47,28 @@ export default async function Layout({ children, modal }: { modal: React.ReactNo
         schools = []
     }
 
+    // variable to hold list of education systems
+    let educationSystems: EducationSystem[];
+
+    try {
+        // get education systems from api
+        const resp = await getEducationSystems();
+        if (resp.success && resp.data) {
+            educationSystems = resp.data
+        } else {
+            educationSystems = []
+        }
+    } catch (error: any) {
+        educationSystems = []
+    }
+
     return (
         <DashboardLayout>
             <main className="h-[90vh] overflow-y-auto">
                 {children}
                 <MeHydrator me={me} />
                 <SchoolsHydrator schools={schools} />
+                <EducationSystemsHydrator educationSystems={educationSystems} />
                 {modal}
             </main>
         </DashboardLayout>
