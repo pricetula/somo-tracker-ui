@@ -2,7 +2,6 @@
 
 import React from "react"
 import { useRouter } from "next/navigation"
-import { toast } from "sonner"
 import { Loader2Icon } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -13,12 +12,15 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { createSchoolSchema, CreateSchoolSchema } from "@/features/school/components/create-school/form-schema"
 import { Button } from "@/shared/components/ui/button"
 import { CreateSchoolFields } from "@/features/school/components/create-school/CreateSchoolFields"
+import { useApiRequest } from "@/shared/hooks/use-api-request"
+import { useSchoolsStore } from "../../store"
 
 export function CreateSchoolDialog() {
-    // State to be set to true when email is being sent or verifying code
-    const [isSubmitting, setIsSubmitting] = React.useState(false)
-
     const router = useRouter()
+
+    const addSchool = useSchoolsStore((s) => s.addSchool)
+
+    const apiRequest = useApiRequest()
 
     // Initialize the form with the resolver and default values
     const form = useForm<CreateSchoolSchema>({
@@ -33,27 +35,44 @@ export function CreateSchoolDialog() {
     })
 
     async function submitFunc(i: CreateSchoolSchema) {
-        // Set isSubmitting to true to disable the submit button and show the loader
-        setIsSubmitting(true)
+        apiRequest.execute(
+            () => fetch('/api/school', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(i)
+            }),
+            {
+                onSuccess: (data) => {
+                    addSchool(data)
+                    setActiveSchool(data.id)
+                },
+                onError: () => {
+                    form.reset()
+                }
+            }
+        )
+    }
 
-        const response = await fetch('/api/school', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(i)
-        })
-
-        setIsSubmitting(false)
-
-        if (!response.ok) {
-            const error = await response.text()
-            toast.error(error || response.status)
-            return
-        }
-
-        const data = await response.json()
-        console.log("School created", data)
+    function setActiveSchool(active_school_id: string) {
+        apiRequest.execute(
+            () => fetch('/api/me/active-school', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ active_school_id })
+            }),
+            {
+                onSuccess: (data) => {
+                    router.refresh()
+                },
+                onError: () => {
+                    form.reset()
+                }
+            }
+        )
     }
 
     function handleOnOpenChange(open: boolean) {
@@ -75,9 +94,9 @@ export function CreateSchoolDialog() {
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(submitFunc)} className="w-[90%] max-w-[500px] space-y-8">
                         <CreateSchoolFields form={form} />
-                        <Button type="submit" id="submit-create-school" disabled={isSubmitting} className="min-w-[130px]">
+                        <Button type="submit" id="submit-create-school" disabled={apiRequest.isLoading} className="min-w-[130px]">
                             {
-                                isSubmitting
+                                apiRequest.isLoading
                                     ? (
                                         <span className="flex items-center gap-1">
                                             <Loader2Icon className="animate-spin" />

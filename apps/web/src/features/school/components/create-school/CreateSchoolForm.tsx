@@ -64,7 +64,7 @@ export function CreateSchoolForm({ createSchool }: CreateSchoolProps) {
         }
 
         // If creation was successfull then redirect to dashboard page
-        window.location.href = "/"
+        window.location.reload()
     }
 
     return (
