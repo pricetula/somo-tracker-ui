@@ -1,20 +1,27 @@
-import React from "react"
+"use client"
 
-import { headers } from "next/headers"
+import React, { useEffect, useState } from "react"
+// import { headers } from "next/headers"
+import { usePathname } from "next/navigation"
+import { BreadcrumbItem as BreadcrumbItemType } from "@/shared/types/bread-crumbs"
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/shared/components/ui/breadcrumb"
 import { Separator } from "@/shared/components/ui/separator"
 import { SidebarTrigger } from "@/shared/components/ui/sidebar"
 import { parseBreadcrumbs } from "./utils"
 
-export async function SiteHeader() {
-    // get headers from request
-    const headersList = await headers();
+export function SiteHeader() {
+    // State to hold created breadcrumbs
+    const [breadCrumbs, setBreadCrumbs] = useState<BreadcrumbItemType[]>([])
 
-    // get the "x-pathname" field on request headers
-    const pathname = headersList.get("x-pathname") || "/"
+    // Get pathname of url
+    const pathname = usePathname()
 
-    // generate breadcrumb list of links
-    const breadCrumbs = parseBreadcrumbs(pathname)
+    useEffect(() => {
+        if (!pathname) return
+
+        // generate breadcrumb list of links
+        setBreadCrumbs(parseBreadcrumbs(pathname))
+    }, [pathname])
 
     return (
         <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12  border-b w-full">
