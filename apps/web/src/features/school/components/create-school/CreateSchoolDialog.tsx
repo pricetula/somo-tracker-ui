@@ -29,7 +29,7 @@ export function CreateSchoolDialog() {
     })
 
     async function submitFunc(i: CreateSchoolSchema) {
-        create(i, true)
+        create(i)
     }
 
     function handleOnOpenChange(open: boolean) {
