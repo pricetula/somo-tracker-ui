@@ -1,3 +1,11 @@
-import { Signin } from "@/features/auth/components/signin";
+import { Suspense } from "react";
+import { Skeleton } from "@/shared/components/ui/skeleton";
+import { SigninForm } from "@/features/auth/components/signin";
 
-export default Signin
+export default function Page() {
+    return (
+        <Suspense fallback={<Skeleton className="h-[300px] w-[200px]" />}>
+            <SigninForm />
+        </Suspense>
+    )
+}
