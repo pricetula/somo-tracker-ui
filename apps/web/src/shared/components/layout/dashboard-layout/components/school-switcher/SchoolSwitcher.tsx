@@ -1,6 +1,7 @@
 "use client"
 
-import { ChevronsUpDown, Plus } from "lucide-react"
+import { useEffect, useState } from "react"
+import { ChevronsUpDown, Plus, Check } from "lucide-react"
 import Link from "next/link"
 import {
     DropdownMenu,
@@ -8,7 +9,6 @@ import {
     DropdownMenuItem,
     DropdownMenuLabel,
     DropdownMenuSeparator,
-    DropdownMenuShortcut,
     DropdownMenuTrigger,
 } from "@/shared/components/ui/dropdown-menu"
 import {
@@ -21,24 +21,28 @@ import { Skeleton } from "@/shared/components/ui/skeleton"
 import { useSchoolsStore } from "@/features/school/store"
 import { useMeStore } from "@/features/me/store"
 import { School } from "@/features/school/types"
+import { setActiveSchool } from "@/features/me/services/set-active-school"
 
 export function SchoolSwitcher() {
+    const [activeSchoolState, setActiveSchoolState] = useState<School>()
     const { isMobile } = useSidebar()
     const me = useMeStore((s) => s.me)
     const schools = useSchoolsStore((s) => s.schools)
 
-    if (!schools.length) {
+    useEffect(() => {
+        if (me?.active_school_id && schools.length > 0) {
+            setActiveSchoolState(schools.find((school) => school.id === me?.active_school_id))
+        }
+    }, [schools, me?.active_school_id])
+
+    if (!schools.length || !activeSchoolState) {
         return <Skeleton className="h-[42px] w-[208px]" />
     }
 
-    const activeSchool = schools.find((school) => school.id === me?.active_school_id)
-
-    if (!activeSchool) {
-        return <Skeleton className="h-[42px] w-[208px]" />
-    }
-
-    function setActiveSchool(s: School) {
-        console.log("schoool", s)
+    function handleSetActiveSchool(s: School) {
+        if (!s.id) return
+        setActiveSchoolState(s)
+        setActiveSchool(s.id)
     }
 
     return (
@@ -51,11 +55,11 @@ export function SchoolSwitcher() {
                             className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
                         >
                             <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                                {activeSchool.name[0]?.toUpperCase?.()}
+                                {activeSchoolState.name[0]?.toUpperCase?.()}
                             </div>
                             <div className="grid flex-1 text-left text-sm leading-tight">
                                 <span className="truncate font-semibold">
-                                    {activeSchool.name}
+                                    {activeSchoolState.name}
                                 </span>
                             </div>
                             <ChevronsUpDown className="ml-auto" />
@@ -73,14 +77,18 @@ export function SchoolSwitcher() {
                         {schools.map((school, index) => (
                             <DropdownMenuItem
                                 key={school.name}
-                                onClick={() => setActiveSchool(school)}
+                                onClick={() => handleSetActiveSchool(school)}
                                 className="gap-2 p-2"
                             >
                                 <div className="flex size-6 items-center justify-center rounded-sm border">
                                     {school.name[0]?.toUpperCase?.()}
                                 </div>
                                 {school.name}
-                                <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
+                                {
+                                    activeSchoolState && activeSchoolState.id === school.id && (
+                                        <Check className="ml-auto text-green-400" />
+                                    )
+                                }
                             </DropdownMenuItem>
                         ))}
                         <DropdownMenuSeparator />
