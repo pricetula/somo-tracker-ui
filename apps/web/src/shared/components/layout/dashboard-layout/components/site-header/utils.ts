@@ -1,9 +1,4 @@
-interface BreadcrumbItem {
-    id: number
-    label: string;
-    href: string;
-    isLast: boolean;
-}
+import { BreadcrumbItem } from "@/shared/types/bread-crumbs";
 
 export function parseBreadcrumbs(pathname: string): BreadcrumbItem[] {
     let id = 1

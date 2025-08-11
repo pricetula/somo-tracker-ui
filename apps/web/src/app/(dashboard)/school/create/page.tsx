@@ -1,7 +1,6 @@
 import React from "react"
-// import { CreateSchool } from "@/features/school/components/create-school"
+import { CreateSchoolForm } from "@/features/school/components/create-school"
 
 export default function Page() {
-    return <div>Create school page</div>
-    // return <CreateSchool />
+    return <CreateSchoolForm />
 }

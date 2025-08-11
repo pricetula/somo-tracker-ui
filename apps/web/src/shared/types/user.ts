@@ -1,3 +1,5 @@
+import { ActionResponse } from "./actions"
+
 export interface User {
     id?: string
     email: string
@@ -12,3 +14,5 @@ export interface User {
     updated_at?: string
     deleted_at?: string
 }
+
+export type UserResponse = ActionResponse<User | null>
