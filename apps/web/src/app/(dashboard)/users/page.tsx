@@ -1,3 +1,3 @@
-import { InstituteUserList } from "@/features/institute-users/components/institute-user-list";
+import { UserList } from "@/features/school/components/user-list";
 
-export default InstituteUserList
+export default UserList
