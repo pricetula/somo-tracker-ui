@@ -39,7 +39,6 @@ export function useApiRequest() {
 
             options.onSuccess?.(data)
             return { success: true, data }
-
         } catch (err: any) {
             const errorMessage = err.message || 'Network error occurred'
             toast.error(errorMessage)

@@ -1,3 +1,5 @@
+"use server"
+
 import { authenticatedPut } from "@/features/auth/utils/authenticated-put";
 import { UserResponse } from "@/shared/types/user";
 
