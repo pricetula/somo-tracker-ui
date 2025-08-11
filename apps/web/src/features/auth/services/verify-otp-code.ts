@@ -1,4 +1,5 @@
 "use server"
+
 import { cookies } from "next/headers"
 import { COOKIE } from "@/shared/lib/constants"
 import { ActionResponse } from "@/shared/types/actions"

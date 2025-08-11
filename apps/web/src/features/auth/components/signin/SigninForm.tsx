@@ -1,9 +1,9 @@
 "use client"
 
 import React from "react"
-import { toast } from "sonner"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Loader2Icon } from "lucide-react"
+import { toast } from "sonner"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
@@ -17,22 +17,11 @@ import {
 import { Input } from "@/shared/components/ui/input"
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/shared/components/ui/input-otp"
 import { Button } from "@/shared/components/ui/button"
+import { sendOtpCodeToEmail } from "../../services/send-otp-code-to-email"
+import { verifyOtpCode } from "../../services/verify-otp-code"
 import { signinSchema, type SigninSchema } from "./form-schema"
 
-interface SigninProps {
-    sendOtpCodeToEmail: (email: string) => Promise<{
-        success: boolean;
-        data: any;
-        error: string;
-    }>
-    verifyOtpCode: (p: { code: string, email: string }) => Promise<{
-        success: boolean;
-        data: any;
-        error: string;
-    }>
-}
-
-export function SigninForm({ verifyOtpCode, sendOtpCodeToEmail }: SigninProps) {
+export function SigninForm() {
     // State to be set to true when email is being sent or verifying code
     const [isSubmitting, setIsSubmitting] = React.useState(false)
 
@@ -108,7 +97,7 @@ export function SigninForm({ verifyOtpCode, sendOtpCodeToEmail }: SigninProps) {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(submitFunc)} className="w-[90%] max-w-[300px] space-y-8">
+            <form onSubmit={form.handleSubmit(submitFunc)} className="w-[90%] max-w-[300px] h-full flex items-center justify-center">
                 <FormField
                     control={form.control}
                     name="email"
