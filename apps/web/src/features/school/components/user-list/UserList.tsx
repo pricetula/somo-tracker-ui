@@ -1,5 +1,12 @@
+import { PageNav } from "@/shared/components/page-nav";
+
 export function UserList() {
     return (
-        <div>User list</div>
+        <article>
+            <PageNav>
+                test
+            </PageNav>
+            Users
+        </article>
     )
 }
