@@ -96,62 +96,64 @@ export function SigninForm() {
     }
 
     return (
-        <Form {...form}>
-            <form onSubmit={form.handleSubmit(submitFunc)} className="w-[90%] max-w-[300px] h-full flex items-center justify-center">
-                <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel htmlFor="email">Email</FormLabel>
-                            <FormControl>
-                                <Input id="email" placeholder="Email for OTP Sign-in" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
+        <div className="h-full flex items-center justify-center">
+            <Form {...form}>
+                <form onSubmit={form.handleSubmit(submitFunc)} className="w-[90%] max-w-[300px] space-y-6">
+                    <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel htmlFor="email">Email</FormLabel>
+                                <FormControl>
+                                    <Input id="email" placeholder="Email for OTP Sign-in" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
 
-                {
-                    emailSent && (
-                        <FormField
-                            control={form.control}
-                            name="code"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel htmlFor="code">Verify code</FormLabel>
-                                    <FormControl>
-                                        <InputOTP id="code" maxLength={6} {...field}>
-                                            <InputOTPGroup>
-                                                <InputOTPSlot index={0} />
-                                                <InputOTPSlot index={1} />
-                                                <InputOTPSlot index={2} />
-                                                <InputOTPSlot index={3} />
-                                                <InputOTPSlot index={4} />
-                                                <InputOTPSlot index={5} />
-                                            </InputOTPGroup>
-                                        </InputOTP>
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                    )
-                }
-
-                <Button type="submit" id="submit-signin" disabled={isSubmitting} className="min-w-[130px]">
                     {
-                        isSubmitting
-                            ? (
-                                <span className="flex items-center gap-1">
-                                    <Loader2Icon className="animate-spin" />
-                                    <span>{emailSent ? "Verifying" : "Signing in"}</span>
-                                </span>
-                            )
-                            : <span>{emailSent ? "Verify" : "Sign in"}</span>
+                        emailSent && (
+                            <FormField
+                                control={form.control}
+                                name="code"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel htmlFor="code">Verify code</FormLabel>
+                                        <FormControl>
+                                            <InputOTP id="code" maxLength={6} {...field}>
+                                                <InputOTPGroup>
+                                                    <InputOTPSlot index={0} />
+                                                    <InputOTPSlot index={1} />
+                                                    <InputOTPSlot index={2} />
+                                                    <InputOTPSlot index={3} />
+                                                    <InputOTPSlot index={4} />
+                                                    <InputOTPSlot index={5} />
+                                                </InputOTPGroup>
+                                            </InputOTP>
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        )
                     }
-                </Button>
-            </form>
-        </Form>
+
+                    <Button type="submit" id="submit-signin" disabled={isSubmitting} className="min-w-[130px]">
+                        {
+                            isSubmitting
+                                ? (
+                                    <span className="flex items-center gap-1">
+                                        <Loader2Icon className="animate-spin" />
+                                        <span>{emailSent ? "Verifying" : "Signing in"}</span>
+                                    </span>
+                                )
+                                : <span>{emailSent ? "Verify" : "Sign in"}</span>
+                        }
+                    </Button>
+                </form>
+            </Form>
+        </div>
     )
 }

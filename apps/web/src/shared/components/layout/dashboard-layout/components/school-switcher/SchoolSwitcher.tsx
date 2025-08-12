@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { ChevronsUpDown, Plus, Check } from "lucide-react"
 import Link from "next/link"
+import { toast } from "sonner"
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -39,10 +40,15 @@ export function SchoolSwitcher() {
         return <Skeleton className="h-[42px] w-[208px]" />
     }
 
-    function handleSetActiveSchool(s: School) {
+    async function handleSetActiveSchool(s: School) {
         if (!s.id) return
         setActiveSchoolState(s)
-        setActiveSchool(s.id)
+        const { error } = await setActiveSchool(s.id)
+        if (error) {
+            toast.error(error);
+            return
+        }
+        window.location.reload()
     }
 
     return (
