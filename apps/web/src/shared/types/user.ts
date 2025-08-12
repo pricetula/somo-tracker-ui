@@ -16,3 +16,5 @@ export interface User {
 }
 
 export type UserResponse = ActionResponse<User | null>
+
+export type Role = "STUDENT" | "ADMIN" | "FACULTY" | "GUARDIAN"

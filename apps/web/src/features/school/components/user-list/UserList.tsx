@@ -1,17 +1,19 @@
 import { PageNav } from "@/shared/components/page-nav";
-import { UserInviteButton } from "../user-invite";
-import { AddStudentsButton } from "../add-students";
+import { UserInviteButton, UserInviteDialog } from "../user-invite";
+import { AddStudentsButton, AddStudentsDialog } from "../add-students";
 
 export function UserList() {
     return (
         <article>
             <PageNav>
-                <div className="flex gap-2">
+                <div className="flex gap-4">
                     <UserInviteButton />
                     <AddStudentsButton />
                 </div>
             </PageNav>
             Users
+            <AddStudentsDialog />
+            <UserInviteDialog />
         </article>
     )
 }

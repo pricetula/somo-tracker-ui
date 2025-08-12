@@ -6,6 +6,8 @@ interface SchoolsUIState {
     addStudentsDialogOpen: boolean
     toggleInviteUsersDialog: () => void
     toggleAddStudentsDialog: () => void
+    setInviteUsersDialog: (v: boolean) => void
+    setAddStudentsDialog: (v: boolean) => void
 }
 
 export const useSchoolsUIStore = create<SchoolsUIState>((set) => ({
@@ -26,5 +28,7 @@ export const useSchoolsUIStore = create<SchoolsUIState>((set) => ({
             inviteUsersDialogOpen = false
         }
         return { inviteUsersDialogOpen, addStudentsDialogOpen }
-    })
+    }),
+    setInviteUsersDialog: (v) => set({ inviteUsersDialogOpen: v }),
+    setAddStudentsDialog: (v) => set({ addStudentsDialogOpen: v })
 }))
