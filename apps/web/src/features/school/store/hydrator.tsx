@@ -2,7 +2,7 @@
 
 import { useEffect } from "react"
 import { School } from "../types"
-import { useSchoolsStore } from "./store"
+import { useSchoolsStore } from "./school"
 
 interface SchoolsHydratorProps {
     schools: School[]
