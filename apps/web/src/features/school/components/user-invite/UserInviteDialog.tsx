@@ -1,11 +1,12 @@
 "use client"
 
 import React, { useState } from "react"
+import { CircleUser, GraduationCap } from "lucide-react"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/shared/components/ui/dialog"
 import { Role } from "@/shared/types/user"
-import { useSchoolsUIStore } from "../../store"
 import { Button } from "@/shared/components/ui/button"
-import { CircleUser, GraduationCap } from "lucide-react"
+import { useSchoolsUIStore } from "../../store"
+import { InvitedUsers } from "./InvitedUsers"
 
 export function UserInviteDialog() {
     const [selectedRole, setSelectedRole] = useState<Role | "">("")
@@ -14,8 +15,8 @@ export function UserInviteDialog() {
 
     function handleOnOpenChange(v: boolean) {
         if (!v) {
-            setSelectedRole("")
             setInviteUsersDialog(false)
+            setSelectedRole("")
         }
     }
 
@@ -24,20 +25,20 @@ export function UserInviteDialog() {
             <DialogContent className="w-[90%] max-w-[600px]">
                 <DialogHeader className="text-left">
                     <DialogTitle>{(
-                        !selectedRole && "Invite Faculty or Guardians Your Way" ||
-                        selectedRole === "FACULTY" && "Invite Faculty" ||
+                        !selectedRole && "Invite Admin/ Faculty or Guardians Your Way" ||
+                        selectedRole === "FACULTY" && "Invite Admin/ Faculty" ||
                         selectedRole === "GUARDIAN" && "Invite Guardians"
                     )}</DialogTitle>
                     <DialogDescription>
-                        First, choose either Faculty or Guardians. Then add emails manually or upload a CSV/Excel file, we’ll send the invites for you.
+                        {`${!selectedRole ? 'First, choose either Faculty or Guardians. Then a' : 'A'}dd emails manually or upload a CSV/Excel file, we’ll send the invites for you.`}
                     </DialogDescription>
                 </DialogHeader>
 
-                <article className="h-[300px]">
+                <article>
                     {
                         !selectedRole
                             ? (
-                                <div className="h-full flex gap-4 items-center justify-center">
+                                <div className="h-[300px] flex gap-4 items-center justify-center">
                                     <Button onClick={() => setSelectedRole("FACULTY")}>
                                         <GraduationCap />
                                         <span>Faculty</span>
@@ -49,9 +50,7 @@ export function UserInviteDialog() {
                                 </div>
                             )
                             : (
-                                <div>
-                                    Table
-                                </div>
+                                <InvitedUsers role={selectedRole} />
                             )
                     }
                 </article>

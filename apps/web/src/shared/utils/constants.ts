@@ -1,10 +1,18 @@
-export const mappedRoles = new Map([
+import { Role } from "../types/user"
+
+interface RoleOption {
+    value: Role
+    label: string
+    bgColor: string
+}
+
+export const mappedRoles = new Map<Role, RoleOption>([
     [
         "ADMIN",
         {
             value: "ADMIN",
             label: "Admin",
-            bgColor: "bg-purple-200",
+            bgColor: "bg-purple-200/20",
         },
     ],
     [
@@ -12,7 +20,7 @@ export const mappedRoles = new Map([
         {
             value: "FACULTY",
             label: "Faculty",
-            bgColor: "bg-yellow-200",
+            bgColor: "bg-yellow-200/20",
         },
     ],
     [
@@ -20,7 +28,7 @@ export const mappedRoles = new Map([
         {
             value: "STUDENT",
             label: "Student",
-            bgColor: "bg-teal-200",
+            bgColor: "bg-teal-200/20",
         },
     ],
     [
@@ -28,7 +36,7 @@ export const mappedRoles = new Map([
         {
             value: "GUARDIAN",
             label: "Guardian",
-            bgColor: "bg-slate-200",
+            bgColor: "bg-slate-200/20",
         },
     ],
 ])
