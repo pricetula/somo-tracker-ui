@@ -6,7 +6,7 @@ import { CreateInvitation, Invitation } from "../types"
 
 export type CreateInvitationResponse = ActionResponse<Invitation | null>
 
-export async function createInvitation(d: CreateInvitation): Promise<CreateInvitationResponse> {
+export async function createInvitation(d: { invitations: CreateInvitation[] }): Promise<CreateInvitationResponse> {
     // Initialize response variable to return
     let r: CreateInvitationResponse = { success: false, data: null, error: "" }
 

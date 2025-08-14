@@ -1,8 +1,8 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useRef, useState } from "react"
 import { CircleUser, GraduationCap } from "lucide-react"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/shared/components/ui/dialog"
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/shared/components/ui/dialog"
 import { Role } from "@/shared/types/user"
 import { Button } from "@/shared/components/ui/button"
 import { useSchoolsUIStore } from "../../store"
@@ -13,11 +13,18 @@ export function UserInviteDialog() {
     const setInviteUsersDialog = useSchoolsUIStore((s) => s.setInviteUsersDialog)
     const inviteUsersDialogOpen = useSchoolsUIStore((s) => s.inviteUsersDialogOpen)
 
+    const ref = useRef(null)
+
     function handleOnOpenChange(v: boolean) {
         if (!v) {
             setInviteUsersDialog(false)
             setSelectedRole("")
         }
+    }
+
+    function handleButtonClick() {
+        (ref.current as any)?.handleSubmit();
+        handleOnOpenChange(false)
     }
 
     return (
@@ -50,10 +57,17 @@ export function UserInviteDialog() {
                                 </div>
                             )
                             : (
-                                <InvitedUsers role={selectedRole} />
+                                <InvitedUsers role={selectedRole} ref={ref} />
                             )
                     }
                 </article>
+
+                <DialogFooter>
+                    <DialogClose asChild>
+                        <Button variant="outline">Cancel</Button>
+                    </DialogClose>
+                    <Button type="submit" onClick={handleButtonClick}>Save changes</Button>
+                </DialogFooter>
             </DialogContent>
         </Dialog>
     )

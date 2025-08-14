@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react"
+import { forwardRef, useCallback, useImperativeHandle, useMemo, useState } from "react"
 import { Trash2 } from "lucide-react"
 import {
     Table,
@@ -15,12 +15,13 @@ import { Input } from "@/shared/components/ui/input"
 import { RoleSelector } from "@/shared/components/role-selector"
 import { Role } from "@/shared/types/user"
 import { ExtractEmailsFromFile } from "./ExtractEmailsFromFile"
+import { createInvitation } from "@/features/invitations/services/create-invitation"
 
 interface InvitedUsersProps {
     role: Role
 }
 
-export function InvitedUsers({ role }: InvitedUsersProps) {
+export const InvitedUsers = forwardRef(({ role }: InvitedUsersProps, ref) => {
     const [selectedRows, setSelectedRows] = useState(new Set())
     const [extractedEmails, setExtractedEmails] = useState(new Map())
 
@@ -80,6 +81,11 @@ export function InvitedUsers({ role }: InvitedUsersProps) {
         })
     }, [role])
 
+    // Allow calling handle submit from ref
+    useImperativeHandle(ref, () => ({
+        handleSubmit
+    }))
+
     function getInitials(email: string) {
         // Check if email has been set
         if (!email?.length) return ""
@@ -123,7 +129,12 @@ export function InvitedUsers({ role }: InvitedUsersProps) {
     }
 
     function handleSubmit() {
-        console.log(extractedEmails)
+        createInvitation({
+            invitations: extractedEmailsList.map((i) => ({
+                email: i.email,
+                role: i.role
+            }))
+        })
     }
 
     return (
@@ -205,7 +216,6 @@ export function InvitedUsers({ role }: InvitedUsersProps) {
                     ))}
                 </TableBody>
             </Table>
-            <Button onClick={handleSubmit}>Submit</Button>
         </div>
     )
-}
+})
