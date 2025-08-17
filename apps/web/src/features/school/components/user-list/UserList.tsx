@@ -1,19 +1,12 @@
-import { PageNav } from "@/shared/components/page-nav";
-import { UserInviteButton, UserInviteDialog } from "../user-invite";
-import { AddStudentsButton, AddStudentsDialog } from "../add-students";
+import { SchoolUser } from "../../types"
 
-export function UserList() {
+interface UserListProps {
+    initialisedUsers: SchoolUser[]
+}
+
+export function UserList({ initialisedUsers }: UserListProps) {
+    console.log("initialisedUsers", initialisedUsers)
     return (
-        <article>
-            <PageNav>
-                <div className="flex gap-4">
-                    <UserInviteButton />
-                    <AddStudentsButton />
-                </div>
-            </PageNav>
-            Users
-            <AddStudentsDialog />
-            <UserInviteDialog />
-        </article>
+        <div>ss</div>
     )
 }

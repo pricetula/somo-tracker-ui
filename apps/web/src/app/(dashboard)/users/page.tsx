@@ -1,3 +1,3 @@
-import { UserList } from "@/features/school/components/user-list";
+import { UserListWrapper } from "@/features/school/components/user-list";
 
-export default UserList
+export default UserListWrapper
