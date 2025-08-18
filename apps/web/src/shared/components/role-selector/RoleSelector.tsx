@@ -47,7 +47,7 @@ export function RoleSelector({ id, disabled = false, value, onSetValue, filterOu
                     aria-expanded={open}
                 >
                     {value ? (
-                        <RoleDisplay role={value} />
+                        <RoleDisplay role={value as Role} />
                     ) : "Select role"}
                     <ChevronsUpDown className="opacity-50" />
                 </Button>

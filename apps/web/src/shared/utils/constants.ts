@@ -12,7 +12,7 @@ export const mappedRoles = new Map<Role, RoleOption>([
         {
             value: "ADMIN",
             label: "Admin",
-            bgColor: "bg-purple-200/20",
+            bgColor: "bg-purple-200 dark:bg-purple-700",
         },
     ],
     [
@@ -20,7 +20,7 @@ export const mappedRoles = new Map<Role, RoleOption>([
         {
             value: "FACULTY",
             label: "Faculty",
-            bgColor: "bg-yellow-200/20",
+            bgColor: "bg-yellow-200 dark:bg-yellow-700",
         },
     ],
     [
@@ -28,7 +28,7 @@ export const mappedRoles = new Map<Role, RoleOption>([
         {
             value: "STUDENT",
             label: "Student",
-            bgColor: "bg-teal-200/20",
+            bgColor: "bg-teal-200 dark:bg-teal-700",
         },
     ],
     [
@@ -36,7 +36,7 @@ export const mappedRoles = new Map<Role, RoleOption>([
         {
             value: "GUARDIAN",
             label: "Guardian",
-            bgColor: "bg-slate-200/20",
+            bgColor: "bg-slate-200 dark:bg-slate-700",
         },
     ],
 ])
