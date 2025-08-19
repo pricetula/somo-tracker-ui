@@ -1,1 +1,0 @@
-export { InstituteUserList } from "./InstituteUserList"

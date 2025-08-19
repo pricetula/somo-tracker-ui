@@ -1,2 +1,3 @@
 export { SchoolsHydrator } from "./hydrator"
-export { useSchoolsStore } from "./store"
+export { useSchoolsStore } from "./school"
+export { useSchoolsUIStore } from "./ui"

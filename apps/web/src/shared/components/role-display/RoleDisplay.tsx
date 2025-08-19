@@ -1,8 +1,9 @@
 import { cn } from "@/shared/lib/utils";
+import { Role } from "@/shared/types/user";
 import { mappedRoles } from "@/shared/utils/constants";
 
 export interface RoleDisplayProps {
-    role: string;
+    role: Role;
 }
 
 export function RoleDisplay({ role }: RoleDisplayProps) {

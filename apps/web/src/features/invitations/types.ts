@@ -1,3 +1,5 @@
+import { Role } from "@/shared/types/user"
+
 export interface Invitation {
     id: string
     email: string
@@ -9,5 +11,6 @@ export interface Invitation {
 }
 
 export interface CreateInvitation {
-    email_addresses: string[]
+    email: string
+    role: Role
 }

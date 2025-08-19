@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { Check, ChevronsUpDown } from "lucide-react"
 import { cn } from "@/shared/lib/utils"
 import { Button } from "@/shared/components/ui/button"
@@ -19,27 +19,35 @@ import {
 } from "@/shared/components/ui/command"
 import { roleOptions } from "@/shared/utils/constants"
 import { RoleDisplay } from "@/shared/components/role-display"
+import { Role } from "@/shared/types/user"
 
 interface RoleSelectorProps {
     id: string
     value?: string
     onSetValue(v: string): void
+    filterOutRoles?: Role[]
+    disabled?: boolean
 }
 
-export function RoleSelector({ id, value, onSetValue }: RoleSelectorProps) {
+export function RoleSelector({ id, disabled = false, value, onSetValue, filterOutRoles }: RoleSelectorProps) {
     const [open, setOpen] = useState(false)
+
+    const filteredRoles = useMemo(() => filterOutRoles && filterOutRoles?.length > 0 ? roleOptions.filter(
+        (r) => !filterOutRoles.includes(r.value)
+    ) : roleOptions, [filterOutRoles])
 
     return (
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
                 <Button
                     id={id}
+                    disabled={disabled}
                     variant="ghost"
                     role="combobox"
                     aria-expanded={open}
                 >
                     {value ? (
-                        <RoleDisplay role={value} />
+                        <RoleDisplay role={value as Role} />
                     ) : "Select role"}
                     <ChevronsUpDown className="opacity-50" />
                 </Button>
@@ -50,7 +58,7 @@ export function RoleSelector({ id, value, onSetValue }: RoleSelectorProps) {
                     <CommandList>
                         <CommandEmpty>No role found.</CommandEmpty>
                         <CommandGroup>
-                            {roleOptions.map((option) => (
+                            {filteredRoles.map((option) => (
                                 <CommandItem
                                     key={option.value}
                                     value={option.value}
