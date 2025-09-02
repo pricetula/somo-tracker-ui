@@ -1,0 +1,1 @@
+export { CreateInstitute } from "./CreateInstitute";

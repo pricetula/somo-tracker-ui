@@ -1,1 +1,5 @@
-@import url("@somo-tracker-ui/tailwindcss/app.css")
+@import url("@somo-tracker-ui/tailwindcss/app.css");
+
+html {
+  font-size: 14px;
+}
