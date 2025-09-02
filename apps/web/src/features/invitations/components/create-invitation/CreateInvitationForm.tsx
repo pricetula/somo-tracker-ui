@@ -55,7 +55,7 @@ export function CreateInvitationForm({ createInvitation }: CreateInvitationFormP
         // Extract only the email values from the submitted data
         const email_addresses = data.emails.map(emailField => emailField.value)
         // Pass the extracted email values to your onSubmit handler
-        await createInvitation({ email_addresses })
+        // await createInvitation({ email_addresses })
     }
 
     return (
