@@ -88,4 +88,8 @@
   body {
     @apply bg-background text-foreground text-sm;
   }
+
+  a {
+    @apply text-primary;
+  }
 }
