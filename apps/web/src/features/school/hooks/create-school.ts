@@ -3,9 +3,7 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { createSchool } from "@/features/school/services/create-school"
-import { useMeStore } from "@/features/me/store"
 import { CreateSchoolSchema } from "../components/create-school/form-schema"
-import { useSchoolsStore } from "../store"
 
 // useCreateSchool hook used to create a school
 export function useCreateSchool() {

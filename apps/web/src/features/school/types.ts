@@ -1,5 +1,3 @@
-import { Role, User } from "@/shared/types/user"
-
 export interface School {
     id?: string
     institute_id: string
@@ -19,12 +17,4 @@ export interface CreateSchool {
     description: string
     education_system_id: string
     website?: string | undefined
-}
-
-export interface SchoolUser {
-    school_id: string
-    user_id: string
-    role: Role
-    school: School
-    user: User
 }
