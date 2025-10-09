@@ -1,5 +1,6 @@
 import { authenticatedGet } from "@/features/auth/utils/authenticated-get";
 import { User } from "@/shared/types/user";
+import { isUUIDNil } from "@/shared/utils/is-uuid-nil";
 
 export async function getMe(): Promise<User | null> {
     try {
@@ -11,7 +12,7 @@ export async function getMe(): Promise<User | null> {
             throw err;
         }
         const meData = await resp.json();
-        if (meData.id === "00000000-0000-0000-0000-000000000000") {
+        if (isUUIDNil(meData.id)) {
             return null
         }
         return meData
