@@ -1,6 +1,9 @@
 import { QueryClient } from '@tanstack/react-query';
 
-export function makeQueryClient() {
+// Global single instance of QueryClient (used for both server and client)
+let client: QueryClient | undefined = undefined;
+
+function createQueryClient() {
     return new QueryClient({
         defaultOptions: {
             queries: {
@@ -18,4 +21,18 @@ export function makeQueryClient() {
             },
         },
     });
+}
+
+export function makeQueryClient() {
+    if (typeof window === 'undefined') {
+        // Server: Always create a new QueryClient to avoid sharing state between requests
+        return createQueryClient();
+    }
+
+    // Client: Create the QueryClient on first render and reuse it
+    if (!client) {
+        client = createQueryClient();
+    }
+
+    return client;
 }
