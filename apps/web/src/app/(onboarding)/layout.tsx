@@ -3,7 +3,6 @@ import { redirect } from "next/navigation"
 import { getMe } from "@/features/me/services/get-me"
 import { TokenRefreshFailedError } from "@/features/auth/errors"
 import { makeQueryClient } from "@/shared/lib/query-client"
-import { isUUIDNil } from "@/shared/utils/is-uuid-nil"
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
     try {
