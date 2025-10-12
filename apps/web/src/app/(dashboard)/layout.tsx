@@ -4,7 +4,6 @@ import { getMe } from "@/features/me/services/get-me"
 import { DashboardLayout } from "@/shared/components/layout/dashboard-layout"
 import { TokenRefreshFailedError } from "@/features/auth/errors"
 import { makeQueryClient } from "@/shared/lib/query-client"
-import { isUUIDNil } from "@/shared/utils/is-uuid-nil"
 
 // This layout is used for the dashboard and requires the user to be logged in
 export default async function Layout({ children, modal }: { modal: React.ReactNode, children: React.ReactNode }) {
@@ -18,7 +17,7 @@ export default async function Layout({ children, modal }: { modal: React.ReactNo
             queryFn: getMe,
         });
 
-        if (!me || isUUIDNil(me.user_id)) {
+        if (!me) {
             redirect("/signout")
         }
 
