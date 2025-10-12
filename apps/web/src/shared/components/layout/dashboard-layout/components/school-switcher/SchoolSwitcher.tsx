@@ -2,6 +2,7 @@
 
 import { ChevronsUpDown, Plus, Check } from "lucide-react"
 import Link from "next/link"
+import { Spinner } from "@/shared/components/ui/spinner"
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -41,21 +42,26 @@ export function SchoolSwitcher() {
         console.log(s)
     }
 
+    function handleOnOpenChange(open: boolean) {
+        if (open) {
+            refetch()
+        }
+    }
+
     return (
         <SidebarMenu>
             <SidebarMenuItem>
-                <DropdownMenu>
+                <DropdownMenu onOpenChange={handleOnOpenChange}>
                     <DropdownMenuTrigger asChild>
                         <SidebarMenuButton
                             size="lg"
                             className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-                            onClick={() => refetch()}
                         >
                             <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                                 {activeSchool?.name[0]?.toUpperCase?.()}
                             </div>
                             <div className="grid flex-1 text-left text-sm leading-tight">
-                                <span className="truncate font-semibold">
+                                <span className="truncate font-semibold" onClick={console.log}>
                                     {activeSchool?.name}
                                 </span>
                             </div>
@@ -74,7 +80,7 @@ export function SchoolSwitcher() {
                         {
                             isRefetching && (
                                 <DropdownMenuItem>
-                                    <svg className="mr-3 size-5 animate-spin ..." viewBox="0 0 24 24" />
+                                    <Spinner />
                                     <span>Loading ...</span>
                                 </DropdownMenuItem>
                             ) ||
