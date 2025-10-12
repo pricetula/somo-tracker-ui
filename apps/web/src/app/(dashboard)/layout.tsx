@@ -11,15 +11,18 @@ export default async function Layout({ children, modal }: { modal: React.ReactNo
     let dehydratedState: DehydratedState | undefined;
 
     try {
-        // Prefetch user
+        // Prefetch user before painting on the browser
         const me = await queryClient.fetchQuery(meQuery);
 
+        // If authorized user not found then sign out
         if (!me) {
             redirect("/signout")
         }
 
+        // Makes the client cache to be serialized to be available on the client side
         dehydratedState = dehydrate(queryClient);
     } catch (error) {
+        // Check if token refresh has failed and sign out
         if (error instanceof TokenRefreshFailedError) {
             redirect("/signout")
         }
