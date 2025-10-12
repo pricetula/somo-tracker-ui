@@ -1,9 +1,7 @@
 "use client"
 
-// import { useEffect, useState } from "react"
 import { ChevronsUpDown, Plus, Check } from "lucide-react"
 import Link from "next/link"
-// import { toast } from "sonner"
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -18,45 +16,30 @@ import {
     SidebarMenuItem,
     useSidebar,
 } from "@/shared/components/ui/sidebar"
-// import { Skeleton } from "@/shared/components/ui/skeleton"
-// import { useSchoolsStore } from "@/features/school/store"
-// import { useMeStore } from "@/features/me/store"
-// import { School } from "@/features/school/types"
-// import { setActiveSchool } from "@/features/me/services/set-active-school"
 import { useMeQuery } from "@/features/me/hooks/useMeQuery"
-import { useEffect } from "react"
+import { School } from "@/features/school/types"
+import { useSchoolsQuery } from "@/features/school/hooks/use-schools-query"
 
 export function SchoolSwitcher() {
-    // const [activeSchoolState, setActiveSchoolState] = useState<School>()
     const { isMobile } = useSidebar()
-    const me = useMeQuery()
-    // const schools = useSchoolsStore((s) => s.schools)
+    const { data: schools, isRefetching, refetch } = useSchoolsQuery()
+    const { data: schoolUser, isPending } = useMeQuery()
 
-    useEffect(() => {
-        console.log(me)
-    }, [me])
+    // Show loading element
+    if (isPending) {
+        return <div className="w-full h-10 animate-pulse rounded-md bg-muted" />
+    }
 
+    // If null just return null
+    if (!schoolUser) {
+        return null
+    }
 
-    // useEffect(() => {
-    //     if (me?.active_school_id && schools.length > 0) {
-    //         setActiveSchoolState(schools.find((school) => school.id === me?.active_school_id))
-    //     }
-    // }, [schools, me?.active_school_id])
+    const activeSchool = schoolUser?.school
 
-    // if (!schools.length || !activeSchoolState) {
-    //     return <Skeleton className="h-[42px] w-[208px]" />
-    // }
-
-    // async function handleSetActiveSchool(s: School) {
-    //     if (!s.id) return
-    //     setActiveSchoolState(s)
-    //     const { error } = await setActiveSchool(s.id)
-    //     if (error) {
-    //         toast.error(error);
-    //         return
-    //     }
-    //     window.location.reload()
-    // }
+    function handleSetActiveSchool(s: School) {
+        console.log(s)
+    }
 
     return (
         <SidebarMenu>
@@ -66,13 +49,14 @@ export function SchoolSwitcher() {
                         <SidebarMenuButton
                             size="lg"
                             className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                            onClick={() => refetch()}
                         >
                             <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                                {me?.data?.school?.name[0]?.toUpperCase?.()}
+                                {activeSchool?.name[0]?.toUpperCase?.()}
                             </div>
                             <div className="grid flex-1 text-left text-sm leading-tight">
                                 <span className="truncate font-semibold">
-                                    {me?.data?.school?.name}
+                                    {activeSchool?.name}
                                 </span>
                             </div>
                             <ChevronsUpDown className="ml-auto" />
@@ -87,23 +71,37 @@ export function SchoolSwitcher() {
                         <DropdownMenuLabel className="text-xs text-muted-foreground">
                             Schools
                         </DropdownMenuLabel>
-                        {/* {schools.map((school, index) => (
-                            <DropdownMenuItem
-                                key={school.name}
-                                onClick={() => handleSetActiveSchool(school)}
-                                className="gap-2 p-2"
-                            >
-                                <div className="flex size-6 items-center justify-center rounded-sm border">
-                                    {school.name[0]?.toUpperCase?.()}
-                                </div>
-                                {school.name}
-                                {
-                                    activeSchoolState && activeSchoolState.id === school.id && (
-                                        <Check className="ml-auto text-green-400" />
-                                    )
-                                }
-                            </DropdownMenuItem>
-                        ))} */}
+                        {
+                            isRefetching && (
+                                <DropdownMenuItem>
+                                    <svg className="mr-3 size-5 animate-spin ..." viewBox="0 0 24 24" />
+                                    <span>Loading ...</span>
+                                </DropdownMenuItem>
+                            ) ||
+                            // schools && schools.map((school) => (
+                            //     <DropdownMenuItem
+                            //         key={school.name}
+                            //         onClick={() => handleSetActiveSchool(school)}
+                            //         className="gap-2 p-2"
+                            //     >
+                            //         <div className="flex size-6 items-center justify-center rounded-sm border">
+                            //             {school.name[0]?.toUpperCase?.()}
+                            //         </div>
+                            //         {school.name}
+                            //         {
+                            //             activeSchool && activeSchool.id === school.id && (
+                            //                 <Check className="ml-auto text-green-400" />
+                            //             )
+                            //         }
+                            //     </DropdownMenuItem>
+                            // )) ||
+                            (!schools || schools.length === 0) && (
+                                <DropdownMenuItem>
+                                    No schools found
+                                </DropdownMenuItem>
+                            )
+
+                        }
                         <DropdownMenuSeparator />
                         <DropdownMenuItem>
                             <Link href="/school/create" className="flex gap-2">
