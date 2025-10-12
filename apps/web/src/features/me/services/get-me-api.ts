@@ -6,7 +6,7 @@ import { SchoolUser } from "@/features/school-user/types";
  * This function is safe to call from Client Components (useQuery).
  * It relies on the browser to automatically send cookies to the same origin.
  */
-export async function getMeAPI(): Promise<SchoolUser[]> {
+export async function getMeAPI(): Promise<SchoolUser> {
     // 1. Fetch the internal API endpoint. Relative path is safe in the browser.
     const resp = await fetch("/api/me");
 
@@ -36,5 +36,5 @@ export async function getMeAPI(): Promise<SchoolUser[]> {
     }
 
     // 3. Return the JSON payload (SchoolUser[])
-    return resp.json() as Promise<SchoolUser[]>;
+    return resp.json() as Promise<SchoolUser>;
 }

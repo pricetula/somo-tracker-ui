@@ -78,23 +78,23 @@ export function SchoolSwitcher() {
                                     <span>Loading ...</span>
                                 </DropdownMenuItem>
                             ) ||
-                            // schools && schools.map((school) => (
-                            //     <DropdownMenuItem
-                            //         key={school.name}
-                            //         onClick={() => handleSetActiveSchool(school)}
-                            //         className="gap-2 p-2"
-                            //     >
-                            //         <div className="flex size-6 items-center justify-center rounded-sm border">
-                            //             {school.name[0]?.toUpperCase?.()}
-                            //         </div>
-                            //         {school.name}
-                            //         {
-                            //             activeSchool && activeSchool.id === school.id && (
-                            //                 <Check className="ml-auto text-green-400" />
-                            //             )
-                            //         }
-                            //     </DropdownMenuItem>
-                            // )) ||
+                            schools && schools.map((school) => (
+                                <DropdownMenuItem
+                                    key={school.name}
+                                    onClick={() => handleSetActiveSchool(school)}
+                                    className="gap-2 p-2"
+                                >
+                                    <div className="flex size-6 items-center justify-center rounded-sm border">
+                                        {school.name[0]?.toUpperCase?.()}
+                                    </div>
+                                    {school.name}
+                                    {
+                                        activeSchool && activeSchool.id === school.id && (
+                                            <Check className="ml-auto text-green-400" />
+                                        )
+                                    }
+                                </DropdownMenuItem>
+                            )) ||
                             (!schools || schools.length === 0) && (
                                 <DropdownMenuItem>
                                     No schools found
