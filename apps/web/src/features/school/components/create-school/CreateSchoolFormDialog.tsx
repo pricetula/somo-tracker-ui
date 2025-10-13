@@ -13,7 +13,7 @@ import { Button } from "@/shared/components/ui/button"
 import { CreateSchoolFields } from "@/features/school/components/create-school/CreateSchoolFields"
 import { useCreateSchool } from "../../hooks/create-school"
 
-export function CreateSchoolDialog() {
+export function CreateSchoolFormDialog() {
     const { create, isLoading, routerBack } = useCreateSchool()
 
     // Initialize the form with the resolver and default values
@@ -40,8 +40,8 @@ export function CreateSchoolDialog() {
 
     return (
         <Dialog defaultOpen={true} onOpenChange={handleOnOpenChange}>
-            <DialogContent>
-                <DialogHeader>
+            <DialogContent className="p-8">
+                <DialogHeader className="mb-8">
                     <DialogTitle>Create School</DialogTitle>
                     <DialogDescription>
                         Fill out the form below to create a new school
@@ -49,9 +49,9 @@ export function CreateSchoolDialog() {
                 </DialogHeader>
 
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(submitFunc)} className="w-[90%] max-w-[500px] space-y-8">
+                    <form onSubmit={form.handleSubmit(submitFunc)} className="space-y-6">
                         <CreateSchoolFields form={form} />
-                        <Button type="submit" id="submit-create-school" disabled={isLoading} className="min-w-[130px]">
+                        <Button type="submit" id="submit-create-school" disabled={isLoading} className="mt-6 min-w-[130px]">
                             {
                                 isLoading
                                     ? (

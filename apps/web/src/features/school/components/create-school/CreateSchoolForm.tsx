@@ -36,7 +36,7 @@ export function CreateSchoolForm() {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(submitFunc)} className="w-[90%] max-w-[500px] space-y-8">
+            <form onSubmit={form.handleSubmit(submitFunc)} className="p-4 w-[90%] max-w-[500px] space-y-6">
                 <CreateSchoolFields form={form} />
                 <Button type="submit" id="submit-create-school" disabled={isLoading} className="min-w-[130px]">
                     {
