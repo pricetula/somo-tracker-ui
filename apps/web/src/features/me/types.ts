@@ -1,9 +1,10 @@
-import { User } from "@/shared/types/user"
-import { Institute } from "@/features/institutes/types"
+import { School } from "@/features/school/types"
+import { Role, User } from "@/features/user/types"
 
-export interface InstituteUser {
-    instituteId: string
-    userId: string
-    institute: Institute
+export interface SchoolUser {
+    school_id: string
+    user_id: string
+    school: School
+    role: Role
     user: User
 }

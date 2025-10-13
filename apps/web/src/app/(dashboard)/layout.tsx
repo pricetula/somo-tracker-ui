@@ -18,7 +18,7 @@ export default async function Layout({ children, modal }: { modal: React.ReactNo
         if (!me) {
             redirect("/signout")
         }
-
+        console.log(me)
         // Makes the client cache to be serialized to be available on the client side
         dehydratedState = dehydrate(queryClient);
     } catch (error) {

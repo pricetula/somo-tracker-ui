@@ -20,11 +20,13 @@ import {
 import { useMeQuery } from "@/features/me/hooks/useMeQuery"
 import { School } from "@/features/school/types"
 import { useSchoolsQuery } from "@/features/school/hooks/use-schools-query"
+import { useSetActiveSchoolMutation } from "@/features/me/hooks/use-set-active-school-mutation"
 
 export function SchoolSwitcher() {
     const { isMobile } = useSidebar()
     const { data: schools, isRefetching, refetch } = useSchoolsQuery()
     const { data: schoolUser, isPending } = useMeQuery()
+    const { mutate, isPending: isUpdating } = useSetActiveSchoolMutation()
 
     // Show loading element
     if (isPending) {
@@ -39,7 +41,8 @@ export function SchoolSwitcher() {
     const activeSchool = schoolUser?.school
 
     function handleSetActiveSchool(s: School) {
-        console.log(s)
+        if (isUpdating || !s?.id) return
+        mutate(s.id)
     }
 
     function handleOnOpenChange(open: boolean) {
@@ -89,6 +92,7 @@ export function SchoolSwitcher() {
                                     key={school.name}
                                     onClick={() => handleSetActiveSchool(school)}
                                     className="gap-2 p-2"
+                                    disabled={isUpdating}
                                 >
                                     <div className="flex size-6 items-center justify-center rounded-sm border">
                                         {school.name[0]?.toUpperCase?.()}
