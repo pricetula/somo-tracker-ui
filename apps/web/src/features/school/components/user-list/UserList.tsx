@@ -7,7 +7,7 @@ import {
     createColumnHelper,
     flexRender,
 } from "@tanstack/react-table"
-import { SchoolUser } from "../../types"
+import { SchoolUser } from "@/features/school-user/types"
 import { cn } from "@/shared/lib/utils"
 import { RoleSelector } from "@/shared/components/role-selector"
 

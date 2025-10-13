@@ -29,7 +29,7 @@ export function CreateSchoolFields({ form }: CreateSchoolProps) {
                 name="name"
                 render={({ field }) => (
                     <FormItem className="mb-4">
-                        <FormLabel htmlFor="name">School Name</FormLabel>
+                        <FormLabel htmlFor="name">Name</FormLabel>
                         <FormControl>
                             <Input id="name" placeholder="School Name" {...field} />
                         </FormControl>

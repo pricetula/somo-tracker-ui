@@ -32,25 +32,6 @@ export function NavPlatform() {
 
     const items = [
         {
-            title: "Documentation",
-            url: "/docs",
-            icon: BookOpen,
-            items: [
-                {
-                    title: "Introduction",
-                    url: "/docs",
-                },
-                {
-                    title: "Get Started",
-                    url: "/docs/getting-started",
-                },
-                {
-                    title: "Inviting members",
-                    url: "/docs/inviting-members",
-                },
-            ],
-        },
-        {
             title: "Settings",
             url: "/settings",
             icon: Settings2,
@@ -66,6 +47,25 @@ export function NavPlatform() {
                 {
                     title: "Billing",
                     url: "/settings/billing",
+                },
+            ],
+        },
+        {
+            title: "Documentation",
+            url: "/docs",
+            icon: BookOpen,
+            items: [
+                {
+                    title: "Introduction",
+                    url: "/docs",
+                },
+                {
+                    title: "Get Started",
+                    url: "/docs/getting-started",
+                },
+                {
+                    title: "Inviting members",
+                    url: "/docs/inviting-members",
                 },
             ],
         },

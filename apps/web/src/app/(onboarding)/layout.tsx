@@ -1,21 +1,26 @@
-import { redirect } from "next/navigation"
-import { getMe } from "@/features/me/services/get-me";
 import { Nav } from "@/shared/components/layout/nav/Nav";
-import { User } from "@/shared/types/user";
+import { redirect } from "next/navigation"
+import { getMe } from "@/features/me/services/get-me"
+import { TokenRefreshFailedError } from "@/features/auth/errors"
+import { makeQueryClient } from "@/shared/lib/query-client"
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
-    // Variable to hold me data which is the current user and their institute
-    let me: User | null
-
     try {
-        me = await getMe();
-    } catch (error: any) {
-        redirect("/signout");
-    }
+        const queryClient = makeQueryClient();
 
-    // If me institute is not defined, redirect to the create institute page
-    if (me?.institute_id) {
-        redirect("/");
+        // Prefetch user
+        const me = await queryClient.fetchQuery({
+            queryKey: ['me'],
+            queryFn: getMe,
+        });
+
+        if (me?.user_id) {
+            redirect("/")
+        }
+    } catch (error) {
+        if (error instanceof TokenRefreshFailedError) {
+            redirect("/signout")
+        }
     }
 
     return (
