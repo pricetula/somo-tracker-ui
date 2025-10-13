@@ -8,6 +8,7 @@ export function useCreateSchoolMutation() {
 
     return useMutation({
         mutationFn: createSchool,
+
         // 2. Optimistic Update Logic
         onMutate: async (newSchoolData: CreateSchool) => {
             // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
@@ -16,13 +17,16 @@ export function useCreateSchoolMutation() {
             // Snapshot the previous value
             const previousSchools = queryClient.getQueryData<School[]>(schoolsKeys.all)
 
+            const tempID = `local-id-${Date.now()}`
+
             // Optimistically update the cache
             if (previousSchools) {
                 // Create a temporary ID for the optimistic item (e.g., negative number)
                 const optimisticSchool: School = {
                     ...newSchoolData,
                     institute_id: 's',
-                    id: Date.now() + '', // Use a temporary, unique client-side ID
+                    // Use a temporary, unique client-side ID
+                    id: tempID,
                     created_at: new Date().toISOString(),
                 }
 
@@ -33,15 +37,39 @@ export function useCreateSchoolMutation() {
             }
 
             // Return a context object with the snapshot value
-            return { previousSchools }
+            return { previousSchools, tempID }
         },
-        // 3. Success handler (Runs after the Server Action successfully returns the *real* data)
-        onSuccess: (newSchool) => {
-            // Optional: Invalidate and refetch the list to ensure data is correct
-            queryClient.invalidateQueries({ queryKey: schoolsKeys.all })
 
-            // Or, update the cache with the real school data (including the server-assigned ID)
-            // This can be more complex if you rely on the temporary ID from onMutate
+        // 3. Success handler (Runs after the Server Action successfully returns the *real* data)
+        onSuccess: (newSchool, variables, context) => {
+            // Get the locally set temp id
+            const tempID = context?.tempID
+
+            // Get the current schools list from the cache
+            const currentSchools = queryClient.getQueryData<School[]>(schoolsKeys.all)
+
+            if (currentSchools && tempID) {
+                // Find the index of the temporary school
+                const tempIndex = currentSchools.findIndex(school => school.id === tempID)
+
+                if (tempIndex !== -1) {
+                    // Create a new array, replacing the temporary object at tempIndex with the real server data
+                    const updatedSchools = [
+                        ...currentSchools.slice(0, tempIndex), // Items before the temporary one
+                        newSchool,                            // The real school object from the server
+                        ...currentSchools.slice(tempIndex + 1), // Items after the temporary one
+                    ]
+
+                    // Update the query cache with the final, correct data
+                    queryClient.setQueryData<School[]>(schoolsKeys.all, updatedSchools)
+                } else {
+                    // Fallback: If for some reason the temp item wasn't found, just refetch
+                    queryClient.invalidateQueries({ queryKey: schoolsKeys.all })
+                }
+            } else {
+                // Fallback: If no current data, just refetch
+                queryClient.invalidateQueries({ queryKey: schoolsKeys.all })
+            }
         },
 
         // 4. Error handler (Rollback on failure)
