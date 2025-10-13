@@ -17,6 +17,7 @@ export function useCreateSchoolMutation() {
             // Snapshot the previous value
             const previousSchools = queryClient.getQueryData<School[]>(schoolsKeys.all)
 
+            // Temporary ID for newly added school
             const tempID = `local-id-${Date.now()}`
 
             // Optimistically update the cache
