@@ -12,9 +12,10 @@ export interface School {
 }
 
 export interface CreateSchool {
-    name: string
-    address: string
-    description: string
     education_system_id: string
-    website?: string | undefined
+    name: string
+    description: string
+    address: string
+    website: string
+    school_type: string
 }
