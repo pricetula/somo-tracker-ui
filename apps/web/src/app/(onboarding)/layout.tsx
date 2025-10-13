@@ -1,18 +1,15 @@
 import { Nav } from "@/shared/components/layout/nav/Nav";
 import { redirect } from "next/navigation"
-import { getMe } from "@/features/me/services/get-me"
 import { TokenRefreshFailedError } from "@/features/auth/errors"
 import { makeQueryClient } from "@/shared/lib/query-client"
+import { meQuery } from "@/features/me/queries/config";
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
     try {
         const queryClient = makeQueryClient();
 
-        // Prefetch user
-        const me = await queryClient.fetchQuery({
-            queryKey: ['me'],
-            queryFn: getMe,
-        });
+        // Prefetch user before painting on the browser
+        const me = await queryClient.fetchQuery(meQuery);
 
         if (me?.user_id) {
             redirect("/")

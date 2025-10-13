@@ -1,1 +1,1 @@
-export { CreateInstitute } from "./CreateInstitute";
+export { CreateInstituteForm } from "./CreateInstituteForm";

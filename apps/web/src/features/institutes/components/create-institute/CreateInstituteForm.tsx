@@ -22,14 +22,7 @@ import {
     type CreateInstituteSchema,
 } from "./form-schema"
 
-interface CreateInstituteProps {
-    createInstitute(institute: CreateInstituteSchema): Promise<ActionResponse<Institute | null>>
-}
-
-export function CreateInstituteForm({ createInstitute }: CreateInstituteProps) {
-    // State to be set to true when email is being sent or verifying code
-    const [isSubmitting, setIsSubmitting] = React.useState(false)
-
+export function CreateInstituteForm() {
     // Initialize the form with the resolver and default values
     const form = useForm<CreateInstituteSchema>({
         resolver: zodResolver(createInstituteSchema),
@@ -47,25 +40,7 @@ export function CreateInstituteForm({ createInstitute }: CreateInstituteProps) {
 
     // Submit function
     async function submitFunc(i: CreateInstituteSchema) {
-        // Set isSubmitting to true to disable the submit button and show the loader
-        setIsSubmitting(true)
-
-        // Run create institute action to create institute and admin user
-        const { error } = await createInstitute(i)
-
-
-        // Check if an error occurs then display as toast
-        if (error) {
-            // Set isSubmitting to false after getting error
-            setIsSubmitting(false)
-
-            // Reset form fields
-            form.reset()
-
-            // Show error message on a toast
-            toast(error)
-            return
-        }
+        console.log(i)
 
         // If creation was successfull then redirect to create school page
         window.location.href = "/"
