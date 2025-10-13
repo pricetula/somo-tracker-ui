@@ -41,6 +41,7 @@ export function CreateSchoolFormDialog() {
             school_type: "LEARNING_INSTITUTE",
         }
         mutate(instituteToCreate)
+        router.back()
     }
 
     function handleOnOpenChange(open: boolean) {

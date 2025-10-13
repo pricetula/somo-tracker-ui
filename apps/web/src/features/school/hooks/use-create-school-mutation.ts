@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { meKeys } from "@/features/me/queries/keys";
 import { CreateSchool, School } from "../types";
 import { createSchool } from "../services/create-school";
 import { schoolsKeys } from "../queries/keys";
@@ -27,6 +28,7 @@ export function useCreateSchoolMutation() {
                     ...newSchoolData,
                     // Use a temporary, unique client-side ID
                     id: tempID,
+                    institute_id: "",
                     created_at: new Date().toISOString(),
                 }
 
@@ -68,6 +70,7 @@ export function useCreateSchoolMutation() {
                 }
             } else {
                 // Fallback: If no current data, just refetch
+                queryClient.invalidateQueries({ queryKey: meKeys.me })
                 queryClient.invalidateQueries({ queryKey: schoolsKeys.all })
             }
         },
