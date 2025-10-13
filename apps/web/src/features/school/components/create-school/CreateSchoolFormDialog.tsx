@@ -11,14 +11,12 @@ import {
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/shared/components/ui/dialog"
 import { createSchoolSchema, CreateSchoolSchema } from "@/features/school/components/create-school/form-schema"
 import { Button } from "@/shared/components/ui/button"
-import { useMeQuery } from "@/features/me/hooks/useMeQuery"
 import { CreateSchoolFields } from "@/features/school/components/create-school/CreateSchoolFields"
 import { useCreateSchoolMutation } from "../../hooks/use-create-school-mutation"
 
 export function CreateSchoolFormDialog() {
     // Use next router
     const router = useRouter()
-    const { data: me } = useMeQuery()
     const { mutate, isPending } = useCreateSchoolMutation()
 
     // Initialize the form with the resolver and default values
@@ -34,7 +32,6 @@ export function CreateSchoolFormDialog() {
     })
 
     async function submitFunc(i: CreateSchoolSchema) {
-        if (!me?.user?.institute_id) return
         const instituteToCreate = {
             name: i.name,
             description: i.description,
@@ -42,7 +39,6 @@ export function CreateSchoolFormDialog() {
             website: i.website as string,
             education_system_id: i.education_system_id,
             school_type: "LEARNING_INSTITUTE",
-            institute_id: me.user.institute_id
         }
         mutate(instituteToCreate)
     }
