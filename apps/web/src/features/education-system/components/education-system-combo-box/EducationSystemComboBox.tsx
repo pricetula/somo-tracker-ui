@@ -18,7 +18,7 @@ import {
     CommandList,
 } from "@/shared/components/ui/command"
 import { EducationSystem } from "../../types"
-import { useEducationSystemsQuery } from "../../hooks/useMeQuery"
+import { useEducationSystemsQuery } from "../../hooks/useEducationSystemsQuery"
 import { Spinner } from "@/shared/components/ui/spinner"
 
 interface EducationSystemComboBoxProps {

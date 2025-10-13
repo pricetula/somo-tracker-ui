@@ -8,7 +8,8 @@ import {
     Form,
 } from "@/shared/components/ui/form"
 import { Button } from "@/shared/components/ui/button"
-import { useCreateSchoolMutation } from "../../hooks/use-create-school"
+import { useMeQuery } from "@/features/me/hooks/useMeQuery"
+import { useCreateSchoolMutation } from "../../hooks/use-create-school-mutation"
 import { CreateSchoolFields } from "./CreateSchoolFields"
 import {
     createSchoolSchema,
@@ -16,6 +17,7 @@ import {
 } from "./form-schema"
 
 export function CreateSchoolForm() {
+    const { data: me } = useMeQuery()
     const { mutate, isPending } = useCreateSchoolMutation()
 
     // Initialize the form with the resolver and default values
@@ -31,6 +33,7 @@ export function CreateSchoolForm() {
     })
 
     async function submitFunc(i: CreateSchoolSchema) {
+        if (!me?.user?.institute_id) return
         const instituteToCreate = {
             name: i.name,
             description: i.description,
@@ -38,6 +41,7 @@ export function CreateSchoolForm() {
             website: i.website as string,
             education_system_id: i.education_system_id,
             school_type: "LEARNING_INSTITUTE",
+            institute_id: me.user.institute_id
         }
         mutate(instituteToCreate)
     }

@@ -25,7 +25,6 @@ export function useCreateSchoolMutation() {
                 // Create a temporary ID for the optimistic item (e.g., negative number)
                 const optimisticSchool: School = {
                     ...newSchoolData,
-                    institute_id: 's',
                     // Use a temporary, unique client-side ID
                     id: tempID,
                     created_at: new Date().toISOString(),

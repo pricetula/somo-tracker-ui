@@ -1,6 +1,7 @@
 "use client"
 
 import React from "react"
+import { useRouter } from "next/navigation"
 import { Loader2Icon } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -10,11 +11,15 @@ import {
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/shared/components/ui/dialog"
 import { createSchoolSchema, CreateSchoolSchema } from "@/features/school/components/create-school/form-schema"
 import { Button } from "@/shared/components/ui/button"
+import { useMeQuery } from "@/features/me/hooks/useMeQuery"
 import { CreateSchoolFields } from "@/features/school/components/create-school/CreateSchoolFields"
-import { useCreateSchool } from "../../hooks/create-school"
+import { useCreateSchoolMutation } from "../../hooks/use-create-school-mutation"
 
 export function CreateSchoolFormDialog() {
-    const { create, isLoading, routerBack } = useCreateSchool()
+    // Use next router
+    const router = useRouter()
+    const { data: me } = useMeQuery()
+    const { mutate, isPending } = useCreateSchoolMutation()
 
     // Initialize the form with the resolver and default values
     const form = useForm<CreateSchoolSchema>({
@@ -29,12 +34,22 @@ export function CreateSchoolFormDialog() {
     })
 
     async function submitFunc(i: CreateSchoolSchema) {
-        create(i)
+        if (!me?.user?.institute_id) return
+        const instituteToCreate = {
+            name: i.name,
+            description: i.description,
+            address: i.address,
+            website: i.website as string,
+            education_system_id: i.education_system_id,
+            school_type: "LEARNING_INSTITUTE",
+            institute_id: me.user.institute_id
+        }
+        mutate(instituteToCreate)
     }
 
     function handleOnOpenChange(open: boolean) {
         if (!open) {
-            routerBack()
+            router.back()
         }
     }
 
@@ -51,9 +66,9 @@ export function CreateSchoolFormDialog() {
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(submitFunc)} className="space-y-6">
                         <CreateSchoolFields form={form} />
-                        <Button type="submit" id="submit-create-school" disabled={isLoading} className="mt-6 min-w-[130px]">
+                        <Button type="submit" id="submit-create-school" disabled={isPending} className="mt-6 min-w-[130px]">
                             {
-                                isLoading
+                                isPending
                                     ? (
                                         <span className="flex items-center gap-1">
                                             <Loader2Icon className="animate-spin" />

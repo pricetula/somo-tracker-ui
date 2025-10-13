@@ -13,6 +13,7 @@ export interface School {
 
 export interface CreateSchool {
     education_system_id: string
+    institute_id: string
     name: string
     description: string
     address: string
