@@ -8,7 +8,7 @@ import {
     Form,
 } from "@/shared/components/ui/form"
 import { Button } from "@/shared/components/ui/button"
-import { useCreateSchool } from "../../hooks/create-school"
+import { useCreateSchoolMutation } from "../../hooks/use-create-school"
 import { CreateSchoolFields } from "./CreateSchoolFields"
 import {
     createSchoolSchema,
@@ -16,7 +16,7 @@ import {
 } from "./form-schema"
 
 export function CreateSchoolForm() {
-    const { create, isLoading } = useCreateSchool()
+    const { mutate, isPending } = useCreateSchoolMutation()
 
     // Initialize the form with the resolver and default values
     const form = useForm<CreateSchoolSchema>({
@@ -31,16 +31,24 @@ export function CreateSchoolForm() {
     })
 
     async function submitFunc(i: CreateSchoolSchema) {
-        create(i)
+        const instituteToCreate = {
+            name: i.name,
+            description: i.description,
+            address: i.address,
+            website: i.website as string,
+            education_system_id: i.education_system_id,
+            school_type: "LEARNING_INSTITUTE",
+        }
+        mutate(instituteToCreate)
     }
 
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(submitFunc)} className="p-4 w-[90%] max-w-[500px] space-y-6">
                 <CreateSchoolFields form={form} />
-                <Button type="submit" id="submit-create-school" disabled={isLoading} className="min-w-[130px]">
+                <Button type="submit" id="submit-create-school" disabled={isPending} className="min-w-[130px]">
                     {
-                        isLoading
+                        isPending
                             ? (
                                 <span className="flex items-center gap-1">
                                     <Loader2Icon className="animate-spin" />
