@@ -43,7 +43,7 @@ export function SchoolSwitcher() {
     }
 
     function handleOnOpenChange(open: boolean) {
-        if (open) {
+        if (open && !schools?.length) {
             refetch()
         }
     }
