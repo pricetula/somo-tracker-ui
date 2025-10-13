@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { Check, ChevronsUpDown } from "lucide-react"
 import { cn } from "@/shared/lib/utils"
 import { Button } from "@/shared/components/ui/button"
@@ -17,8 +17,9 @@ import {
     CommandItem,
     CommandList,
 } from "@/shared/components/ui/command"
-import { useEducationSystemsStore } from "../../store"
 import { EducationSystem } from "../../types"
+import { useEducationSystemsQuery } from "../../hooks/useMeQuery"
+import { Spinner } from "@/shared/components/ui/spinner"
 
 interface EducationSystemComboBoxProps {
     id: string
@@ -27,16 +28,18 @@ interface EducationSystemComboBoxProps {
 }
 
 export function EducationSystemComboBox({ id, initValue, onSetValue }: EducationSystemComboBoxProps) {
-    const educationSystems = useEducationSystemsStore((s) => s.educationSystems)
+    const { data: educationSystems, isPending } = useEducationSystemsQuery()
+
     const [open, setOpen] = useState(false)
     const [value, setValue] = useState("")
-    const selectedEducationSystem = value && educationSystems.find((educationSystem) => educationSystem.id === value) || null
-
-    useEffect(() => {
-        if (!selectedEducationSystem && initValue) {
-            setValue(initValue)
-        }
-    }, [initValue, selectedEducationSystem])
+    const selectedEducationSystem = useMemo(
+        () => {
+            if ((!value && !initValue) || !educationSystems) return null
+            const vals = [value, initValue]
+            return educationSystems.find((educationSystem) => vals.includes(educationSystem.id)) || null
+        },
+        [educationSystems, value]
+    )
 
     useEffect(() => {
         if (selectedEducationSystem) {
@@ -53,9 +56,23 @@ export function EducationSystemComboBox({ id, initValue, onSetValue }: Education
                     role="combobox"
                     aria-expanded={open}
                     className="w-full justify-between"
+                    disabled={isPending}
                 >
-                    {selectedEducationSystem?.name || "Select education system..."}
-                    <ChevronsUpDown className="opacity-50" />
+                    {
+                        isPending
+                            ? (
+                                <span>
+                                    <Spinner />
+                                    <span>Loading...</span>
+                                </span>
+                            )
+                            : (
+                                <>
+                                    {selectedEducationSystem?.name || "Select education system..."}
+                                    <ChevronsUpDown className="opacity-50" />
+                                </>
+                            )
+                    }
                 </Button>
             </PopoverTrigger>
             <PopoverContent className="w-[200px] p-0">
@@ -64,7 +81,7 @@ export function EducationSystemComboBox({ id, initValue, onSetValue }: Education
                     <CommandList>
                         <CommandEmpty>No education system found.</CommandEmpty>
                         <CommandGroup>
-                            {educationSystems.map((educationSystem) => (
+                            {educationSystems && educationSystems.map((educationSystem) => (
                                 <CommandItem
                                     key={educationSystem.id}
                                     value={educationSystem.id}
