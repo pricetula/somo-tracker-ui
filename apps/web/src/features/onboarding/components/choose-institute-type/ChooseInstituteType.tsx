@@ -12,6 +12,7 @@ export function ChooseInstituteType() {
     const listItemClassName = "md:w-1/2 shrink-0"
     const linkClassName = "h-[130px] w-full group inline-block rounded-2xl border-4 border-transparent bg-gradient-to-br p-8 text-white transition-all duration-500 ease-out hover:scale-105 hover:shadow-xl"
     const headerTextClassName = "transition-transform duration-500 group-hover:scale-110"
+
     return (
         <div className="h-4/5 flex items-center justify-center">
             <article>
