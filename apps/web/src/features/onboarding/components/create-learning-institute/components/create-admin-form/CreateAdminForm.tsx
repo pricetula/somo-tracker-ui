@@ -18,6 +18,7 @@ import {
     createLearningInstituteSchema,
 } from "../../form-schema"
 import { useOnboardLearningInstituteStore } from "../../store"
+import { TypographyH1 } from "@/shared/components/typography"
 
 const createAdminSchema = createLearningInstituteSchema.pick({
     user_email: true,
@@ -56,68 +57,71 @@ export function CreateAdminForm() {
     }
 
     return (
-        <Form {...form}>
-            <form onSubmit={form.handleSubmit(submitFunc)} className="w-[90%] max-w-[500px] space-y-8">
-                <FormField
-                    control={form.control}
-                    name="user_email"
-                    render={({ field }) => (
-                        <FormItem className="mb-4">
-                            <FormLabel htmlFor="user_email">Email</FormLabel>
-                            <FormControl>
-                                <Input id="user_email" type="email" placeholder="Add your email" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
+        <div className="w-1/2">
+            <TypographyH1 className="mb-12 text-left">Admin details</TypographyH1>
+            <Form {...form}>
+                <form onSubmit={form.handleSubmit(submitFunc)} className="w-[90%] max-w-[500px] space-y-8">
+                    <FormField
+                        control={form.control}
+                        name="user_email"
+                        render={({ field }) => (
+                            <FormItem className="mb-4">
+                                <FormLabel htmlFor="user_email">Email</FormLabel>
+                                <FormControl>
+                                    <Input id="user_email" type="email" placeholder="Add your email" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
 
-                <FormField
-                    control={form.control}
-                    name="user_phone"
-                    render={({ field }) => (
-                        <FormItem className="mb-4">
-                            <FormLabel htmlFor="user_phone">Phone</FormLabel>
-                            <FormControl>
-                                <Input id="user_phone" placeholder="Add your phone number" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
+                    <FormField
+                        control={form.control}
+                        name="user_phone"
+                        render={({ field }) => (
+                            <FormItem className="mb-4">
+                                <FormLabel htmlFor="user_phone">Phone</FormLabel>
+                                <FormControl>
+                                    <Input id="user_phone" placeholder="Add your phone number" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
 
-                <FormField
-                    control={form.control}
-                    name="user_first_name"
-                    render={({ field }) => (
-                        <FormItem className="mb-4">
-                            <FormLabel htmlFor="user_first_name">First name</FormLabel>
-                            <FormControl>
-                                <Input id="user_first_name" placeholder="Add your first name" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
+                    <FormField
+                        control={form.control}
+                        name="user_first_name"
+                        render={({ field }) => (
+                            <FormItem className="mb-4">
+                                <FormLabel htmlFor="user_first_name">First name</FormLabel>
+                                <FormControl>
+                                    <Input id="user_first_name" placeholder="Add your first name" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
 
-                <FormField
-                    control={form.control}
-                    name="user_last_name"
-                    render={({ field }) => (
-                        <FormItem className="mb-4">
-                            <FormLabel htmlFor="user_last_name">Last name</FormLabel>
-                            <FormControl>
-                                <Input id="user_last_name" placeholder="Add your last name" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
+                    <FormField
+                        control={form.control}
+                        name="user_last_name"
+                        render={({ field }) => (
+                            <FormItem className="mb-4">
+                                <FormLabel htmlFor="user_last_name">Last name</FormLabel>
+                                <FormControl>
+                                    <Input id="user_last_name" placeholder="Add your last name" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
 
-                <Button type="submit" id="submit-create-school" className="min-w-[130px]">
-                    Create
-                </Button>
-            </form>
-        </Form>
+                    <Button type="submit" id="submit-create-school" className="min-w-[130px]">
+                        Create
+                    </Button>
+                </form>
+            </Form>
+        </div>
     )
 }

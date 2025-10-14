@@ -18,6 +18,7 @@ import {
     createLearningInstituteSchema,
 } from "../../form-schema"
 import { useOnboardLearningInstituteStore } from "../../store"
+import { TypographyH1 } from "@/shared/components/typography"
 
 const createInstituteSchema = createLearningInstituteSchema.pick({
     institute_name: true,
@@ -44,25 +45,28 @@ export function CreateInstituteForm() {
     }
 
     return (
-        <Form {...form}>
-            <form onSubmit={form.handleSubmit(submitFunc)} className="w-[90%] max-w-[500px] space-y-8">
-                <FormField
-                    control={form.control}
-                    name="institute_name"
-                    render={({ field }) => (
-                        <FormItem className="mb-4">
-                            <FormLabel htmlFor="institute_name">Institute Name</FormLabel>
-                            <FormControl>
-                                <Input id="institute_name" placeholder="Add name of your learning institute" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <Button type="submit" id="submit-create-institute" className="min-w-[130px]">
-                    Next
-                </Button>
-            </form>
-        </Form>
+        <div className="w-1/2">
+            <TypographyH1 className="mb-12 text-left">Institute detail</TypographyH1>
+            <Form {...form}>
+                <form onSubmit={form.handleSubmit(submitFunc)} className="w-[90%] max-w-[500px] space-y-8">
+                    <FormField
+                        control={form.control}
+                        name="institute_name"
+                        render={({ field }) => (
+                            <FormItem className="mb-4">
+                                <FormLabel htmlFor="institute_name">Name</FormLabel>
+                                <FormControl>
+                                    <Input id="institute_name" placeholder="Add name of your learning institute" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <Button type="submit" id="submit-create-institute" className="min-w-[130px]">
+                        Next
+                    </Button>
+                </form>
+            </Form>
+        </div>
     )
 }

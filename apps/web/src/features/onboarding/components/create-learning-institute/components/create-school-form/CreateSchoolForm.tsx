@@ -19,6 +19,7 @@ import {
 } from "../../form-schema"
 import { useOnboardLearningInstituteStore } from "../../store"
 import { EducationSystemComboBox } from "@/features/education-system/components/education-system-combo-box"
+import { TypographyH1 } from "@/shared/components/typography"
 
 const createSchoolSchema = createLearningInstituteSchema.pick({
     school_education_system_id: true,
@@ -51,74 +52,77 @@ export function CreateSchoolForm() {
     }
 
     return (
-        <Form {...form}>
-            <form onSubmit={form.handleSubmit(submitFunc)} className="w-[90%] max-w-[500px] space-y-8">
-                <FormField
-                    control={form.control}
-                    name="school_name"
-                    render={({ field }) => (
-                        <FormItem className="mb-4">
-                            <FormLabel htmlFor="school_name">School Name</FormLabel>
-                            <FormControl>
-                                <Input id="school_name" placeholder="Add name of your learning school" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
+        <div className="w-1/2">
+            <TypographyH1 className="mb-12 text-left">School detail</TypographyH1>
+            <Form {...form}>
+                <form onSubmit={form.handleSubmit(submitFunc)} className="w-[90%] max-w-[500px] space-y-8">
+                    <FormField
+                        control={form.control}
+                        name="school_name"
+                        render={({ field }) => (
+                            <FormItem className="mb-4">
+                                <FormLabel htmlFor="school_name">Name</FormLabel>
+                                <FormControl>
+                                    <Input id="school_name" placeholder="Add name of your learning school" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
 
-                <FormField
-                    control={form.control}
-                    name="school_description"
-                    render={({ field }) => (
-                        <FormItem className="mb-4">
-                            <FormLabel htmlFor="school_description">Short Description</FormLabel>
-                            <FormControl>
-                                <Input id="school_description" placeholder="Add a short description of your school" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
+                    <FormField
+                        control={form.control}
+                        name="school_description"
+                        render={({ field }) => (
+                            <FormItem className="mb-4">
+                                <FormLabel htmlFor="school_description">Description</FormLabel>
+                                <FormControl>
+                                    <Input id="school_description" placeholder="Add a short description of your school" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
 
-                <FormField
-                    control={form.control}
-                    name="school_education_system_id"
-                    render={({ field }) => (
-                        <FormItem className="mb-4">
-                            <FormLabel htmlFor="school_education_system_id">Add School Education System</FormLabel>
-                            <FormControl>
-                                <EducationSystemComboBox
-                                    id="school_education_system_id"
-                                    initValue={field.value}
-                                    onSetValue={(educationSystem) => {
-                                        form.setValue("school_education_system_id", educationSystem.id)
-                                    }}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
+                    <FormField
+                        control={form.control}
+                        name="school_education_system_id"
+                        render={({ field }) => (
+                            <FormItem className="mb-4">
+                                <FormLabel htmlFor="school_education_system_id">Education System</FormLabel>
+                                <FormControl>
+                                    <EducationSystemComboBox
+                                        id="school_education_system_id"
+                                        initValue={field.value}
+                                        onSetValue={(educationSystem) => {
+                                            form.setValue("school_education_system_id", educationSystem.id)
+                                        }}
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
 
-                <FormField
-                    control={form.control}
-                    name="school_address"
-                    render={({ field }) => (
-                        <FormItem className="mb-4">
-                            <FormLabel htmlFor="school_address">School Address</FormLabel>
-                            <FormControl>
-                                <Input id="school_address" placeholder="Add physical address of the school" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
+                    <FormField
+                        control={form.control}
+                        name="school_address"
+                        render={({ field }) => (
+                            <FormItem className="mb-4">
+                                <FormLabel htmlFor="school_address">Address</FormLabel>
+                                <FormControl>
+                                    <Input id="school_address" placeholder="Add physical address of the school" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
 
-                <Button type="submit" id="submit-create-school" className="min-w-[130px]">
-                    Next
-                </Button>
-            </form>
-        </Form>
+                    <Button type="submit" id="submit-create-school" className="min-w-[130px]">
+                        Next
+                    </Button>
+                </form>
+            </Form>
+        </div>
     )
 }
