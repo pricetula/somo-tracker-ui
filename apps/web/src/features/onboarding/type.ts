@@ -6,7 +6,6 @@ export interface OnboardLearningInstituteInput {
     school_name: string;
     school_description: string;
     school_address: string;
-    school_website: string;
     // user detail form
     user_email: string;
     user_phone: string;

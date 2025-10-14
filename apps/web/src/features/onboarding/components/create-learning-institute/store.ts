@@ -3,7 +3,7 @@ import { persist } from "zustand/middleware"
 import { OnboardLearningInstituteInput } from "../../type"
 import { LocalStorageStateKey } from "./utils"
 
-type OnboardLearningInstituteSchoolInput = Pick<OnboardLearningInstituteInput, "school_address" | "school_description" | "school_education_system_id" | "school_name" | "school_website">
+type OnboardLearningInstituteSchoolInput = Pick<OnboardLearningInstituteInput, "school_address" | "school_description" | "school_education_system_id" | "school_name">
 
 type OnboardLearningInstituteUserInput = Pick<OnboardLearningInstituteInput, "user_email" | "user_first_name" | "user_last_name" | "user_phone" | "user_photo_url">
 
@@ -22,7 +22,6 @@ const storeCore = (set: any): OnboardLearningInstituteState => ({
         school_name: "",
         school_description: "",
         school_address: "",
-        school_website: "",
         user_email: "",
         user_phone: "",
         user_first_name: "",
@@ -64,7 +63,7 @@ const storeCore = (set: any): OnboardLearningInstituteState => ({
     ),
 })
 
-export const useMeStore = create<OnboardLearningInstituteState>()(
+export const useOnboardLearningInstituteStore = create<OnboardLearningInstituteState>()(
     persist(
         storeCore,
         {
