@@ -1,7 +1,8 @@
+import { cn } from "@/shared/lib/utils";
 import React from "react"
 
-export function TypographyMuted({ children }: { children: React.ReactNode }) {
+export function TypographyMuted({ children, className }: { children: React.ReactNode; className?: string }) {
     return (
-        <p className="text-muted-foreground text-sm">{children}</p>
+        <p className={cn("text-muted-foreground text-sm", className)}>{children}</p>
     )
 }

@@ -1,7 +1,8 @@
+import { cn } from "@/shared/lib/utils";
 import React from "react"
 
-export function TypographySmall({ children }: { children: React.ReactNode }) {
+export function TypographySmall({ children, className }: { children: React.ReactNode; className?: string }) {
     return (
-        <small className="text-sm leading-none font-medium">{children}</small>
+        <small className={cn("text-sm leading-none font-medium", className)}>{children}</small>
     )
 }

@@ -1,8 +1,9 @@
+import { cn } from "@/shared/lib/utils";
 import React from "react"
 
-export function TypographyBlockquote({ children }: { children: React.ReactNode }) {
+export function TypographyBlockquote({ children, className }: { children: React.ReactNode; className?: string }) {
     return (
-        <blockquote className="mt-6 border-l-2 pl-6 italic">
+        <blockquote className={cn("mt-6 border-l-2 pl-6 italic", className)}>
             {children}
         </blockquote>
     )
