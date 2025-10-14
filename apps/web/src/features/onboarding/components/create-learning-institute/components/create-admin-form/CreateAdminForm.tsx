@@ -32,8 +32,8 @@ export type CreateAdminSchema = z.infer<typeof createAdminSchema>
 export function CreateAdminForm() {
     // Get school name from store
     const onboardLearningInstitute = useOnboardLearningInstituteStore((store) => store.onboardLearningInstitute)
-    // Set school name in store
-    const setUserDetail = useOnboardLearningInstituteStore((store) => store.setUserDetail)
+    // Set clear state
+    const clear = useOnboardLearningInstituteStore((store) => store.clear)
     // Initialize the form with the resolver and default values
     const form = useForm<CreateAdminSchema>({
         resolver: zodResolver(createAdminSchema),
@@ -52,7 +52,7 @@ export function CreateAdminForm() {
             ...onboardLearningInstitute,
             ...i
         })
-        setUserDetail(i as any)
+        clear()
     }
 
     return (
