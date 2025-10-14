@@ -1,8 +1,9 @@
 "use client"
 
 import { z } from "zod"
-import React from "react"
+import React, { useEffect } from "react"
 import { useForm } from "react-hook-form"
+import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
     Form,
@@ -14,11 +15,13 @@ import {
 } from "@/shared/components/ui/form"
 import { Input } from "@/shared/components/ui/input"
 import { Button } from "@/shared/components/ui/button"
+import { TypographyH1 } from "@/shared/components/typography"
+import { Spinner } from "@/shared/components/ui/spinner"
+import { useCreateOnboardLearningInstituteMutation } from "@/features/onboarding/hooks/use-create-onboard-learning-institute-muatation"
 import {
     createLearningInstituteSchema,
 } from "../../form-schema"
 import { useOnboardLearningInstituteStore } from "../../store"
-import { TypographyH1 } from "@/shared/components/typography"
 
 const createAdminSchema = createLearningInstituteSchema.pick({
     user_email: true,
@@ -31,6 +34,8 @@ const createAdminSchema = createLearningInstituteSchema.pick({
 export type CreateAdminSchema = z.infer<typeof createAdminSchema>
 
 export function CreateAdminForm() {
+    const router = useRouter()
+    const { mutate, isPending, isSuccess } = useCreateOnboardLearningInstituteMutation()
     // Get school name from store
     const onboardLearningInstitute = useOnboardLearningInstituteStore((store) => store.onboardLearningInstitute)
     // Set clear state
@@ -47,13 +52,19 @@ export function CreateAdminForm() {
         },
     })
 
+    useEffect(() => {
+        if (isSuccess) {
+            router.push("/")
+            clear()
+        }
+    }, [isSuccess])
+
     // Submit function
     function submitFunc(i: CreateAdminSchema) {
-        console.log({
+        mutate({
             ...onboardLearningInstitute,
             ...i
         })
-        clear()
     }
 
     return (
@@ -117,8 +128,20 @@ export function CreateAdminForm() {
                         )}
                     />
 
-                    <Button type="submit" id="submit-create-school" className="min-w-[130px]">
-                        Create
+                    <Button type="submit" id="submit-create-school" className="min-w-[130px]" disabled={isPending}>
+                        {
+                            isPending
+                                ? (
+                                    <>
+                                        <Spinner />
+                                        <span className="">Creating...</span>
+                                    </>
+                                )
+                                :
+                                (
+                                    <span>Create</span>
+                                )
+                        }
                     </Button>
                 </form>
             </Form>

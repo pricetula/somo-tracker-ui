@@ -1,6 +1,6 @@
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
-import { OnboardLearningInstituteInput } from "../../type"
+import { OnboardLearningInstituteInput } from "../../types"
 import { LocalStorageStateKey } from "./utils"
 
 type OnboardLearningInstituteSchoolInput = Pick<OnboardLearningInstituteInput, "school_address" | "school_description" | "school_education_system_id" | "school_name">
