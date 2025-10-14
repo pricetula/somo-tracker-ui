@@ -14,9 +14,7 @@ import {
 } from "@/shared/components/ui/form"
 import { Input } from "@/shared/components/ui/input"
 import { Button } from "@/shared/components/ui/button"
-import { ActionResponse } from "@/shared/types/actions"
 import { EducationSystemComboBox } from "@/features/education-system/components/education-system-combo-box"
-import { Institute } from "../../types"
 import {
     createInstituteSchema,
     type CreateInstituteSchema,

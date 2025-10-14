@@ -20,7 +20,7 @@ export function ChooseInstituteType() {
                 <section>
                     <ul className="text-center flex flex-col md:flex-row md:items-center gap-6">
                         <li className={listItemClassName}>
-                            <Link href="/onboarding/create-institute" className={cn(linkClassName, "from-slate-600 via-purple-800 to-indigo-700 hover:border-blue-400")}>
+                            <Link href="/onboarding/institute" className={cn(linkClassName, "from-slate-600 via-purple-800 to-indigo-700 hover:border-blue-400")}>
                                 <TypographyH2 className={headerTextClassName}>Institute ⚡️</TypographyH2>
                                 <TypographyP>Create school(s), manage exams, and <br /> track student progress.</TypographyP>
                             </Link>
@@ -29,7 +29,7 @@ export function ChooseInstituteType() {
                             <TypographyLarge>or</TypographyLarge>
                         </li>
                         <li className={listItemClassName}>
-                            <Link href="/onboarding/create-home-school" className={cn(linkClassName, "from-sky-500 via-purple-600 to-pink-600 hover:border-pink-400")}>
+                            <Link href="/onboarding/home-school" className={cn(linkClassName, "from-sky-500 via-purple-600 to-pink-600 hover:border-pink-400")}>
                                 <TypographyH2 className={headerTextClassName}>Home school ✨</TypographyH2>
                                 <TypographyP>Manage exams and <br /> track your children’s progress.</TypographyP>
                             </Link>
