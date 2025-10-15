@@ -4,29 +4,32 @@ import { DashboardLayout } from "@/shared/components/layout/dashboard-layout"
 import { TokenRefreshFailedError } from "@/features/auth/errors"
 import { makeQueryClient } from "@/shared/lib/query-client"
 import { meQuery } from "@/features/me/queries/config";
+import { isUUIDNil } from "@/shared/utils/is-uuid-nil";
+import { SchoolUser } from "@/features/school-user/types";
 
 // This layout is used for the dashboard and requires the user to be logged in
 export default async function Layout({ children, modal }: { modal: React.ReactNode, children: React.ReactNode }) {
     const queryClient = makeQueryClient();
     let dehydratedState: DehydratedState | undefined;
+    let me: SchoolUser | null = null
 
     try {
         // Prefetch user before painting on the browser
-        const me = await queryClient.fetchQuery(meQuery);
-
-        // If authorized user not found then sign out
-        if (!me) {
-            redirect("/signout")
-        }
-        console.log(me)
-        // Makes the client cache to be serialized to be available on the client side
-        dehydratedState = dehydrate(queryClient);
+        me = await queryClient.fetchQuery(meQuery);
     } catch (error) {
         // Check if token refresh has failed and sign out
         if (error instanceof TokenRefreshFailedError) {
             redirect("/signout")
         }
     }
+
+    // If authorized user not found then sign out
+    if (!me || isUUIDNil(me.user_id)) {
+        redirect("/onboarding")
+    }
+
+    // Makes the client cache to be serialized to be available on the client side
+    dehydratedState = dehydrate(queryClient);
 
     return (
         <HydrationBoundary state={dehydratedState}>
