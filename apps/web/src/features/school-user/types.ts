@@ -8,3 +8,11 @@ export interface SchoolUser {
     role: Role
     user: User
 }
+
+export interface GetSchoolUsersInput {
+    roles: Role[];
+    limit: number;
+    searchTerm: string;
+    lastSeenCreatedAt: Date | null;
+    cohortIDs: string[];
+}
