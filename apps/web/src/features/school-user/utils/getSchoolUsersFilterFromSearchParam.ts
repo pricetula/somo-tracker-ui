@@ -2,22 +2,7 @@ import { Role } from "@/features/user/types";
 import { GetSchoolUsersInput } from "../types";
 
 export function getSchoolUsersFilterFromSearchParam(searchParams: URLSearchParams): GetSchoolUsersInput {
-    const roles: Role[] = []
-    const roleparam = searchParams.get('roles')?.split?.(',')?.filter?.(Boolean)
-
-    if (roleparam && roleparam?.length > 0) {
-        for (const role of roleparam) {
-            const r = role.toUpperCase()
-            const n = r === 'STUDENT' && Role.STUDENT ||
-                r === 'ADMIN' && Role.ADMIN ||
-                r === 'FACULTY' && Role.FACULTY ||
-                r === 'GUARDIAN' && Role.GUARDIAN ||
-                false
-            if (n) {
-                roles.push(n)
-            }
-        }
-    }
+    const roles = converRoleStringToArray(searchParams.get('roles') || '')
 
     return {
         roles,
@@ -28,4 +13,26 @@ export function getSchoolUsersFilterFromSearchParam(searchParams: URLSearchParam
             : null,
         cohortIDs: searchParams.get('cohort_ids')?.split(',').filter(Boolean) || [],
     }
+}
+
+export function converRoleStringToArray(rolestring: string): Role[] {
+    if (!rolestring) return []
+
+    const roles: Role[] = []
+
+    for (const role of rolestring.split(',').filter?.(Boolean)) {
+        const r = role.toUpperCase()
+
+        const n = r === 'STUDENT' && Role.STUDENT ||
+            r === 'ADMIN' && Role.ADMIN ||
+            r === 'FACULTY' && Role.FACULTY ||
+            r === 'GUARDIAN' && Role.GUARDIAN ||
+            false
+
+        if (n) {
+            roles.push(n)
+        }
+    }
+
+    return roles
 }
