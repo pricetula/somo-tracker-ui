@@ -3,7 +3,7 @@ import { GetSchoolUsersInput, SchoolUser } from "@/features/school-user/types"
 import { buildSchoolUsersURL } from "../utils"
 
 export async function getSchoolUsers(i: GetSchoolUsersInput): Promise<SchoolUser[]> {
-    const uri = buildSchoolUsersURL('/schools-users', i)
+    const uri = buildSchoolUsersURL('/school-users', i)
 
     // Attempt to get school users
     const resp = await authenticatedGet({ uri })

@@ -1,13 +1,7 @@
 import { GetSchoolUsersInput } from "../types";
 
 export function buildSchoolUsersURL(baseURL: string, params: GetSchoolUsersInput) {
-    const fullURL = baseURL.startsWith('http')
-        ? baseURL
-        : `${typeof window !== 'undefined' ? window.location.origin : ''}${baseURL}`
-    console.log("--------------", fullURL)
-    const url = new URL(fullURL);
-
-    const searchParams = url.searchParams;
+    const searchParams = new URLSearchParams();
 
     if (params.roles && params.roles.length > 0) {
         searchParams.set('roles', params.roles.join(','));
@@ -29,5 +23,7 @@ export function buildSchoolUsersURL(baseURL: string, params: GetSchoolUsersInput
         searchParams.set('cohort_ids', params.cohortIDs.join(','));
     }
 
-    return url.toString();
+    const queryString = searchParams.toString();
+
+    return `${baseURL}${queryString ? '?' + queryString : ''}`;
 }

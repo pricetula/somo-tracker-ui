@@ -22,7 +22,7 @@ export function SchoolUsersList() {
             {
                 data?.map?.(
                     (schoolUser) => (
-                        <div>
+                        <div key={schoolUser.user.id}>
                             {schoolUser.user.first_name}
                         </div>
                     )

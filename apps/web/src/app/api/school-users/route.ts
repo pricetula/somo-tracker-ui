@@ -1,13 +1,13 @@
 import { getSchoolUsersFilterFromSearchParam } from "@/features/school-user/utils/getSchoolUsersFilterFromSearchParam"
 import { getSchoolUsers } from "@/features/school-user/services/get-school-users"
-import { NextRequest, NextResponse } from "next/server"
+import { NextRequest } from "next/server"
 
 export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams
 
     const params = getSchoolUsersFilterFromSearchParam(searchParams)
 
-    const school_users = getSchoolUsers(params)
+    const school_users = await getSchoolUsers(params)
 
-    return NextResponse.json({ success: true, data: school_users })
+    return new Response(JSON.stringify(school_users), { status: 200 })
 }

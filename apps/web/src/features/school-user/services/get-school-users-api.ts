@@ -7,7 +7,7 @@ import { buildSchoolUsersURL } from "../utils"
  * It relies on the browser to automatically send cookies to the same origin.
  */
 export async function getSchoolUsersAPI(i: GetSchoolUsersInput): Promise<SchoolUser[]> {
-    const uri = buildSchoolUsersURL("/api/school-users", i)
+    const uri = buildSchoolUsersURL('api/school-users', i)
 
     // 1. Fetch the internal API endpoint. Relative path is safe in the browser.
     const resp = await fetch(uri)
@@ -28,5 +28,5 @@ export async function getSchoolUsersAPI(i: GetSchoolUsersInput): Promise<SchoolU
     }
 
     // 3. Return the JSON payload (School[])
-    return resp.json() as Promise<SchoolUser[]>
+    return await resp.json() as Promise<SchoolUser[]>
 }
