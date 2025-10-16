@@ -1,7 +1,11 @@
 import { GetSchoolUsersInput } from "../types";
 
 export function buildSchoolUsersURL(baseURL: string, params: GetSchoolUsersInput) {
-    const url = new URL(baseURL);
+    const fullURL = baseURL.startsWith('http')
+        ? baseURL
+        : `${typeof window !== 'undefined' ? window.location.origin : ''}${baseURL}`
+    console.log("--------------", fullURL)
+    const url = new URL(fullURL);
 
     const searchParams = url.searchParams;
 

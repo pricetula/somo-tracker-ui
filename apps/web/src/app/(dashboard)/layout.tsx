@@ -22,7 +22,6 @@ export default async function Layout({ children, modal }: { modal: React.ReactNo
             redirect("/signout")
         }
     }
-    console.log("me--------", me)
     // If authorized user not found then sign out
     if (!me || isUUIDNil(me.user_id)) {
         redirect("/onboarding")
