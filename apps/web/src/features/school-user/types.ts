@@ -16,3 +16,8 @@ export interface GetSchoolUsersInput {
     lastSeenCreatedAt: Date | null;
     cohortIDs: string[];
 }
+
+export interface UpdateSchoolUserRole {
+    user_id: string;
+    role: Role;
+}

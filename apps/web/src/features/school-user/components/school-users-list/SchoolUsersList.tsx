@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useMemo } from "react"
+import React, { useEffect, useMemo } from "react"
 import Link from "next/link"
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table"
@@ -8,7 +8,10 @@ import { useSearchParams } from "next/navigation"
 import { RoleSelector } from "@/shared/components/role-selector"
 import { useSchoolUsersQuery } from "../../hooks/useSchoolUsersQuery"
 import { getSchoolUsersFilterFromSearchParam } from "../../utils/getSchoolUsersFilterFromSearchParam"
-import { SchoolUser } from "../../types"
+import { SchoolUser, UpdateSchoolUserRole } from "../../types"
+import { useUpdateSchoolUserRoleMutation } from "../../hooks/update-school-user-role-mutation"
+import { Role } from "@/features/user/types"
+import { toast } from "sonner"
 
 const columnHelper = createColumnHelper<SchoolUser>()
 
@@ -42,7 +45,10 @@ export function SchoolUsersList() {
                     <RoleSelector
                         id={info.column.id}
                         value={info.getValue()}
-                        onSetValue={console.log}
+                        onSetValue={(v) => handleRoleSelectorChange({
+                            user_id: info.row.original.user.id,
+                            role: v as Role,
+                        })}
                     />
                 ),
             }),
@@ -55,6 +61,8 @@ export function SchoolUsersList() {
     const filters = getSchoolUsersFilterFromSearchParam(searchParams)
 
     const { data, isLoading } = useSchoolUsersQuery(filters)
+
+    const { mutate, isPending, error } = useUpdateSchoolUserRoleMutation(filters)
 
     const table = useReactTable({
         data: data ?? [],
@@ -79,11 +87,20 @@ export function SchoolUsersList() {
             ? totalSize - (virtualRows?.[virtualRows.length - 1]?.end || 0)
             : 0
 
+    function handleRoleSelectorChange(v: UpdateSchoolUserRole) {
+        mutate(v)
+    }
+
     if (isLoading) {
         return (
             <div>Loading...</div>
         )
     }
+
+    useEffect(() => {
+        if (!error?.message) return
+        toast.error(error.message)
+    }, [error?.message])
 
     return (
         <div className="w-full flex flex-col">
