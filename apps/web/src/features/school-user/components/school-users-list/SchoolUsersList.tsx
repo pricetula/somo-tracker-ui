@@ -23,7 +23,6 @@ export function SchoolUsersList() {
                     return (
                         <Link
                             href={`/users/${user.id}`}
-                            className="text-blue-600 hover:text-blue-800 hover:underline"
                         >
                             {user.first_name} {user.last_name}
                         </Link>
