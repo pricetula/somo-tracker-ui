@@ -46,7 +46,8 @@ export function SchoolUsersList() {
                         id={info.column.id}
                         value={info.getValue()}
                         onSetValue={(v) => handleRoleSelectorChange({
-                            user_id: info.row.original.user.id,
+                            school_id: info.row.original.school_id,
+                            user_id: info.row.original.user_id,
                             role: v as Role,
                         })}
                     />

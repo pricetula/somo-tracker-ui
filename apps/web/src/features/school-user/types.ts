@@ -19,5 +19,6 @@ export interface GetSchoolUsersInput {
 
 export interface UpdateSchoolUserRole {
     user_id: string;
+    school_id: string;
     role: Role;
 }
