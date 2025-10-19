@@ -39,18 +39,22 @@ export function SchoolUsersList() {
             columnHelper.accessor("role", {
                 id: "role",
                 header: () => (
-                    <span className="ml-4">Role</span>
+                    <div className="flex justify-end pr-10">
+                        <span>Role</span>
+                    </div>
                 ),
                 cell: (info: any) => (
-                    <RoleSelector
-                        id={info.column.id}
-                        value={info.getValue()}
-                        onSetValue={(v) => handleRoleSelectorChange({
-                            school_id: info.row.original.school_id,
-                            user_id: info.row.original.user_id,
-                            role: v as Role,
-                        })}
-                    />
+                    <div className="flex justify-end">
+                        <RoleSelector
+                            id={info.column.id}
+                            value={info.getValue()}
+                            onSetValue={(v) => handleRoleSelectorChange({
+                                school_id: info.row.original.school_id,
+                                user_id: info.row.original.user_id,
+                                role: v as Role,
+                            })}
+                        />
+                    </div>
                 ),
             }),
         ],
