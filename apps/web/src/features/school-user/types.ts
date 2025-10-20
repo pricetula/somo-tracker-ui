@@ -22,3 +22,5 @@ export interface UpdateSchoolUserRole {
     school_id: string;
     role: Role;
 }
+
+export type SearchParamsState = Omit<GetSchoolUsersInput, "lastSeenCreatedAt">

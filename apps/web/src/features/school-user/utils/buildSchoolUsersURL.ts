@@ -1,6 +1,8 @@
 import { GetSchoolUsersInput } from "../types";
 
 export function buildSchoolUsersURL(baseURL: string, params: GetSchoolUsersInput) {
+    const cleanBaseURL = baseURL.replace(/\/$/, '');
+
     const searchParams = new URLSearchParams();
 
     if (params.roles && params.roles.length > 0) {
@@ -25,5 +27,5 @@ export function buildSchoolUsersURL(baseURL: string, params: GetSchoolUsersInput
 
     const queryString = searchParams.toString();
 
-    return `${baseURL}${queryString ? '?' + queryString : ''}`;
+    return `${cleanBaseURL}${queryString ? '?' + queryString : ''}`;
 }

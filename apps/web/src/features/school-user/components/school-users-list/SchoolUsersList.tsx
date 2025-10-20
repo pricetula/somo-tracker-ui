@@ -2,20 +2,24 @@
 
 import React, { useEffect, useMemo } from "react"
 import Link from "next/link"
+import { toast } from "sonner"
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table"
-import { useSearchParams } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { RoleSelector } from "@/shared/components/role-selector"
+import { Role } from "@/features/user/types"
 import { useSchoolUsersQuery } from "../../hooks/useSchoolUsersQuery"
 import { getSchoolUsersFilterFromSearchParam } from "../../utils/getSchoolUsersFilterFromSearchParam"
-import { SchoolUser, UpdateSchoolUserRole } from "../../types"
+import { SchoolUser, SearchParamsState, UpdateSchoolUserRole } from "../../types"
 import { useUpdateSchoolUserRoleMutation } from "../../hooks/update-school-user-role-mutation"
-import { Role } from "@/features/user/types"
-import { toast } from "sonner"
+import { SchoolUsersListFilter } from "./SchoolUsersListFilter"
+import { buildSchoolUsersURL } from "../../utils"
 
 const columnHelper = createColumnHelper<SchoolUser>()
 
 export function SchoolUsersList() {
+    const router = useRouter()
+
     const columns = useMemo(
         () => [
             columnHelper.accessor('user', {
@@ -96,6 +100,11 @@ export function SchoolUsersList() {
         mutate(v)
     }
 
+    function onSearchParamsChange(s: SearchParamsState) {
+        if (!process.env.NEXT_PUBLIC_WEB_URL) return
+        router.push(buildSchoolUsersURL(`${process.env.NEXT_PUBLIC_WEB_URL}/users`, { ...s, lastSeenCreatedAt: null }))
+    }
+
     if (isLoading) {
         return (
             <div>Loading...</div>
@@ -108,7 +117,8 @@ export function SchoolUsersList() {
     }, [error?.message])
 
     return (
-        <div className="w-full flex flex-col">
+        <div className="w-full flex flex-col pt-2">
+            <SchoolUsersListFilter onSearchParamsChange={onSearchParamsChange} />
             <div className="flex-1 overflow-hidden">
                 <div
                     id="table-scroll"
