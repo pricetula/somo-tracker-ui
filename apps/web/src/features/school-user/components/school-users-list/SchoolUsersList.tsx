@@ -12,7 +12,7 @@ import { useSchoolUsersQuery } from "../../hooks/useSchoolUsersQuery"
 import { getSchoolUsersFilterFromSearchParam } from "../../utils/getSchoolUsersFilterFromSearchParam"
 import { SchoolUser, SearchParamsState, UpdateSchoolUserRole } from "../../types"
 import { useUpdateSchoolUserRoleMutation } from "../../hooks/update-school-user-role-mutation"
-import { SchoolUsersListFilter } from "./SchoolUsersListFilter"
+import { SchoolUsersListFilter } from "./components/school-users-list-filter"
 import { buildSchoolUsersURL } from "../../utils"
 
 const columnHelper = createColumnHelper<SchoolUser>()
