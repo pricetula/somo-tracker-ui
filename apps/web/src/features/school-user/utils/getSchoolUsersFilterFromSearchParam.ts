@@ -6,7 +6,6 @@ export function getSchoolUsersFilterFromSearchParam(searchParams: URLSearchParam
 
     return {
         roles,
-        limit: parseInt(searchParams.get('limit') || '10', 10),
         searchTerm: searchParams.get('search_term') || "",
         lastSeenCreatedAt: searchParams.get('last_seen_created_at')
             ? new Date(searchParams.get('last_seen_created_at')!)

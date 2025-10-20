@@ -10,7 +10,7 @@ interface SchoolUsersListFilterProps {
 }
 
 const throttledHandleSearchParams = throttle(
-    2000,
+    1500,
     (fn: (params: SearchParamsState) => void, s: SearchParamsState) => {
         fn(s);
     },
@@ -20,7 +20,6 @@ const throttledHandleSearchParams = throttle(
 export function SchoolUsersListFilter({ onSearchParamsChange }: SchoolUsersListFilterProps) {
     const [searchParams, setSearchParams] = useState<SearchParamsState>({
         roles: [],
-        limit: 10,
         searchTerm: "",
         cohortIDs: []
     })

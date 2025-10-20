@@ -11,7 +11,6 @@ export interface SchoolUser {
 
 export interface GetSchoolUsersInput {
     roles: Role[];
-    limit: number;
     searchTerm: string;
     lastSeenCreatedAt: Date | null;
     cohortIDs: string[];

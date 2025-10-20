@@ -21,9 +21,6 @@ export async function SchoolUsersListWrapper({ searchParams }: SchoolUsersListWr
 
     const filters: GetSchoolUsersInput = {
         roles: converRoleStringToArray(roleString),
-        limit: params.limit
-            ? parseInt(params.limit as string, 10)
-            : 10,
         searchTerm: typeof params.search_term === "string"
             ? params.search_term
             : "",

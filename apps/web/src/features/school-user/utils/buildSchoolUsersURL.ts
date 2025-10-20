@@ -9,10 +9,6 @@ export function buildSchoolUsersURL(baseURL: string, params: GetSchoolUsersInput
         searchParams.set('roles', params.roles.join(','));
     }
 
-    if (params.limit > 0) {
-        searchParams.set('limit', params.limit.toString());
-    }
-
     if (params.searchTerm) {
         searchParams.set('search_term', params.searchTerm);
     }
