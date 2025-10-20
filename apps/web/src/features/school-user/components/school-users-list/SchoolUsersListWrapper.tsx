@@ -1,7 +1,7 @@
 import React from "react"
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query"
 import { makeQueryClient } from "@/shared/lib/query-client"
-import { converRoleStringToArray } from "../../utils/getSchoolUsersFilterFromSearchParam"
+import { converRoleStringToArray } from "../../utils"
 import { GetSchoolUsersInput } from "../../types"
 import { schoolUsersQuery } from "../../queries/config"
 import { SchoolUsersList } from "./SchoolUsersList"

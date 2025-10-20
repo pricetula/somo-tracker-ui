@@ -9,11 +9,10 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { RoleSelector } from "@/shared/components/role-selector"
 import { Role } from "@/features/user/types"
 import { useSchoolUsersQuery } from "../../hooks/useSchoolUsersQuery"
-import { getSchoolUsersFilterFromSearchParam } from "../../utils/getSchoolUsersFilterFromSearchParam"
 import { SchoolUser, SearchParamsState, UpdateSchoolUserRole } from "../../types"
 import { useUpdateSchoolUserRoleMutation } from "../../hooks/update-school-user-role-mutation"
 import { SchoolUsersListFilter } from "./components/school-users-list-filter"
-import { buildSchoolUsersURL } from "../../utils"
+import { buildSchoolUsersURL, getSchoolUsersFilterFromSearchParam } from "../../utils"
 
 const columnHelper = createColumnHelper<SchoolUser>()
 
