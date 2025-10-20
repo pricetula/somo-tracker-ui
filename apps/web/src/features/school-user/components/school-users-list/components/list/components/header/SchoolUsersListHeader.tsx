@@ -1,11 +1,11 @@
 import React, { useState } from "react"
 import { throttle } from "throttle-debounce"
 import { Input } from "@/shared/components/ui/input"
-import { SearchParamsState } from "../../../../types"
+import { SearchParamsState } from "@/features/school-user/types"
 import { FilterMenu } from "./components/filter-menu"
 import { AddUsers } from "./components/add-users"
 
-interface SchoolUsersListFilterProps {
+interface SchoolUsersListHeaderProps {
     onSearchParamsChange(params: SearchParamsState): void
 }
 
@@ -17,7 +17,7 @@ const throttledHandleSearchParams = throttle(
     { noLeading: true, debounceMode: false }
 );
 
-export function SchoolUsersListFilter({ onSearchParamsChange }: SchoolUsersListFilterProps) {
+export function SchoolUsersListHeader({ onSearchParamsChange }: SchoolUsersListHeaderProps) {
     const [searchParams, setSearchParams] = useState<SearchParamsState>({
         roles: [],
         searchTerm: "",

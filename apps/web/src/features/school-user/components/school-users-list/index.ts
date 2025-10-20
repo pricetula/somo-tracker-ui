@@ -1,1 +1,1 @@
-export { SchoolUsersListWrapper } from "./SchoolUsersListWrapper"
+export { SchoolUsersList } from "./SchoolUsersList"
