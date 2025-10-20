@@ -157,6 +157,7 @@ export function SchoolUsersList() {
                                 return (
                                     <tr
                                         key={row?.id}
+                                        className="hover:bg-accent"
                                     >
                                         {row?.getVisibleCells().map((cell) => (
                                             <td
@@ -164,7 +165,7 @@ export function SchoolUsersList() {
                                                 style={{
                                                     width: cell.column.getSize(),
                                                 }}
-                                                className="px-4 py-3"
+                                                className="px-4 py-2"
                                             >
                                                 {flexRender(
                                                     cell.column.columnDef.cell,

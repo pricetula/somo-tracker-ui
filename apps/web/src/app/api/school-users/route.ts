@@ -1,4 +1,4 @@
-import { getSchoolUsersFilterFromSearchParam } from "@/features/school-user/utils/get-school-users-filter-from-search-param"
+import { getSchoolUsersFilterFromSearchParam } from "@/features/school-user/utils"
 import { getSchoolUsers } from "@/features/school-user/services/get-school-users"
 import { NextRequest } from "next/server"
 

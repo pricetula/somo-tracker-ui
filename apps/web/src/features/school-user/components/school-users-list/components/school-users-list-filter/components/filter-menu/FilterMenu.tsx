@@ -44,7 +44,7 @@ export function FilterMenu() {
                                 {
                                     userRoles.map(role => (
                                         <DropdownMenuItem key={role}>
-                                            <Checkbox checked={ } />
+                                            <Checkbox checked={true} />
                                             <RoleDisplay role={role as Role} />
                                         </DropdownMenuItem>
                                     ))
