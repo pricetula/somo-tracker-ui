@@ -1,1 +1,1 @@
-export { SchoolUsersListHeader } from "./SchoolUsersListHeader"
+export { Header } from "./Header"

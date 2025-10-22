@@ -5,7 +5,7 @@ import { SearchParamsState } from "@/features/school-user/types"
 import { FilterMenu } from "./components/filter-menu"
 import { AddUsers } from "./components/add-users"
 
-interface SchoolUsersListHeaderProps {
+interface HeaderProps {
     onSearchParamsChange(params: SearchParamsState): void
 }
 
@@ -17,7 +17,7 @@ const throttledHandleSearchParams = throttle(
     { noLeading: true, debounceMode: false }
 );
 
-export function SchoolUsersListHeader({ onSearchParamsChange }: SchoolUsersListHeaderProps) {
+export function Header({ onSearchParamsChange }: HeaderProps) {
     const [searchParams, setSearchParams] = useState<SearchParamsState>({
         roles: [],
         searchTerm: "",

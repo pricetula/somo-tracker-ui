@@ -11,12 +11,12 @@ import { Role } from "@/features/user/types"
 import { useSchoolUsersQuery } from "@/features/school-user/hooks/useSchoolUsersQuery"
 import { SchoolUser, SearchParamsState, UpdateSchoolUserRole } from "@/features/school-user/types"
 import { useUpdateSchoolUserRoleMutation } from "@/features/school-user/hooks/update-school-user-role-mutation"
-import { SchoolUsersListHeader } from "./components/header"
+import { Header } from "./components/header"
 import { buildSchoolUsersURL, getSchoolUsersFilterFromSearchParam } from "@/features/school-user/utils"
 
 const columnHelper = createColumnHelper<SchoolUser>()
 
-export function SchoolUsersList() {
+export function List() {
     const router = useRouter()
 
     const columns = useMemo(
@@ -117,7 +117,7 @@ export function SchoolUsersList() {
 
     return (
         <div className="w-full flex flex-col pt-2">
-            <SchoolUsersListHeader onSearchParamsChange={onSearchParamsChange} />
+            <Header onSearchParamsChange={onSearchParamsChange} />
             <div className="flex-1 overflow-hidden">
                 <div
                     id="table-scroll"

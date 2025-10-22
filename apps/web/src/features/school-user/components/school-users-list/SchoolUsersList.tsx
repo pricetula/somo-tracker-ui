@@ -4,7 +4,7 @@ import { makeQueryClient } from "@/shared/lib/query-client"
 import { converRoleStringToArray } from "../../utils"
 import { GetSchoolUsersInput } from "../../types"
 import { schoolUsersQuery } from "../../queries/config"
-import { SchoolUsersList as List } from "./components/list"
+import { List } from "./components/list"
 
 interface SchoolUsersListProps {
     searchParams: Promise<{ [key: string]: string | string[] | undefined }>
