@@ -1,33 +1,21 @@
-import React, { useState } from "react"
-import { throttle } from "throttle-debounce"
+"use client"
+
+import React, { useMemo, useState } from "react"
 import { Input } from "@/shared/components/ui/input"
-import { SearchParamsState } from "@/features/school-user/types"
+import { useSchoolUsersContext } from "@/features/school-user/context/school-users-param"
+import { debounce } from "@/shared/utils/debounce"
 import { FilterMenu } from "./components/filter-menu"
 import { AddUsers } from "./components/add-users"
 
-interface HeaderProps {
-    onSearchParamsChange(params: SearchParamsState): void
-}
+export function Header() {
+    const { filters, onSearchParamsChange } = useSchoolUsersContext()
 
-const throttledHandleSearchParams = throttle(
-    1500,
-    (fn: (params: SearchParamsState) => void, s: SearchParamsState) => {
-        fn(s);
-    },
-    { noLeading: true, debounceMode: false }
-);
+    const [value, setValue] = useState(filters.searchTerm)
 
-export function Header({ onSearchParamsChange }: HeaderProps) {
-    const [searchParams, setSearchParams] = useState<SearchParamsState>({
-        roles: [],
-        searchTerm: "",
-        cohortIDs: []
-    })
-
-    function handleSearchParams(s: SearchParamsState) {
-        setSearchParams(s)
-        throttledHandleSearchParams(onSearchParamsChange, s)
-    }
+    const debouncedUpdate = useMemo(() => debounce(
+        onSearchParamsChange,
+        1000
+    ), [])
 
     return (
         <div className="flex justify-between mb-8 md:mr-12">
@@ -36,12 +24,13 @@ export function Header({ onSearchParamsChange }: HeaderProps) {
                 <Input
                     placeholder="Search"
                     className="max-w-[200px] h-[30px]"
-                    value={searchParams.searchTerm}
+                    value={value}
                     onChange={(e) => {
-                        handleSearchParams({
-                            ...searchParams,
+                        debouncedUpdate({
+                            ...filters,
                             searchTerm: e.target.value,
                         })
+                        setValue(e.target.value)
                     }}
                 />
             </div>

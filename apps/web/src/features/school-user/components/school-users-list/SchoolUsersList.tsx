@@ -4,6 +4,7 @@ import { makeQueryClient } from "@/shared/lib/query-client"
 import { converRoleStringToArray } from "../../utils"
 import { GetSchoolUsersInput } from "../../types"
 import { schoolUsersQuery } from "../../queries/config"
+import { SchoolUsersProvider } from "../../context/school-users-param"
 import { List } from "./components/list"
 
 interface SchoolUsersListProps {
@@ -36,7 +37,9 @@ export async function SchoolUsersList({ searchParams }: SchoolUsersListProps) {
 
     return (
         <HydrationBoundary state={dehydrate(queryClient)}>
-            <List />
+            <SchoolUsersProvider>
+                <List />
+            </SchoolUsersProvider>
         </HydrationBoundary>
     )
 }

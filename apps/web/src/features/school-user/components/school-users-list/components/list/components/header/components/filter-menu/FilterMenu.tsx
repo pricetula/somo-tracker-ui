@@ -18,8 +18,11 @@ import {
 import { Role } from "@/features/user/types"
 import { RoleDisplay } from "@/shared/components/role-display"
 import { Checkbox } from "@/shared/components/ui/checkbox"
+import { useSchoolUsersContext } from "@/features/school-user/context/school-users-param"
 
 export function FilterMenu() {
+    const { filters, onSearchParamsChange } = useSchoolUsersContext()
+
     const userRoles = Object.keys(Role).map(role => role)
 
     return (
@@ -42,12 +45,23 @@ export function FilterMenu() {
                         <DropdownMenuPortal>
                             <DropdownMenuSubContent>
                                 {
-                                    userRoles.map(role => (
-                                        <DropdownMenuItem key={role}>
-                                            <Checkbox checked={true} />
-                                            <RoleDisplay role={role as Role} />
-                                        </DropdownMenuItem>
-                                    ))
+                                    userRoles.map(role => {
+                                        const checked = filters.roles.includes(role as Role)
+                                        return (
+                                            <DropdownMenuItem
+                                                key={role}
+                                                onClick={() => onSearchParamsChange({
+                                                    ...filters,
+                                                    roles: checked
+                                                        ? filters.roles.filter(r => r !== role as Role)
+                                                        : [...filters.roles, role as Role]
+                                                })}
+                                            >
+                                                <Checkbox checked={checked} />
+                                                <RoleDisplay role={role as Role} />
+                                            </DropdownMenuItem>
+                                        )
+                                    })
                                 }
                             </DropdownMenuSubContent>
                         </DropdownMenuPortal>

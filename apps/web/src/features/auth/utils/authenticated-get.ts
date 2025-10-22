@@ -23,7 +23,6 @@ export async function authenticatedGet(d: ApiInput): Promise<Response> {
 
         // If response is not ok then check what the error is
         if (!resp.ok) {
-            console.log("------------===============+++++++++", resp)
             const error = await resp.text()
 
             // Throw error if not related to token expiry
