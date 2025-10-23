@@ -68,12 +68,15 @@ export function List() {
 
     const filters = getSchoolUsersFilterFromSearchParam(searchParams)
 
-    const { data, isLoading } = useSchoolUsersQuery(filters)
-
     const { mutate, isPending, error } = useUpdateSchoolUserRoleMutation(filters)
 
+    const { data, isLoading } = useSchoolUsersQuery(filters)
+
+    // Memoize the data to prevent unnecessary table recreations
+    const tableData = useMemo(() => data ?? [], [data])
+
     const table = useReactTable({
-        data: data ?? [],
+        data: tableData,
         columns,
         getCoreRowModel: getCoreRowModel(),
     })
@@ -117,7 +120,7 @@ export function List() {
 
     return (
         <div className="w-full flex flex-col pt-2">
-            <Header onSearchParamsChange={onSearchParamsChange} />
+            <Header />
             <div className="flex-1 overflow-hidden">
                 <div
                     id="table-scroll"
