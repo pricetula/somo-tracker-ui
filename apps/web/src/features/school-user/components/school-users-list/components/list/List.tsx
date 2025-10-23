@@ -8,11 +8,11 @@ import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "
 import { useRouter, useSearchParams } from "next/navigation"
 import { RoleSelector } from "@/shared/components/role-selector"
 import { Role } from "@/features/user/types"
-import { useSchoolUsersQuery } from "@/features/school-user/hooks/useSchoolUsersQuery"
+import { useSchoolUsersQuery } from "@/features/school-user/hooks/use-school-users-query"
 import { SchoolUser, SearchParamsState, UpdateSchoolUserRole } from "@/features/school-user/types"
 import { useUpdateSchoolUserRoleMutation } from "@/features/school-user/hooks/update-school-user-role-mutation"
-import { Header } from "./components/header"
 import { buildSchoolUsersURL, getSchoolUsersFilterFromSearchParam } from "@/features/school-user/utils"
+import { Header } from "./components/header"
 
 const columnHelper = createColumnHelper<SchoolUser>()
 
