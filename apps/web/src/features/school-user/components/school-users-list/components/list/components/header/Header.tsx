@@ -20,7 +20,6 @@ export function Header() {
     return (
         <div className="flex justify-between mb-8 md:mr-12">
             <div className="flex items-center gap-4 px-4">
-                <FilterMenu />
                 <Input
                     placeholder="Search"
                     className="max-w-[200px] h-[30px]"
@@ -33,6 +32,7 @@ export function Header() {
                         setValue(e.target.value)
                     }}
                 />
+                <FilterMenu />
             </div>
             <AddUsers />
         </div>

@@ -26,70 +26,83 @@ export function FilterMenu() {
     const userRoles = Object.keys(Role).map(role => role)
 
     return (
-        <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                <Button size="sm" variant="outline">
-                    <ListFilter size="12" />
-                    <span>Filter</span>
-                </Button>
-            </DropdownMenuTrigger>
+        <div className="flex gap-4 items-center">
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Button size="sm" variant="outline">
+                        <ListFilter size="12" />
+                        <span>Filter</span>
+                    </Button>
+                </DropdownMenuTrigger>
 
-            <DropdownMenuContent className="w-56" align="start">
-                <DropdownMenuGroup>
-                    <DropdownMenuSub>
-                        <DropdownMenuSubTrigger>
-                            <CircleUserRound />
-                            <span>Roles</span>
-                        </DropdownMenuSubTrigger>
+                <DropdownMenuContent className="w-56" align="start">
+                    <DropdownMenuGroup>
+                        <DropdownMenuSub>
+                            <DropdownMenuSubTrigger>
+                                <CircleUserRound />
+                                <span>Roles</span>
+                            </DropdownMenuSubTrigger>
 
-                        <DropdownMenuPortal>
-                            <DropdownMenuSubContent>
-                                {
-                                    userRoles.map(role => {
-                                        const checked = filters.roles.includes(role as Role)
-                                        return (
-                                            <DropdownMenuItem
-                                                key={role}
-                                                onClick={() => onSearchParamsChange({
-                                                    ...filters,
-                                                    roles: checked
-                                                        ? filters.roles.filter(r => r !== role as Role)
-                                                        : [...filters.roles, role as Role]
-                                                })}
-                                            >
-                                                <Checkbox checked={checked} />
-                                                <RoleDisplay role={role as Role} />
-                                            </DropdownMenuItem>
-                                        )
-                                    })
-                                }
-                            </DropdownMenuSubContent>
-                        </DropdownMenuPortal>
-                    </DropdownMenuSub>
+                            <DropdownMenuPortal>
+                                <DropdownMenuSubContent>
+                                    {
+                                        userRoles.map(role => {
+                                            const checked = filters.roles.includes(role as Role)
+                                            return (
+                                                <DropdownMenuItem
+                                                    key={role}
+                                                    onClick={() => onSearchParamsChange({
+                                                        ...filters,
+                                                        roles: checked
+                                                            ? filters.roles.filter(r => r !== role as Role)
+                                                            : [...filters.roles, role as Role]
+                                                    })}
+                                                >
+                                                    <Checkbox checked={checked} />
+                                                    <RoleDisplay role={role as Role} />
+                                                </DropdownMenuItem>
+                                            )
+                                        })
+                                    }
+                                </DropdownMenuSubContent>
+                            </DropdownMenuPortal>
+                        </DropdownMenuSub>
 
-                    <DropdownMenuItem>
-                        <Building />
-                        <span>School staff</span>
-                        <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
-                    </DropdownMenuItem>
+                        <DropdownMenuItem>
+                            <Building />
+                            <span>School staff</span>
+                            <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
+                        </DropdownMenuItem>
 
-                    <DropdownMenuSub>
-                        <DropdownMenuSubTrigger disabled>
-                            <UsersRound />
-                            <span>Cohorts</span>
-                        </DropdownMenuSubTrigger>
+                        <DropdownMenuSub>
+                            <DropdownMenuSubTrigger disabled>
+                                <UsersRound />
+                                <span>Cohorts</span>
+                            </DropdownMenuSubTrigger>
 
-                        <DropdownMenuPortal>
-                            <DropdownMenuSubContent>
-                                <DropdownMenuItem>Email</DropdownMenuItem>
-                                <DropdownMenuItem>Message</DropdownMenuItem>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem>More...</DropdownMenuItem>
-                            </DropdownMenuSubContent>
-                        </DropdownMenuPortal>
-                    </DropdownMenuSub>
-                </DropdownMenuGroup>
-            </DropdownMenuContent>
-        </DropdownMenu>
+                            <DropdownMenuPortal>
+                                <DropdownMenuSubContent>
+                                    <DropdownMenuItem>Email</DropdownMenuItem>
+                                    <DropdownMenuItem>Message</DropdownMenuItem>
+                                    <DropdownMenuSeparator />
+                                    <DropdownMenuItem>More...</DropdownMenuItem>
+                                </DropdownMenuSubContent>
+                            </DropdownMenuPortal>
+                        </DropdownMenuSub>
+                    </DropdownMenuGroup>
+                </DropdownMenuContent>
+            </DropdownMenu>
+            {/* <ul>
+                {
+                    filters.roles.map(role => {
+                        return (
+                            <li key={role}>
+                                <RoleDisplay role={role} />
+                            </li>
+                        )
+                    })
+                }
+            </ul> */}
+        </div>
     )
 }

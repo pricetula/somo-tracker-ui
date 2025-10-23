@@ -68,7 +68,7 @@ export function List() {
 
     const filters = getSchoolUsersFilterFromSearchParam(searchParams)
 
-    const { mutate, isPending, error } = useUpdateSchoolUserRoleMutation(filters)
+    const { mutate, error } = useUpdateSchoolUserRoleMutation(filters)
 
     const { data, isLoading } = useSchoolUsersQuery(filters)
 
