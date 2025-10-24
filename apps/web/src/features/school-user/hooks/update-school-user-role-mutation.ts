@@ -1,11 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { meKeys } from "@/features/me/queries/keys";
-import { UpdateSchoolUserRole, SchoolUser, GetSchoolUsersInput } from "../types";
+import { UpdateSchoolUserRole, SchoolUser, GetSchoolUsersState } from "../types";
 import { updateSchoolUserRole } from "../services/update-school-user-role";
 import { schoolUsersKeys } from "../queries/keys";
 import { Role } from "@/shared/types/user";
 
-export function useUpdateSchoolUserRoleMutation(f: GetSchoolUsersInput) {
+export function useUpdateSchoolUserRoleMutation(f: GetSchoolUsersState) {
     const queryClient = useQueryClient();
 
     const queryKey = schoolUsersKeys.list(f)

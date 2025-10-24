@@ -2,7 +2,7 @@ import React from "react"
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query"
 import { makeQueryClient } from "@/shared/lib/query-client"
 import { converRoleStringToArray } from "../../utils"
-import { GetSchoolUsersInput } from "../../types"
+import { GetSchoolUsersState } from "../../types"
 import { schoolUsersQuery } from "../../queries/config"
 import { SchoolUsersProvider } from "../../context/school-users-param"
 import { List } from "./components/list"
@@ -20,7 +20,7 @@ export async function SchoolUsersList({ searchParams }: SchoolUsersListProps) {
         ? params.roles
         : ""
 
-    const filters: GetSchoolUsersInput = {
+    const filters: GetSchoolUsersState = {
         roles: converRoleStringToArray(roleString),
         searchTerm: typeof params.search_term === "string"
             ? params.search_term

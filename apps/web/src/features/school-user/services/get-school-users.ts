@@ -1,8 +1,8 @@
 import { authenticatedGet } from "@/features/auth/utils/authenticated-get"
-import { GetSchoolUsersInput, SchoolUser } from "@/features/school-user/types"
+import { GetSchoolUsersState, SchoolUser } from "@/features/school-user/types"
 import { buildSchoolUsersURL } from "../utils"
 
-export async function getSchoolUsers(i: GetSchoolUsersInput): Promise<SchoolUser[]> {
+export async function getSchoolUsers(i: GetSchoolUsersState): Promise<SchoolUser[]> {
     const uri = buildSchoolUsersURL('/school-users', i)
 
     // Attempt to get school users

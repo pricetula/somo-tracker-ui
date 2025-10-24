@@ -3,11 +3,11 @@
 import { useRouter, useSearchParams } from "next/navigation"
 import { buildSchoolUsersURL, getSchoolUsersFilterFromSearchParam } from "../utils"
 import { createContext, useContext, useMemo, useCallback } from "react"
-import { GetSchoolUsersInput } from "../types"
+import { GetSchoolUsersState } from "../types"
 
 interface SchoolUsersContextValue {
-    filters: GetSchoolUsersInput
-    onSearchParamsChange: (s: GetSchoolUsersInput) => void
+    filters: GetSchoolUsersState
+    onSearchParamsChange: (s: GetSchoolUsersState) => void
 }
 
 const SchoolUsersContext = createContext<SchoolUsersContextValue | null>(null)
@@ -18,7 +18,7 @@ export function SchoolUsersProvider({ children }: { children: React.ReactNode })
     const filters = useMemo(() => getSchoolUsersFilterFromSearchParam(searchParams), [searchParams])
 
     const onSearchParamsChange = useCallback(
-        (s: GetSchoolUsersInput) => {
+        (s: GetSchoolUsersState) => {
             const newUrl = buildSchoolUsersURL("/users", s)
             router.push(newUrl, { scroll: false })
             // window.location.replace(newUrl)

@@ -1,4 +1,4 @@
-import { GetSchoolUsersInput, SchoolUser } from "@/features/school-user/types"
+import { GetSchoolUsersState, SchoolUser } from "@/features/school-user/types"
 import { buildSchoolUsersURL } from "../utils"
 
 /**
@@ -6,7 +6,7 @@ import { buildSchoolUsersURL } from "../utils"
  * This function is safe to call from Client Components (useQuery).
  * It relies on the browser to automatically send cookies to the same origin.
  */
-export async function getSchoolUsersAPI(i: GetSchoolUsersInput): Promise<SchoolUser[]> {
+export async function getSchoolUsersAPI(i: GetSchoolUsersState): Promise<SchoolUser[]> {
     const uri = buildSchoolUsersURL('api/school-users', i)
 
     // 1. Fetch the internal API endpoint. Relative path is safe in the browser.

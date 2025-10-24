@@ -1,6 +1,6 @@
-import { GetSchoolUsersInput } from "../types";
+import { GetSchoolUsersState } from "../types";
 
-export function buildSchoolUsersURL(baseURL: string, params: GetSchoolUsersInput) {
+export function buildSchoolUsersURL(baseURL: string, params: GetSchoolUsersState) {
     const cleanBaseURL = baseURL.replace(/\/$/, '');
 
     const searchParams = new URLSearchParams();

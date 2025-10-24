@@ -1,7 +1,7 @@
 import { Role } from "@/features/user/types";
-import { GetSchoolUsersInput } from "../types";
+import { GetSchoolUsersState } from "../types";
 
-export function getSchoolUsersFilterFromSearchParam(searchParams: URLSearchParams): GetSchoolUsersInput {
+export function getSchoolUsersFilterFromSearchParam(searchParams: URLSearchParams): GetSchoolUsersState {
     const roles = converRoleStringToArray(searchParams.get('roles') || '')
 
     return {

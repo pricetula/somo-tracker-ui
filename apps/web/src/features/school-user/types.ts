@@ -9,7 +9,7 @@ export interface SchoolUser {
     user: User
 }
 
-export interface GetSchoolUsersInput {
+export interface GetSchoolUsersState {
     roles: Role[];
     searchTerm: string;
     lastSeenCreatedAt: Date | null;
@@ -22,4 +22,4 @@ export interface UpdateSchoolUserRole {
     role: Role;
 }
 
-export type SearchParamsState = Omit<GetSchoolUsersInput, "lastSeenCreatedAt">
+export type SearchParamsState = Omit<GetSchoolUsersState, "lastSeenCreatedAt">
