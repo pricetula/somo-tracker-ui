@@ -4,8 +4,8 @@ import React, { useMemo, useState } from "react"
 import { Input } from "@/shared/components/ui/input"
 import { useSchoolUsersContext } from "@/features/school-user/context/school-users-param"
 import { debounce } from "@/shared/utils/debounce"
+import { AddUsers } from "@/features/school-user/components/add-users"
 import { FilterMenu } from "./components/filter-menu"
-import { AddUsers } from "./components/add-users"
 
 export function Header() {
     const { filters, onSearchParamsChange } = useSchoolUsersContext()
