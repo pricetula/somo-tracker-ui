@@ -3,3 +3,61 @@
 html {
   font-size: 14px;
 }
+
+@keyframes aurora1 {
+
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+
+  33% {
+    transform: translate(10%, -10%) rotate(120deg) scale(1.1);
+  }
+
+  66% {
+    transform: translate(-10%, 10%) rotate(240deg) scale(0.9);
+  }
+}
+
+@keyframes aurora2 {
+
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+
+  33% {
+    transform: translate(-15%, 15%) rotate(-120deg) scale(1.2);
+  }
+
+  66% {
+    transform: translate(15%, -15%) rotate(-240deg) scale(0.8);
+  }
+}
+
+@keyframes aurora3 {
+
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+
+  50% {
+    transform: translate(-20%, 20%) rotate(180deg) scale(1.15);
+  }
+}
+
+.animate-aurora1 {
+  animation: aurora1 15s ease-in-out infinite;
+}
+
+.animate-aurora2 {
+  animation: aurora2 20s ease-in-out infinite;
+  animation-delay: -5s;
+}
+
+.animate-aurora3 {
+  animation: aurora3 25s ease-in-out infinite;
+  animation-delay: -10s;
+}
