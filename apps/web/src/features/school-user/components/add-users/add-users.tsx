@@ -16,12 +16,12 @@ export function AddUsers() {
         <>
             <Button size="sm" variant="outline" onClick={() => handleOnOpenChange(true)}>
                 <UserPlusIcon size="12" />
-                <span>Users</span>
+                <span>Add</span>
             </Button>
 
             <Dialog open={open} onOpenChange={handleOnOpenChange}>
-                <DialogContent className="w-[90%] max-w-[600px]">
-                    <DialogHeader className="text-left mb-4">
+                <DialogContent className="w-[90%] max-w-[600px] h-[200px]">
+                    <DialogHeader className="flex flex-col items-center text-left mb-4">
                         <DialogTitle>Add new users</DialogTitle>
                         <DialogDescription>
                             You can choose to either add new students or invite faculty or guardian members.
