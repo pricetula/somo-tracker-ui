@@ -9,8 +9,13 @@ import { SchoolUser } from "@/features/school-user/types";
 
 // This layout is used for the dashboard and requires the user to be logged in
 export default async function Layout({ children, modal }: { modal: React.ReactNode, children: React.ReactNode }) {
+    // Initialize query client
     const queryClient = makeQueryClient();
+
+    // Prefetch data
     let dehydratedState: DehydratedState | undefined;
+
+    // Variable to hold authorized user
     let me: SchoolUser | null = null
 
     try {
@@ -22,6 +27,7 @@ export default async function Layout({ children, modal }: { modal: React.ReactNo
             redirect("/signout")
         }
     }
+
     // If authorized user not found then sign out
     if (!me || isUUIDNil(me.user_id)) {
         redirect("/onboarding")
