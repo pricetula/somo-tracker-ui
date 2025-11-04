@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from "react"
 import { Check, ChevronsUpDown } from "lucide-react"
 import { cn } from "@/shared/lib/utils"
 import { Button } from "@/shared/components/ui/button"
+import { Spinner } from "@/shared/components/ui/spinner"
 import {
     Popover,
     PopoverContent,
@@ -19,7 +20,6 @@ import {
 } from "@/shared/components/ui/command"
 import { EducationSystem } from "../../types"
 import { useEducationSystemsQuery } from "../../hooks/useEducationSystemsQuery"
-import { Spinner } from "@/shared/components/ui/spinner"
 
 interface EducationSystemComboBoxProps {
     id: string
