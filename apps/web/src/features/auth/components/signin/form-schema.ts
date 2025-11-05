@@ -2,11 +2,10 @@ import { z } from "zod"
 
 export const signinSchema = z.object({
     email: z
-        .string()
+        .email("Invalid email address format.")
         .trim()
         .min(1, { message: "Required." })
         .toLowerCase()
-        .email("Invalid email address format.")
         .max(255, { message: "Cannot exceed 255 characters." }),
     code: z
         .string()
