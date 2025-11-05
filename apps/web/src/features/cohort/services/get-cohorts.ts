@@ -1,10 +1,10 @@
 import { authenticatedGet } from "@/features/auth/utils/authenticated-get";
-import { SchoolUser } from "@/features/school-user/types";
 import { isUUIDNil } from "@/shared/utils/is-uuid-nil";
+import { Cohort } from "../types";
 
-export async function getMe(): Promise<SchoolUser | null> {
+export async function getCohorts(): Promise<Cohort[] | null> {
     try {
-        const resp = await authenticatedGet({ uri: "/me" })
+        const resp = await authenticatedGet({ uri: "/cohorts" })
         if (!resp.ok) {
             const error = await resp.text()
             const err = new Error(error || resp.statusText);

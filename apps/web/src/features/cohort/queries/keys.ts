@@ -1,3 +1,3 @@
-export const meKeys = {
-    me: ['me'] as const,
+export const cohortKeys = {
+    list: ['cohorts', 'list'] as const,
 };
