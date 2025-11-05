@@ -4,10 +4,12 @@
 
 import React from "react"
 import { render, screen, waitFor } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
-import { SigninForm } from "../SigninForm"
 import "@testing-library/jest-dom"
+import userEvent from "@testing-library/user-event"
 import { toast } from "sonner"
+import { verifyOtpCode } from "@/features/auth/services/verify-otp-code"
+import { sendOtpCodeToEmail } from "@/features/auth/services/send-otp-code-to-email"
+import { SigninForm } from "../SigninForm"
 
 // Mock ResizeObserver
 const ResizeObserverMock = jest.fn(() => ({
@@ -37,10 +39,13 @@ jest.mock("next/navigation", () => ({
     }),
 }))
 
-const mockSendOtpCodeToEmail = jest.fn()
-const mockVerifyOtpCode = jest.fn()
+jest.mock("@/features/auth/services/verify-otp-code")
+jest.mock("@/features/auth/services/send-otp-code-to-email")
 
 describe("SigninForm", () => {
+    const mockSendOtpCodeToEmail = sendOtpCodeToEmail as jest.Mock
+    const mockVerifyOtpCode = verifyOtpCode as jest.Mock
+
     beforeAll(() => {
         Object.defineProperty(document, "elementFromPoint", {
             // Make sure it"s configurable so we can redefine it if needed,
@@ -55,7 +60,7 @@ describe("SigninForm", () => {
     })
 
     it("should render the initial form with email input and submit button", () => {
-        render(<SigninForm sendOtpCodeToEmail={mockSendOtpCodeToEmail} verifyOtpCode={mockVerifyOtpCode} />)
+        render(<SigninForm />)
 
         expect(screen.getByLabelText(/email/i)).toBeInTheDocument()
         expect(screen.getByRole("button", { name: /sign in/i })).toBeInTheDocument()
@@ -64,7 +69,7 @@ describe("SigninForm", () => {
 
     it("should show an error message if email is invalid", async () => {
         const user = userEvent.setup()
-        render(<SigninForm sendOtpCodeToEmail={mockSendOtpCodeToEmail} verifyOtpCode={mockVerifyOtpCode} />)
+        render(<SigninForm />)
 
         await user.type(screen.getByLabelText(/email/i), "invalid-email")
         await user.click(screen.getByRole("button", { name: /sign in/i }))
@@ -75,7 +80,7 @@ describe("SigninForm", () => {
     it("should call sendOtpCodeToEmail on valid email submission", async () => {
         const user = userEvent.setup()
         mockSendOtpCodeToEmail.mockResolvedValue({ success: true, data: {}, error: "" })
-        render(<SigninForm sendOtpCodeToEmail={mockSendOtpCodeToEmail} verifyOtpCode={mockVerifyOtpCode} />)
+        render(<SigninForm />)
 
         await user.type(screen.getByLabelText(/email/i), "test@example.com")
         await user.click(screen.getByRole("button", { name: /sign in/i }))
@@ -92,7 +97,7 @@ describe("SigninForm", () => {
     it("should show an error toast if sendOtpCodeToEmail fails", async () => {
         const user = userEvent.setup()
         mockSendOtpCodeToEmail.mockResolvedValue({ success: false, data: null, error: "Failed to send email" })
-        render(<SigninForm sendOtpCodeToEmail={mockSendOtpCodeToEmail} verifyOtpCode={mockVerifyOtpCode} />)
+        render(<SigninForm />)
 
         await user.type(screen.getByLabelText(/email/i), "test@example.com")
         await user.click(screen.getByRole("button", { name: /sign in/i }))
@@ -108,7 +113,7 @@ describe("SigninForm", () => {
         mockSendOtpCodeToEmail.mockResolvedValue({ success: true, data: {}, error: "" })
         mockVerifyOtpCode.mockResolvedValue({ success: true, data: {}, error: "" })
 
-        render(<SigninForm sendOtpCodeToEmail={mockSendOtpCodeToEmail} verifyOtpCode={mockVerifyOtpCode} />)
+        render(<SigninForm />)
 
         await user.type(screen.getByLabelText(/email/i), "test@example.com")
         await user.click(screen.getByRole("button", { name: /sign in/i }))
@@ -130,7 +135,7 @@ describe("SigninForm", () => {
         mockSendOtpCodeToEmail.mockResolvedValue({ success: true, data: {}, error: "" })
         mockVerifyOtpCode.mockResolvedValue({ success: false, data: null, error: "Invalid code" })
 
-        render(<SigninForm sendOtpCodeToEmail={mockSendOtpCodeToEmail} verifyOtpCode={mockVerifyOtpCode} />)
+        render(<SigninForm />)
 
         await user.type(screen.getByLabelText(/email/i), "test@example.com")
         await user.click(screen.getByRole("button", { name: /sign in/i }))
@@ -152,7 +157,7 @@ describe("SigninForm", () => {
         mockVerifyOtpCode.mockResolvedValue({ success: true, data: {}, error: "" })
         mockGet.mockReturnValue("/dashboard")
 
-        render(<SigninForm sendOtpCodeToEmail={mockSendOtpCodeToEmail} verifyOtpCode={mockVerifyOtpCode} />)
+        render(<SigninForm />)
 
         await user.type(screen.getByLabelText(/email/i), "test@example.com")
         await user.click(screen.getByRole("button", { name: /sign in/i }))
