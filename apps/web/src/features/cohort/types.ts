@@ -5,3 +5,5 @@ export interface Cohort {
     name: string;
     description: string;
 }
+
+export type CohortInput = Omit<Cohort, "id">
