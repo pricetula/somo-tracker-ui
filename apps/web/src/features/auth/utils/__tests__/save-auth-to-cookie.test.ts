@@ -38,7 +38,7 @@ describe("saveAuthToCookie", () => {
 
     it("should throw an error if refresh_token is missing", async () => {
         const data = { access_token: "at", id_token: "it" } as AuthCookie;
-        await expect(saveAuthToCookie(data)).rejects.toThrow(
+        expect(await saveAuthToCookie(data)).rejects.toThrow(
             new SaveAuthToCookieError("No refresh token found in refresh token response")
         );
     });
