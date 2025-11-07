@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Toaster } from "@/shared/components/ui/sonner"
 import { ThemeProvider } from "@/shared/components/theme-provider"
 import { ThemeToggle } from "@/shared/components/theme-toggle"
+import TanstackQueryProvider from "@/shared/providers/tanstack-query"
 import "./app.css"
 
 export const metadata: Metadata = {
@@ -17,20 +18,22 @@ export default function RootLayout({
 	return (
 		<html lang="en" suppressHydrationWarning>
 			<body>
-				<ThemeProvider
-					attribute="class"
-					defaultTheme="system"
-					enableSystem
-					disableTransitionOnChange
-				>
-					<div className="relative">
-						{children}
-						<div className="absolute bottom-4 right-4">
-							<ThemeToggle />
+				<TanstackQueryProvider>
+					<ThemeProvider
+						attribute="class"
+						defaultTheme="system"
+						enableSystem
+						disableTransitionOnChange
+					>
+						<div className="relative">
+							{children}
+							<div className="absolute bottom-4 right-4">
+								<ThemeToggle />
+							</div>
 						</div>
-					</div>
-					<Toaster />
-				</ThemeProvider>
+						<Toaster />
+					</ThemeProvider>
+				</TanstackQueryProvider>
 			</body>
 		</html>
 	)

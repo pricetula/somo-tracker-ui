@@ -116,6 +116,7 @@ project-root/
 │   │   │   │   ├── authHelpers.ts
 │   │   │   │   ├── validation.ts
 │   │   │   │   └── index.ts
+│   │   │   ├── types.ts
 │   │   │   └── index.ts
 │   │   │
 │   │   ├── dashboard/

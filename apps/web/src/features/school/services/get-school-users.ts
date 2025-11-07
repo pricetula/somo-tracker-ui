@@ -1,6 +1,6 @@
 import { authenticatedGet } from "@/features/auth/utils/authenticated-get";
 import { ActionResponse } from "@/shared/types/actions";
-import { SchoolUser } from "../types";
+import { SchoolUser } from "@/features/school-user/types";
 import { Role } from "@/shared/types/user";
 
 type GetSchoolUserResponse = ActionResponse<SchoolUser[]>

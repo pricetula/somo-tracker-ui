@@ -1,7 +1,8 @@
 import { authenticatedGet } from "@/features/auth/utils/authenticated-get";
-import { User } from "@/shared/types/user";
+import { SchoolUser } from "@/features/school-user/types";
+import { isUUIDNil } from "@/shared/utils/is-uuid-nil";
 
-export async function getMe(): Promise<User | null> {
+export async function getMe(): Promise<SchoolUser | null> {
     try {
         const resp = await authenticatedGet({ uri: "/me" })
         if (!resp.ok) {
@@ -11,7 +12,7 @@ export async function getMe(): Promise<User | null> {
             throw err;
         }
         const meData = await resp.json();
-        if (meData.id === "00000000-0000-0000-0000-000000000000") {
+        if (isUUIDNil(meData.id)) {
             return null
         }
         return meData
