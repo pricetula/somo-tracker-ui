@@ -14,9 +14,9 @@ export async function saveAuthToCookie(data: AuthCookie): Promise<void> {
         throw new SaveAuthToCookieError("No access token found in refresh token response")
     }
 
-    // if (!data.refresh_token) {
-    //     throw new SaveAuthToCookieError("No refresh token found in refresh token response")
-    // }
+    if (!data.refresh_token) {
+        throw new SaveAuthToCookieError("No refresh token found in refresh token response")
+    }
 
     if (!data.id_token) {
         throw new SaveAuthToCookieError("No id token found in refresh token response")

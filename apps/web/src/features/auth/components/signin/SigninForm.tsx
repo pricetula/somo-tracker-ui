@@ -17,8 +17,8 @@ import {
 import { Input } from "@/shared/components/ui/input"
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/shared/components/ui/input-otp"
 import { Button } from "@/shared/components/ui/button"
-import { sendOtpCodeToEmail } from "../../services/send-otp-code-to-email"
-import { verifyOtpCode } from "../../services/verify-otp-code"
+import { sendOtpCodeToEmail } from "@/features/auth/services/send-otp-code-to-email"
+import { verifyOtpCode } from "@/features/auth/services/verify-otp-code"
 import { signinSchema, type SigninSchema } from "./form-schema"
 
 export function SigninForm() {

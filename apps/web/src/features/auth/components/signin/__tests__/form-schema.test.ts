@@ -28,7 +28,7 @@ describe('signinSchema', () => {
         const issue = result?.error?.issues?.[0]
         expect(issue).toBeTruthy()
         if (!issue) return
-        expect(issue.message).toBe('Required.')
+        expect(issue.message).toBe('Invalid email address format.')
     })
 
     // Test case for when email exceeds max length
