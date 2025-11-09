@@ -7,3 +7,5 @@ export interface GradeRange {
     description: string;
     grade_order: number;
 }
+
+export type GradeRangeInput = Omit<GradeRange, "id">;
