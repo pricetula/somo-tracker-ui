@@ -6,3 +6,4 @@ export interface Answer {
     answer_order: number;
 }
 
+export type AnswerInput = Omit<Answer, "id">;
