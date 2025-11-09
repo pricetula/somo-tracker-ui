@@ -8,3 +8,5 @@ export interface Exam {
     description: string;
     instructions: string;
 }
+
+export type ExamInput = Omit<Exam, "id" | "institute_id">;
