@@ -1,17 +1,17 @@
 import { authenticatedPost } from "@/features/auth/utils/authenticated-post";
-import { addCohorts } from "../add-answers";
+import { addAnswers } from "../add-answers";
 import { Answer, AnswerInput } from "../../types";
 
 // Mock authenticatedPost module
 jest.mock("@/features/auth/utils/authenticated-post");
 
-describe("addCohortsByIDs", () => {
+describe("addAnswersByIDs", () => {
     beforeEach(() => {
         jest.clearAllMocks();
     });
 
     it("throws if authenticatedPost called without answer details", async () => {
-        await expect(addCohorts([])).rejects.toThrow("answer details required to be added");
+        await expect(addAnswers([])).rejects.toThrow("answer details required to be added");
     });
 
     it("calls authenticatedPost with the correct URI and body data", async () => {
@@ -32,7 +32,7 @@ describe("addCohortsByIDs", () => {
         const mockedOutput: Answer[] = input.map((i) => ({ id: i.question_id, ...i }))
         const mockResponse = { json: jest.fn().mockResolvedValueOnce(mockedOutput) };
         (authenticatedPost as jest.Mock).mockResolvedValueOnce(mockResponse);
-        const result = await addCohorts(input);
+        const result = await addAnswers(input);
         expect(authenticatedPost).toHaveBeenCalledTimes(1);
         expect(authenticatedPost).toHaveBeenCalledWith({
             uri: "/answers",
@@ -43,7 +43,7 @@ describe("addCohortsByIDs", () => {
 
     it("throws if authenticatedPost rejects", async () => {
         (authenticatedPost as jest.Mock).mockRejectedValueOnce(new Error("Auth failed"));
-        await expect(addCohorts([
+        await expect(addAnswers([
             {
                 question_id: "question-1",
                 answer_order: 1,
