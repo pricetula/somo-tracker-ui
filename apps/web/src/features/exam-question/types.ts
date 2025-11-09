@@ -3,3 +3,5 @@ export interface ExamQuestion {
     question_id: string;
     question_order: number;
 }
+
+export type ExamQuestionID = Omit<ExamQuestion, 'question_order'>
