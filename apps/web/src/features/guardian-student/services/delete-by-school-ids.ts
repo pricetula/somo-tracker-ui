@@ -1,6 +1,6 @@
 import { authenticatedDelete } from "@/features/auth/utils/authenticated-delete";
 
-export async function deleteByIDs(ids: string[]): Promise<void> {
+export async function deleteBySchoolIDs(ids: string[]): Promise<void> {
     if (ids.length === 0) throw new Error("ids required to delete exam sessions")
-    await authenticatedDelete({ uri: "/grade-range", body: { ids } })
+    await authenticatedDelete({ uri: "/guardian-student", body: { ids } })
 }

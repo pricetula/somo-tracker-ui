@@ -8,20 +8,14 @@ jest.mock("@/features/auth/utils/authenticated-post");
 describe("addGradeRangesByIDs", () => {
     const mockedData: GuardianStudent[] = [
         {
-            min_percentage: 50,
-            max_percentage: 60,
-            grade_range_group: "group1",
-            name: "Pass",
-            description: "Passing grade",
-            grade_order: 1
+            school_id: "school1",
+            student_id: "student1",
+            guardian_id: "guardian1"
         },
         {
-            min_percentage: 50,
-            max_percentage: 60,
-            grade_range_group: "group1",
-            name: "Pass",
-            description: "Passing grade",
-            grade_order: 1
+            school_id: "school2",
+            student_id: "student2",
+            guardian_id: "guardian2"
         }
     ]
 
@@ -29,8 +23,8 @@ describe("addGradeRangesByIDs", () => {
         jest.clearAllMocks();
     });
 
-    it("throws if authenticatedPost called without grade-range details", async () => {
-        await expect(addGuardianStudents([])).rejects.toThrow("grade-range details required to be added");
+    it("throws if authenticatedPost called without guardian-student details", async () => {
+        await expect(addGuardianStudents([])).rejects.toThrow("guardian-student details required to be added");
     });
 
     it("calls authenticatedPost with the correct URI and body data", async () => {
@@ -40,7 +34,7 @@ describe("addGradeRangesByIDs", () => {
         const result = await addGuardianStudents(mockedData);
         expect(authenticatedPost).toHaveBeenCalledTimes(1);
         expect(authenticatedPost).toHaveBeenCalledWith({
-            uri: "/grade-range",
+            uri: "/guardian-student",
             body: mockedData
         });
         expect(result).toEqual(mockedOutput);
