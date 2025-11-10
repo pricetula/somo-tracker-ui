@@ -5,3 +5,5 @@ export interface Question {
     description: string;
     question_type: string;
 }
+
+export type QuestionInput = Omit<Question, "id">;
