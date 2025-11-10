@@ -3,6 +3,7 @@ import "server-only";
 import { cookies } from "next/headers";
 import { COOKIE } from "@/shared/lib/constants";
 import { AuthCookie } from "../types";
+import { FailedToGetAuthCookieContentError } from "../errors";
 
 /**
  * Internal helper function to safely get and parse the "auth" cookie.
@@ -27,6 +28,6 @@ export async function getAuthCookieContent(): Promise<AuthCookie | null> {
 
         return content;
     } catch (error: any) {
-        throw new Error(`Failed to get auth cookie content: ${error.message}`);
+        throw new FailedToGetAuthCookieContentError(error.message);
     }
 }
