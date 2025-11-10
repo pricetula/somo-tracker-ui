@@ -20,14 +20,14 @@ describe("addQuestionsByIDs", () => {
             question_type: "MCQ",
         }
     ]
-    const mockedData = mockedInputData.map((i, index) => ({ id: index, ...i }))
+    const mockedData = mockedInputData.map((i, index) => ({ id: index + "", ...i }))
 
     beforeEach(() => {
         jest.clearAllMocks();
     });
 
-    it("throws if authenticatedPost called without exam-question details", async () => {
-        await expect(addQuestions([])).rejects.toThrow("exam-question details required to be added");
+    it("throws if authenticatedPost called without question details", async () => {
+        await expect(addQuestions([])).rejects.toThrow("question details required to be added");
     });
 
     it("calls authenticatedPost with the correct URI and body data", async () => {
@@ -37,7 +37,7 @@ describe("addQuestionsByIDs", () => {
         expect(authenticatedPost).toHaveBeenCalledTimes(1);
         expect(authenticatedPost).toHaveBeenCalledWith({
             uri: "/questions",
-            body: mockedData
+            body: mockedInputData
         });
         expect(result).toEqual(mockedData);
     });

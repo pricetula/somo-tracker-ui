@@ -34,7 +34,7 @@ describe("getQuestionsByTopicID", () => {
         await getQuestionsByTopicID("exam-1");
 
         expect(authenticatedGet).toHaveBeenCalledTimes(1);
-        expect(authenticatedGet).toHaveBeenCalledWith({ uri: "/questions/exam-1" });
+        expect(authenticatedGet).toHaveBeenCalledWith({ uri: "/questions/topic/exam-1" });
     });
 
     it("returns parsed questions data from the response", async () => {
