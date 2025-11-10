@@ -1,11 +1,11 @@
 import { authenticatedPost } from "@/features/auth/utils/authenticated-post";
-import { addGradeRanges } from "../add-grade-range";
+import { addGradeRanges } from "../add-grade-ranges";
 import { GradeRangeInput } from "../../types";
 
 // Mock authenticatedPost module
 jest.mock("@/features/auth/utils/authenticated-post");
 
-describe("addGradeRangesByIDs", () => {
+describe("addGradeRanges", () => {
     const mockedData: GradeRangeInput[] = [
         {
             min_percentage: 50,

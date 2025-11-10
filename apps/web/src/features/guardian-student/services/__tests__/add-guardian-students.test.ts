@@ -1,12 +1,12 @@
 import { authenticatedPost } from "@/features/auth/utils/authenticated-post";
-import { addGradeRanges } from "../add-grade-range";
-import { GradeRangeInput } from "../../types";
+import { addGuardianStudents } from "../add-guardian-students";
+import { GuardianStudent } from "../../types";
 
 // Mock authenticatedPost module
 jest.mock("@/features/auth/utils/authenticated-post");
 
 describe("addGradeRangesByIDs", () => {
-    const mockedData: GradeRangeInput[] = [
+    const mockedData: GuardianStudent[] = [
         {
             min_percentage: 50,
             max_percentage: 60,
@@ -30,14 +30,14 @@ describe("addGradeRangesByIDs", () => {
     });
 
     it("throws if authenticatedPost called without grade-range details", async () => {
-        await expect(addGradeRanges([])).rejects.toThrow("grade-range details required to be added");
+        await expect(addGuardianStudents([])).rejects.toThrow("grade-range details required to be added");
     });
 
     it("calls authenticatedPost with the correct URI and body data", async () => {
-        const mockedOutput: GradeRangeInput[] = mockedData.map((i) => ({ id: "test-id", ...i }))
+        const mockedOutput: GuardianStudent[] = mockedData.map((i) => ({ id: "test-id", ...i }))
         const mockResponse = { json: jest.fn().mockResolvedValueOnce(mockedOutput) };
         (authenticatedPost as jest.Mock).mockResolvedValueOnce(mockResponse);
-        const result = await addGradeRanges(mockedData);
+        const result = await addGuardianStudents(mockedData);
         expect(authenticatedPost).toHaveBeenCalledTimes(1);
         expect(authenticatedPost).toHaveBeenCalledWith({
             uri: "/grade-range",
@@ -48,6 +48,6 @@ describe("addGradeRangesByIDs", () => {
 
     it("throws if authenticatedPost rejects", async () => {
         (authenticatedPost as jest.Mock).mockRejectedValueOnce(new Error("Auth failed"));
-        await expect(addGradeRanges(mockedData)).rejects.toThrow("Auth failed");
+        await expect(addGuardianStudents(mockedData)).rejects.toThrow("Auth failed");
     });
 });

@@ -1,5 +1,5 @@
 import { authenticatedDelete } from "@/features/auth/utils/authenticated-delete";
-import { deleteByIDs } from "../delete-by-ids";
+import { deleteByIDs } from "../delete-by-school-ids";
 
 // Mock authenticatedDelete module
 jest.mock("@/features/auth/utils/authenticated-delete");

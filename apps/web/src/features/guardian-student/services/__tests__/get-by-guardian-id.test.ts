@@ -1,29 +1,21 @@
 import { authenticatedGet } from "@/features/auth/utils/authenticated-get";
-import { getAll } from "../get-all";
-import { GradeRange } from "../../types";
+import { getExamQuestionsByExamID } from "../get-by-exam-id";
+import { ExamQuestion } from "../../types";
 
 // Mock authenticatedGet module
 jest.mock("@/features/auth/utils/authenticated-get");
 
-describe("getAll", () => {
-    const mockedData: GradeRange[] = [
+describe("getExamQuestionsByExamID", () => {
+    const mockedData: ExamQuestion[] = [
         {
-            id: "test-id",
-            min_percentage: 50,
-            max_percentage: 60,
-            grade_range_group: "group1",
-            name: "Pass",
-            description: "Passing grade",
-            grade_order: 1
+            exam_id: "exam-1",
+            question_id: "question-1",
+            question_order: 1,
         },
         {
-            id: "test-id",
-            min_percentage: 50,
-            max_percentage: 60,
-            grade_range_group: "group1",
-            name: "Pass",
-            description: "Passing grade",
-            grade_order: 1
+            exam_id: "exam-1",
+            question_id: "question-1",
+            question_order: 1,
         }
     ]
 
@@ -35,31 +27,31 @@ describe("getAll", () => {
         const mockResponse = { json: jest.fn().mockResolvedValueOnce(mockedData) };
         (authenticatedGet as jest.Mock).mockResolvedValueOnce(mockResponse);
 
-        await getAll();
+        await getExamQuestionsByExamID("exam-1");
 
         expect(authenticatedGet).toHaveBeenCalledTimes(1);
-        expect(authenticatedGet).toHaveBeenCalledWith({ uri: "/grade-range" });
+        expect(authenticatedGet).toHaveBeenCalledWith({ uri: "/exam-questions/exam-1" });
     });
 
-    it("returns parsed grade-range data from the response", async () => {
+    it("returns parsed exam-questions data from the response", async () => {
         const mockResponse = { json: jest.fn().mockResolvedValueOnce(mockedData) };
         (authenticatedGet as jest.Mock).mockResolvedValueOnce(mockResponse);
 
-        const result = await getAll();
+        const result = await getExamQuestionsByExamID("exam-1");
         expect(result).toEqual(mockedData);
     });
 
     it("throws if authenticatedGet rejects", async () => {
         (authenticatedGet as jest.Mock).mockRejectedValueOnce(new Error("Auth failed"));
 
-        await expect(getAll()).rejects.toThrow("Auth failed");
+        await expect(getExamQuestionsByExamID("exam-1")).rejects.toThrow("Auth failed");
     });
 
     it("throws if response.json() rejects", async () => {
         const mockResponse = { json: jest.fn().mockRejectedValueOnce(new Error("Invalid JSON")) };
         (authenticatedGet as jest.Mock).mockResolvedValueOnce(mockResponse);
 
-        await expect(getAll()).rejects.toThrow("Invalid JSON");
+        await expect(getExamQuestionsByExamID("exam-1")).rejects.toThrow("Invalid JSON");
     });
 
     it("calls response.json() exactly once", async () => {
@@ -67,7 +59,7 @@ describe("getAll", () => {
         const mockResponse = { json: mockJson };
         (authenticatedGet as jest.Mock).mockResolvedValueOnce(mockResponse);
 
-        await getAll();
+        await getExamQuestionsByExamID("exam-1");
         expect(mockJson).toHaveBeenCalledTimes(1);
     });
 });
