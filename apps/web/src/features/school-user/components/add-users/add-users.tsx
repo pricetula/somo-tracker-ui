@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react"
-import { UserPlusIcon } from "lucide-react"
+import { MailPlus, UserPlus, UserPlusIcon } from "lucide-react"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/shared/components/ui/dialog"
 import { Button } from "@/shared/components/ui/button"
 import Link from "next/link"
@@ -30,10 +30,16 @@ export function AddUsers() {
 
                     <DialogFooter className="sm:justify-center gap-4">
                         <Button variant="secondary" asChild>
-                            <Link href="/users/new-students">Add students</Link>
+                            <Link href="/users/add-students" className="flex gap-2 items-center">
+                                <UserPlus size="16" />
+                                <span>Add students</span>
+                            </Link>
                         </Button>
                         <Button>
-                            <Link href="/users/invitation/new">Invite faculty or guardians</Link>
+                            <Link href="/users/invitation/new" className="flex gap-2 items-center">
+                                <MailPlus size="16" />
+                                <span>Invite users</span>
+                            </Link>
                         </Button>
                     </DialogFooter>
                 </DialogContent>
