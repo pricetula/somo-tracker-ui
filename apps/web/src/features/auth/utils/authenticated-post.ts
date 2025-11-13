@@ -13,7 +13,6 @@ export async function authenticatedPost(d: ApiInput): Promise<Response> {
     if (!resp.ok) {
         const error = await resp.text()
 
-
         // Throw error if not related to token expiry
         throw new AuthenticatedPostError(error)
     }
