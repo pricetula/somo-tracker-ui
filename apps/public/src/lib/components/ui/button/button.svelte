@@ -29,14 +29,26 @@
 		}
 	);
 
-	let className: string | undefined | null = undefined;
-	export { className as class };
-	export let variant: VariantProps<typeof buttonVariants>['variant'] = 'default';
-	export let size: VariantProps<typeof buttonVariants>['size'] = 'default';
+	
+	interface Props {
+		class?: string | undefined | null;
+		variant?: VariantProps<typeof buttonVariants>['variant'];
+		size?: VariantProps<typeof buttonVariants>['size'];
+		children?: import('svelte').Snippet;
+		[key: string]: any
+	}
 
-	interface $$Props extends HTMLButtonAttributes {}
+	let {
+		class: className = undefined,
+		variant = 'default',
+		size = 'default',
+		children,
+		...rest
+	}: Props = $props();
+
+	
 </script>
 
-<button class={cn(buttonVariants({ variant, size, class: className }))} {...$$restProps}>
-	<slot />
+<button class={cn(buttonVariants({ variant, size, class: className }))} {...rest}>
+	{@render children?.()}
 </button>
