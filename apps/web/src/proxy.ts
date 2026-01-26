@@ -5,7 +5,7 @@ import { COOKIE } from '@/shared/lib/constants';
 // Define public routes (routes that don't require authentication)
 const publicPaths = ['/signin', '/signup', '/verify'];
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
     // Get the auth cookie
     const authCookie = request.cookies.get(COOKIE.AUTH);
 
