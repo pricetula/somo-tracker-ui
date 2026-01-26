@@ -9,8 +9,8 @@
         "./postcss.config.js": "./postcss.config.js"
     },
     "devDependencies": {
-        "prettier-plugin-tailwindcss": "^0.6.10",
-        "tailwindcss": "^3.4.17",
+        "prettier-plugin-tailwindcss": "^0.7.2",
+        "tailwindcss": "^4.1.18",
         "tailwindcss-animate": "^1.0.7"
     }
 }

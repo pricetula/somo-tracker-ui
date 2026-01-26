@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@theme {
+    /* Only theme configuration, no custom utilities/components */
+    --color-primary-500: #3b82f6;
+    /* ... other theme vars */
+}

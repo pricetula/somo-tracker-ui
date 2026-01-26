@@ -1,0 +1,5 @@
+/* Just the @theme block for apps that want to build their own */
+@theme {
+    --color-primary-500: #3b82f6;
+    /* ... */
+}
