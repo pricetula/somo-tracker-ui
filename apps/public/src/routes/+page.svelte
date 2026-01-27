@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button';
-	import { Database, Flag, ScanEye, Speech, TrendingUp, TriangleAlert, Zap } from 'lucide-svelte';
+	import { Zap } from 'lucide-svelte';
 
 	const features = [
 		{
