@@ -1,10 +1,46 @@
 <script lang="ts">
 	import { Database, Flag, ScanEye, Speech, TrendingUp, TriangleAlert, Zap } from 'lucide-svelte';
+
+	const features = [
+		{
+			title: 'Real-Time Progress Tracking',
+			description:
+				'Monitor performance with up-to-the-minute data. See exactly how your cohort is trending the moment an assessment ends.'
+		},
+		{
+			title: 'Actionable Performance Analytics',
+			description:
+				'Deep-dive into individual and cohort trends. Compare group averages against historical benchmarks to refine your teaching strategy.'
+		},
+		{
+			title: 'Early Warning Systems',
+			description:
+				'Automatically identify learners at risk of falling behind. Use predefined criteria to trigger support before learning gaps widen.'
+		},
+		{
+			title: 'Centralized Data Management',
+			description:
+				'Ditch filing cabinets and spreadsheets. Unify all academic records into a single, secure hub designed for speed and accessibility.'
+		},
+		{
+			title: 'Collaborative Goal Setting',
+			description:
+				'Set and track clear academic milestones. Empower both educators and learners to stay focused on the roadmap to mastery.'
+		},
+		{
+			title: 'Enhanced Communication',
+			description:
+				'Foster stronger engagement with targeted, data-backed feedback that helps learners bridge the gap between effort and results.'
+		}
+	];
 </script>
 
-<article class="mb-20">
-	<header class="mt-24 md:mt-30 mb-30 flex flex-col gap-4 md:flex-row md:justify-between">
-		<div aria-labelledby="hero" class="mb-6 md:mb-0">
+<article>
+	<header
+		aria-labelledby="hero"
+		class="mt-30 md:mt-30 mb-40 flex flex-col gap-4 md:flex-row md:justify-between"
+	>
+		<div class="mb-6 md:mb-0">
 			<h1 id="hero" class="text-3xl md:text-4xl font-bold leading-12 mb-4">
 				Intelligent Academics.<br /> Zero Waste.
 			</h1>
@@ -23,133 +59,27 @@
 		<div class="bg-blue-50 dark:bg-slate-900 w-full max-w-[380px] h-[240px]"></div>
 	</header>
 
-	<section aria-labelledby="features" class="mb-24 w-full max-w-[800px]">
-		<h2
-			id="features"
-			class="mb-12 border-b border-dashed border-gray-200 pb-2 text-center text-lg font-semibold"
-		>
-			Key Features
+	<section aria-labelledby="features" class="mb-40 w-full flex flex-col items-center">
+		<h2 id="features" class="mb-4 text-center text-2xl font-semibold">
+			The Cost of the Status Quo
 		</h2>
-		<ol class="mt-4 grid gap-4 px-4 md:grid-cols-2">
-			<li class="mb-8">
-				<h3 class="mb-2 flex items-center gap-1 font-semibold">
-					<span>Real-time Progress Tracking</span>
-					<ScanEye class="text-blue-500" size="18" />
-				</h3>
-				<p>Monitor student performance with up-to-the-minute data from exam results.</p>
-			</li>
-			<li class="mb-8">
-				<h3 class="mb-2 flex items-center gap-1 font-semibold">
-					<span>Collaborative Goal Setting</span>
-					<Flag class="text-amber-500" size="18" />
-				</h3>
-				<p>Set and track academic goals with clarity.</p>
-			</li>
-			<li class="mb-8">
-				<h3 class="mb-2 flex items-center gap-1 font-semibold">
-					<span>Actionable Performance Analytics</span>
-					<TrendingUp class="text-teal-500" size="18" />
-				</h3>
-				<p>Analyze individual/ cohort progress and compare their progress on average.</p>
-			</li>
-			<li class="mb-8">
-				<h3 class="mb-2 flex items-center gap-1 font-semibold">
-					<span>Centralized Data Management</span>
-					<Database class="text-purple-500" size="18" />
-				</h3>
-				<p>Ditch spreadsheets and unify your academic data.</p>
-			</li>
-			<li class="mb-8">
-				<h3 class="mb-2 flex items-center gap-1 font-semibold">
-					<span>Enhanced Communication</span>
-					<Speech class="text-orange-500" size="18" />
-				</h3>
-				<p>Improve student-educator engagement and feedback.</p>
-			</li>
-			<li class="mb-8">
-				<h3 class="mb-2 flex items-center gap-1 font-semibold">
-					<span>Early Warning Systems</span>
-					<TriangleAlert class="text-red-500" size="18" />
-				</h3>
-				<p>
-					Identify students who are at risk of not meeting learning outcomes based on predefined
-					criteria.
-				</p>
-			</li>
-		</ol>
-	</section>
-
-	<section aria-labelledby="sync-data" class="mb-24 w-full max-w-[800px]">
-		<h2
-			id="sync-data"
-			class="mb-12 border-b border-dashed border-gray-200 pb-2 text-center text-lg font-semibold"
-		>
-			Streamline Your Data with Google Sheets
-		</h2>
-		<p class="flex justify-center px-4">
-			<span class="max-w-[500px] text-center">
-				Effortlessly bring your existing student information into somotracker and easily share
-				valuable insights by exporting your data to Google Sheets. This integration simplifies data
-				management, allowing you to work with your preferred tools seamlessly.
-			</span>
+		<p class="mb-20 text-center max-w-[380px] mx-auto">
+			Manual processes aren't just slow-they’re expensive. <br /> See how Somotracker solves this.
 		</p>
-	</section>
-
-	<section aria-labelledby="benefits-heading" class="w-full max-w-[800px]">
-		<h2
-			id="benefits-heading"
-			class="mb-12 border-b border-dashed border-gray-200 pb-2 text-center text-lg font-semibold"
-		>
-			Benefits
-		</h2>
-		<ol class="mt-4 list-[upper-arabic] px-7 font-light">
-			<li class="mb-8">
-				<h3 class="mb-2 flex items-center gap-1 font-semibold">
-					Data-Driven Decisions for Improved Outcomes
-				</h3>
-				<p>
-					Leverage real-time progress tracking and actionable analytics to identify trends,
-					intervene early, and make informed decisions that boost student success.
-				</p>
-			</li>
-			<li class="mb-8">
-				<h3 class="mb-2 flex items-center gap-1 font-semibold">
-					Streamlined Workflows and Increased Efficiency
-				</h3>
-				<p>
-					Say goodbye to manual data entry and scattered spreadsheets. Somotracker's centralized
-					platform simplifies administrative tasks and frees up valuable time for educators to focus
-					on teaching and student support.
-				</p>
-			</li>
-			<li class="mb-8">
-				<h3 class="mb-2 flex items-center gap-1 font-semibold">
-					Enhanced Collaboration and Communication
-				</h3>
-				<p>
-					Foster a more connected academic environment. Somotracker facilitates clear communication
-					about progress and goals between students and educators, leading to greater engagement and
-					accountability.
-				</p>
-			</li>
-			<li class="mb-8">
-				<h3 class="mb-2 flex items-center gap-1 font-semibold">
-					Personalized Support for Every Student
-				</h3>
-				<p>
-					Gain a holistic view of each student's academic journey, enabling targeted support and
-					interventions to ensure every learner reaches their full potential.
-				</p>
-			</li>
-			<li class="mb-8">
-				<h3 class="mb-2 flex items-center gap-1 font-semibold">
-					Demonstrate Impact and Accountability
-				</h3>
-				<p>
-					Generate comprehensive reports on student performance and progress, providing valuable
-					insights for stakeholders and showcasing the effectiveness of your educational programs.
-				</p>
-			</li>
+		<ol class="px-4 max-w-[800px]">
+			{#each features as feature, index (feature.title)}
+				<li
+					class={`mb-20 gap-8 flex flex-col md:flex-row md:items-center ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
+				>
+					<article class="flex flex-col grow items-center justify-center">
+						<h3 class="mb-2 font-semibold text-lg">
+							{feature.title}
+						</h3>
+						<p class="text-center max-w-[300px]">{feature.description}</p>
+					</article>
+					<div class="bg-blue-50 dark:bg-slate-900 w-[320px] h-[180px]"></div>
+				</li>
+			{/each}
 		</ol>
 	</section>
 </article>
