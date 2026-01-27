@@ -1,7 +1,5 @@
 <script lang="ts">
-	import { ModeWatcher } from 'mode-watcher';
 	import Nav from '$lib/components/common/nav/nav.svelte';
-	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
 	import Footer from '$lib/components/common/footer/Footer.svelte';
 	import '@somo-tracker-ui/tailwindcss/app.css';
 	import '../app.css';
@@ -44,12 +42,10 @@
 	<link rel="canonical" href="https://somo-tracker-web.onrender.com" />
 </svelte:head>
 
-<ModeWatcher />
-<main class="container relative mx-auto px-4">
-	<div class="absolute right-4 top-4 z-10">
-		<ThemeToggle />
-	</div>
+<main class="px-6">
 	<Nav />
-	{@render children()}
+	<div class="container-custom">
+		{@render children()}
+	</div>
 	<Footer />
 </main>

@@ -2,16 +2,22 @@
 	import { Database, Flag, ScanEye, Speech, TrendingUp, TriangleAlert } from 'lucide-svelte';
 </script>
 
-<article class="mb-20 flex flex-col items-center">
-	<header
-		aria-labelledby="hero"
-		class="mb-12 flex min-h-[400px] flex-col items-center justify-center"
-	>
-		<h1 id="hero" class="text-4xl font-bold">SomoTracker 🚀</h1>
-		<p class="mt-4 max-w-[400px] text-center">
-			Your Central Hub for Real-Time Academic Progress and Performance Mastery.
-		</p>
-	</header>
+<article class="mb-20">
+	<div class="mt-20 md:mt-30 mb-20 flex flex-col gap-4 md:flex-row md:justify-between">
+		<header aria-labelledby="hero" class="mb-6 md:mb-0">
+			<h1 id="hero" class="text-3xl md:text-4xl font-bold leading-10 mb-8">
+				Intelligent Academics.<br /> Zero Waste.
+			</h1>
+			<p class="max-w-[460px] mb-4">
+				Automate assessments, eliminate printing costs, and reclaim hundreds of faculty hours.
+			</p>
+			<strong class="block mb-6">Instant intelligence for learners that move faster.</strong>
+			<a href="#" class="inline-block px-4 py-2 no-underline rounded text-white bg-blue-500">
+				Get started for free
+			</a>
+		</header>
+		<div class="bg-blue-50 w-full max-w-[380px] h-[240px]"></div>
+	</div>
 
 	<section aria-labelledby="features" class="mb-24 w-full max-w-[800px]">
 		<h2
