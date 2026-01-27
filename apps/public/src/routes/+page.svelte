@@ -3,25 +3,25 @@
 </script>
 
 <article class="mb-20">
-	<div class="mt-20 md:mt-30 mb-20 flex flex-col gap-4 md:flex-row md:justify-between">
-		<header aria-labelledby="hero" class="mb-6 md:mb-0">
-			<h1 id="hero" class="text-3xl md:text-4xl font-bold leading-10 mb-8">
+	<header class="mt-24 md:mt-30 mb-30 flex flex-col gap-4 md:flex-row md:justify-between">
+		<div aria-labelledby="hero" class="mb-6 md:mb-0">
+			<h1 id="hero" class="text-3xl md:text-4xl font-bold leading-12 mb-4">
 				Intelligent Academics.<br /> Zero Waste.
 			</h1>
-			<p class="max-w-[460px] mb-4">
-				Automate assessments, eliminate printing costs and reclaim hundreds of faculty hours.
+			<p class="max-w-[460px] mb-10">
+				Eliminate printing overhead and reclaim faculty hours with automated testing and deep
+				analysis designed to accelerate academic mastery.
 			</p>
-			<strong class="block mb-6">Instant intelligence for learners that move faster.</strong>
 			<a
-				href="#"
+				href="/onboarding"
 				class="inline-flex items-center gap-2 px-4 py-2 no-underline rounded text-white bg-green-500"
 			>
 				<span>Get started for free</span>
 				<Zap size="14" />
 			</a>
-		</header>
-		<div class="bg-blue-50 w-full max-w-[380px] h-[240px]"></div>
-	</div>
+		</div>
+		<div class="bg-blue-50 dark:bg-slate-900 w-full max-w-[380px] h-[240px]"></div>
+	</header>
 
 	<section aria-labelledby="features" class="mb-24 w-full max-w-[800px]">
 		<h2
