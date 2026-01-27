@@ -14,7 +14,10 @@
 	</header>
 
 	<section aria-labelledby="features" class="mb-24 w-full max-w-[800px]">
-		<h2 id="features" class="mb-12 border-b border-dashed pb-2 text-center text-lg font-semibold">
+		<h2
+			id="features"
+			class="mb-12 border-b border-dashed border-gray-200 pb-2 text-center text-lg font-semibold"
+		>
 			Key Features
 		</h2>
 		<ol class="mt-4 grid gap-4 px-4 md:grid-cols-2">
@@ -67,7 +70,10 @@
 	</section>
 
 	<section aria-labelledby="sync-data" class="mb-24 w-full max-w-[800px]">
-		<h2 id="sync-data" class="mb-12 border-b border-dashed pb-2 text-center text-lg font-semibold">
+		<h2
+			id="sync-data"
+			class="mb-12 border-b border-dashed border-gray-200 pb-2 text-center text-lg font-semibold"
+		>
 			Streamline Your Data with Google Sheets
 		</h2>
 		<p class="flex justify-center px-4">
@@ -82,7 +88,7 @@
 	<section aria-labelledby="benefits-heading" class="w-full max-w-[800px]">
 		<h2
 			id="benefits-heading"
-			class="mb-12 border-b border-dashed pb-2 text-center text-lg font-semibold"
+			class="mb-12 border-b border-dashed border-gray-200 pb-2 text-center text-lg font-semibold"
 		>
 			Benefits
 		</h2>
