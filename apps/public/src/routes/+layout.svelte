@@ -1,10 +1,10 @@
 <script lang="ts">
-	import '@somo-tracker-ui/tailwindcss/app.css';
-	import '../app.css';
-	import Nav from '$lib/components/common/nav/nav.svelte';
 	import { ModeWatcher } from 'mode-watcher';
+	import Nav from '$lib/components/common/nav/nav.svelte';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
 	import Footer from '$lib/components/common/footer/Footer.svelte';
+	import '@somo-tracker-ui/tailwindcss/app.css';
+	import '../app.css';
 
 	let { children } = $props();
 </script>
