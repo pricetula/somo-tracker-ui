@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Database, Flag, ScanEye, Speech, TrendingUp, TriangleAlert } from 'lucide-svelte';
+	import { Database, Flag, ScanEye, Speech, TrendingUp, TriangleAlert, Zap } from 'lucide-svelte';
 </script>
 
 <article class="mb-20">
@@ -9,11 +9,15 @@
 				Intelligent Academics.<br /> Zero Waste.
 			</h1>
 			<p class="max-w-[460px] mb-4">
-				Automate assessments, eliminate printing costs, and reclaim hundreds of faculty hours.
+				Automate assessments, eliminate printing costs and reclaim hundreds of faculty hours.
 			</p>
 			<strong class="block mb-6">Instant intelligence for learners that move faster.</strong>
-			<a href="#" class="inline-block px-4 py-2 no-underline rounded text-white bg-blue-500">
-				Get started for free
+			<a
+				href="#"
+				class="inline-flex items-center gap-2 px-4 py-2 no-underline rounded text-white bg-green-500"
+			>
+				<span>Get started for free</span>
+				<Zap size="14" />
 			</a>
 		</header>
 		<div class="bg-blue-50 w-full max-w-[380px] h-[240px]"></div>

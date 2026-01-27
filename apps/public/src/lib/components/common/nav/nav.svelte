@@ -7,7 +7,6 @@
 <nav class="fixed top-0 left-0 w-screen h-[60px] px-6 bg-background">
 	<div class="container-custom h-full flex items-center justify-between">
 		<Logo />
-		<ThemeToggle />
 		<ModeWatcher />
 	</div>
 </nav>

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Nav from '$lib/components/common/nav/nav.svelte';
 	import Footer from '$lib/components/common/footer/Footer.svelte';
+	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
 	import '@somo-tracker-ui/tailwindcss/app.css';
 	import '../app.css';
 
@@ -47,5 +48,6 @@
 	<div class="container-custom">
 		{@render children()}
 	</div>
+	<ThemeToggle />
 	<Footer />
 </main>
