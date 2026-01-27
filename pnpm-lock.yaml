@@ -141,7 +141,10 @@ importers:
         version: 3.4.0
       tailwind-variants:
         specifier: ^3.2.2
-        version: 3.2.2(tailwind-merge@3.4.0)(tailwindcss@4.1.18)
+        version: 3.2.2(tailwind-merge@3.4.0)(tailwindcss@4.0.0)
+      tailwindcss:
+        specifier: ^4.0.0
+        version: 4.0.0
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -5965,6 +5968,9 @@ packages:
     resolution: {integrity: sha512-bl6mpH3T7I3UFxuvDEXLxy/VuFxBk5bbzplh7tXI68mwMokNYd1t9qPBHlnyTwfa4JGC4zP516I1hYYtQ/vspA==}
     peerDependencies:
       tailwindcss: '>=3.0.0 || insiders'
+
+  tailwindcss@4.0.0:
+    resolution: {integrity: sha512-ULRPI3A+e39T7pSaf1xoi58AqqJxVCLg8F/uM5A3FadUbnyDTgltVnXJvdkTjwCOGA6NazqHVcwPJC5h2vRYVQ==}
 
   tailwindcss@4.1.18:
     resolution: {integrity: sha512-4+Z+0yiYyEtUVCScyfHCxOYP06L5Ne+JiHhY2IjR2KWMIWhJOYZKLSGZaP5HkZ8+bY0cxfzwDE5uOmzFXyIwxw==}
@@ -12873,6 +12879,12 @@ snapshots:
 
   tailwind-merge@3.4.0: {}
 
+  tailwind-variants@3.2.2(tailwind-merge@3.4.0)(tailwindcss@4.0.0):
+    dependencies:
+      tailwindcss: 4.0.0
+    optionalDependencies:
+      tailwind-merge: 3.4.0
+
   tailwind-variants@3.2.2(tailwind-merge@3.4.0)(tailwindcss@4.1.18):
     dependencies:
       tailwindcss: 4.1.18
@@ -12882,6 +12894,8 @@ snapshots:
   tailwindcss-animate@1.0.7(tailwindcss@4.1.18):
     dependencies:
       tailwindcss: 4.1.18
+
+  tailwindcss@4.0.0: {}
 
   tailwindcss@4.1.18: {}
 

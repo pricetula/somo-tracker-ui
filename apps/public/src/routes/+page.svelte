@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Button } from '$lib/components/ui/button';
 	import { Database, Flag, ScanEye, Speech, TrendingUp, TriangleAlert, Zap } from 'lucide-svelte';
 
 	const features = [
@@ -48,13 +49,13 @@
 				Eliminate printing overhead and reclaim faculty hours with automated testing and deep
 				analysis designed to accelerate academic mastery.
 			</p>
-			<a
+			<Button
 				href="/onboarding"
-				class="inline-flex items-center gap-2 px-4 py-2 no-underline rounded text-white bg-green-500"
+				class="inline-flex items-center gap-2 px-4 py-2 no-underline rounded text-white bg-green-500 hover:bg-green-600"
 			>
 				<span>Get started for free</span>
 				<Zap size="14" />
-			</a>
+			</Button>
 		</div>
 		<div class="bg-blue-50 dark:bg-slate-900 w-full max-w-[380px] h-[240px]"></div>
 	</header>

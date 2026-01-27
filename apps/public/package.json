@@ -43,6 +43,7 @@
     "svelte-check": "^4.3.5",
     "tailwind-merge": "^3.4.0",
     "tailwind-variants": "^3.2.2",
+    "tailwindcss": "^4.0.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.53.1",
     "vite": "^7.3.1",
