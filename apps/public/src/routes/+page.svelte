@@ -39,7 +39,7 @@
 <article>
 	<header
 		aria-labelledby="hero"
-		class="mt-30 md:mt-30 mb-40 flex flex-col gap-4 md:flex-row md:justify-between"
+		class="mt-30 md:mt-30 mb-40 md:h-[calc(100vh_-_100px)] flex flex-col gap-4 md:flex-row md:justify-between md:items-center"
 	>
 		<div class="mb-6 md:mb-0">
 			<h1 id="hero" class="text-3xl md:text-4xl font-bold leading-12 mb-4">
@@ -67,7 +67,7 @@
 		<p class="mb-20 text-center max-w-[380px] mx-auto">
 			Manual processes aren't just slow-they’re expensive. <br /> See how Somotracker solves this.
 		</p>
-		<ol class="px-4 max-w-[800px]">
+		<ol class="px-4 max-w-[900px]">
 			{#each features as feature, index (feature.title)}
 				<li
 					class={`mb-20 gap-8 flex flex-col md:flex-row md:items-center ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
