@@ -11,9 +11,7 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
 	},
-	"dependencies": {
-		"@somotracker/tailwind-config": "workspace:*"
-	},
+	"dependencies": {},
 	"devDependencies": {
 		"@lucide/svelte": "^0.575.0",
 		"@sveltejs/adapter-auto": "^7.0.0",

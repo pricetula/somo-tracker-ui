@@ -1,8 +1,0 @@
-{
-  "name": "@somotracker/tailwind-config",
-  "version": "0.1.0",
-  "private": true,
-  "exports": {
-    "./theme.css": "./theme.css"
-  }
-}
