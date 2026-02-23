@@ -1,3 +1,4 @@
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { getQueryClient } from "@/lib/get-query-client";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
@@ -8,6 +9,10 @@ export default async function ProtectedLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const headerList = await headers();
+
+  const currentPath = headerList.get("x-current-path");
+
   const queryClient = getQueryClient();
 
   const result = await queryClient.fetchQuery({
@@ -19,12 +24,12 @@ export default async function ProtectedLayout({
     redirect("/login");
   }
 
-  if (!result.data.institute_id) {
-    redirect("/onboarding");
+  if (currentPath && !result.data.institute_id && currentPath !== "/institute/onboarding") {
+    redirect("/institute/onboarding");
   }
 
-  if (!result.data.school_id) {
-    redirect("/school/onboarding");
+  if (currentPath && !result.data.school_id && currentPath !== "/institute/school/onboarding") {
+    redirect("/institute/school/onboarding");
   }
 
   return (
