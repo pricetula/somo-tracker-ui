@@ -62,6 +62,13 @@ src/
 
 ---
 
+### 5. Auth & Cookies
+- **Cookie Mutations:** Setting or deleting cookies MUST happen inside a Server Action triggered from a Client Component (e.g., `useEffect` or form submission) or a Route Handler.
+- **Rendering Restriction:** Never call a Server Action that modifies cookies directly within the body of a Server Component during render.
+- **Auth Flow:** Always use a 'use client' intermediary page for auth callbacks (like `/authenticate`) to safely trigger cookie-setting actions via `useEffect`.
+
+---
+
 ## 📋 Best Practices
 
 - **Hydration:** Prefetch data in Server Components using `prefetchQuery` and wrap Client Components in `<HydrationBoundary>`.
