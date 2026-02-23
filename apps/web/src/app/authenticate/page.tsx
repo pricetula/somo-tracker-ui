@@ -1,5 +1,7 @@
 import { redirect } from "next/navigation";
 import { verifyMagicLinkToken } from "@/features/auth/api/actions";
+import { getQueryClient } from "@/lib/get-query-client";
+import { meMeta } from "@/features/me/api/use-me";
 
 type Props = {
   searchParams: Promise<{ token?: string }>;
@@ -18,5 +20,11 @@ export default async function AuthenticatePage({ searchParams }: Props) {
     redirect(`/login?error=${encodeURIComponent(result.error ?? "Invalid link.")}`);
   }
 
-  redirect("/dashboard");
+  const queryClient = getQueryClient();
+  await queryClient.prefetchQuery({
+    queryKey: meMeta.queryKey,
+    queryFn: meMeta.queryFn,
+  });
+
+  redirect("/institute");
 }
