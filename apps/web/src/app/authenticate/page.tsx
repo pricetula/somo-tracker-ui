@@ -14,7 +14,7 @@ export default async function AuthenticatePage({ searchParams }: Props) {
     redirect("/login");
   }
 
-  const result = await verifyMagicLinkToken(token);
+  const result = await verifyMagicLinkToken(token.trim());
 
   if (!result.success) {
     redirect(`/login?error=${encodeURIComponent(result.error ?? "Invalid link.")}`);
