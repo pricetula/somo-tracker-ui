@@ -20,11 +20,11 @@ export default async function ProtectedLayout({
   }
 
   if (!result.data.institute_id) {
-    redirect("/institute/onboarding");
+    redirect("/onboarding");
   }
 
   if (!result.data.school_id) {
-    redirect("/institute/school/onboarding");
+    redirect("/school/onboarding");
   }
 
   return (
