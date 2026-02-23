@@ -1,5 +1,5 @@
 export default function Page() {
     return (
-        <div>home</div>
+        <div>Institute</div>
     );
 }
