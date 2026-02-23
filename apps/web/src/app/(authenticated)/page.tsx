@@ -1,5 +1,13 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+
 export default function Page() {
-    return (
-        <div>Institute</div>
-    );
+    const router = useRouter();
+
+    const t = () => {
+        router.replace("/institute");
+    };
+
+    return <button onClick={t}>dd</button>;
 }
