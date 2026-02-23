@@ -1,21 +1,29 @@
-import { type NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
-export function proxy(request: NextRequest): NextResponse | undefined {
-  const sessionToken = request.cookies.get("session_token");
+const publicRoutes = ["/login", "/authenticate"];
 
-  // 1. Handle Redirect Logic
-  if (!sessionToken?.value) {
-    const loginUrl = request.nextUrl.clone();
-    loginUrl.pathname = "/login";
-    loginUrl.search = "";
+export function proxy(request: NextRequest) {
+  const sessionToken = request.cookies.get("session_token")?.value;
+
+  const { pathname } = request.nextUrl;
+
+  const isPublicRoutes = publicRoutes.some((route) => pathname.startsWith(route));
+
+  if (!isPublicRoutes && !sessionToken) {
+    const loginUrl = new URL("/login", request.url);
+
     return NextResponse.redirect(loginUrl);
   }
 
-  // 2. Inject the Pathname into Headers
-  const requestHeaders = new Headers(request.headers);
-  requestHeaders.set("x-current-path", request.nextUrl.pathname);
+  if (isPublicRoutes && sessionToken) {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
 
-  // 3. Return NextResponse.next with the updated headers
+  const requestHeaders = new Headers(request.headers);
+
+  requestHeaders.set("x-current-path", pathname);
+
   return NextResponse.next({
     request: {
       headers: requestHeaders,
@@ -24,5 +32,5 @@ export function proxy(request: NextRequest): NextResponse | undefined {
 }
 
 export const config = {
-  matcher: ["/institute/:path*"],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };

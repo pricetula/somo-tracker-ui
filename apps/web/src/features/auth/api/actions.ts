@@ -79,3 +79,11 @@ export async function verifyMagicLinkToken(token: string): Promise<ActionResult>
     return { success: false, error: "Unable to reach the server. Please try again.", code: 503 };
   }
 }
+
+export async function logout(): Promise<ActionResult> {
+  const cookieStore = await cookies()
+
+  cookieStore.delete("session_token");
+
+  return { success: true };
+}
