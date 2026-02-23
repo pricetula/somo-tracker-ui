@@ -7,7 +7,7 @@ import type { Me } from "@/features/me/types/me";
 
 export async function getMe(): Promise<ActionResult<Me>> {
   try {
-    const res = await apiClient("/auth/me");
+    const res = await apiClient("/me");
 
     if (res.status === 401) {
       (await cookies()).delete("session_token");
