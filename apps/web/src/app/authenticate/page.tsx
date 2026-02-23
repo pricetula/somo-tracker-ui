@@ -1,30 +1,35 @@
-import { redirect } from "next/navigation";
+"use client";
+
+import { useEffect, useRef } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { verifyMagicLinkToken } from "@/features/auth/api/actions";
-import { getQueryClient } from "@/lib/get-query-client";
-import { meMeta } from "@/features/me/api/use-me";
 
-type Props = {
-  searchParams: Promise<{ token?: string }>;
-};
+export default function AuthenticatePage() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const called = useRef(false);
 
-export default async function AuthenticatePage({ searchParams }: Props) {
-  const { token } = await searchParams;
+  useEffect(() => {
+    if (called.current) return;
+    called.current = true;
 
-  if (!token) {
-    redirect("/login");
-  }
+    const token = searchParams.get("token")?.trim();
 
-  const result = await verifyMagicLinkToken(token.trim());
+    if (!token) {
+      router.replace("/login");
+      return;
+    }
 
-  if (!result.success) {
-    redirect(`/login?error=${encodeURIComponent(result.error ?? "Invalid link.")}`);
-  }
+    verifyMagicLinkToken(token).then((result) => {
+      if (result.success) {
+        router.replace("/");
+      } else {
+        toast.error(result.error ?? "Invalid or expired link.");
+        router.replace("/login");
+      }
+    });
+  }, [searchParams, router]);
 
-  const queryClient = getQueryClient();
-  await queryClient.prefetchQuery({
-    queryKey: meMeta.queryKey,
-    queryFn: meMeta.queryFn,
-  });
-
-  redirect("/institute");
+  return null;
 }

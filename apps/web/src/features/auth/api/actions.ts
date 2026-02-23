@@ -65,8 +65,9 @@ export async function verifyMagicLinkToken(token: string): Promise<ActionResult>
     }
 
     const { session_token } = await res.json();
+    const cookieStore = await cookies()
 
-    (await cookies()).set("session_token", session_token, {
+    cookieStore.set("session_token", session_token, {
       httpOnly: true,
       secure: true,
       sameSite: "lax",
