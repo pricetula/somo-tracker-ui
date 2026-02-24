@@ -23,7 +23,7 @@ export default function AuthenticatePage() {
 
     verifyMagicLinkToken(token).then((result) => {
       if (result.success) {
-        router.replace("/institute");
+        router.replace("/");
       } else {
         toast.error(result.error ?? "Invalid or expired link.");
         router.replace("/login");
