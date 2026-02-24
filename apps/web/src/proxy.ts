@@ -11,9 +11,7 @@ export function proxy(request: NextRequest) {
   const isPublicRoutes = publicRoutes.some((route) => pathname.startsWith(route));
 
   if (!isPublicRoutes && !sessionToken) {
-    const loginUrl = new URL("/login", request.url);
-
-    return NextResponse.redirect(loginUrl);
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
   if (isPublicRoutes && sessionToken) {
