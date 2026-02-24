@@ -6,7 +6,7 @@ export default function Page() {
     const router = useRouter();
 
     const t = () => {
-        router.replace("/institute");
+        router.replace("/onboarding");
     };
 
     return <button onClick={t}>dd</button>;
