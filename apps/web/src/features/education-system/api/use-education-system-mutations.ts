@@ -3,11 +3,11 @@ import {
   createEducationSystems,
   updateEducationSystem,
   deleteEducationSystems,
-} from "@/features/education/api/actions";
+} from "../api/actions";
 import type {
   AddEducationSystemRequest,
   UpdateEducationSystemRequest,
-} from "@/features/education/types";
+} from "../types";
 
 export function useCreateEducationSystems() {
   const queryClient = useQueryClient();

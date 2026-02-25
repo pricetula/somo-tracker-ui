@@ -6,7 +6,7 @@ import type {
   EducationSystem,
   AddEducationSystemRequest,
   UpdateEducationSystemRequest,
-} from "@/features/education/types";
+} from "../types";
 
 export async function getEducationSystems(): Promise<ActionResult<EducationSystem[]>> {
   try {

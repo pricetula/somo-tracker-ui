@@ -1,5 +1,5 @@
 import { useSuspenseQuery, useQuery } from "@tanstack/react-query";
-import { getEducationSystems, getEducationSystem } from "@/features/education/api/actions";
+import { getEducationSystems, getEducationSystem } from "../api/actions";
 
 export const educationSystemsMeta = {
   queryKey: ["education-systems"] as const,
