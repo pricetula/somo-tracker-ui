@@ -129,18 +129,8 @@ export function SchoolForm({ school, onSuccess }: SchoolFormProps) {
         </Field>
 
         <Field>
-          <div className="flex items-center justify-between max-w-[40px]">
-            <RadioGroup defaultValue="home" className="w-fit">
-              <div className="flex items-center gap-3">
-                <RadioGroupItem
-                  value="home"
-                  id="r2"
-                  onClick={() => {
-                    form.setValue("is_home_school", true, { shouldValidate: true });
-                  }}
-                />
-                <Label htmlFor="r2">Comfortable</Label>
-              </div>
+          <div className="flex items-center justify-between ">
+            <RadioGroup defaultValue="school" className="w-fit">
               <div className="flex items-center gap-3">
                 <RadioGroupItem
                   value="school"
@@ -149,7 +139,17 @@ export function SchoolForm({ school, onSuccess }: SchoolFormProps) {
                     form.setValue("is_home_school", false, { shouldValidate: true });
                   }}
                 />
-                <Label htmlFor="r3">Compact</Label>
+                <Label htmlFor="r3">Standard</Label>
+              </div>
+              <div className="flex items-center gap-3">
+                <RadioGroupItem
+                  value="home"
+                  id="r2"
+                  onClick={() => {
+                    form.setValue("is_home_school", true, { shouldValidate: true });
+                  }}
+                />
+                <Label htmlFor="r2">Home School</Label>
               </div>
             </RadioGroup>
           </div>
