@@ -21,11 +21,6 @@ Feature-driven: `src/features/[name]/` contains api/, components/, types/
 - **Types:** Alias from OpenAPI schema (`src/types/api.ts`) in `features/[x]/types/index.ts`
 - **API Calls:** Use `lib/api-client.ts` (auto-injects session_token, handles 401s)
 
-## Auth
-- Cookie mutations need Client Component trigger (useEffect/form submission)
-- Auth guard: `(authenticated)/layout.tsx` redirects to /login or /onboarding
-- Middleware: `src/proxy.ts` handles route protection and injects x-current-path header
-- Logout: Client Component calls logout() action in useEffect
 
 ## Feature Pattern
 Standard structure (see existing features for examples):
