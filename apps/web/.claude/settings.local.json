@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(ls src/app/ 2>/dev/null && ls src/app/\\\\\\(auth\\\\\\)/ 2>/dev/null)"
+      "Bash(ls src/app/ 2>/dev/null && ls src/app/\\\\\\(auth\\\\\\)/ 2>/dev/null)",
+      "Bash(ls:*)",
+      "Bash(cat:*)"
     ]
   }
 }

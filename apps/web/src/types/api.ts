@@ -39,7 +39,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -48,7 +48,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -102,7 +102,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -111,7 +111,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -149,7 +149,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Unprocessable Entity */
@@ -158,7 +158,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -167,7 +167,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -203,7 +203,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "*/*": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -212,7 +212,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "*/*": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -260,7 +260,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -269,7 +269,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -326,7 +326,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Expectation Failed */
@@ -335,7 +335,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Unprocessable Entity */
@@ -344,7 +344,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -399,7 +399,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Unprocessable Entity */
@@ -408,7 +408,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -461,7 +461,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -470,7 +470,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -525,7 +525,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Unprocessable Entity */
@@ -534,7 +534,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -580,7 +580,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -589,7 +589,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -627,7 +627,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -636,7 +636,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -674,7 +674,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Unprocessable Entity */
@@ -683,7 +683,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -692,7 +692,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -728,7 +728,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "*/*": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -737,7 +737,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "*/*": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -785,7 +785,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -794,7 +794,251 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/education-systems": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get all education systems
+         * @description Returns all education systems available.
+         */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_educationsystem.EducationSystem"][];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        /**
+         * Update education system
+         * @description Updates an existing education system.
+         */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description Education system update payload */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["internal_educationsystem_delivery_http.updateEducationSystemRequest"];
+                };
+            };
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_educationsystem.EducationSystem"];
+                    };
+                };
+                /** @description Unprocessable Entity */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        /**
+         * Add education systems
+         * @description Creates one or more education systems.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description Array of education systems to create */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["internal_educationsystem_delivery_http.addEducationSystemRequest"][];
+                };
+            };
+            responses: {
+                /** @description Created */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_educationsystem.EducationSystem"][];
+                    };
+                };
+                /** @description Unprocessable Entity */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        /**
+         * Delete education systems
+         * @description Deletes one or more education systems by UUID.
+         */
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description IDs to delete */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["internal_educationsystem_delivery_http.deleteEducationSystemsByIDsRequest"];
+                };
+            };
+            responses: {
+                /** @description No Content */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Unprocessable Entity */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "*/*": components["schemas"]["apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "*/*": components["schemas"]["apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/education-systems/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get education system by ID
+         * @description Returns an education system by its UUID.
+         */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Education System ID */
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_educationsystem.EducationSystem"];
+                    };
+                };
+                /** @description Unprocessable Entity */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -848,7 +1092,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -857,7 +1101,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -895,7 +1139,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Unprocessable Entity */
@@ -904,7 +1148,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -913,7 +1157,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -949,7 +1193,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "*/*": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -958,7 +1202,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "*/*": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -1006,7 +1250,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -1015,7 +1259,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -1066,7 +1310,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -1075,7 +1319,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -1123,7 +1367,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -1132,7 +1376,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -1170,7 +1414,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -1179,7 +1423,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -1217,7 +1461,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Unprocessable Entity */
@@ -1226,7 +1470,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -1235,7 +1479,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -1271,7 +1515,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "*/*": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -1280,7 +1524,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "*/*": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -1328,7 +1572,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -1337,7 +1581,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -1385,7 +1629,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -1423,7 +1667,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -1432,7 +1676,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -1470,7 +1714,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Unprocessable Entity */
@@ -1479,7 +1723,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -1488,7 +1732,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -1524,7 +1768,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "*/*": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -1533,7 +1777,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "*/*": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -1585,7 +1829,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Unprocessable Entity */
@@ -1594,7 +1838,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -1603,7 +1847,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -1639,7 +1883,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "*/*": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -1648,7 +1892,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "*/*": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -1696,7 +1940,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -1705,7 +1949,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -1759,7 +2003,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -1768,7 +2012,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -1815,7 +2059,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -1824,7 +2068,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -1872,7 +2116,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -1926,7 +2170,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -1935,7 +2179,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -1973,7 +2217,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Unprocessable Entity */
@@ -1982,7 +2226,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -1991,7 +2235,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -2027,7 +2271,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "*/*": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -2036,7 +2280,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "*/*": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -2084,7 +2328,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -2093,7 +2337,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -2144,7 +2388,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -2153,7 +2397,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -2210,7 +2454,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -2219,7 +2463,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -2273,7 +2517,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -2282,7 +2526,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -2320,7 +2564,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Unprocessable Entity */
@@ -2329,7 +2573,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -2338,7 +2582,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -2376,7 +2620,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "*/*": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -2385,7 +2629,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "*/*": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -2430,7 +2674,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -2439,7 +2683,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -2490,7 +2734,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -2499,7 +2743,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -2553,7 +2797,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -2562,7 +2806,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -2600,7 +2844,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Unprocessable Entity */
@@ -2609,7 +2853,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -2618,7 +2862,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -2654,7 +2898,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "*/*": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -2663,7 +2907,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "*/*": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -2711,7 +2955,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -2720,7 +2964,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -2771,7 +3015,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -2780,7 +3024,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -2834,7 +3078,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -2843,7 +3087,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -2881,7 +3125,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Unprocessable Entity */
@@ -2890,7 +3134,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -2899,7 +3143,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -2935,7 +3179,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "*/*": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -2944,7 +3188,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "*/*": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -2992,7 +3236,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -3001,7 +3245,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -3052,7 +3296,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -3061,7 +3305,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -3115,7 +3359,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -3124,7 +3368,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -3174,7 +3418,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
                 /** @description Internal Server Error */
@@ -3183,7 +3427,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                        "application/json": components["schemas"]["apperror.ErrorResponse"];
                     };
                 };
             };
@@ -3200,6 +3444,11 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /** @description Standard error envelope returned on failure. */
+        "apperror.ErrorResponse": {
+            /** @example something went wrong */
+            error?: string;
+        };
         "internal_answer_delivery_http.addAnswerRequest": {
             answer_order?: number;
             description?: string;
@@ -3246,6 +3495,18 @@ export interface components {
             id?: string;
             name?: string;
             year_group_id?: string;
+        };
+        "internal_educationsystem_delivery_http.addEducationSystemRequest": {
+            description?: string;
+            name?: string;
+        };
+        "internal_educationsystem_delivery_http.deleteEducationSystemsByIDsRequest": {
+            ids?: string[];
+        };
+        "internal_educationsystem_delivery_http.updateEducationSystemRequest": {
+            description?: string;
+            id?: string;
+            name?: string;
         };
         "internal_exam_delivery_http.addExamRequest": {
             description?: string;
@@ -3398,10 +3659,10 @@ export interface components {
             school_id?: string;
             year_group_id?: string;
         };
-        /** @description Standard error envelope returned on failure. */
-        "somo-tracker-api_internal_common_apperror.ErrorResponse": {
-            /** @example something went wrong */
-            error?: string;
+        "somo-tracker-api_internal_educationsystem.EducationSystem": {
+            description?: string;
+            id?: string;
+            name?: string;
         };
         "somo-tracker-api_internal_exam.Exam": {
             description?: string;
