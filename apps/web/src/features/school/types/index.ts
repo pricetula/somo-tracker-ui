@@ -9,7 +9,7 @@ export const schoolFormSchema = z.object({
   name: z.string().min(1, "Name is required"),
   address: z.string().optional(),
   description: z.string().optional(),
-  website: z.string().url("Must be a valid URL").optional().or(z.literal("")),
+  website: z.string().optional(),
   education_system_id: z.string().optional(),
   is_home_school: z.boolean().optional(),
 });

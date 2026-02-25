@@ -19,7 +19,10 @@ export function useCreateSchools() {
     onError: (_err, _vars, ctx) => {
       if (ctx?.previous) queryClient.setQueryData(["schools"], ctx.previous);
     },
-    onSettled: () => queryClient.invalidateQueries({ queryKey: ["schools"] }),
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["schools"] });
+      queryClient.invalidateQueries({ queryKey: ["me"] });
+    },
   });
 }
 
