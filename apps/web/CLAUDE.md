@@ -78,6 +78,69 @@ src/
 
 ---
 
+## ⚡ Feature Slice Scaffolding
+
+When asked to implement a feature slice (e.g. "implement the exams feature"), create these four files:
+
+### `src/features/[feature]/types/index.ts`
+Type aliases from the generated OpenAPI schema (`src/types/api.ts`):
+```ts
+import type { components } from "@/types/api";
+
+export type Widget = components["schemas"]["somo-tracker-api_internal_widget.Widget"];
+export type AddWidgetRequest = components["schemas"]["internal_widget_delivery_http.addWidgetRequest"];
+export type UpdateWidgetRequest = components["schemas"]["internal_widget_delivery_http.updateWidgetRequest"];
+```
+
+### `src/features/[feature]/api/actions.ts`
+Server Actions wrapping `apiClient`. Always `'use server'`. Return `ActionResult<T>`. Pattern:
+```ts
+"use server";
+import { apiClient } from "@/lib/api-client";
+import type { ActionResult } from "@/types/action-result";
+import type { Widget, AddWidgetRequest, UpdateWidgetRequest } from "@/features/widgets/types";
+
+export async function getWidgets(): Promise<ActionResult<Widget[]>> {
+  try {
+    const res = await apiClient("/widgets");
+    if (!res.ok) return { success: false, error: "Failed to fetch widgets.", code: res.status };
+    return { success: true, data: await res.json() };
+  } catch {
+    return { success: false, error: "Unable to reach the server.", code: 503 };
+  }
+}
+// getWidget(id), createWidgets(body[]), updateWidget(body), deleteWidgets(ids[]) follow same pattern
+// POST body: JSON.stringify(body), PUT body: JSON.stringify(body), DELETE body: JSON.stringify({ ids })
+```
+
+### `src/features/[feature]/api/use-[feature].ts`
+Query hooks using `useSuspenseQuery` for list, `useQuery` for single. Export `*Meta` for RSC prefetching:
+```ts
+import { useSuspenseQuery, useQuery } from "@tanstack/react-query";
+import { getWidgets, getWidget } from "@/features/widgets/api/actions";
+
+export const widgetsMeta = { queryKey: ["widgets"] as const, queryFn: getWidgets };
+export function useWidgets() { return useSuspenseQuery(widgetsMeta); }
+
+export function widgetMeta(id: string) { return { queryKey: ["widgets", id] as const, queryFn: () => getWidget(id) }; }
+export function useWidget(id: string) { return useQuery(widgetMeta(id)); }
+```
+
+### `src/features/[feature]/api/use-[feature]-mutations.ts`
+Mutation hooks. Always invalidate the base query key on success:
+```ts
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createWidgets, updateWidget, deleteWidgets } from "@/features/widgets/api/actions";
+
+export function useCreateWidgets() {
+  const queryClient = useQueryClient();
+  return useMutation({ mutationFn: createWidgets, onSuccess: () => queryClient.invalidateQueries({ queryKey: ["widgets"] }) });
+}
+// useUpdateWidget, useDeleteWidgets follow same pattern
+```
+
+---
+
 ## 📋 Best Practices
 
 - **Hydration:** Prefetch data in Server Components using `getQueryClient().fetchQuery(featureMeta)` and wrap Client Components in `<HydrationBoundary dehydratedState={dehydrate(queryClient)}>`.
