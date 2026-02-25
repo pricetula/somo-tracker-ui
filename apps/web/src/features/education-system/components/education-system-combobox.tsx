@@ -33,9 +33,14 @@ export function EducationSystemCombobox({
     <Combobox
       value={selected}
       onValueChange={(val) => onChange(val as EducationSystem | null)}
+      itemToStringValue={(framework) => framework.name ?? ""}
       disabled={disabled}
     >
-      <ComboboxInput placeholder={placeholder} showClear={!!value} />
+      <ComboboxInput
+        placeholder={placeholder}
+        showClear={!!value}
+        value={selected?.name ?? ""}
+      />
       <ComboboxContent>
         <ComboboxList>
           <ComboboxEmpty>No education systems found.</ComboboxEmpty>

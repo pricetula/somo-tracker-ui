@@ -8,7 +8,11 @@ import { useCreateSchools, useUpdateSchool } from "@/features/school/api/use-sch
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Switch } from "@/components/ui/switch";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
+import { EducationSystemCombobox } from "@/features/education-system/components/education-system-combobox";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
 
 interface SchoolFormProps {
   school?: School;
@@ -110,6 +114,45 @@ export function SchoolForm({ school, onSuccess }: SchoolFormProps) {
             {...form.register("description")}
           />
           <FieldError errors={[form.formState.errors.description]} />
+        </Field>
+
+        <Field data-invalid={!!form.formState.errors.education_system_id}>
+          <FieldLabel>Education System</FieldLabel>
+          <EducationSystemCombobox
+            value={form.watch("education_system_id")}
+            onChange={(system) =>
+              form.setValue("education_system_id", system?.id ?? "", { shouldValidate: true })
+            }
+            disabled={isPending}
+          />
+          <FieldError errors={[form.formState.errors.education_system_id]} />
+        </Field>
+
+        <Field>
+          <div className="flex items-center justify-between max-w-[40px]">
+            <RadioGroup defaultValue="home" className="w-fit">
+              <div className="flex items-center gap-3">
+                <RadioGroupItem
+                  value="home"
+                  id="r2"
+                  onClick={() => {
+                    form.setValue("is_home_school", true, { shouldValidate: true });
+                  }}
+                />
+                <Label htmlFor="r2">Comfortable</Label>
+              </div>
+              <div className="flex items-center gap-3">
+                <RadioGroupItem
+                  value="school"
+                  id="r3"
+                  onClick={() => {
+                    form.setValue("is_home_school", false, { shouldValidate: true });
+                  }}
+                />
+                <Label htmlFor="r3">Compact</Label>
+              </div>
+            </RadioGroup>
+          </div>
         </Field>
 
         {form.formState.errors.root && (

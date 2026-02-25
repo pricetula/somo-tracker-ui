@@ -1,15 +1,15 @@
-"use client"
+import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
+import { getQueryClient } from "@/lib/get-query-client";
+import { educationSystemsMeta } from "@/features/education-system/api/use-education-systems";
+import { OnboardingForm } from "@/app/(authenticated)/onboarding/onboarding-form";
 
-import { SchoolForm } from "@/features/school/components/school-form";
-import { useRouter } from "next/navigation";
+export default async function OnboardingPage() {
+  const queryClient = getQueryClient();
+  await queryClient.prefetchQuery(educationSystemsMeta);
 
-export default function Page() {
-    const router = useRouter();
-    return (
-        <SchoolForm
-            onSuccess={() => {
-                router.push("/");
-            }}
-        />
-    )
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <OnboardingForm />
+    </HydrationBoundary>
+  );
 }
