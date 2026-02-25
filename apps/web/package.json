@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "types:sync": "npx swagger2openapi http://localhost:3030/swagger/doc.json --outfile ./src/types/openapi.json && npx openapi-typescript ./src/types/openapi.json --output ./src/types/api.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.2.0",
@@ -36,6 +37,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
+    "openapi-typescript": "^7.13.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
