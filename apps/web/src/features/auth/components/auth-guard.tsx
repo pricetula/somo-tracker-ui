@@ -6,10 +6,10 @@ import { meMeta } from "@/features/me/api/use-me";
 
 export default async function AuthGuard({
     children,
-    checkIsOnboarded = false,
+    isOnboarded = false,
 }: {
     children: React.ReactNode;
-    checkIsOnboarded?: boolean;
+    isOnboarded?: boolean;
 }) {
     const queryClient = getQueryClient();
 
@@ -24,7 +24,7 @@ export default async function AuthGuard({
 
     const pathname = (await headers()).get("x-current-path") ?? "";
 
-    if (checkIsOnboarded) {
+    if (isOnboarded) {
         if (!result.data.school_id && pathname !== "/onboarding") {
             redirect("/onboarding", RedirectType.replace);
         }

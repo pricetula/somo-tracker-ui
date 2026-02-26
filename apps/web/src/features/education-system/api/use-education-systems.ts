@@ -10,6 +10,7 @@ export function useEducationSystems() {
   return useSuspenseQuery({
     queryKey: educationSystemsMeta.queryKey,
     queryFn: educationSystemsMeta.queryFn,
+    staleTime: Infinity,
   });
 }
 
