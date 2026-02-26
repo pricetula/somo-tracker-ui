@@ -19,8 +19,9 @@ import {
 } from "@/components/ui/sidebar"
 import { useMe } from "@/features/me/api/use-me"
 import { useSchools } from "@/features/school/api/use-schools"
-import { ChevronsUpDownIcon, PlusIcon, SchoolIcon } from "lucide-react"
+import { ChevronsUpDownIcon, PlusIcon } from "lucide-react"
 import { School } from "@/features/school/types"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 
 export function SchoolSwitcher() {
   const { isMobile } = useSidebar()
@@ -30,6 +31,7 @@ export function SchoolSwitcher() {
   const schools = schoolsData?.success ? schoolsData.data : []
   const activeSchoolId = meData?.success ? meData.data?.school_id : undefined
   const activeSchool = schools?.find((s) => s.id === activeSchoolId) ?? schools?.[0]
+  const initialSchoolName = activeSchool?.name?.[0]?.toUpperCase?.() ?? "U"
 
   const handleSchoolClicked = React.useCallback(
     (school: School) => console.log(school),
@@ -45,9 +47,9 @@ export function SchoolSwitcher() {
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                <SchoolIcon className="size-4" />
-              </div>
+              <Avatar>
+                <AvatarFallback className="border-none bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">{initialSchoolName}</AvatarFallback>
+              </Avatar>
               <div className="grid flex-1 text-start text-sm leading-tight">
                 <span className="truncate font-medium">{activeSchool?.name || "Select a school"}</span>
               </div>
@@ -69,9 +71,6 @@ export function SchoolSwitcher() {
                 onClick={() => handleSchoolClicked(school)}
                 className="gap-2 p-2"
               >
-                <div className="flex size-6 items-center justify-center rounded-md border">
-                  <SchoolIcon className="size-4" />
-                </div>
                 {school.name}
                 <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
               </DropdownMenuItem>
