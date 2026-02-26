@@ -1,4 +1,5 @@
 import AuthGuard from "@/features/auth/components/auth-guard";
+import { AppLayout } from "@/components/shared/app-layout/layout";
 
 export default async function AuthenticatedLayout({
   children,
@@ -7,7 +8,7 @@ export default async function AuthenticatedLayout({
 }) {
   return (
     <AuthGuard checkIsOnboarded>
-      {children}
+      <AppLayout>{children}</AppLayout>
     </AuthGuard>
   );
 }
