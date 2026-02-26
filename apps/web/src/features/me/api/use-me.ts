@@ -10,5 +10,6 @@ export function useMe() {
   return useQuery({
     queryKey: meMeta.queryKey,
     queryFn: meMeta.queryFn,
+    staleTime: 1000 * 60 * 5,
   });
 }

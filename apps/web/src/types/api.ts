@@ -807,6 +807,250 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/education-systems": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get all education systems
+         * @description Returns all education systems available.
+         */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_educationsystem.EducationSystem"][];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        /**
+         * Update education system
+         * @description Updates an existing education system.
+         */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description Education system update payload */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["internal_educationsystem_delivery_http.updateEducationSystemRequest"];
+                };
+            };
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_educationsystem.EducationSystem"];
+                    };
+                };
+                /** @description Unprocessable Entity */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        /**
+         * Add education systems
+         * @description Creates one or more education systems.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description Array of education systems to create */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["internal_educationsystem_delivery_http.addEducationSystemRequest"][];
+                };
+            };
+            responses: {
+                /** @description Created */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_educationsystem.EducationSystem"][];
+                    };
+                };
+                /** @description Unprocessable Entity */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        /**
+         * Delete education systems
+         * @description Deletes one or more education systems by UUID.
+         */
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description IDs to delete */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["internal_educationsystem_delivery_http.deleteEducationSystemsByIDsRequest"];
+                };
+            };
+            responses: {
+                /** @description No Content */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Unprocessable Entity */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/education-systems/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get education system by ID
+         * @description Returns an education system by its UUID.
+         */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Education System ID */
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_educationsystem.EducationSystem"];
+                    };
+                };
+                /** @description Unprocessable Entity */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/exam-sessions": {
         parameters: {
             query?: never;
@@ -2224,8 +2468,136 @@ export interface paths {
                 };
             };
         };
-        put?: never;
-        post?: never;
+        /**
+         * Update school user
+         * @description Updates role and registration number for a user in the caller's school.
+         */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description Update school user request */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["internal_schooluser_delivery_http.updateRequest"];
+                };
+            };
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_schooluser.SchoolUser"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Unprocessable Entity */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        /**
+         * Add school users
+         * @description Adds one or more users to the caller's school with a given role and registration number.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description Add school users request */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["internal_schooluser_delivery_http.addSchoolUserRequest"][];
+                };
+            };
+            responses: {
+                /** @description Created */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_schooluser.SchoolUser"][];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Unprocessable Entity */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
         delete?: never;
         options?: never;
         head?: never;
@@ -3247,6 +3619,18 @@ export interface components {
             name?: string;
             year_group_id?: string;
         };
+        "internal_educationsystem_delivery_http.addEducationSystemRequest": {
+            description?: string;
+            name?: string;
+        };
+        "internal_educationsystem_delivery_http.deleteEducationSystemsByIDsRequest": {
+            ids?: string[];
+        };
+        "internal_educationsystem_delivery_http.updateEducationSystemRequest": {
+            description?: string;
+            id?: string;
+            name?: string;
+        };
         "internal_exam_delivery_http.addExamRequest": {
             description?: string;
             instructions?: string;
@@ -3345,6 +3729,16 @@ export interface components {
             name?: string;
             website?: string;
         };
+        "internal_schooluser_delivery_http.addSchoolUserRequest": {
+            registration_number?: string;
+            role?: components["schemas"]["somo-tracker-api_internal_user.Role"];
+            user_id?: string;
+        };
+        "internal_schooluser_delivery_http.updateRequest": {
+            registration_number?: string;
+            role?: components["schemas"]["somo-tracker-api_internal_user.Role"];
+            user_id?: string;
+        };
         "internal_subject_delivery_http.addSubjectRequest": {
             description?: string;
             name?: string;
@@ -3402,6 +3796,11 @@ export interface components {
         "somo-tracker-api_internal_common_apperror.ErrorResponse": {
             /** @example something went wrong */
             error?: string;
+        };
+        "somo-tracker-api_internal_educationsystem.EducationSystem": {
+            description?: string;
+            id?: string;
+            name?: string;
         };
         "somo-tracker-api_internal_exam.Exam": {
             description?: string;
@@ -3492,6 +3891,12 @@ export interface components {
         };
         /** @enum {string} */
         "somo-tracker-api_internal_schooluser.MatchType": "exact_email" | "exact_phone" | "exact_reg" | "prefix_first" | "prefix_last" | "contains_email" | "contains_first" | "contains_last" | "cohort" | "other";
+        "somo-tracker-api_internal_schooluser.SchoolUser": {
+            registration_number?: string;
+            role?: components["schemas"]["somo-tracker-api_internal_user.Role"];
+            school_id?: string;
+            user_id?: string;
+        };
         "somo-tracker-api_internal_schooluser.SearchResult": {
             cohort_info?: components["schemas"]["somo-tracker-api_internal_schooluser.CohortInfo"][];
             email?: string;

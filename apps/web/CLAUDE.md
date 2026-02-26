@@ -1,149 +1,36 @@
-# CLAUDE.md — Project Guidelines & Conventions
+# CLAUDE.md
 
-## 🚀 Tech Stack
-- **Framework:** Next.js 16+ (App Router)
-- **Data Fetching:** TanStack Query v5+ (Using Server Actions as `queryFn`)
-- **Validation:** Zod (Single source of truth for Schema + Types)
-- **Styling:** Tailwind CSS + Shadcn UI (Primitives)
-- **State:** Zustand (Global UI), URL Search Params (Search/Filter/Pagination)
-- **Forms:** React Hook Form + @hookform/resolvers/zod
+## Stack
+Next.js 16 App Router • TanStack Query v5 • Zod • Tailwind + Shadcn • Zustand • React Hook Form
 
----
+## Structure
+Feature-driven: `src/features/[name]/` contains api/, components/, types/
+- `app/` — Routes with (auth) and (authenticated) groups
+- `components/ui/` — Shadcn primitives
+- `components/shared/` — Cross-feature UI
+- `lib/` — Shared clients (api-client, query-client, utils)
+- `store/` — Zustand stores for global UI state
+- `proxy.ts` — Middleware logic (imported by root middleware.ts)
 
-## 📂 Folder Structure (Feature-Driven)
-All domain-specific logic must live in `src/features/`. Global/generic items live in `src/components/`.
+## Conventions
+- **Files:** kebab-case.ts, named exports only
+- **Server Actions:** In `actions.ts`, marked `'use server'`, return `ActionResult<T>`, validate with Zod
+- **Queries:** Export `*Meta` objects for RSC prefetch, prefer useSuspenseQuery
+- **Mutations:** Invalidate base queryKey on success
+- **Forms:** react-hook-form + zodResolver, same Zod schema for client/server
+- **Types:** Alias from OpenAPI schema (`src/types/api.ts`) in `features/[x]/types/index.ts`
+- **API Calls:** Use `lib/api-client.ts` (auto-injects session_token, handles 401s)
 
-src/
-├── app/              # Routes & Server Layouts
-│   ├── (auth)/       # Unauthenticated routes (login, authenticate, logout)
-│   └── (authenticated)/ # Protected routes; auth guard lives in layout
-├── components/       # Shared UI Tiering
-│   ├── ui/           # Raw Shadcn primitives (Button, Input)
-│   └── shared/       # Cross-feature components + TanStack Query provider
-├── features/         # Domain-specific modules
-│   └── [feature-name]/
-│       ├── api/      # TanStack Query hooks + Server Actions (actions.ts)
-│       ├── components/ # Feature-specific UI
-│       └── types/    # Zod schemas (schema.ts) + inferred types
-├── lib/              # Shared clients (api-client.ts, get-query-client.ts, utils.ts)
-├── store/            # Zustand stores for global UI state
-├── types/            # Global shared types (e.g. ActionResult<T>)
-└── proxy.ts          # Middleware logic (imported by Next.js middleware.ts at root)
 
-## 🛠️ Code Conventions
+## Feature Pattern
+Standard structure (see existing features for examples):
+1. `types/index.ts` — Type aliases from OpenAPI schema
+2. `api/actions.ts` — Server Actions (validate, call apiClient, return ActionResult)
+3. `api/use-[feature].ts` — Query hooks with *Meta exports for prefetching
+4. `api/use-[feature]-mutations.ts` — Mutation hooks that invalidate queries
 
-### 1. Naming & Style
-
-- **Files/Folders:** `kebab-case.ts` (e.g., `user-profile-card.tsx`)
-- **Components:** PascalCase (e.g., `UserProfileCard`)
-- **Exports:** Use Named Exports strictly (no default export)
-- **Server Actions:** Define in `actions.ts` within a feature folder. Mark with `'use server'`
-
----
-
-### 2. Component Tiering
-
-- **Tier 1 (UI):** `src/components/ui/` — Shadcn primitives. No business logic/hooks.
-- **Tier 2 (Shared):** `src/components/shared/` — Reusable blocks.
-- **Tier 3 (Feature):** `src/features/[feature]/components/` — Domain-aware components using hooks.
-
----
-
-### 3. Data Fetching & Mutations
-
-- **Queries:** Prefer `useSuspenseQuery` for automatic integration with Next.js Suspense.
-- **Actions as Fetchers:** TanStack Query `queryFn` must call a Server Action directly.
-- **Validation:** Every Server Action must validate inputs using a Zod Schema.
-- **Return type:** Server Actions return `ActionResult<T>` (defined in `src/types/action-result.ts`) for consistent success/error handling.
-- **Query metadata:** Export a `*Meta` object (e.g., `meMeta`) alongside each hook to allow RSC prefetching via `getQueryClient().fetchQuery(meMeta)`.
-- **API Client:** Use `src/lib/api-client.ts` for all authenticated backend calls. It automatically injects the `session_token` cookie as `Authorization: Bearer` and handles 401s.
-
----
-
-### 4. Form Strategy
-
-- **Library:** `react-hook-form` + `zodResolver`.
-- **Validation:** Use the same Zod schema for both client-side form validation and server-side action validation.
-- **Server Errors:** Catch action failures in TanStack `onError` and map to fields using `form.setError('field', { message })`.
-
----
-
-### 5. Auth & Cookies
-- **Cookie Mutations:** Setting or deleting cookies MUST happen inside a Server Action triggered from a Client Component (e.g., `useEffect` or form submission) or a Route Handler.
-- **Rendering Restriction:** Never call a Server Action that modifies cookies directly within the body of a Server Component during render.
-- **Auth Flow:** Always use a `'use client'` intermediary page for auth callbacks (like `/authenticate`) to safely trigger cookie-setting actions via `useEffect`.
-- **Auth Guard:** The `(authenticated)` route group layout uses a Server Component (`auth-guard.tsx`) that prefetches user data, redirects unauthenticated users to `/login`, and redirects users without `school_id` to `/onboarding`.
-- **Logout:** The `/logout` page is a `'use client'` component that calls the `logout()` Server Action in a `useEffect` to delete the session cookie, then redirects.
-- **Middleware:** Route protection logic lives in `src/proxy.ts`. It redirects unauthenticated requests to `/login`, prevents authenticated users from accessing `/login` or `/authenticate`, and injects `x-current-path` header for server components.
-
----
-
-## ⚡ Feature Slice Scaffolding
-
-When asked to implement a feature slice (e.g. "implement the exams feature"), create these four files:
-
-### `src/features/[feature]/types/index.ts`
-Type aliases from the generated OpenAPI schema (`src/types/api.ts`):
-```ts
-import type { components } from "@/types/api";
-
-export type Widget = components["schemas"]["somo-tracker-api_internal_widget.Widget"];
-export type AddWidgetRequest = components["schemas"]["internal_widget_delivery_http.addWidgetRequest"];
-export type UpdateWidgetRequest = components["schemas"]["internal_widget_delivery_http.updateWidgetRequest"];
-```
-
-### `src/features/[feature]/api/actions.ts`
-Server Actions wrapping `apiClient`. Always `'use server'`. Return `ActionResult<T>`. Pattern:
-```ts
-"use server";
-import { apiClient } from "@/lib/api-client";
-import type { ActionResult } from "@/types/action-result";
-import type { Widget, AddWidgetRequest, UpdateWidgetRequest } from "@/features/widgets/types";
-
-export async function getWidgets(): Promise<ActionResult<Widget[]>> {
-  try {
-    const res = await apiClient("/widgets");
-    if (!res.ok) return { success: false, error: "Failed to fetch widgets.", code: res.status };
-    return { success: true, data: await res.json() };
-  } catch {
-    return { success: false, error: "Unable to reach the server.", code: 503 };
-  }
-}
-// getWidget(id), createWidgets(body[]), updateWidget(body), deleteWidgets(ids[]) follow same pattern
-// POST body: JSON.stringify(body), PUT body: JSON.stringify(body), DELETE body: JSON.stringify({ ids })
-```
-
-### `src/features/[feature]/api/use-[feature].ts`
-Query hooks using `useSuspenseQuery` for list, `useQuery` for single. Export `*Meta` for RSC prefetching:
-```ts
-import { useSuspenseQuery, useQuery } from "@tanstack/react-query";
-import { getWidgets, getWidget } from "@/features/widgets/api/actions";
-
-export const widgetsMeta = { queryKey: ["widgets"] as const, queryFn: getWidgets };
-export function useWidgets() { return useSuspenseQuery(widgetsMeta); }
-
-export function widgetMeta(id: string) { return { queryKey: ["widgets", id] as const, queryFn: () => getWidget(id) }; }
-export function useWidget(id: string) { return useQuery(widgetMeta(id)); }
-```
-
-### `src/features/[feature]/api/use-[feature]-mutations.ts`
-Mutation hooks. Always invalidate the base query key on success:
-```ts
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createWidgets, updateWidget, deleteWidgets } from "@/features/widgets/api/actions";
-
-export function useCreateWidgets() {
-  const queryClient = useQueryClient();
-  return useMutation({ mutationFn: createWidgets, onSuccess: () => queryClient.invalidateQueries({ queryKey: ["widgets"] }) });
-}
-// useUpdateWidget, useDeleteWidgets follow same pattern
-```
-
----
-
-## 📋 Best Practices
-
-- **Hydration:** Prefetch data in Server Components using `getQueryClient().fetchQuery(featureMeta)` and wrap Client Components in `<HydrationBoundary dehydratedState={dehydrate(queryClient)}>`.
-- **Zod Inference:** Always use `z.infer<typeof schema>` to generate TypeScript types. Avoid manually declaring interfaces for data shapes that can be schema-derived.
-- **URL State:** Use URL Search Params for any UI state that should be shareable (filters, pagination, tabs).
-- **Theming:** Use CSS variables (e.g., `bg-primary`, `text-muted-foreground`) exclusively. No hex codes.
+## Best Practices
+- Prefetch in RSC: `getQueryClient().fetchQuery(featureMeta)` + HydrationBoundary
+- URL Search Params for shareable state (filters, pagination, tabs)
+- CSS variables only (e.g., bg-primary, text-muted-foreground)
+- Zod inference for types: `z.infer<typeof schema>`
