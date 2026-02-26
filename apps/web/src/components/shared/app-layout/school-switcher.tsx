@@ -22,8 +22,10 @@ import { useSchools } from "@/features/school/api/use-schools"
 import { ChevronsUpDownIcon, PlusIcon } from "lucide-react"
 import { School } from "@/features/school/types"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { useRouter } from "next/navigation"
 
 export function SchoolSwitcher() {
+  const router = useRouter()
   const { isMobile } = useSidebar()
   const { data: meData } = useMe()
   const { data: schoolsData } = useSchools()
@@ -76,7 +78,10 @@ export function SchoolSwitcher() {
               </DropdownMenuItem>
             ))}
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="gap-2 p-2">
+            <DropdownMenuItem
+              onClick={() => router.push("/schools/new")}
+              className="gap-2 p-2 cursor-pointer"
+            >
               <div className="flex size-6 items-center justify-center rounded-md border bg-transparent">
                 <PlusIcon className="size-4" />
               </div>

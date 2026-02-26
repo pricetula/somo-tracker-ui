@@ -3,12 +3,17 @@ import { AppLayoutServer } from "@/components/shared/app-layout/app-layout-serve
 
 export default async function AuthenticatedLayout({
   children,
+  modal,
 }: {
   children: React.ReactNode;
+  modal: React.ReactNode;
 }) {
   return (
     <AuthGuard checkIsOnboarded>
-      <AppLayoutServer>{children}</AppLayoutServer>
+      <AppLayoutServer>
+        {children}
+        {modal}
+      </AppLayoutServer>
     </AuthGuard>
   );
 }
