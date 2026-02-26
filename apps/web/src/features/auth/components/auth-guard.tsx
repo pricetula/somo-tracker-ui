@@ -1,18 +1,16 @@
 import { headers } from "next/headers";
-import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { redirect, RedirectType } from "next/navigation";
+import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getQueryClient } from "@/lib/get-query-client";
 import { meMeta } from "@/features/me/api/use-me";
 
-export async function AuthGuard({
+export default async function AuthGuard({
     children,
+    checkIsOnboarded = false,
 }: {
     children: React.ReactNode;
+    checkIsOnboarded?: boolean;
 }) {
-    const header = await headers();
-
-    const currentPath = header.get("x-current-path");
-
     const queryClient = getQueryClient();
 
     const result = await queryClient.fetchQuery({
@@ -21,11 +19,15 @@ export async function AuthGuard({
     });
 
     if (!result.success || !result.data) {
-        redirect("/login", RedirectType.replace);
+        redirect("/logout", RedirectType.replace);
     }
 
-    if (!result.data.school_id && currentPath !== "/onboarding") {
-        redirect("/onboarding", RedirectType.replace);
+    const pathname = (await headers()).get("x-current-path") ?? "";
+
+    if (checkIsOnboarded) {
+        if (!result.data.school_id && pathname !== "/onboarding") {
+            redirect("/onboarding", RedirectType.replace);
+        }
     }
 
     return (

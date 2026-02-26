@@ -1,7 +1,7 @@
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getQueryClient } from "@/lib/get-query-client";
 import { educationSystemsMeta } from "@/features/education-system/api/use-education-systems";
-import { OnboardingForm } from "@/app/(authenticated)/onboarding/onboarding-form";
+import { OnboardingForm } from "./onboarding-form";
 
 export default async function OnboardingPage() {
   const queryClient = getQueryClient();
