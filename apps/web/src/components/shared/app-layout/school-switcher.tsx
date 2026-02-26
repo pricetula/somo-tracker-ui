@@ -17,24 +17,24 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
+import { useMe } from "@/features/me/api/use-me"
 import { useSchools } from "@/features/school/api/use-schools"
 import { ChevronsUpDownIcon, PlusIcon, SchoolIcon } from "lucide-react"
+import { School } from "@/features/school/types"
 
-export function TeamSwitcher() {
+export function SchoolSwitcher() {
   const { isMobile } = useSidebar()
-  const { data } = useSchools()
-  const schools = data?.success ? data.data : []
-  const [activeSchool, setActiveSchool] = React.useState(schools?.[0])
+  const { data: meData } = useMe()
+  const { data: schoolsData } = useSchools()
 
-  React.useEffect(() => {
-    if (schools?.length && !activeSchool) {
-      setActiveSchool(schools[0])
-    }
-  }, [schools, activeSchool])
+  const schools = schoolsData?.success ? schoolsData.data : []
+  const activeSchoolId = meData?.success ? meData.data?.school_id : undefined
+  const activeSchool = schools?.find((s) => s.id === activeSchoolId) ?? schools?.[0]
 
-  if (!activeSchool) {
-    return null
-  }
+  const handleSchoolClicked = React.useCallback(
+    (school: School) => console.log(school),
+    [schoolsData]
+  )
 
   return (
     <SidebarMenu>
@@ -49,7 +49,7 @@ export function TeamSwitcher() {
                 <SchoolIcon className="size-4" />
               </div>
               <div className="grid flex-1 text-start text-sm leading-tight">
-                <span className="truncate font-medium">{activeSchool.name}</span>
+                <span className="truncate font-medium">{activeSchool?.name || "Select a school"}</span>
               </div>
               <ChevronsUpDownIcon className="ms-auto" />
             </SidebarMenuButton>
@@ -66,7 +66,7 @@ export function TeamSwitcher() {
             {schools?.map((school, index) => (
               <DropdownMenuItem
                 key={school.id}
-                onClick={() => setActiveSchool(school)}
+                onClick={() => handleSchoolClicked(school)}
                 className="gap-2 p-2"
               >
                 <div className="flex size-6 items-center justify-center rounded-md border">

@@ -4,7 +4,7 @@ import * as React from "react"
 
 import { NavMain } from "@/components/shared/app-layout/nav-main"
 import { NavUser } from "@/components/shared/app-layout/nav-user"
-import { TeamSwitcher } from "@/components/shared/app-layout/team-switcher"
+import { SchoolSwitcher } from "@/components/shared/app-layout/school-switcher"
 import {
   Sidebar,
   SidebarContent,
@@ -15,11 +15,6 @@ import {
 import { TerminalSquareIcon, BotIcon, BookOpenIcon, Settings2Icon } from "lucide-react"
 
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
   navMain: [
     {
       title: "Playground",
@@ -71,13 +66,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <TeamSwitcher />
+        <SchoolSwitcher />
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

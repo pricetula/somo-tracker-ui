@@ -7,7 +7,7 @@ export const schoolsMeta = {
 };
 
 export function useSchools() {
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: schoolsMeta.queryKey,
     queryFn: schoolsMeta.queryFn,
   });
