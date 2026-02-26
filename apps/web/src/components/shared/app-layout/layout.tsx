@@ -43,7 +43,9 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             </Breadcrumb>
           </div>
         </header>
-        {children}
+        <div className="px-5.5">
+          {children}
+        </div>
       </SidebarInset>
     </SidebarProvider>
   )
