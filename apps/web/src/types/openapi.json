@@ -2535,10 +2535,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/somo-tracker-api_internal_schooluser.SearchResult"
-                                    }
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_schooluser.SearchResponse"
                                 }
                             }
                         }
@@ -4660,33 +4657,6 @@
                     }
                 }
             },
-            "somo-tracker-api_internal_schooluser.MatchType": {
-                "type": "string",
-                "enum": [
-                    "exact_email",
-                    "exact_phone",
-                    "exact_reg",
-                    "prefix_first",
-                    "prefix_last",
-                    "contains_email",
-                    "contains_first",
-                    "contains_last",
-                    "cohort",
-                    "other"
-                ],
-                "x-enum-varnames": [
-                    "MatchTypeExactEmail",
-                    "MatchTypeExactPhone",
-                    "MatchTypeExactReg",
-                    "MatchTypePrefixFirst",
-                    "MatchTypePrefixLast",
-                    "MatchTypeContainsEmail",
-                    "MatchTypeContainsFirst",
-                    "MatchTypeContainsLast",
-                    "MatchTypeCohort",
-                    "MatchTypeOther"
-                ]
-            },
             "somo-tracker-api_internal_schooluser.SchoolUser": {
                 "type": "object",
                 "properties": {
@@ -4701,6 +4671,20 @@
                     },
                     "user_id": {
                         "type": "string"
+                    }
+                }
+            },
+            "somo-tracker-api_internal_schooluser.SearchResponse": {
+                "type": "object",
+                "properties": {
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/somo-tracker-api_internal_schooluser.SearchResult"
+                        }
+                    },
+                    "total_count": {
+                        "type": "integer"
                     }
                 }
             },
@@ -4721,9 +4705,6 @@
                     },
                     "last_name": {
                         "type": "string"
-                    },
-                    "match_type": {
-                        "$ref": "#/components/schemas/somo-tracker-api_internal_schooluser.MatchType"
                     },
                     "phone": {
                         "type": "string"

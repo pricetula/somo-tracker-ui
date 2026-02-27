@@ -2445,7 +2445,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_schooluser.SearchResult"][];
+                        "application/json": components["schemas"]["somo-tracker-api_internal_schooluser.SearchResponse"];
                     };
                 };
                 /** @description Bad Request */
@@ -3889,20 +3889,21 @@ export interface components {
             cohort_name?: string;
             year_group?: string;
         };
-        /** @enum {string} */
-        "somo-tracker-api_internal_schooluser.MatchType": "exact_email" | "exact_phone" | "exact_reg" | "prefix_first" | "prefix_last" | "contains_email" | "contains_first" | "contains_last" | "cohort" | "other";
         "somo-tracker-api_internal_schooluser.SchoolUser": {
             registration_number?: string;
             role?: components["schemas"]["somo-tracker-api_internal_user.Role"];
             school_id?: string;
             user_id?: string;
         };
+        "somo-tracker-api_internal_schooluser.SearchResponse": {
+            items?: components["schemas"]["somo-tracker-api_internal_schooluser.SearchResult"][];
+            total_count?: number;
+        };
         "somo-tracker-api_internal_schooluser.SearchResult": {
             cohort_info?: components["schemas"]["somo-tracker-api_internal_schooluser.CohortInfo"][];
             email?: string;
             first_name?: string;
             last_name?: string;
-            match_type?: components["schemas"]["somo-tracker-api_internal_schooluser.MatchType"];
             phone?: string;
             photo_url?: string;
             registration_number?: string;
