@@ -23,7 +23,7 @@ export default async function UsersPage({
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <div className="flex flex-col h-full p-6 gap-4">
+      <div className="flex flex-col h-full gap-4">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-semibold">Users</h1>
         </div>
