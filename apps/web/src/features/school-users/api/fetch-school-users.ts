@@ -1,6 +1,6 @@
 import { browserApiClient } from "@/lib/browser-api-client";
 import type { ActionResult } from "@/types/action-result";
-import type { SchoolUser } from "@/features/school-users/types";
+import type { SchoolUserSearchResponse } from "@/features/school-users/types";
 
 export interface SchoolUsersParams {
   search?: string;
@@ -9,7 +9,7 @@ export interface SchoolUsersParams {
   offset?: number;
 }
 
-export async function fetchSchoolUsers(params: SchoolUsersParams = {}): Promise<ActionResult<SchoolUser[]>> {
+export async function fetchSchoolUsers(params: SchoolUsersParams = {}): Promise<ActionResult<SchoolUserSearchResponse>> {
   try {
     const query = new URLSearchParams();
     if (params.search) query.set("search", params.search);
