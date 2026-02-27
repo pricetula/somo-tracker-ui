@@ -1,25 +1,22 @@
 import { useSuspenseQuery, useQuery } from "@tanstack/react-query";
-import { getSchoolsByInstitute, getSchool } from "@/features/school/api/actions";
+import { fetchSchoolsByInstitute, fetchSchool } from "./fetch-schools";
 
-export const schoolsMeta = {
-  queryKey: ["schools"] as const,
-  queryFn: getSchoolsByInstitute,
-};
+export const schoolsQueryKey = ["schools"] as const;
 
 export function useSchools() {
   return useQuery({
-    queryKey: schoolsMeta.queryKey,
-    queryFn: schoolsMeta.queryFn,
+    queryKey: schoolsQueryKey,
+    queryFn: fetchSchoolsByInstitute,
   });
 }
 
-export function schoolMeta(id: string) {
-  return {
-    queryKey: ["schools", id] as const,
-    queryFn: () => getSchool(id),
-  };
+export function schoolQueryKey(id: string) {
+  return ["schools", id] as const;
 }
 
 export function useSchool(id: string) {
-  return useQuery(schoolMeta(id));
+  return useQuery({
+    queryKey: schoolQueryKey(id),
+    queryFn: () => fetchSchool(id),
+  });
 }

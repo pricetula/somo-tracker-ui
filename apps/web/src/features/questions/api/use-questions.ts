@@ -1,24 +1,24 @@
 import { useSuspenseQuery, useQuery } from "@tanstack/react-query";
-import { getQuestionsByTopic, getQuestion } from "@/features/questions/api/actions";
+import { fetchQuestionsByTopic, fetchQuestion } from "./fetch-questions";
 
-export function questionsByTopicMeta(topicId: string) {
-  return {
-    queryKey: ["questions", "topic", topicId] as const,
-    queryFn: () => getQuestionsByTopic(topicId),
-  };
+export function questionsByTopicQueryKey(topicId: string) {
+  return ["questions", "topic", topicId] as const;
 }
 
 export function useQuestionsByTopic(topicId: string) {
-  return useSuspenseQuery(questionsByTopicMeta(topicId));
+  return useSuspenseQuery({
+    queryKey: questionsByTopicQueryKey(topicId),
+    queryFn: () => fetchQuestionsByTopic(topicId),
+  });
 }
 
-export function questionMeta(id: string) {
-  return {
-    queryKey: ["questions", id] as const,
-    queryFn: () => getQuestion(id),
-  };
+export function questionQueryKey(id: string) {
+  return ["questions", id] as const;
 }
 
 export function useQuestion(id: string) {
-  return useQuery(questionMeta(id));
+  return useQuery({
+    queryKey: questionQueryKey(id),
+    queryFn: () => fetchQuestion(id),
+  });
 }

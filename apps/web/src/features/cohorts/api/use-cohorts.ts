@@ -1,25 +1,22 @@
 import { useSuspenseQuery, useQuery } from "@tanstack/react-query";
-import { getCohorts, getCohort } from "@/features/cohorts/api/actions";
+import { fetchCohorts, fetchCohort } from "./fetch-cohorts";
 
-export const cohortsMeta = {
-  queryKey: ["cohorts"] as const,
-  queryFn: getCohorts,
-};
+export const cohortsQueryKey = ["cohorts"] as const;
 
 export function useCohorts() {
   return useSuspenseQuery({
-    queryKey: cohortsMeta.queryKey,
-    queryFn: cohortsMeta.queryFn,
+    queryKey: cohortsQueryKey,
+    queryFn: fetchCohorts,
   });
 }
 
-export function cohortMeta(id: string) {
-  return {
-    queryKey: ["cohorts", id] as const,
-    queryFn: () => getCohort(id),
-  };
+export function cohortQueryKey(id: string) {
+  return ["cohorts", id] as const;
 }
 
 export function useCohort(id: string) {
-  return useQuery(cohortMeta(id));
+  return useQuery({
+    queryKey: cohortQueryKey(id),
+    queryFn: () => fetchCohort(id),
+  });
 }

@@ -1,26 +1,23 @@
 import { useSuspenseQuery, useQuery } from "@tanstack/react-query";
-import { getEducationSystems, getEducationSystem } from "../api/actions";
+import { fetchEducationSystems, fetchEducationSystem } from "./fetch-education-systems";
 
-export const educationSystemsMeta = {
-  queryKey: ["education-systems"] as const,
-  queryFn: getEducationSystems,
-};
+export const educationSystemsQueryKey = ["education-systems"] as const;
 
 export function useEducationSystems() {
   return useSuspenseQuery({
-    queryKey: educationSystemsMeta.queryKey,
-    queryFn: educationSystemsMeta.queryFn,
+    queryKey: educationSystemsQueryKey,
+    queryFn: fetchEducationSystems,
     staleTime: Infinity,
   });
 }
 
-export function educationSystemMeta(id: string) {
-  return {
-    queryKey: ["education-systems", id] as const,
-    queryFn: () => getEducationSystem(id),
-  };
+export function educationSystemQueryKey(id: string) {
+  return ["education-systems", id] as const;
 }
 
 export function useEducationSystem(id: string) {
-  return useQuery(educationSystemMeta(id));
+  return useQuery({
+    queryKey: educationSystemQueryKey(id),
+    queryFn: () => fetchEducationSystem(id),
+  });
 }

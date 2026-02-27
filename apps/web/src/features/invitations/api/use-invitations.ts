@@ -1,14 +1,11 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { getInvitations } from "@/features/invitations/api/actions";
+import { fetchInvitations } from "./fetch-invitations";
 
-export const invitationsMeta = {
-  queryKey: ["invitations"] as const,
-  queryFn: getInvitations,
-};
+export const invitationsQueryKey = ["invitations"] as const;
 
 export function useInvitations() {
   return useSuspenseQuery({
-    queryKey: invitationsMeta.queryKey,
-    queryFn: invitationsMeta.queryFn,
+    queryKey: invitationsQueryKey,
+    queryFn: fetchInvitations,
   });
 }

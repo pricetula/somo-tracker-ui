@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import { getUser } from "@/features/users/api/actions";
+import { fetchUser } from "./fetch-users";
 
-export function userMeta(id: string) {
-  return {
-    queryKey: ["users", id] as const,
-    queryFn: () => getUser(id),
-  };
+export function userQueryKey(id: string) {
+  return ["users", id] as const;
 }
 
 export function useUser(id: string) {
-  return useQuery(userMeta(id));
+  return useQuery({
+    queryKey: userQueryKey(id),
+    queryFn: () => fetchUser(id),
+  });
 }

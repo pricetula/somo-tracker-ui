@@ -1,24 +1,24 @@
 import { useSuspenseQuery, useQuery } from "@tanstack/react-query";
-import { getTopicsBySubject, getTopic } from "@/features/topics/api/actions";
+import { fetchTopicsBySubject, fetchTopic } from "./fetch-topics";
 
-export function topicsBySubjectMeta(subjectId: string) {
-  return {
-    queryKey: ["topics", "subject", subjectId] as const,
-    queryFn: () => getTopicsBySubject(subjectId),
-  };
+export function topicsBySubjectQueryKey(subjectId: string) {
+  return ["topics", "subject", subjectId] as const;
 }
 
 export function useTopicsBySubject(subjectId: string) {
-  return useSuspenseQuery(topicsBySubjectMeta(subjectId));
+  return useSuspenseQuery({
+    queryKey: topicsBySubjectQueryKey(subjectId),
+    queryFn: () => fetchTopicsBySubject(subjectId),
+  });
 }
 
-export function topicMeta(id: string) {
-  return {
-    queryKey: ["topics", id] as const,
-    queryFn: () => getTopic(id),
-  };
+export function topicQueryKey(id: string) {
+  return ["topics", id] as const;
 }
 
 export function useTopic(id: string) {
-  return useQuery(topicMeta(id));
+  return useQuery({
+    queryKey: topicQueryKey(id),
+    queryFn: () => fetchTopic(id),
+  });
 }
