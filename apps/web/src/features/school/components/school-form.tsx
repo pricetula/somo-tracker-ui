@@ -48,6 +48,9 @@ export function SchoolForm({ school, onSuccess }: SchoolFormProps) {
             }
             onSuccess?.();
           },
+          onError: () => {
+            form.setError("root", { message: "An unexpected error occurred. Please try again." });
+          },
         }
       );
     } else {
@@ -61,6 +64,9 @@ export function SchoolForm({ school, onSuccess }: SchoolFormProps) {
             }
             form.reset();
             onSuccess?.();
+          },
+          onError: () => {
+            form.setError("root", { message: "An unexpected error occurred. Please try again." });
           },
         }
       );

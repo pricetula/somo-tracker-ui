@@ -15,9 +15,8 @@ export function useCreateSchools() {
         id: `optimistic-${Date.now()}`,
       }));
       queryClient.setQueryData<ActionResult<School[]>>(["schools"], (old) => ({
-        ...old,
         success: true,
-        data: [...(old?.data ?? []), ...optimistic],
+        data: [...(old?.success ? old.data : []), ...optimistic],
       }));
       return { previous };
     },
@@ -39,17 +38,16 @@ export function useUpdateSchool() {
       await queryClient.cancelQueries({ queryKey: ["schools"] });
       const previous = queryClient.getQueryData<ActionResult<School[]>>(["schools"]);
       queryClient.setQueryData<ActionResult<School[]>>(["schools"], (old) => ({
-        ...old,
         success: true,
-        data: (old?.data ?? []).map((s) => (s.id === body.id ? { ...s, ...body } : s)),
+        data: (old?.success ? old.data : []).map((s: School) =>
+          s.id === body.id ? { ...s, ...body } : s
+        ),
       }));
       if (body.id) {
         const previousSingle = queryClient.getQueryData<ActionResult<School>>(["schools", body.id]);
-        queryClient.setQueryData<ActionResult<School>>(["schools", body.id], (old) => ({
-          ...old,
-          success: true,
-          data: old?.data ? { ...old.data, ...body } : undefined,
-        }));
+        queryClient.setQueryData<ActionResult<School>>(["schools", body.id], (old) =>
+          old?.success ? { success: true, data: { ...old.data, ...body } } : old
+        );
         return { previous, previousSingle, id: body.id };
       }
       return { previous };

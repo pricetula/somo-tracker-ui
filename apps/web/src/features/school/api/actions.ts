@@ -30,7 +30,7 @@ export async function createSchools(body: AddSchoolRequest[]): Promise<ActionRes
       method: "POST",
       body: JSON.stringify(body),
     });
-    if (!res.ok) return { success: false, error: await res.text() || "Failed to create school.", code: res.status };
+    if (!res.ok) return { success: false, error: "Failed to create school.", code: res.status };
     return { success: true, data: await res.json() };
   } catch {
     return { success: false, error: "Unable to reach the server.", code: 503 };
