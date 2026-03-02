@@ -22,9 +22,13 @@ export default async function AuthGuard({
     redirect("/logout", RedirectType.replace);
   }
 
-  // make sure this is not used in /onboarding route
-  if (checkIsOnboarded && !result.data.school_id) {
-    redirect("/onboarding", RedirectType.replace);
+  if (checkIsOnboarded) {
+    if (!result.data.institute_id) {
+      redirect("/onboarding/institute", RedirectType.replace);
+    }
+    if (!result.data.school_id) {
+      redirect("/onboarding/school", RedirectType.replace);
+    }
   }
 
   return (
