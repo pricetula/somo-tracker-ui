@@ -13,4 +13,4 @@ export const inviteUserSchema = z.object({
 
 export type InviteUserFormValues = z.infer<typeof inviteUserSchema>;
 
-export type InviteUserRequest = InviteUserFormValues;
+export type InviteUserRequest = components["schemas"]["internal_auth_delivery_http.send_invitation_email_input"];

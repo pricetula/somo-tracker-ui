@@ -1,6 +1,6 @@
 import { browserApiClient } from "@/lib/browser-api-client";
 import type { ActionResult } from "@/types/action-result";
-import type { Me } from "@/features/me/types/me";
+import type { Me } from "@/features/me/types";
 
 export async function fetchMe(): Promise<ActionResult<Me>> {
   try {
