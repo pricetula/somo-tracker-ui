@@ -1,24 +1,24 @@
 import { useSuspenseQuery, useQuery } from "@tanstack/react-query";
-import { getSubjectsByYearGroup, getSubject } from "@/features/subjects/api/actions";
+import { fetchSubjectsByYearGroup, fetchSubject } from "./fetch-subjects";
 
-export function subjectsByYearGroupMeta(yearGroupId: string) {
-  return {
-    queryKey: ["subjects", "year-group", yearGroupId] as const,
-    queryFn: () => getSubjectsByYearGroup(yearGroupId),
-  };
+export function subjectsByYearGroupQueryKey(yearGroupId: string) {
+  return ["subjects", "year-group", yearGroupId] as const;
 }
 
 export function useSubjectsByYearGroup(yearGroupId: string) {
-  return useSuspenseQuery(subjectsByYearGroupMeta(yearGroupId));
+  return useSuspenseQuery({
+    queryKey: subjectsByYearGroupQueryKey(yearGroupId),
+    queryFn: () => fetchSubjectsByYearGroup(yearGroupId),
+  });
 }
 
-export function subjectMeta(id: string) {
-  return {
-    queryKey: ["subjects", id] as const,
-    queryFn: () => getSubject(id),
-  };
+export function subjectQueryKey(id: string) {
+  return ["subjects", id] as const;
 }
 
 export function useSubject(id: string) {
-  return useQuery(subjectMeta(id));
+  return useQuery({
+    queryKey: subjectQueryKey(id),
+    queryFn: () => fetchSubject(id),
+  });
 }

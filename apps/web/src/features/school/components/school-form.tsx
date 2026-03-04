@@ -8,7 +8,6 @@ import { useCreateSchools, useUpdateSchool } from "@/features/school/api/use-sch
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Switch } from "@/components/ui/switch";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { EducationSystemCombobox } from "@/features/education-system/components/education-system-combobox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -49,6 +48,9 @@ export function SchoolForm({ school, onSuccess }: SchoolFormProps) {
             }
             onSuccess?.();
           },
+          onError: () => {
+            form.setError("root", { message: "An unexpected error occurred. Please try again." });
+          },
         }
       );
     } else {
@@ -62,6 +64,9 @@ export function SchoolForm({ school, onSuccess }: SchoolFormProps) {
             }
             form.reset();
             onSuccess?.();
+          },
+          onError: () => {
+            form.setError("root", { message: "An unexpected error occurred. Please try again." });
           },
         }
       );

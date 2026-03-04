@@ -48,7 +48,16 @@ export async function verifyMagicLinkToken(token: string): Promise<ActionResult>
 }
 
 export async function logout(): Promise<ActionResult> {
-  const cookieStore = await cookies()
+  const cookieStore = await cookies();
+  const sessionToken = cookieStore.get("session_token")?.value;
+
+  const backendUrl = process.env.BACKEND_URL;
+  if (backendUrl && sessionToken) {
+    await fetch(`${backendUrl}/auth/logout`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${sessionToken}` },
+    }).catch(() => {});
+  }
 
   cookieStore.delete("session_token");
 

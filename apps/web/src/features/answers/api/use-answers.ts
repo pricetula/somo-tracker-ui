@@ -1,13 +1,13 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { getAnswersByQuestion } from "@/features/answers/api/actions";
+import { fetchAnswersByQuestion } from "./fetch-answers";
 
-export function answersByQuestionMeta(questionId: string) {
-  return {
-    queryKey: ["answers", "question", questionId] as const,
-    queryFn: () => getAnswersByQuestion(questionId),
-  };
+export function answersByQuestionQueryKey(questionId: string) {
+  return ["answers", "question", questionId] as const;
 }
 
 export function useAnswersByQuestion(questionId: string) {
-  return useSuspenseQuery(answersByQuestionMeta(questionId));
+  return useSuspenseQuery({
+    queryKey: answersByQuestionQueryKey(questionId),
+    queryFn: () => fetchAnswersByQuestion(questionId),
+  });
 }

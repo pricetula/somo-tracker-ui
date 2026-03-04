@@ -1,14 +1,11 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { getGradeRanges } from "@/features/grade-ranges/api/actions";
+import { fetchGradeRanges } from "./fetch-grade-ranges";
 
-export const gradeRangesMeta = {
-  queryKey: ["grade-ranges"] as const,
-  queryFn: getGradeRanges,
-};
+export const gradeRangesQueryKey = ["grade-ranges"] as const;
 
 export function useGradeRanges() {
   return useSuspenseQuery({
-    queryKey: gradeRangesMeta.queryKey,
-    queryFn: gradeRangesMeta.queryFn,
+    queryKey: gradeRangesQueryKey,
+    queryFn: fetchGradeRanges,
   });
 }

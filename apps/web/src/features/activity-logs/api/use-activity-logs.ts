@@ -1,14 +1,11 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { getActivityLogs } from "@/features/activity-logs/api/actions";
+import { fetchActivityLogs } from "./fetch-activity-logs";
 
-export const activityLogsMeta = {
-  queryKey: ["activity-logs"] as const,
-  queryFn: getActivityLogs,
-};
+export const activityLogsQueryKey = ["activity-logs"] as const;
 
 export function useActivityLogs() {
   return useSuspenseQuery({
-    queryKey: activityLogsMeta.queryKey,
-    queryFn: activityLogsMeta.queryFn,
+    queryKey: activityLogsQueryKey,
+    queryFn: fetchActivityLogs,
   });
 }

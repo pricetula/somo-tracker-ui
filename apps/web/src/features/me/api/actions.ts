@@ -3,7 +3,7 @@
 import { cookies } from "next/headers";
 import { apiClient } from "@/lib/api-client";
 import type { ActionResult } from "@/types/action-result";
-import type { Me } from "@/features/me/types/me";
+import type { Me } from "@/features/me/types";
 
 export async function getMe(): Promise<ActionResult<Me>> {
   try {

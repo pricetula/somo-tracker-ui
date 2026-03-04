@@ -1,25 +1,22 @@
 import { useSuspenseQuery, useQuery } from "@tanstack/react-query";
-import { getExams, getExam } from "@/features/exams/api/actions";
+import { fetchExams, fetchExam } from "./fetch-exams";
 
-export const examsMeta = {
-  queryKey: ["exams"] as const,
-  queryFn: getExams,
-};
+export const examsQueryKey = ["exams"] as const;
 
 export function useExams() {
   return useSuspenseQuery({
-    queryKey: examsMeta.queryKey,
-    queryFn: examsMeta.queryFn,
+    queryKey: examsQueryKey,
+    queryFn: fetchExams,
   });
 }
 
-export function examMeta(id: string) {
-  return {
-    queryKey: ["exams", id] as const,
-    queryFn: () => getExam(id),
-  };
+export function examQueryKey(id: string) {
+  return ["exams", id] as const;
 }
 
 export function useExam(id: string) {
-  return useQuery(examMeta(id));
+  return useQuery({
+    queryKey: examQueryKey(id),
+    queryFn: () => fetchExam(id),
+  });
 }

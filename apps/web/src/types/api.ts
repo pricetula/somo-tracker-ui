@@ -293,7 +293,7 @@ export interface paths {
         put?: never;
         /**
          * Send invitation email
-         * @description Sends an invitation email to a new user to join the caller's institute. Requires authentication.
+         * @description Sends an invitation email to a new user to join the caller's school. Requires authentication.
          */
         post: {
             parameters: {
@@ -302,7 +302,7 @@ export interface paths {
                 path?: never;
                 cookie?: never;
             };
-            /** @description Recipient email */
+            /** @description Recipient email, school ID and role */
             requestBody: {
                 content: {
                     "application/json": components["schemas"]["internal_auth_delivery_http.send_invitation_email_input"];
@@ -345,6 +345,58 @@ export interface paths {
                     };
                     content: {
                         "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/logout": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Logout
+         * @description Revokes the current session token.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description message */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "*/*": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+                /** @description Unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "*/*": {
+                            [key: string]: string;
+                        };
                     };
                 };
             };
@@ -429,8 +481,8 @@ export interface paths {
         get?: never;
         put?: never;
         /**
-         * Verify invitation magic link token
-         * @description Validates an invitation magic-link token and returns session credentials.
+         * Verify invitation token
+         * @description Validates an invitation token, creates the user if needed, and returns a session token.
          */
         post: {
             parameters: {
@@ -446,13 +498,15 @@ export interface paths {
                 };
             };
             responses: {
-                /** @description OK */
+                /** @description session_token */
                 200: {
                     headers: {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["internal_auth_delivery_http.ValidateInvitationMagicLinkTokenResponse"];
+                        "application/json": {
+                            [key: string]: string;
+                        };
                     };
                 };
                 /** @description Bad Request */
@@ -492,7 +546,7 @@ export interface paths {
         put?: never;
         /**
          * Verify magic link token
-         * @description Validates the one-time magic-link token and returns a session object on success.
+         * @description Validates the one-time magic-link token and returns a session token on success.
          */
         post: {
             parameters: {
@@ -508,14 +562,14 @@ export interface paths {
                 };
             };
             responses: {
-                /** @description OK */
+                /** @description session_token */
                 200: {
                     headers: {
                         [name: string]: unknown;
                     };
                     content: {
                         "application/json": {
-                            [key: string]: unknown;
+                            [key: string]: string;
                         };
                     };
                 };
@@ -2017,7 +2071,53 @@ export interface paths {
                 };
             };
         };
-        post?: never;
+        /**
+         * Create institute
+         * @description Creates a new institute.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description Institute create payload */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["internal_institute_delivery_http.addInstituteInput"];
+                };
+            };
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_institute.Institute"];
+                    };
+                };
+                /** @description Expectation Failed */
+                417: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Unprocessable Entity */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
         delete?: never;
         options?: never;
         head?: never;
@@ -2445,7 +2545,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_schooluser.SearchResult"][];
+                        "application/json": components["schemas"]["somo-tracker-api_internal_schooluser.SearchResponse"];
                     };
                 };
                 /** @description Bad Request */
@@ -3590,17 +3690,13 @@ export interface components {
         "internal_auth_delivery_http.ValidateInvitationMagicLinkTokenRequest": {
             token: string;
         };
-        "internal_auth_delivery_http.ValidateInvitationMagicLinkTokenResponse": {
-            member_id?: string;
-            organization_id?: string;
-            session_jwt?: string;
-            session_token?: string;
-        };
         "internal_auth_delivery_http.sendMagicLinkEmail": {
             email?: string;
         };
         "internal_auth_delivery_http.send_invitation_email_input": {
             email?: string;
+            role?: components["schemas"]["somo-tracker-api_internal_user.Role"];
+            school_id?: string;
         };
         "internal_auth_delivery_http.verify_token_input": {
             token?: string;
@@ -3693,6 +3789,9 @@ export interface components {
         "internal_guardianstudent_delivery_http.deleteGuardianStudentRequest": {
             guardian_id?: string;
             student_id?: string;
+        };
+        "internal_institute_delivery_http.addInstituteInput": {
+            name?: string;
         };
         "internal_institute_delivery_http.updateInstituteInput": {
             id?: string;
@@ -3835,7 +3934,6 @@ export interface components {
         "somo-tracker-api_internal_institute.Institute": {
             created_at?: string;
             deleted_at?: string;
-            external_id?: string;
             id?: string;
             name?: string;
             updated_at?: string;
@@ -3851,7 +3949,6 @@ export interface components {
             updated_at?: string;
         };
         "somo-tracker-api_internal_me.Me": {
-            institute_external_id?: string;
             institute_id?: string;
             role?: components["schemas"]["somo-tracker-api_internal_user.Role"];
             school_id?: string;
@@ -3889,20 +3986,21 @@ export interface components {
             cohort_name?: string;
             year_group?: string;
         };
-        /** @enum {string} */
-        "somo-tracker-api_internal_schooluser.MatchType": "exact_email" | "exact_phone" | "exact_reg" | "prefix_first" | "prefix_last" | "contains_email" | "contains_first" | "contains_last" | "cohort" | "other";
         "somo-tracker-api_internal_schooluser.SchoolUser": {
             registration_number?: string;
             role?: components["schemas"]["somo-tracker-api_internal_user.Role"];
             school_id?: string;
             user_id?: string;
         };
+        "somo-tracker-api_internal_schooluser.SearchResponse": {
+            items?: components["schemas"]["somo-tracker-api_internal_schooluser.SearchResult"][];
+            total_count?: number;
+        };
         "somo-tracker-api_internal_schooluser.SearchResult": {
             cohort_info?: components["schemas"]["somo-tracker-api_internal_schooluser.CohortInfo"][];
             email?: string;
             first_name?: string;
             last_name?: string;
-            match_type?: components["schemas"]["somo-tracker-api_internal_schooluser.MatchType"];
             phone?: string;
             photo_url?: string;
             registration_number?: string;
@@ -3928,7 +4026,6 @@ export interface components {
             created_at?: string;
             deleted_at?: string;
             email?: string;
-            external_auth_id?: string;
             first_name?: string;
             id?: string;
             last_name?: string;

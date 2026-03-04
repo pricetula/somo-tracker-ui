@@ -1,24 +1,24 @@
 import { useSuspenseQuery, useQuery } from "@tanstack/react-query";
-import { getExamSessionsByExam, getExamSession } from "@/features/exam-sessions/api/actions";
+import { fetchExamSessionsByExam, fetchExamSession } from "./fetch-exam-sessions";
 
-export function examSessionsByExamMeta(examId: string) {
-  return {
-    queryKey: ["exam-sessions", "exam", examId] as const,
-    queryFn: () => getExamSessionsByExam(examId),
-  };
+export function examSessionsByExamQueryKey(examId: string) {
+  return ["exam-sessions", "exam", examId] as const;
 }
 
 export function useExamSessionsByExam(examId: string) {
-  return useSuspenseQuery(examSessionsByExamMeta(examId));
+  return useSuspenseQuery({
+    queryKey: examSessionsByExamQueryKey(examId),
+    queryFn: () => fetchExamSessionsByExam(examId),
+  });
 }
 
-export function examSessionMeta(id: string) {
-  return {
-    queryKey: ["exam-sessions", id] as const,
-    queryFn: () => getExamSession(id),
-  };
+export function examSessionQueryKey(id: string) {
+  return ["exam-sessions", id] as const;
 }
 
 export function useExamSession(id: string) {
-  return useQuery(examSessionMeta(id));
+  return useQuery({
+    queryKey: examSessionQueryKey(id),
+    queryFn: () => fetchExamSession(id),
+  });
 }

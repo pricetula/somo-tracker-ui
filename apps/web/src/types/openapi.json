@@ -311,7 +311,7 @@
                         "ApiKeyAuth": []
                     }
                 ],
-                "description": "Sends an invitation email to a new user to join the caller's institute. Requires authentication.",
+                "description": "Sends an invitation email to a new user to join the caller's school. Requires authentication.",
                 "tags": [
                     "Auth"
                 ],
@@ -324,7 +324,7 @@
                             }
                         }
                     },
-                    "description": "Recipient email",
+                    "description": "Recipient email, school ID and role",
                     "required": true
                 },
                 "responses": {
@@ -367,6 +367,48 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/logout": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Revokes the current session token.",
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout",
+                "responses": {
+                    "200": {
+                        "description": "message",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
                                 }
                             }
                         }
@@ -431,11 +473,11 @@
         },
         "/auth/verify-invitation-magic-link-token": {
             "post": {
-                "description": "Validates an invitation magic-link token and returns session credentials.",
+                "description": "Validates an invitation token, creates the user if needed, and returns a session token.",
                 "tags": [
                     "Auth"
                 ],
-                "summary": "Verify invitation magic link token",
+                "summary": "Verify invitation token",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -449,11 +491,14 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "OK",
+                        "description": "session_token",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/internal_auth_delivery_http.ValidateInvitationMagicLinkTokenResponse"
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
                                 }
                             }
                         }
@@ -483,7 +528,7 @@
         },
         "/auth/verify-magic-link-token": {
             "post": {
-                "description": "Validates the one-time magic-link token and returns a session object on success.",
+                "description": "Validates the one-time magic-link token and returns a session token on success.",
                 "tags": [
                     "Auth"
                 ],
@@ -501,12 +546,14 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "OK",
+                        "description": "session_token",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "type": "object",
-                                    "additionalProperties": true
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
                                 }
                             }
                         }
@@ -2101,6 +2148,61 @@
                         }
                     }
                 }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Creates a new institute.",
+                "tags": [
+                    "Institutes"
+                ],
+                "summary": "Create institute",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/internal_institute_delivery_http.addInstituteInput"
+                            }
+                        }
+                    },
+                    "description": "Institute create payload",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_institute.Institute"
+                                }
+                            }
+                        }
+                    },
+                    "417": {
+                        "description": "Expectation Failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "/invitations": {
@@ -2535,10 +2637,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/somo-tracker-api_internal_schooluser.SearchResult"
-                                    }
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_schooluser.SearchResponse"
                                 }
                             }
                         }
@@ -3787,23 +3886,6 @@
                     }
                 }
             },
-            "internal_auth_delivery_http.ValidateInvitationMagicLinkTokenResponse": {
-                "type": "object",
-                "properties": {
-                    "member_id": {
-                        "type": "string"
-                    },
-                    "organization_id": {
-                        "type": "string"
-                    },
-                    "session_jwt": {
-                        "type": "string"
-                    },
-                    "session_token": {
-                        "type": "string"
-                    }
-                }
-            },
             "internal_auth_delivery_http.sendMagicLinkEmail": {
                 "type": "object",
                 "properties": {
@@ -3816,6 +3898,12 @@
                 "type": "object",
                 "properties": {
                     "email": {
+                        "type": "string"
+                    },
+                    "role": {
+                        "$ref": "#/components/schemas/somo-tracker-api_internal_user.Role"
+                    },
+                    "school_id": {
                         "type": "string"
                     }
                 }
@@ -4089,6 +4177,14 @@
                         "type": "string"
                     },
                     "student_id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "internal_institute_delivery_http.addInstituteInput": {
+                "type": "object",
+                "properties": {
+                    "name": {
                         "type": "string"
                     }
                 }
@@ -4497,9 +4593,6 @@
                     "deleted_at": {
                         "type": "string"
                     },
-                    "external_id": {
-                        "type": "string"
-                    },
                     "id": {
                         "type": "string"
                     },
@@ -4543,9 +4636,6 @@
             "somo-tracker-api_internal_me.Me": {
                 "type": "object",
                 "properties": {
-                    "institute_external_id": {
-                        "type": "string"
-                    },
                     "institute_id": {
                         "type": "string"
                     },
@@ -4660,33 +4750,6 @@
                     }
                 }
             },
-            "somo-tracker-api_internal_schooluser.MatchType": {
-                "type": "string",
-                "enum": [
-                    "exact_email",
-                    "exact_phone",
-                    "exact_reg",
-                    "prefix_first",
-                    "prefix_last",
-                    "contains_email",
-                    "contains_first",
-                    "contains_last",
-                    "cohort",
-                    "other"
-                ],
-                "x-enum-varnames": [
-                    "MatchTypeExactEmail",
-                    "MatchTypeExactPhone",
-                    "MatchTypeExactReg",
-                    "MatchTypePrefixFirst",
-                    "MatchTypePrefixLast",
-                    "MatchTypeContainsEmail",
-                    "MatchTypeContainsFirst",
-                    "MatchTypeContainsLast",
-                    "MatchTypeCohort",
-                    "MatchTypeOther"
-                ]
-            },
             "somo-tracker-api_internal_schooluser.SchoolUser": {
                 "type": "object",
                 "properties": {
@@ -4701,6 +4764,20 @@
                     },
                     "user_id": {
                         "type": "string"
+                    }
+                }
+            },
+            "somo-tracker-api_internal_schooluser.SearchResponse": {
+                "type": "object",
+                "properties": {
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/somo-tracker-api_internal_schooluser.SearchResult"
+                        }
+                    },
+                    "total_count": {
+                        "type": "integer"
                     }
                 }
             },
@@ -4721,9 +4798,6 @@
                     },
                     "last_name": {
                         "type": "string"
-                    },
-                    "match_type": {
-                        "$ref": "#/components/schemas/somo-tracker-api_internal_schooluser.MatchType"
                     },
                     "phone": {
                         "type": "string"
@@ -4804,9 +4878,6 @@
                         "type": "string"
                     },
                     "email": {
-                        "type": "string"
-                    },
-                    "external_auth_id": {
                         "type": "string"
                     },
                     "first_name": {
