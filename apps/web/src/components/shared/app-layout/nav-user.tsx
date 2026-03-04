@@ -28,12 +28,12 @@ export function NavUser() {
   const { data } = useMe()
 
   const me = data?.success ? data.data : null
-  const name = me ? `${me.user_first_name} ${me.user_last_name}`.trim() : ""
+  const firstName = me?.user_first_name ?? ""
+  const lastName = me?.user_last_name ?? ""
+  const name = `${firstName} ${lastName}`.trim()
   const email = me?.user_email ?? ""
   const avatar = me?.user_photo_url ?? ""
-  const initials = me
-    ? `${me.user_first_name[0] ?? ""}${me.user_last_name[0] ?? ""}`.toUpperCase()
-    : "?"
+  const initials = `${firstName[0]}${lastName[0]}`.toUpperCase() ?? "U"
 
   return (
     <SidebarMenu>
