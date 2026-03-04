@@ -1,66 +1,45 @@
-# CLAUDE.md
-
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+# CLAUDE.md (Root)
 
 ## Monorepo Overview
 
-pnpm workspace monorepo with two apps:
-- **`apps/web`** — Next.js 16+ (App Router) dashboard (primary app)
-- **`apps/public`** — SvelteKit 2 public-facing marketing site
+This repository is a pnpm workspace with two applications:
 
-Package manager: **pnpm** (v10+). Node.js >= 18 required.
+- `apps/web` → Main product application (Next.js App Router)
+- `apps/public` → Marketing website (SvelteKit)
 
-## Commands
+Each app has its own CLAUDE.md with scoped architectural rules.
 
-Run from the workspace root:
+---
 
-```bash
-pnpm dev:web       # Start Next.js dev server (localhost:3000)
-pnpm dev:public    # Start SvelteKit dev server
-pnpm build:web     # Build web app for production
-pnpm build:public  # Build public app for production
-pnpm lint          # Lint all packages
-pnpm format        # Prettier format (.ts, .tsx, .js, .jsx, .json, .md)
-```
+## Package Manager
 
-Run from within `apps/web` or `apps/public`:
+- Use **pnpm only**
+- Workspace config: `pnpm-workspace.yaml`
+- Do NOT use npm or yarn
+- Avoid duplicating dependency versions unnecessarily
 
-```bash
-pnpm dev     # Start dev server for that app
-pnpm build   # Build that app
-pnpm lint    # Lint that app (web only, uses ESLint 9)
-```
+---
 
-SvelteKit-specific (from `apps/public`):
+## App Boundaries (Very Important)
 
-```bash
-pnpm check        # svelte-check type checking
-pnpm check:watch  # Watch mode type checking
-```
+- Do NOT cross-import between `apps/web` and `apps/public`
+- Treat each app as an isolated deployable unit
+- Shared logic must live in a proper shared package (if introduced later)
 
-## Architecture
+---
 
-### `apps/web` (Next.js)
+## CI / GitHub Actions Expectations
 
-See `apps/web/CLAUDE.md` for detailed conventions. Key points:
+- Changes must respect the nearest CLAUDE.md
+- Do not introduce new architectural patterns without justification
+- Do not refactor across app boundaries
 
-- **Feature-driven structure:** all domain logic in `src/features/[feature-name]/` with sub-folders `api/`, `components/`, `types/`
-- **Component tiering:** `src/components/ui/` (Shadcn primitives) → `src/components/shared/` (cross-feature) → `src/features/*/components/` (domain-aware)
-- **Data flow:** Server Actions as TanStack Query `queryFn`; prefer `useSuspenseQuery`; prefetch in Server Components with `HydrationBoundary`
-- **State:** TanStack Query for server state, Zustand for global UI state, nuqs for URL state (filters, pagination, tabs)
-- **Forms:** React Hook Form + Zod resolver; same schema for client and server validation
-- **Styling:** Tailwind CSS v4 + Shadcn UI; CSS variables only (e.g., `bg-primary`), no hardcoded hex values
+---
 
-### `apps/public` (SvelteKit)
+## Mental Model
 
-- Standard SvelteKit file-based routing under `src/routes/`
-- Components in `src/lib/components/`
-- Tailwind CSS v4 via Vite plugin
-- mdsvex for Markdown (`.svx` files)
+- Root → Workspace management only
+- apps/web → Product logic (strict rules defined there)
+- apps/public → Marketing site (minimal + isolated)
 
-## Key Conventions (web app)
-
-- Files/folders: `kebab-case`; components: `PascalCase`; **named exports only** (no default exports)
-- Server Actions defined in `features/[feature]/api/actions.ts`, marked `'use server'`
-- Zod is the single source of truth — use `z.infer<typeof schema>` for all TypeScript types
-- Every Server Action must validate inputs with a Zod schema
+Nothing in this file overrides app-level CLAUDE.md rules.
