@@ -56,9 +56,39 @@
         <img
             src="/team.svg"
             alt="collaborate with somotracker"
-            class="w-90 hidden lg:block"
+            class="w-90 hidden lg:block hero-image"
         />
     </header>
+
+    <style>
+        .hero-image {
+            animation:
+                fadeIn 2s ease-out forwards,
+                subtleRotate 4s ease-in-out infinite;
+            animation-delay: 0s, 2s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes subtleRotate {
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+            50% {
+                transform: rotate(2deg);
+            }
+        }
+    </style>
 
     <!-- Scroll Indicator -->
     <button
