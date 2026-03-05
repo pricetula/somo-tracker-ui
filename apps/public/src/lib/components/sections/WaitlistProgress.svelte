@@ -13,17 +13,6 @@
         progressVal.set((count / MAX_SPOTS) * 100);
     }
 
-    $effect(() => {
-        const interval = setInterval(
-            () => {
-                count += Math.floor(Math.random() * 2) + 1;
-                progressVal.set((count / MAX_SPOTS) * 100);
-            },
-            Math.random() * 60000 + 15000,
-        );
-        return () => clearInterval(interval);
-    });
-
     const spotsLeft = $derived(MAX_SPOTS - count);
 </script>
 
