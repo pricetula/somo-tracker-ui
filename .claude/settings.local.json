@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(sudo tee:*)",
+      "Bash(/dev/null:*)",
+      "Bash(pnpm install:*)"
+    ]
+  }
+}

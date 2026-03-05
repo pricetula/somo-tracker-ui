@@ -1,1 +1,0 @@
-export { ChooseInstituteType } from "./ChooseInstituteType"

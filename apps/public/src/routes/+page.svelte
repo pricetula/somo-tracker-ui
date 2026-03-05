@@ -1,139 +1,49 @@
 <script lang="ts">
-	import { Database, Flag, ScanEye, Speech, TrendingUp, TriangleAlert } from 'lucide-svelte';
+    import { enhance } from "$app/forms";
+    import type { ActionData } from "./$types";
+    import Navbar from "$lib/components/sections/Navbar.svelte";
+    import Hero from "$lib/components/sections/Hero.svelte";
+    import EfficiencyGap from "$lib/components/sections/EfficiencyGap.svelte";
+    import ValueShowcase from "$lib/components/sections/ValueShowcase.svelte";
+    import ROICalculator from "$lib/components/sections/ROICalculator.svelte";
+    import WaitlistProgress from "$lib/components/sections/WaitlistProgress.svelte";
+    import ImplementationRoadmap from "$lib/components/sections/ImplementationRoadmap.svelte";
+    import FooterCTA from "$lib/components/sections/FooterCTA.svelte";
+    import Footer from "$lib/components/sections/Footer.svelte";
+
+    let { form }: { form: ActionData } = $props();
 </script>
 
-<article class="mb-20 flex flex-col items-center">
-	<header
-		aria-labelledby="hero"
-		class="mb-12 flex min-h-[400px] flex-col items-center justify-center"
-	>
-		<h1 id="hero" class="text-4xl font-bold">SomoTracker 🚀</h1>
-		<p class="mt-4 max-w-[400px] text-center">
-			Your Central Hub for Real-Time Academic Progress and Performance Mastery.
-		</p>
-	</header>
+<svelte:head>
+    <title
+        >Somotracker – Zero Printing. Zero Waste. 100% Academic Insight.</title
+    >
+    <meta
+        name="description"
+        content="Turn raw student data into actionable intelligence with AI forecasts that flag struggling students weeks earlier than traditional methods."
+    />
+</svelte:head>
 
-	<section aria-labelledby="features" class="mb-24 w-full max-w-[800px]">
-		<h2 id="features" class="mb-12 border-b border-dashed pb-2 text-center text-lg font-semibold">
-			Key Features
-		</h2>
-		<ol class="mt-4 grid gap-4 px-4 md:grid-cols-2">
-			<li class="mb-8">
-				<h3 class="mb-2 flex items-center gap-1 font-semibold">
-					<span>Real-time Progress Tracking</span>
-					<ScanEye class="text-blue-500" size="18" />
-				</h3>
-				<p>Monitor student performance with up-to-the-minute data from exam results.</p>
-			</li>
-			<li class="mb-8">
-				<h3 class="mb-2 flex items-center gap-1 font-semibold">
-					<span>Collaborative Goal Setting</span>
-					<Flag class="text-amber-500" size="18" />
-				</h3>
-				<p>Set and track academic goals with clarity.</p>
-			</li>
-			<li class="mb-8">
-				<h3 class="mb-2 flex items-center gap-1 font-semibold">
-					<span>Actionable Performance Analytics</span>
-					<TrendingUp class="text-teal-500" size="18" />
-				</h3>
-				<p>Analyze individual/ cohort progress and compare their progress on average.</p>
-			</li>
-			<li class="mb-8">
-				<h3 class="mb-2 flex items-center gap-1 font-semibold">
-					<span>Centralized Data Management</span>
-					<Database class="text-purple-500" size="18" />
-				</h3>
-				<p>Ditch spreadsheets and unify your academic data.</p>
-			</li>
-			<li class="mb-8">
-				<h3 class="mb-2 flex items-center gap-1 font-semibold">
-					<span>Enhanced Communication</span>
-					<Speech class="text-orange-500" size="18" />
-				</h3>
-				<p>Improve student-educator engagement and feedback.</p>
-			</li>
-			<li class="mb-8">
-				<h3 class="mb-2 flex items-center gap-1 font-semibold">
-					<span>Early Warning Systems</span>
-					<TriangleAlert class="text-red-500" size="18" />
-				</h3>
-				<p>
-					Identify students who are at risk of not meeting learning outcomes based on predefined
-					criteria.
-				</p>
-			</li>
-		</ol>
-	</section>
+<Navbar />
 
-	<section aria-labelledby="sync-data" class="mb-24 w-full max-w-[800px]">
-		<h2 id="sync-data" class="mb-12 border-b border-dashed pb-2 text-center text-lg font-semibold">
-			Streamline Your Data with Google Sheets
-		</h2>
-		<p class="flex justify-center px-4">
-			<span class="max-w-[500px] text-center">
-				Effortlessly bring your existing student information into somotracker and easily share
-				valuable insights by exporting your data to Google Sheets. This integration simplifies data
-				management, allowing you to work with your preferred tools seamlessly.
-			</span>
-		</p>
-	</section>
+<main>
+    {#if form?.success}
+        <div
+            class="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-green-600 text-white px-6 py-3 rounded-lg shadow-xl"
+        >
+            🎉 You're on the waitlist! We'll be in touch soon.
+        </div>
+    {/if}
 
-	<section aria-labelledby="benefits-heading" class="w-full max-w-[800px]">
-		<h2
-			id="benefits-heading"
-			class="mb-12 border-b border-dashed pb-2 text-center text-lg font-semibold"
-		>
-			Benefits
-		</h2>
-		<ol class="mt-4 list-[upper-arabic] px-7 font-light">
-			<li class="mb-8">
-				<h3 class="mb-2 flex items-center gap-1 font-semibold">
-					Data-Driven Decisions for Improved Outcomes
-				</h3>
-				<p>
-					Leverage real-time progress tracking and actionable analytics to identify trends,
-					intervene early, and make informed decisions that boost student success.
-				</p>
-			</li>
-			<li class="mb-8">
-				<h3 class="mb-2 flex items-center gap-1 font-semibold">
-					Streamlined Workflows and Increased Efficiency
-				</h3>
-				<p>
-					Say goodbye to manual data entry and scattered spreadsheets. Somotracker's centralized
-					platform simplifies administrative tasks and frees up valuable time for educators to focus
-					on teaching and student support.
-				</p>
-			</li>
-			<li class="mb-8">
-				<h3 class="mb-2 flex items-center gap-1 font-semibold">
-					Enhanced Collaboration and Communication
-				</h3>
-				<p>
-					Foster a more connected academic environment. Somotracker facilitates clear communication
-					about progress and goals between students and educators, leading to greater engagement and
-					accountability.
-				</p>
-			</li>
-			<li class="mb-8">
-				<h3 class="mb-2 flex items-center gap-1 font-semibold">
-					Personalized Support for Every Student
-				</h3>
-				<p>
-					Gain a holistic view of each student's academic journey, enabling targeted support and
-					interventions to ensure every learner reaches their full potential.
-				</p>
-			</li>
-			<li class="mb-8">
-				<h3 class="mb-2 flex items-center gap-1 font-semibold">
-					Demonstrate Impact and Accountability
-				</h3>
-				<p>
-					Generate comprehensive reports on student performance and progress, providing valuable
-					insights for stakeholders and showcasing the effectiveness of your educational programs.
-				</p>
-			</li>
-		</ol>
-	</section>
-</article>
+    <section class="max-w-5xl mx-auto text-sm">
+        <Hero />
+        <EfficiencyGap />
+        <ValueShowcase />
+        <ROICalculator />
+        <WaitlistProgress />
+        <ImplementationRoadmap />
+    </section>
+
+    <!-- <FooterCTA /> -->
+    <Footer />
+</main>
