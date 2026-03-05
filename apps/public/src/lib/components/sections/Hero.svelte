@@ -65,21 +65,11 @@
         </div>
 
         <!-- Right Column - Hero Visual placeholder -->
-        <div class="relative">
-            <div
-                class="aspect-square bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl flex items-center justify-center"
-            >
-                <div class="text-center text-muted-foreground">
-                    <div
-                        class="w-24 h-24 mx-auto mb-4 rounded-2xl bg-primary/10 flex items-center justify-center"
-                    >
-                        <span class="text-4xl">📊</span>
-                    </div>
-                    <p class="text-sm font-medium">Dashboard Preview</p>
-                    <p class="text-xs opacity-60">Visual coming soon</p>
-                </div>
-            </div>
-        </div>
+        <img
+            src="/team.svg"
+            alt="collaborate with somotracker"
+            class="w-90 hidden lg:block"
+        />
     </header>
 
     <!-- Scroll Indicator -->

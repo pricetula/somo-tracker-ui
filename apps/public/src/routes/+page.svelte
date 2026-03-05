@@ -35,7 +35,7 @@
         </div>
     {/if}
 
-    <section class="max-w-7xl mx-auto text-sm">
+    <section class="max-w-5xl mx-auto text-sm">
         <Hero />
         <EfficiencyGap />
         <ValueShowcase />
