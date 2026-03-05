@@ -1,91 +1,184 @@
 <script lang="ts">
-  import { Card, CardContent } from "$lib/components/ui/card";
-  import { Slider } from "$lib/components/ui/slider";
-  import { Separator } from "$lib/components/ui/separator";
-  import { Button } from "$lib/components/ui/button";
-  import { Input } from "$lib/components/ui/input";
-  import { spring } from "svelte/motion";
+    import { Card, CardContent } from "$lib/components/ui/card";
+    import { Slider } from "$lib/components/ui/slider";
+    import { Separator } from "$lib/components/ui/separator";
+    import { Button } from "$lib/components/ui/button";
+    import { Input } from "$lib/components/ui/input";
+    import { spring } from "svelte/motion";
+    import JoinWaitList from "./JoinWaitList.svelte";
 
-  let students = $state([500]);
-  let hoursPerWeek = $state([20]);
-  let hourlyRate = $state([45]);
+    // State Variables (Kenyan Context)
+    let studentCount = $state([400]);
+    let examsPerTerm = $state([3]); // Opener, Mid, End
+    let pagesPerExam = $state([6]);
+    let subjectsPerStudent = $state([8]);
 
-  const annualHours = spring(0, { stiffness: 0.1, damping: 0.5 });
-  const annualSavings = spring(0, { stiffness: 0.1, damping: 0.5 });
+    // Constants based on your research
+    const COST_PER_PAGE_LASER = 3.5;
+    const WEEKS_PER_YEAR = 39; // 3 terms of ~13 weeks
 
-  $effect(() => {
-    const h = hoursPerWeek[0];
-    const r = hourlyRate[0];
-    annualHours.set(h * 52 * 0.9);
-    annualSavings.set(h * 52 * r * 0.9);
-  });
+    // Motion values for smooth counting
+    const annualPrintingSaved = spring(0, { stiffness: 0.1, damping: 0.5 });
+    const annualMarkingHours = spring(0, { stiffness: 0.1, damping: 0.5 });
+
+    $effect(() => {
+        const totalExamsPerYear =
+            studentCount[0] * subjectsPerStudent[0] * examsPerTerm[0];
+        const totalPagesPerYear = totalExamsPerYear * pagesPerExam[0];
+
+        // Financial Savings (Printing)
+        annualPrintingSaved.set(totalPagesPerYear * COST_PER_PAGE_LASER);
+
+        // Time Savings (Assuming 5 mins to mark 1 paper manually)
+        const hoursSpentMarking = (totalExamsPerYear * 5) / 60;
+        annualMarkingHours.set(hoursSpentMarking);
+    });
 </script>
 
-<section class="py-28 px-4 bg-muted/20">
-  <div class="max-w-4xl mx-auto">
-    <h2 class="text-4xl md:text-5xl font-bold text-center mb-4 tracking-tight">Calculate Your Savings</h2>
-    <p class="text-center text-muted-foreground mb-12">See exactly how much time and money Somotracker saves your school.</p>
+<section class="py-20 px-4 bg-muted/20">
+    <div class="max-w-4xl mx-auto">
+        <h2
+            class="text-3xl md:text-5xl font-bold text-center mb-4 tracking-tight"
+        >
+            The Cost of Paper vs. Digital
+        </h2>
+        <p class="text-center text-muted-foreground mb-12 italic">
+            "Is your school spending hundreds of thousands on printing every
+            term?"
+        </p>
 
-    <Card class="p-8 shadow-xl border-2 border-primary/20">
-      <CardContent class="space-y-8 p-0">
-        <!-- Inputs -->
-        <div class="space-y-6">
-          <div>
-            <p class="text-sm font-medium mb-3">
-              Number of Students: <span class="text-primary font-bold">{students[0].toLocaleString()}</span>
-            </p>
-            <Slider type="multiple" bind:value={students} min={100} max={5000} step={50} />
-          </div>
+        <Card class="p-8 border">
+            <CardContent class="space-y-8 p-0">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-sm font-medium mb-3">
+                                Total Students <span
+                                    class="text-primary font-bold"
+                                    >{studentCount[0]}</span
+                                >
+                            </p>
+                            <Slider
+                                type="multiple"
+                                bind:value={studentCount}
+                                min={50}
+                                max={2000}
+                                step={10}
+                            />
+                        </div>
 
-          <div>
-            <p class="text-sm font-medium mb-3">
-              Assessment Hours/Week: <span class="text-primary font-bold">{hoursPerWeek[0]} hours</span>
-            </p>
-            <Slider type="multiple" bind:value={hoursPerWeek} min={5} max={40} step={1} />
-          </div>
+                        <div>
+                            <p class="text-sm font-medium mb-3">
+                                Subjects per Student <span
+                                    class="text-primary font-bold"
+                                    >{subjectsPerStudent[0]}</span
+                                >
+                            </p>
+                            <Slider
+                                type="multiple"
+                                bind:value={subjectsPerStudent}
+                                min={1}
+                                max={12}
+                                step={1}
+                            />
+                        </div>
+                    </div>
 
-          <div>
-            <p class="text-sm font-medium mb-3">
-              Average Teacher Hourly Rate: <span class="text-primary font-bold">${hourlyRate[0]}/hr</span>
-            </p>
-            <Slider type="multiple" bind:value={hourlyRate} min={25} max={75} step={5} />
-          </div>
-        </div>
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-sm font-medium mb-3">
+                                Exams per Term <span
+                                    class="text-primary font-bold"
+                                    >{examsPerTerm[0]}</span
+                                >
+                            </p>
+                            <Slider
+                                type="multiple"
+                                bind:value={examsPerTerm}
+                                min={1}
+                                max={5}
+                                step={1}
+                            />
+                        </div>
 
-        <Separator />
+                        <div>
+                            <p class="text-sm font-medium mb-3">
+                                Avg. Pages per Exam <span
+                                    class="text-primary font-bold"
+                                    >{pagesPerExam[0]}</span
+                                >
+                            </p>
+                            <Slider
+                                type="multiple"
+                                bind:value={pagesPerExam}
+                                min={1}
+                                max={15}
+                                step={1}
+                            />
+                        </div>
+                    </div>
+                </div>
 
-        <!-- Results -->
-        <div class="grid md:grid-cols-3 gap-6 text-center">
-          <div class="space-y-2">
-            <p class="text-sm text-muted-foreground">Annual Time Saved</p>
-            <p class="text-4xl font-bold font-mono">{Math.round($annualHours).toLocaleString()}</p>
-            <p class="text-sm text-muted-foreground">hours</p>
-          </div>
+                <Separator class="bg-muted" />
 
-          <div class="space-y-2">
-            <p class="text-sm text-muted-foreground">Annual Cost Saved</p>
-            <p class="text-4xl font-bold font-mono text-green-600">${Math.round($annualSavings).toLocaleString()}</p>
-            <p class="text-sm text-muted-foreground">per year</p>
-          </div>
+                <div class="grid md:grid-cols-3 gap-6 text-center">
+                    <div class="space-y-2">
+                        <p class="text-sm text-muted-foreground">
+                            Hidden Printing Cost
+                        </p>
+                        <p class="text-3xl font-bold font-mono text-red-400">
+                            *KSh {Math.round(
+                                $annualPrintingSaved,
+                            ).toLocaleString()}
+                        </p>
+                        <p class="text-xs text-muted-foreground">
+                            spent annually on paper & ink
+                        </p>
+                    </div>
 
-          <div class="space-y-2">
-            <p class="text-sm text-muted-foreground">Payback Period</p>
-            <p class="text-4xl font-bold font-mono">3.2</p>
-            <p class="text-sm text-muted-foreground">weeks to ROI</p>
-          </div>
-        </div>
+                    <div class="space-y-2 border-x border-muted">
+                        <p class="text-sm text-muted-foreground">
+                            Teacher Time Saved
+                        </p>
+                        <p class="text-3xl font-bold font-mono text-primary">
+                            {Math.round($annualMarkingHours).toLocaleString()}
+                        </p>
+                        <p class="text-xs text-muted-foreground">
+                            hours of manual marking/year
+                        </p>
+                    </div>
 
-        <Separator />
+                    <div class="space-y-2">
+                        <p class="text-sm text-muted-foreground">
+                            Somotracker ROI
+                        </p>
+                        <p class="text-3xl font-bold font-mono text-green-600">
+                            92%
+                        </p>
+                        <p class="text-xs text-muted-foreground">
+                            Reduction in assessment overhead
+                        </p>
+                    </div>
+                </div>
 
-        <!-- CTA -->
-        <div class="text-center space-y-4">
-          <p class="text-lg font-semibold">See this in your school</p>
-          <form method="POST" action="?/subscribe" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-            <Input type="email" name="email" placeholder="principal@school.edu" class="h-12" required />
-            <Button type="submit" size="lg" class="h-12 whitespace-nowrap">Start Free Pilot</Button>
-          </form>
-        </div>
-      </CardContent>
-    </Card>
-  </div>
+                <div
+                    class="bg-primary/5 p-4 rounded-lg border border-primary/10"
+                >
+                    <p class="text-sm text-center">
+                        <strong>Pro Tip:</strong> Even if you use a RISO
+                        duplicator, you are still losing hundreds of hours in
+                        <strong>manual marking</strong> and
+                        <strong>stapling</strong>. AI does it in seconds.
+                    </p>
+                </div>
+
+                <div class="flex flex-col items-center space-y-4">
+                    <p class="text-xs font-semibold italic text-primary">
+                        Ready to eliminate your school's paper budget?
+                    </p>
+                    <JoinWaitList />
+                </div>
+            </CardContent>
+        </Card>
+    </div>
 </section>

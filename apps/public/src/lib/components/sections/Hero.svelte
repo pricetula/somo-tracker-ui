@@ -2,6 +2,7 @@
     import { Button } from "$lib/components/ui/button";
     import { Input } from "$lib/components/ui/input";
     import { ArrowDown, Check } from "@lucide/svelte";
+    import JoinWaitList from "./JoinWaitList.svelte";
 
     let email = $state("");
 
@@ -44,20 +45,7 @@
                 </li>
             </ul>
 
-            <form
-                method="POST"
-                action="?/subscribe"
-                class="flex flex-col sm:flex-row gap-4 max-w-[380px] mb-2"
-            >
-                <Input
-                    type="email"
-                    name="email"
-                    bind:value={email}
-                    placeholder="principal@school.edu"
-                    required
-                />
-                <Button type="submit">Join Waitlist</Button>
-            </form>
+            <JoinWaitList />
 
             <p class="text-xs text-muted-foreground">
                 No credit card required · 60-day free pilot

@@ -44,6 +44,6 @@
         <ImplementationRoadmap />
     </section>
 
-    <FooterCTA />
+    <!-- <FooterCTA /> -->
     <Footer />
 </main>
