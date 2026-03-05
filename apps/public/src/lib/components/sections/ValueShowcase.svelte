@@ -6,10 +6,9 @@
   const features = [
     {
       label: "AI Assessment Engine",
-      headline: "From 40 Hours to 4 Minutes",
+      headline: "From 40 Hours to 2 Minutes",
       description:
-        "Our AI generates, grades, and analyzes assessments across all subjects. Zero busywork.",
-      stats: ["95% grading accuracy", "Supports 47 question types"],
+        "Our AI grades, and analyzes assessments across every subject in minutes delivering instant academic insights while eliminating the manual grading and busywork which teachers shouldn’t have to do.",
       imageLeft: true,
       imgSrc: "/bot.svg",
     },
@@ -17,23 +16,15 @@
       label: "Predictive Analytics",
       headline: "Catch Gaps Before They Become Chasms",
       description:
-        "Real-time learning trajectory forecasts. Intervene 6 weeks earlier with AI-spotted patterns.",
-      stats: [
-        "89% early-intervention success rate",
-        "Tracks 200+ learning indicators",
-      ],
+        "By detecting learning patterns early, real-time AI forecasts provide educators with the insights necessary to intervene before students fall behind.",
       imageLeft: false,
       imgSrc: "/insight.svg",
     },
     {
       label: "Adaptive Learning Paths",
-      headline: "Every Student Gets a Personal Tutor",
+      headline: "Personalized Journeys to Subject Mastery",
       description:
-        "Dynamically adjusts content difficulty. No two paths are the same.",
-      stats: [
-        "2.3x faster concept mastery",
-        "Replaces $4,500/year tutoring costs",
-      ],
+        "Automatically rerouting the learning experience to meet students where they are, accelerating progress through data-driven customization.",
       imageLeft: true,
       imgSrc: "/learningpath.svg",
     },
@@ -63,19 +54,14 @@
 
             <!-- Content -->
             <div class:lg:order-1={!feature.imageLeft} class="space-y-6">
-              <Badge
-                variant="secondary"
-                class="text-xs font-semibold uppercase tracking-wider"
-                >{feature.label}</Badge
-              >
-              <h3 class="text-3xl md:text-4xl font-bold tracking-tight">
+              <h3 class="text-2xl font-bold tracking-tight">
                 {feature.headline}
               </h3>
-              <p class="text-lg text-muted-foreground">{feature.description}</p>
+              <p class="text-sm">{feature.description}</p>
               <div class="flex gap-3 flex-wrap">
-                {#each feature.stats as stat}
-                  <Badge variant="outline" class="text-sm py-1">{stat}</Badge>
-                {/each}
+                <Badge variant="secondary" class="text-xs px-2"
+                  >{feature.label}</Badge
+                >
               </div>
             </div>
           </div>
