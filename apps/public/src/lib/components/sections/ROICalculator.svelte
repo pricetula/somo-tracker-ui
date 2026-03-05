@@ -5,6 +5,7 @@
     import { Button } from "$lib/components/ui/button";
     import { Input } from "$lib/components/ui/input";
     import { spring } from "svelte/motion";
+    import { inView } from "$lib/actions/intersectionObserver";
     import JoinWaitList from "./JoinWaitList.svelte";
 
     // State Variables (Kenyan Context)
@@ -12,6 +13,8 @@
     let examsPerTerm = $state([3]); // Opener, Mid, End
     let pagesPerExam = $state([6]);
     let subjectsPerStudent = $state([8]);
+
+    let sectionVisible = $state(false);
 
     // Constants based on your research
     const COST_PER_PAGE_LASER = 3.5;
@@ -35,7 +38,12 @@
     });
 </script>
 
-<section class="py-20 px-4 bg-muted/20">
+<section
+    class="py-20 px-4 bg-muted/20 roi-section"
+    class:visible={sectionVisible}
+    use:inView
+    onenter={() => { sectionVisible = true; }}
+>
     <div class="max-w-4xl mx-auto">
         <h2
             class="text-3xl md:text-5xl font-bold text-center mb-4 tracking-tight"
@@ -47,6 +55,7 @@
             term?"
         </p>
 
+        <div class="roi-card" class:visible={sectionVisible}>
         <Card class="p-8 border">
             <CardContent class="space-y-8 p-0">
                 <div class="grid md:grid-cols-2 gap-8">
@@ -122,7 +131,7 @@
                 <Separator class="bg-muted" />
 
                 <div class="grid md:grid-cols-3 gap-6 text-center">
-                    <div class="space-y-2">
+                    <div class="space-y-2 metric-item">
                         <p class="text-sm text-muted-foreground">
                             Hidden Printing Cost
                         </p>
@@ -136,7 +145,7 @@
                         </p>
                     </div>
 
-                    <div class="space-y-2 border-x border-muted">
+                    <div class="space-y-2 border-x border-muted metric-item" style="animation-delay: 0.1s">
                         <p class="text-sm text-muted-foreground">
                             Teacher Time Saved
                         </p>
@@ -148,7 +157,7 @@
                         </p>
                     </div>
 
-                    <div class="space-y-2">
+                    <div class="space-y-2 metric-item" style="animation-delay: 0.2s">
                         <p class="text-sm text-muted-foreground">
                             Somotracker ROI
                         </p>
@@ -180,5 +189,33 @@
                 </div>
             </CardContent>
         </Card>
+        </div>
     </div>
 </section>
+
+<style>
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(24px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .roi-section {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .roi-section.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .roi-card {
+        opacity: 0;
+        transform: translateY(16px);
+        transition: opacity 0.6s ease 0.15s, transform 0.6s ease 0.15s;
+    }
+    .roi-card.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>

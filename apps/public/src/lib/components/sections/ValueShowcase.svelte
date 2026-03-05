@@ -8,7 +8,7 @@
       label: "AI Assessment Engine",
       headline: "From 40 Hours to 2 Minutes",
       description:
-        "Our AI grades, and analyzes assessments across every subject in minutes delivering instant academic insights while eliminating the manual grading and busywork which teachers shouldn’t have to do.",
+        "Our AI grades, and analyzes assessments across every subject in minutes delivering instant academic insights while eliminating the manual grading and busywork which teachers shouldn't have to do.",
       imageLeft: true,
       imgSrc: "/bot.svg",
     },
@@ -47,9 +47,14 @@
             class="grid lg:grid-cols-2 gap-16 items-center"
             in:fly={{ y: 40, duration: 700 }}
           >
-            <!-- Image placeholder -->
-            <div class:lg:order-2={!feature.imageLeft}>
-              <img src={feature.imgSrc} alt={feature.label} class="w-90" />
+            <!-- Image -->
+            <div class:lg:order-2={!feature.imageLeft} class="flex justify-center">
+              <img
+                src={feature.imgSrc}
+                alt={feature.label}
+                class="w-90 showcase-img"
+                style="animation-delay: {i * 0.1}s"
+              />
             </div>
 
             <!-- Content -->
@@ -59,9 +64,7 @@
               </h3>
               <p class="text-sm">{feature.description}</p>
               <div class="flex gap-3 flex-wrap">
-                <Badge variant="secondary" class="text-xs px-2"
-                  >{feature.label}</Badge
-                >
+                <Badge variant="secondary" class="text-xs px-2">{feature.label}</Badge>
               </div>
             </div>
           </div>
@@ -70,3 +73,14 @@
     {/each}
   </div>
 </section>
+
+<style>
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-8px); }
+  }
+
+  .showcase-img {
+    animation: float 5s ease-in-out infinite;
+  }
+</style>
