@@ -7,11 +7,13 @@ interface StepPreviewProps {
     result: ValidationResult;
     onConfirm: () => void;
     onBack: () => void;
+    importing?: boolean;
+    importError?: string | null;
 }
 
 const PREVIEW_LIMIT = 20;
 
-export function StepPreview({ result, onConfirm, onBack }: StepPreviewProps) {
+export function StepPreview({ result, onConfirm, onBack, importing, importError }: StepPreviewProps) {
     const { preview, validCount, skippedCount } = result;
     const total = validCount + skippedCount;
     const rows = preview.slice(0, PREVIEW_LIMIT);
@@ -69,19 +71,23 @@ export function StepPreview({ result, onConfirm, onBack }: StepPreviewProps) {
                 )}
             </div>
 
+            {importError && (
+                <p className="text-sm text-red-600">{importError}</p>
+            )}
             <div className="flex justify-between pt-2">
                 <button
                     onClick={onBack}
-                    className="px-4 py-2 text-sm text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50"
+                    disabled={importing}
+                    className="px-4 py-2 text-sm text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                     Back
                 </button>
                 <button
                     onClick={onConfirm}
-                    disabled={validCount === 0}
+                    disabled={validCount === 0 || importing}
                     className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed"
                 >
-                    Confirm Import ({validCount} users)
+                    {importing ? "Importing…" : `Confirm Import (${validCount} users)`}
                 </button>
             </div>
         </div>
