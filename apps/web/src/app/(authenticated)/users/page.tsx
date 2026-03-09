@@ -28,9 +28,14 @@ export default async function UsersPage({
       <div className="flex flex-col h-full gap-4">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-semibold">Users</h1>
-          <Button asChild>
-            <Link href="/users/invite">Invite user</Link>
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button asChild variant="outline">
+              <Link href="/users/add-students">Add students</Link>
+            </Button>
+            <Button asChild>
+              <Link href="/users/invite">Invite user</Link>
+            </Button>
+          </div>
         </div>
         <SchoolUsersFilters />
         <div className="flex-1 rounded-lg border overflow-hidden">
