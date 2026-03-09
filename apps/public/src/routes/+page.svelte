@@ -12,16 +12,89 @@
     import Footer from "$lib/components/sections/Footer.svelte";
 
     let { form }: { form: ActionData } = $props();
+
+    const siteUrl = "https://somotracker.com";
+    const title = "Somotracker – Zero Printing. Zero Waste. 100% Academic Insight.";
+    const description = "Eliminate manual grading and printing costs with AI-powered assessments. Catch struggling students weeks earlier with real-time predictive analytics built for African schools.";
+    const ogImage = `${siteUrl}/og-image.png`;
 </script>
 
 <svelte:head>
-    <title
-        >Somotracker – Zero Printing. Zero Waste. 100% Academic Insight.</title
-    >
-    <meta
-        name="description"
-        content="Turn raw student data into actionable intelligence with AI forecasts that flag struggling students weeks earlier than traditional methods."
-    />
+    <!-- Primary -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={siteUrl} />
+
+    <!-- Keywords -->
+    <meta name="keywords" content="school management software, AI grading, student assessment, predictive analytics education, paperless school, Kenya EdTech, academic tracking, learning gaps" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Somotracker" />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Somotracker – AI-powered academic assessment platform" />
+    <meta property="og:locale" content="en_KE" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@somotracker" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content="Somotracker – AI-powered academic assessment platform" />
+
+    <!-- JSON-LD: Organization -->
+    {@html `<script type="application/ld+json">${JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Somotracker",
+        "url": siteUrl,
+        "logo": `${siteUrl}/logo.svg`,
+        "description": description,
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "hello@somotracker.com",
+            "contactType": "customer support"
+        }
+    })}</script>`}
+
+    <!-- JSON-LD: WebPage -->
+    {@html `<script type="application/ld+json">${JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": title,
+        "url": siteUrl,
+        "description": description,
+        "inLanguage": "en-KE",
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "Somotracker",
+            "url": siteUrl
+        }
+    })}</script>`}
+
+    <!-- JSON-LD: SoftwareApplication -->
+    {@html `<script type="application/ld+json">${JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Somotracker",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "KES",
+            "description": "60-day free pilot, no credit card required"
+        },
+        "description": description,
+        "url": siteUrl
+    })}</script>`}
 </svelte:head>
 
 <Navbar />
