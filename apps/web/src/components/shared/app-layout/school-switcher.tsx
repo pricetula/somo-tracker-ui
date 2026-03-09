@@ -37,7 +37,7 @@ export function SchoolSwitcher() {
 
   const handleSchoolClicked = React.useCallback(
     (school: School) => console.log(school),
-    [schoolsData]
+    []
   )
 
   return (

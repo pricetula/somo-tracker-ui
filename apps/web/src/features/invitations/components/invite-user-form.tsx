@@ -32,12 +32,6 @@ export function InviteUserForm({ onSuccess }: InviteUserFormProps) {
 
   const inviteUser = useInviteUser();
 
-  useEffect(() => {
-    if (me?.school_id) {
-      form.setValue("school_id", me.school_id);
-    }
-  }, [me?.school_id]); // eslint-disable-line react-hooks/exhaustive-deps
-
   const form = useForm<InviteUserFormValues>({
     resolver: zodResolver(inviteUserSchema),
     defaultValues: {
@@ -46,6 +40,12 @@ export function InviteUserForm({ onSuccess }: InviteUserFormProps) {
       role: undefined,
     },
   });
+
+  useEffect(() => {
+    if (me?.school_id) {
+      form.setValue("school_id", me.school_id);
+    }
+  }, [me?.school_id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   function onSubmit(values: InviteUserFormValues) {
     inviteUser.mutate(values, {
