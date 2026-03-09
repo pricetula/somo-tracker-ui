@@ -1,4 +1,4 @@
-import { useSuspenseQuery, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { fetchSchoolsByInstitute, fetchSchool } from "./fetch-schools";
 
 export const schoolsQueryKey = ["schools"] as const;
