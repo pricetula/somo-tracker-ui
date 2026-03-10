@@ -8,7 +8,6 @@ export function useUpdateUser() {
     mutationFn: (body: UpdateUserRequest) => updateUser(body),
     onSuccess: (_data, vars) => {
       queryClient.invalidateQueries({ queryKey: ["users"] });
-      if (vars.id) queryClient.invalidateQueries({ queryKey: ["users", vars.id] });
       queryClient.invalidateQueries({ queryKey: ["me"] });
     },
   });
