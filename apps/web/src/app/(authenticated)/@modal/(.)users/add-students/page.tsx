@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation"
 import { CsvImporter } from "@/components/importer/csv-importer"
+import { bulkAddStudents } from "@/features/students/api/actions"
 import {
   Dialog,
   DialogContent,
@@ -26,7 +27,7 @@ export default function AddStudentsModal() {
             Upload a CSV file to import students into your school.
           </DialogDescription>
         </DialogHeader>
-        <CsvImporter />
+        <CsvImporter onImport={bulkAddStudents} />
       </DialogContent>
     </Dialog>
   )
