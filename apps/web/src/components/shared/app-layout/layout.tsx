@@ -1,14 +1,7 @@
 "use client"
 
 import { AppSidebar } from "@/components/shared/app-layout/app-sidebar"
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
+import { DynamicBreadcrumbs } from "@/components/shared/dynamic-breadcrumbs"
 import { Separator } from "@/components/ui/separator"
 import {
   SidebarInset,
@@ -28,19 +21,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               orientation="vertical"
               className="me-2 data-vertical:h-4 data-vertical:self-auto"
             />
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">
-                    Build Your Application
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
+            <DynamicBreadcrumbs />
           </div>
         </header>
         <div className="px-5.5">
