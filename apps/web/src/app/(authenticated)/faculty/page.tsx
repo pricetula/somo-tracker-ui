@@ -6,13 +6,13 @@ import { SchoolUsersFilters } from "@/features/school-users/components/school-us
 import { SchoolUsersList } from "@/features/school-users/components/school-users-list";
 import RoleGuard from "@/features/auth/components/role-guard";
 
-export default async function StudentsPage({
+export default async function FacultyPage({
   searchParams,
 }: {
   searchParams: Promise<{ search?: string }>;
 }) {
   const { search } = await searchParams;
-  const filters = { search: search || undefined, role: "STUDENT" };
+  const filters = { search: search || undefined, role: "FACULTY" };
 
   const queryClient = getQueryClient();
   await queryClient.prefetchInfiniteQuery({
@@ -27,7 +27,7 @@ export default async function StudentsPage({
       <HydrationBoundary state={dehydrate(queryClient)}>
         <div className="flex flex-col h-full gap-4">
           <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-semibold">Students</h1>
+            <h1 className="text-2xl font-semibold">Faculty</h1>
           </div>
           <SchoolUsersFilters />
           <div className="flex-1 rounded-lg border overflow-hidden">

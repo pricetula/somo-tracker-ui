@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
-import { magicLinkSchema, type MagicLinkInput } from "@/features/auth/types/auth-schema";
+import { magicLinkSchema, type MagicLinkInput } from "@/features/auth/types";
 import { useMagicLink } from "@/features/auth/api/use-magic-link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
