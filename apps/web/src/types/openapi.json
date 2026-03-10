@@ -311,20 +311,23 @@
                         "ApiKeyAuth": []
                     }
                 ],
-                "description": "Sends an invitation email to a new user to join the caller's school. Requires authentication.",
+                "description": "Sends invitation emails to one or more recipients to join the caller's school. Requires authentication.",
                 "tags": [
                     "Auth"
                 ],
-                "summary": "Send invitation email",
+                "summary": "Send invitation emails",
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/internal_auth_delivery_http.send_invitation_email_input"
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/internal_auth_delivery_http.send_invitation_email_input"
+                                }
                             }
                         }
                     },
-                    "description": "Recipient email, school ID and role",
+                    "description": "List of recipients with email and role",
                     "required": true
                 },
                 "responses": {
@@ -570,6 +573,364 @@
                     },
                     "422": {
                         "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/cohort-faculty": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Assigns one or more faculty members to a cohort.",
+                "tags": [
+                    "CohortFaculty"
+                ],
+                "summary": "Add cohort faculty",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/internal_cohortfaculty_delivery_http.addCohortFacultyRequest"
+                            }
+                        }
+                    },
+                    "description": "Cohort faculty assignment payload",
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/somo-tracker-api_internal_cohortfaculty.CohortFaculty"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Removes one or more faculty members from a cohort.",
+                "tags": [
+                    "CohortFaculty"
+                ],
+                "summary": "Delete cohort faculty",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/internal_cohortfaculty_delivery_http.deleteCohortFacultyRequest"
+                            }
+                        }
+                    },
+                    "description": "Delete payload",
+                    "required": true
+                },
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/cohort-faculty/{cohort_id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Returns all faculty members assigned to a cohort.",
+                "tags": [
+                    "CohortFaculty"
+                ],
+                "summary": "Get cohort faculty",
+                "parameters": [
+                    {
+                        "description": "Cohort UUID",
+                        "name": "cohort_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/somo-tracker-api_internal_cohortfaculty.CohortFaculty"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/cohort-students": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Assigns one or more students to a cohort.",
+                "tags": [
+                    "CohortStudents"
+                ],
+                "summary": "Add cohort students",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/internal_cohortstudent_delivery_http.addCohortStudentsRequest"
+                            }
+                        }
+                    },
+                    "description": "Cohort student assignment payload",
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/somo-tracker-api_internal_cohortstudent.CohortStudent"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Removes one or more students from a cohort.",
+                "tags": [
+                    "CohortStudents"
+                ],
+                "summary": "Delete cohort students",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/internal_cohortstudent_delivery_http.deleteCohortStudentsRequest"
+                            }
+                        }
+                    },
+                    "description": "Delete payload",
+                    "required": true
+                },
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/cohort-students/{cohort_id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Returns all students assigned to a cohort.",
+                "tags": [
+                    "CohortStudents"
+                ],
+                "summary": "Get cohort students",
+                "parameters": [
+                    {
+                        "description": "Cohort UUID",
+                        "name": "cohort_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/somo-tracker-api_internal_cohortstudent.CohortStudent"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1101,6 +1462,175 @@
                     },
                     "422": {
                         "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/exam-questions": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Assigns one or more questions to an exam.",
+                "tags": [
+                    "ExamQuestions"
+                ],
+                "summary": "Add exam questions",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/internal_examquestion_delivery_http.addExamQuestionsRequest"
+                            }
+                        }
+                    },
+                    "description": "Exam questions payload",
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/somo-tracker-api_internal_examquestion.ExamQuestion"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Removes one or more questions from an exam.",
+                "tags": [
+                    "ExamQuestions"
+                ],
+                "summary": "Delete exam questions",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/internal_examquestion_delivery_http.deleteExamQuestionsRequest"
+                            }
+                        }
+                    },
+                    "description": "Delete payload",
+                    "required": true
+                },
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/exam-questions/{exam_id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Returns all questions assigned to an exam.",
+                "tags": [
+                    "ExamQuestions"
+                ],
+                "summary": "Get exam questions",
+                "parameters": [
+                    {
+                        "description": "Exam UUID",
+                        "name": "exam_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/somo-tracker-api_internal_examquestion.ExamQuestion"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -3115,6 +3645,608 @@
                 }
             }
         },
+        "/student-exam-question-attempts": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Updates a student's answer and marks for a question.",
+                "tags": [
+                    "StudentExamQuestionAttempts"
+                ],
+                "summary": "Update student exam question attempt",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/internal_studentexamquestionattempt_delivery_http.updateAttemptRequest"
+                            }
+                        }
+                    },
+                    "description": "Update payload",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_studentexamquestionattempt.StudentExamQuestionAttempt"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Records one or more question attempts for a student exam.",
+                "tags": [
+                    "StudentExamQuestionAttempts"
+                ],
+                "summary": "Add student exam question attempts",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/internal_studentexamquestionattempt_delivery_http.addAttemptsRequest"
+                            }
+                        }
+                    },
+                    "description": "Attempts payload",
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/somo-tracker-api_internal_studentexamquestionattempt.StudentExamQuestionAttempt"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Deletes all question attempts for a given student and exam session.",
+                "tags": [
+                    "StudentExamQuestionAttempts"
+                ],
+                "summary": "Delete student exam question attempts",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/internal_studentexamquestionattempt_delivery_http.deleteAttemptsRequest"
+                            }
+                        }
+                    },
+                    "description": "Delete payload",
+                    "required": true
+                },
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/student-exam-question-attempts/{student_id}/{exam_session_id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Returns all question attempts for a given student and exam session.",
+                "tags": [
+                    "StudentExamQuestionAttempts"
+                ],
+                "summary": "Get student exam question attempts",
+                "parameters": [
+                    {
+                        "description": "Student UUID",
+                        "name": "student_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    },
+                    {
+                        "description": "ExamSession UUID",
+                        "name": "exam_session_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/somo-tracker-api_internal_studentexamquestionattempt.StudentExamQuestionAttempt"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/student-exams": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Updates evaluation details for a student exam.",
+                "tags": [
+                    "StudentExams"
+                ],
+                "summary": "Update student exam",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/internal_studentexam_delivery_http.updateStudentExamRequest"
+                            }
+                        }
+                    },
+                    "description": "Student exam update payload",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_studentexam.StudentExam"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Registers one or more students for an exam session.",
+                "tags": [
+                    "StudentExams"
+                ],
+                "summary": "Add student exams",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/internal_studentexam_delivery_http.addStudentExamsRequest"
+                            }
+                        }
+                    },
+                    "description": "Student exam registration payload",
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/somo-tracker-api_internal_studentexam.StudentExam"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Removes one or more student exam registrations.",
+                "tags": [
+                    "StudentExams"
+                ],
+                "summary": "Delete student exams",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/internal_studentexam_delivery_http.deleteStudentExamsRequest"
+                            }
+                        }
+                    },
+                    "description": "Delete payload",
+                    "required": true
+                },
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/student-exams/session/{exam_session_id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Returns all student exams for a given exam session.",
+                "tags": [
+                    "StudentExams"
+                ],
+                "summary": "Get student exams by exam session",
+                "parameters": [
+                    {
+                        "description": "ExamSession UUID",
+                        "name": "exam_session_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/somo-tracker-api_internal_studentexam.StudentExam"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/student-exams/student/{student_id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Returns all exams for a given student.",
+                "tags": [
+                    "StudentExams"
+                ],
+                "summary": "Get student exams by student",
+                "parameters": [
+                    {
+                        "description": "Student UUID",
+                        "name": "student_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/somo-tracker-api_internal_studentexam.StudentExam"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/students": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Imports a list of students, creating user accounts, school memberships, and optional cohort enrollments in a single transaction. Rows missing both first_name and last_name are skipped.",
+                "tags": [
+                    "Students"
+                ],
+                "summary": "Batch import students",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/internal_student_delivery_http.importStudentRequest"
+                                }
+                            }
+                        }
+                    },
+                    "description": "List of students to import",
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/subjects": {
             "put": {
                 "security": [
@@ -3819,6 +4951,289 @@
                     }
                 }
             }
+        },
+        "/year-groups": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Returns all year groups for a given education system UUID.",
+                "tags": [
+                    "YearGroups"
+                ],
+                "summary": "Get year groups by education system",
+                "parameters": [
+                    {
+                        "description": "EducationSystem UUID",
+                        "name": "education_system_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/somo-tracker-api_internal_yeargroup.YearGroup"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Updates a year group by UUID.",
+                "tags": [
+                    "YearGroups"
+                ],
+                "summary": "Update year group",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/internal_yeargroup_delivery_http.updateYearGroupRequest"
+                            }
+                        }
+                    },
+                    "description": "Year group update payload",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_yeargroup.YearGroup"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Creates one or more year groups under an education system.",
+                "tags": [
+                    "YearGroups"
+                ],
+                "summary": "Add year groups",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/internal_yeargroup_delivery_http.addYearGroupRequest"
+                                }
+                            }
+                        }
+                    },
+                    "description": "Array of year groups to create",
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/somo-tracker-api_internal_yeargroup.YearGroup"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Deletes one or more year groups by UUID.",
+                "tags": [
+                    "YearGroups"
+                ],
+                "summary": "Delete year groups",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/internal_yeargroup_delivery_http.deleteYearGroupsByIDsRequest"
+                            }
+                        }
+                    },
+                    "description": "IDs to delete",
+                    "required": true
+                },
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/year-groups/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Returns a single year group by UUID.",
+                "tags": [
+                    "YearGroups"
+                ],
+                "summary": "Get year group by ID",
+                "parameters": [
+                    {
+                        "description": "YearGroup UUID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_yeargroup.YearGroup"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -3902,9 +5317,6 @@
                     },
                     "role": {
                         "$ref": "#/components/schemas/somo-tracker-api_internal_user.Role"
-                    },
-                    "school_id": {
-                        "type": "string"
                     }
                 }
             },
@@ -3955,6 +5367,62 @@
                     },
                     "year_group_id": {
                         "type": "string"
+                    }
+                }
+            },
+            "internal_cohortfaculty_delivery_http.addCohortFacultyRequest": {
+                "type": "object",
+                "properties": {
+                    "cohort_id": {
+                        "type": "string"
+                    },
+                    "user_ids": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "internal_cohortfaculty_delivery_http.deleteCohortFacultyRequest": {
+                "type": "object",
+                "properties": {
+                    "cohort_id": {
+                        "type": "string"
+                    },
+                    "user_ids": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "internal_cohortstudent_delivery_http.addCohortStudentsRequest": {
+                "type": "object",
+                "properties": {
+                    "cohort_id": {
+                        "type": "string"
+                    },
+                    "user_ids": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "internal_cohortstudent_delivery_http.deleteCohortStudentsRequest": {
+                "type": "object",
+                "properties": {
+                    "cohort_id": {
+                        "type": "string"
+                    },
+                    "user_ids": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
                     }
                 }
             },
@@ -4051,6 +5519,45 @@
                     },
                     "year_group_id": {
                         "type": "string"
+                    }
+                }
+            },
+            "internal_examquestion_delivery_http.addExamQuestionItemRequest": {
+                "type": "object",
+                "properties": {
+                    "question_id": {
+                        "type": "string"
+                    },
+                    "question_order": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "internal_examquestion_delivery_http.addExamQuestionsRequest": {
+                "type": "object",
+                "properties": {
+                    "exam_id": {
+                        "type": "string"
+                    },
+                    "questions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/internal_examquestion_delivery_http.addExamQuestionItemRequest"
+                        }
+                    }
+                }
+            },
+            "internal_examquestion_delivery_http.deleteExamQuestionsRequest": {
+                "type": "object",
+                "properties": {
+                    "exam_id": {
+                        "type": "string"
+                    },
+                    "question_ids": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
                     }
                 }
             },
@@ -4319,6 +5826,142 @@
                     }
                 }
             },
+            "internal_student_delivery_http.importStudentRequest": {
+                "type": "object",
+                "properties": {
+                    "cohort_id": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    }
+                }
+            },
+            "internal_studentexam_delivery_http.addStudentExamsRequest": {
+                "type": "object",
+                "properties": {
+                    "exam_session_id": {
+                        "type": "string"
+                    },
+                    "student_ids": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "internal_studentexam_delivery_http.deleteStudentExamsRequest": {
+                "type": "object",
+                "properties": {
+                    "exam_session_ids": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "student_id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "internal_studentexam_delivery_http.updateStudentExamRequest": {
+                "type": "object",
+                "properties": {
+                    "comments": {
+                        "type": "string"
+                    },
+                    "exam_session_id": {
+                        "type": "string"
+                    },
+                    "grade_range_id": {
+                        "type": "string"
+                    },
+                    "is_evaluated": {
+                        "type": "boolean"
+                    },
+                    "marks_obtained": {
+                        "type": "integer"
+                    },
+                    "percentage_obtained": {
+                        "type": "number"
+                    },
+                    "student_id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "internal_studentexamquestionattempt_delivery_http.addAttemptItemRequest": {
+                "type": "object",
+                "properties": {
+                    "answer_id": {
+                        "type": "string"
+                    },
+                    "duration_to_answer_seconds": {
+                        "type": "integer"
+                    },
+                    "question_id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "internal_studentexamquestionattempt_delivery_http.addAttemptsRequest": {
+                "type": "object",
+                "properties": {
+                    "attempts": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/internal_studentexamquestionattempt_delivery_http.addAttemptItemRequest"
+                        }
+                    },
+                    "exam_session_id": {
+                        "type": "string"
+                    },
+                    "student_id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "internal_studentexamquestionattempt_delivery_http.deleteAttemptsRequest": {
+                "type": "object",
+                "properties": {
+                    "exam_session_id": {
+                        "type": "string"
+                    },
+                    "student_id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "internal_studentexamquestionattempt_delivery_http.updateAttemptRequest": {
+                "type": "object",
+                "properties": {
+                    "answer_id": {
+                        "type": "string"
+                    },
+                    "duration_to_answer_seconds": {
+                        "type": "integer"
+                    },
+                    "exam_session_id": {
+                        "type": "string"
+                    },
+                    "marks_obtained": {
+                        "type": "integer"
+                    },
+                    "question_id": {
+                        "type": "string"
+                    },
+                    "student_id": {
+                        "type": "string"
+                    }
+                }
+            },
             "internal_subject_delivery_http.addSubjectRequest": {
                 "type": "object",
                 "properties": {
@@ -4403,9 +6046,6 @@
                     "first_name": {
                         "type": "string"
                     },
-                    "id": {
-                        "type": "string"
-                    },
                     "last_name": {
                         "type": "string"
                     },
@@ -4414,11 +6054,50 @@
                     }
                 }
             },
+            "internal_yeargroup_delivery_http.addYearGroupRequest": {
+                "type": "object",
+                "properties": {
+                    "education_system_id": {
+                        "type": "string"
+                    },
+                    "item_order": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                }
+            },
+            "internal_yeargroup_delivery_http.deleteYearGroupsByIDsRequest": {
+                "type": "object",
+                "properties": {
+                    "ids": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "internal_yeargroup_delivery_http.updateYearGroupRequest": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "item_order": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                }
+            },
             "somo-tracker-api_internal_activitylog.ActivityLog": {
                 "type": "object",
                 "properties": {
                     "activity_type": {
-                        "type": "string"
+                        "$ref": "#/components/schemas/somo-tracker-api_internal_activitylog.ActivityType"
                     },
                     "id": {
                         "type": "string"
@@ -4426,13 +6105,162 @@
                     "institute_id": {
                         "type": "string"
                     },
+                    "ip_address": {
+                        "type": "string"
+                    },
+                    "metadata": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        }
+                    },
                     "timestamp": {
+                        "type": "string"
+                    },
+                    "user_agent": {
                         "type": "string"
                     },
                     "user_id": {
                         "type": "string"
                     }
                 }
+            },
+            "somo-tracker-api_internal_activitylog.ActivityType": {
+                "type": "string",
+                "enum": [
+                    "user_login",
+                    "user_logout",
+                    "create_admin",
+                    "update_admin",
+                    "delete_admin",
+                    "create_faculty",
+                    "update_faculty",
+                    "delete_faculty",
+                    "create_student",
+                    "update_student",
+                    "delete_student",
+                    "create_guardian",
+                    "update_guardian",
+                    "delete_guardian",
+                    "create_education_system",
+                    "update_education_system",
+                    "delete_education_system",
+                    "create_year_group",
+                    "update_year_group",
+                    "delete_year_group",
+                    "create_institute",
+                    "update_institute",
+                    "delete_institute",
+                    "create_school",
+                    "update_school",
+                    "delete_school",
+                    "create_cohorts",
+                    "update_cohorts",
+                    "delete_cohorts",
+                    "create_subject",
+                    "update_subject",
+                    "delete_subject",
+                    "create_topic",
+                    "update_topic",
+                    "delete_topic",
+                    "create_exam_grade_ranges",
+                    "update_exam_grade_range",
+                    "delete_exam_grade_range",
+                    "create_exam",
+                    "update_exam",
+                    "delete_exam",
+                    "create_exam_session",
+                    "update_exam_session",
+                    "delete_exam_session",
+                    "create_student_exams",
+                    "update_student_exams",
+                    "delete_student_exams",
+                    "create_question",
+                    "update_question",
+                    "delete_question",
+                    "create_answer",
+                    "update_answer",
+                    "delete_answer",
+                    "create_exam_session_question",
+                    "update_exam_session_question",
+                    "delete_exam_session_question",
+                    "create_student_exam_question_attempts",
+                    "update_student_exam_question_attempts",
+                    "delete_student_exam_question_attempts",
+                    "create_cohort_faculty",
+                    "delete_cohort_faculty",
+                    "create_cohort_students",
+                    "delete_cohort_students",
+                    "create_exam_questions",
+                    "delete_exam_questions"
+                ],
+                "x-enum-varnames": [
+                    "ActivityTypeUserLogin",
+                    "ActivityTypeUserLogout",
+                    "ActivityTypeCreateAdmin",
+                    "ActivityTypeUpdateAdmin",
+                    "ActivityTypeDeleteAdmin",
+                    "ActivityTypeCreateFaculty",
+                    "ActivityTypeUpdateFaculty",
+                    "ActivityTypeDeleteFaculty",
+                    "ActivityTypeCreateStudent",
+                    "ActivityTypeUpdateStudent",
+                    "ActivityTypeDeleteStudent",
+                    "ActivityTypeCreateGuardian",
+                    "ActivityTypeUpdateGuardian",
+                    "ActivityTypeDeleteGuardian",
+                    "ActivityTypeCreateEducationSystem",
+                    "ActivityTypeUpdateEducationSystem",
+                    "ActivityTypeDeleteEducationSystem",
+                    "ActivityTypeCreateYearGroup",
+                    "ActivityTypeUpdateYearGroup",
+                    "ActivityTypeDeleteYearGroup",
+                    "ActivityTypeCreateInstitute",
+                    "ActivityTypeUpdateInstitute",
+                    "ActivityTypeDeleteInstitute",
+                    "ActivityTypeCreateSchool",
+                    "ActivityTypeUpdateSchool",
+                    "ActivityTypeDeleteSchool",
+                    "ActivityTypeCreateCohorts",
+                    "ActivityTypeUpdateCohorts",
+                    "ActivityTypeDeleteCohorts",
+                    "ActivityTypeCreateSubject",
+                    "ActivityTypeUpdateSubject",
+                    "ActivityTypeDeleteSubject",
+                    "ActivityTypeCreateTopic",
+                    "ActivityTypeUpdateTopic",
+                    "ActivityTypeDeleteTopic",
+                    "ActivityTypeCreateExamGradeRanges",
+                    "ActivityTypeUpdateExamGradeRange",
+                    "ActivityTypeDeleteExamGradeRange",
+                    "ActivityTypeCreateExam",
+                    "ActivityTypeUpdateExam",
+                    "ActivityTypeDeleteExam",
+                    "ActivityTypeCreateExamSession",
+                    "ActivityTypeUpdateExamSession",
+                    "ActivityTypeDeleteExamSession",
+                    "ActivityTypeCreateStudentExams",
+                    "ActivityTypeUpdateStudentExams",
+                    "ActivityTypeDeleteStudentExams",
+                    "ActivityTypeCreateQuestion",
+                    "ActivityTypeUpdateQuestion",
+                    "ActivityTypeDeleteQuestion",
+                    "ActivityTypeCreateAnswer",
+                    "ActivityTypeUpdateAnswer",
+                    "ActivityTypeDeleteAnswer",
+                    "ActivityTypeCreateExamSessionQuestion",
+                    "ActivityTypeUpdateExamSessionQuestion",
+                    "ActivityTypeDeleteExamSessionQuestion",
+                    "ActivityTypeCreateStudentExamQuestionAttempts",
+                    "ActivityTypeUpdateStudentExamQuestionAttempts",
+                    "ActivityTypeDeleteStudentExamQuestionAttempts",
+                    "ActivityTypeCreateCohortFaculty",
+                    "ActivityTypeDeleteCohortFaculty",
+                    "ActivityTypeCreateCohortStudents",
+                    "ActivityTypeDeleteCohortStudents",
+                    "ActivityTypeCreateExamQuestions",
+                    "ActivityTypeDeleteExamQuestions"
+                ]
             },
             "somo-tracker-api_internal_answer.Answer": {
                 "type": "object",
@@ -4474,6 +6302,37 @@
                     }
                 }
             },
+            "somo-tracker-api_internal_cohortfaculty.CohortFaculty": {
+                "type": "object",
+                "properties": {
+                    "assigned_at": {
+                        "type": "string"
+                    },
+                    "cohort_id": {
+                        "type": "string"
+                    },
+                    "user_id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "somo-tracker-api_internal_cohortstudent.CohortStudent": {
+                "type": "object",
+                "properties": {
+                    "cohort_id": {
+                        "type": "string"
+                    },
+                    "joined_at": {
+                        "type": "string"
+                    },
+                    "user_id": {
+                        "type": "string"
+                    },
+                    "valid_until": {
+                        "type": "string"
+                    }
+                }
+            },
             "somo-tracker-api_internal_common_apperror.ErrorResponse": {
                 "description": "Standard error envelope returned on failure.",
                 "type": "object",
@@ -4501,6 +6360,9 @@
             "somo-tracker-api_internal_exam.Exam": {
                 "type": "object",
                 "properties": {
+                    "deleted_at": {
+                        "type": "string"
+                    },
                     "description": {
                         "type": "string"
                     },
@@ -4524,6 +6386,20 @@
                     },
                     "year_group_id": {
                         "type": "string"
+                    }
+                }
+            },
+            "somo-tracker-api_internal_examquestion.ExamQuestion": {
+                "type": "object",
+                "properties": {
+                    "exam_id": {
+                        "type": "string"
+                    },
+                    "question_id": {
+                        "type": "string"
+                    },
+                    "question_order": {
+                        "type": "integer"
                     }
                 }
             },
@@ -4620,6 +6496,9 @@
                         "type": "string"
                     },
                     "id": {
+                        "type": "string"
+                    },
+                    "institute_id": {
                         "type": "string"
                     },
                     "role": {
@@ -4816,6 +6695,64 @@
                     }
                 }
             },
+            "somo-tracker-api_internal_studentexam.StudentExam": {
+                "type": "object",
+                "properties": {
+                    "comments": {
+                        "type": "string"
+                    },
+                    "exam_session_code": {
+                        "type": "string"
+                    },
+                    "exam_session_id": {
+                        "type": "string"
+                    },
+                    "grade_range_id": {
+                        "type": "string"
+                    },
+                    "institute_id": {
+                        "type": "string"
+                    },
+                    "is_evaluated": {
+                        "type": "boolean"
+                    },
+                    "marks_obtained": {
+                        "type": "integer"
+                    },
+                    "percentage_obtained": {
+                        "type": "number"
+                    },
+                    "student_id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "somo-tracker-api_internal_studentexamquestionattempt.StudentExamQuestionAttempt": {
+                "type": "object",
+                "properties": {
+                    "answer_id": {
+                        "type": "string"
+                    },
+                    "attempted_at": {
+                        "type": "string"
+                    },
+                    "duration_to_answer_seconds": {
+                        "type": "integer"
+                    },
+                    "exam_session_id": {
+                        "type": "string"
+                    },
+                    "marks_obtained": {
+                        "type": "integer"
+                    },
+                    "question_id": {
+                        "type": "string"
+                    },
+                    "student_id": {
+                        "type": "string"
+                    }
+                }
+            },
             "somo-tracker-api_internal_subject.Subject": {
                 "type": "object",
                 "properties": {
@@ -4896,6 +6833,23 @@
                         "type": "string"
                     },
                     "updated_at": {
+                        "type": "string"
+                    }
+                }
+            },
+            "somo-tracker-api_internal_yeargroup.YearGroup": {
+                "type": "object",
+                "properties": {
+                    "education_system_id": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "item_order": {
+                        "type": "integer"
+                    },
+                    "name": {
                         "type": "string"
                     }
                 }
