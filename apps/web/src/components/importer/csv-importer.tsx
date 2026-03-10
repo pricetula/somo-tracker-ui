@@ -4,11 +4,11 @@ import { useMemo, useState } from "react";
 import {
     FieldMapping,
     ValidationResult,
+    AddUser,
     autoMap,
     transform,
     validate,
 } from "@/lib/importer-engine";
-import { bulkAddStudents } from "@/features/students/api/actions";
 import { StepFileUpload } from "./step-file-upload";
 import { StepFieldMapping } from "./step-field-mapping";
 import { StepPreview } from "./step-preview";
@@ -22,7 +22,11 @@ const STEP_LABELS: Record<Step, string> = {
 };
 const STEPS: Step[] = ["upload", "mapping", "preview"];
 
-export function CsvImporter() {
+interface CsvImporterProps {
+    onImport: (users: AddUser[]) => Promise<{ success: boolean; error?: string }>;
+}
+
+export function CsvImporter({ onImport }: CsvImporterProps) {
     const [step, setStep] = useState<Step>("upload");
     const [headers, setHeaders] = useState<string[]>([]);
     const [rawRows, setRawRows] = useState<Record<string, string>[]>([]);
@@ -53,10 +57,10 @@ export function CsvImporter() {
         if (!validationResult) return;
         setImporting(true);
         setImportError(null);
-        const result = await bulkAddStudents(validationResult.data);
+        const result = await onImport(validationResult.data);
         setImporting(false);
         if (!result.success) {
-            setImportError(result.error);
+            setImportError(result.error ?? "Import failed.");
             return;
         }
         setDone(true);
@@ -66,7 +70,7 @@ export function CsvImporter() {
         return (
             <div className="flex flex-col items-center justify-center py-16 text-center space-y-2">
                 <p className="text-lg font-semibold text-green-700">Import complete!</p>
-                <p className="text-sm text-gray-500">Students have been added successfully.</p>
+                <p className="text-sm text-gray-500">Users have been added successfully.</p>
                 <button
                     className="mt-4 px-4 py-2 text-sm text-blue-600 border border-blue-300 rounded-md hover:bg-blue-50"
                     onClick={() => { setStep("upload"); setHeaders([]); setRawRows([]); setMapping({}); setDone(false); }}
