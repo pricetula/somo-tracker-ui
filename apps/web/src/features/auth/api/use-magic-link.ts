@@ -3,7 +3,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { requestMagicLink } from "@/features/auth/api/actions";
-import type { MagicLinkInput } from "@/features/auth/types/auth-schema";
+import type { MagicLinkInput } from "@/features/auth/types";
 
 export function useMagicLink() {
   return useMutation({

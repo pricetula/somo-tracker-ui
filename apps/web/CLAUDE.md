@@ -18,7 +18,7 @@ Feature-driven: `src/features/[name]/` contains api/, components/, types/
 
 ## Feature Pattern
 Standard structure (see existing features for examples):
-1. `types/index.ts` — Type aliases from OpenAPI schema
+1. `types/index.ts` — Type aliases from OpenAPI schema; also the place for Zod schemas and shared types (e.g. `Role` lives in `features/auth/types/index.ts`, NOT inline in components)
 2. `api/actions.ts` — Server Actions (validate, call apiClient, return ActionResult)
 3. `api/use-[feature].ts` — Query hooks with *Meta exports for prefetching
 4. `api/use-[feature]-mutations.ts` — Mutation hooks that invalidate queries

@@ -1,7 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { magicLinkSchema, type MagicLinkInput } from "@/features/auth/types/auth-schema";
+import { magicLinkSchema, type MagicLinkInput } from "@/features/auth/types";
 import { verifyMagicLink } from "@/features/auth/api/verify-magic-link";
 import type { ActionResult } from "@/types/action-result";
 
