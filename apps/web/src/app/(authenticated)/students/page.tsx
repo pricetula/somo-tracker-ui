@@ -6,5 +6,5 @@ export default async function StudentsPage({
   searchParams: Promise<{ search?: string }>;
 }) {
   const { search } = await searchParams;
-  return <SchoolUsersPage role="STUDENT" addHref="/students/add" addLabel="Add students" search={search} />;
+  return <SchoolUsersPage role="STUDENT" addHref="/students/add" search={search} />;
 }

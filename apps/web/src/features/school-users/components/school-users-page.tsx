@@ -12,14 +12,12 @@ import { Plus } from "lucide-react";
 interface SchoolUsersPageProps {
   role: string
   addHref: string
-  addLabel: string
   search?: string
   isRoleFilterable?: boolean
 }
 
-export async function SchoolUsersPage({ role, addHref, addLabel, search, isRoleFilterable = false }: SchoolUsersPageProps) {
+export async function SchoolUsersPage({ role, addHref, search, isRoleFilterable = false }: SchoolUsersPageProps) {
   const filters = { search: search || undefined, role };
-
   const queryClient = getQueryClient();
   await queryClient.prefetchInfiniteQuery({
     queryKey: schoolUsersQueryKey(filters),

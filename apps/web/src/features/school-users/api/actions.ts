@@ -17,7 +17,6 @@ export async function getSchoolUsers(params: SchoolUsersParams = {}): Promise<Ac
     if (params.role) query.set("role", params.role);
     if (params.limit !== undefined) query.set("limit", String(params.limit));
     if (params.offset !== undefined) query.set("offset", String(params.offset));
-
     const path = query.size ? `/school-users?${query}` : "/school-users";
     const res = await apiClient(path);
     if (!res.ok) return { success: false, error: "Failed to fetch school users.", code: res.status };

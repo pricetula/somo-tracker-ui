@@ -6,5 +6,5 @@ export default async function GuardiansPage({
   searchParams: Promise<{ search?: string }>;
 }) {
   const { search } = await searchParams;
-  return <SchoolUsersPage role="GUARDIAN" addHref="/guardians/add" addLabel="Add guardians" search={search} />;
+  return <SchoolUsersPage role="GUARDIAN" addHref="/guardians/add" search={search} />;
 }
