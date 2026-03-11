@@ -1,6 +1,5 @@
 "use client";
 
-import { CsvImporter } from "@/components/shared/importer/csv-importer";
 import {
   Dialog,
   DialogContent,
@@ -8,16 +7,17 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import type { ComponentProps } from "react";
+import type { AddUser } from "@/lib/importer-engine";
+import { UserCreator } from "./user-creator";
 
-type ImportModalProps = {
+interface UserCreatorModalProps {
   title: string;
   description: string;
-  onImport: ComponentProps<typeof CsvImporter>["onImport"];
+  onImport: (users: AddUser[]) => Promise<{ success: boolean; error?: string }>;
   onClose: () => void;
-};
+}
 
-export function ImportModal({ title, description, onImport, onClose }: ImportModalProps) {
+export function UserCreatorModal({ title, description, onImport, onClose }: UserCreatorModalProps) {
   return (
     <Dialog open onOpenChange={(open) => { if (!open) onClose(); }}>
       <DialogContent className="sm:max-w-[800px]">
@@ -25,7 +25,7 @@ export function ImportModal({ title, description, onImport, onClose }: ImportMod
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
-        <CsvImporter onImport={onImport} />
+        <UserCreator onImport={onImport} />
       </DialogContent>
     </Dialog>
   );

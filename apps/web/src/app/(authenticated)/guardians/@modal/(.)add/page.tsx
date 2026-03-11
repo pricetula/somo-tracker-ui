@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { ImportModal } from "@/components/shared/import-modal";
+import { UserCreatorModal } from "@/components/shared/user-creator/user-creator-modal";
 import { bulkAddGuardians } from "@/features/guardians/api/actions";
 
 export default function AddGuardiansModal() {
@@ -14,7 +14,7 @@ export default function AddGuardiansModal() {
   }
 
   return (
-    <ImportModal
+    <UserCreatorModal
       title="Add guardians"
       description="Upload a CSV file to import guardians into your school."
       onImport={handleImport}

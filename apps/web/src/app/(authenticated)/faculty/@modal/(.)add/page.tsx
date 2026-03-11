@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { ImportModal } from "@/components/shared/import-modal";
+import { UserCreatorModal } from "@/components/shared/user-creator/user-creator-modal";
 import { bulkAddFaculty } from "@/features/faculty/api/actions";
 
 export default function AddFacultyModal() {
@@ -14,7 +14,7 @@ export default function AddFacultyModal() {
   }
 
   return (
-    <ImportModal
+    <UserCreatorModal
       title="Add faculty"
       description="Upload a CSV file to import faculty members into your school."
       onImport={handleImport}
