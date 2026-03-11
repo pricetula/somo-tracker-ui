@@ -27,8 +27,11 @@ export default function AddGuardiansModal() {
   }
 
   return (
-    <Dialog open onOpenChange={(open) => { if (!open) handleClose(); }}>
-      <DialogContent className="max-w-2xl">
+    <Dialog
+      open
+      onOpenChange={(open) => { if (!open) handleClose(); }}
+    >
+      <DialogContent className="sm:max-w-[800px]">
         <DialogHeader>
           <DialogTitle>Add guardians</DialogTitle>
           <DialogDescription>

@@ -27,7 +27,10 @@ export default function AddStudentsModal() {
   }
 
   return (
-    <Dialog open onOpenChange={(open) => { if (!open) handleClose(); }}>
+    <Dialog
+      open
+      onOpenChange={(open) => { if (!open) handleClose(); }}
+    >
       <DialogContent className="max-w-2xl">
         <DialogHeader>
           <DialogTitle>Add students</DialogTitle>
