@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { CsvImporter } from "@/components/importer/csv-importer";
+import { CsvImporter } from "@/components/shared/importer/csv-importer";
 import { bulkAddGuardians } from "@/features/guardians/api/actions";
 import {
   Dialog,
