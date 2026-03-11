@@ -48,7 +48,6 @@ export function DynamicBreadcrumbs() {
         {!shouldCollapse &&
           crumbs.map((crumb, index) => (
             <BreadcrumbItem key={crumb.href}>
-              {index > 0 && <BreadcrumbSeparator />}
               {crumb.isLast ? (
                 <BreadcrumbPage className="max-w-[160px] truncate">
                   {crumb.label}
