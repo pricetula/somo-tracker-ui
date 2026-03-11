@@ -1,4 +1,4 @@
-import { CsvImporter } from "@/components/shared/user-creator/components/importer/csv-importer";
+import { CsvImporter } from "@/components/shared/user-creator/components/csv-importer";
 import { bulkAddFaculty } from "@/features/faculty/api/actions";
 
 export default function AddFacultyPage() {

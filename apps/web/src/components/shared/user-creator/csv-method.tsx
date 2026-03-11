@@ -1,6 +1,6 @@
 "use client";
 
-import { CsvImporter } from "@/components/shared/user-creator/components/importer/csv-importer";
+import { CsvImporter } from "@/components/shared/user-creator/components/csv-importer";
 import type { AddUser } from "@/lib/importer-engine";
 
 interface CsvMethodProps {
