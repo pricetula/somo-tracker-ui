@@ -1,4 +1,4 @@
-import { CsvImporter } from "@/components/shared/importer/csv-importer";
+import { CsvImporter } from "@/components/shared/user-creator/components/importer/csv-importer";
 import { bulkAddGuardians } from "@/features/guardians/api/actions";
 
 export default function AddGuardiansPage() {

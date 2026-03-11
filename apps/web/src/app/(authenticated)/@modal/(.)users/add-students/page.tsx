@@ -1,7 +1,7 @@
 "use client"
 
 import { useRouter } from "next/navigation"
-import { CsvImporter } from "@/components/shared/importer/csv-importer"
+import { CsvImporter } from "@/components/shared/user-creator/components/importer/csv-importer"
 import { bulkAddStudents } from "@/features/students/api/actions"
 import {
   Dialog,
