@@ -28,12 +28,9 @@ export default async function GuardiansPage({
     <RoleGuard allowedRoles={["ADMIN", "FACULTY"]}>
       <HydrationBoundary state={dehydrate(queryClient)}>
         <div className="flex flex-col h-full gap-4">
-          <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-semibold">Guardians</h1>
-            <Button asChild>
-              <Link href="/guardians/add">Add guardians</Link>
-            </Button>
-          </div>
+          <Button asChild>
+            <Link href="/guardians/add">Add guardians</Link>
+          </Button>
           <SchoolUsersFilters />
           <div className="flex-1 rounded-lg border overflow-hidden">
             <SchoolUsersList />
