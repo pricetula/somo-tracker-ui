@@ -7,15 +7,17 @@ import { SchoolUsersFilters } from "@/features/school-users/components/school-us
 import { SchoolUsersList } from "@/features/school-users/components/school-users-list";
 import { Button } from "@/components/ui/button";
 import RoleGuard from "@/features/auth/components/role-guard";
+import { Plus } from "lucide-react";
 
 interface SchoolUsersPageProps {
   role: string
   addHref: string
   addLabel: string
   search?: string
+  isRoleFilterable?: boolean
 }
 
-export async function SchoolUsersPage({ role, addHref, addLabel, search }: SchoolUsersPageProps) {
+export async function SchoolUsersPage({ role, addHref, addLabel, search, isRoleFilterable = false }: SchoolUsersPageProps) {
   const filters = { search: search || undefined, role };
 
   const queryClient = getQueryClient();
@@ -30,10 +32,14 @@ export async function SchoolUsersPage({ role, addHref, addLabel, search }: Schoo
     <RoleGuard allowedRoles={["ADMIN", "FACULTY"]}>
       <HydrationBoundary state={dehydrate(queryClient)}>
         <div className="flex flex-col h-full gap-4">
-          <Button asChild>
-            <Link href={addHref}>{addLabel}</Link>
-          </Button>
-          <SchoolUsersFilters />
+          <div className="flex justify-between">
+            <SchoolUsersFilters isRoleFilterable={isRoleFilterable} />
+            <Button asChild size="icon">
+              <Link href={addHref}>
+                <Plus href={addHref} />
+              </Link>
+            </Button>
+          </div>
           <div className="flex-1 rounded-lg border overflow-hidden">
             <SchoolUsersList />
           </div>

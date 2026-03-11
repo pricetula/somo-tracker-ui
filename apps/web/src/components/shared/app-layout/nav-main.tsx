@@ -96,7 +96,7 @@ export function NavMain() {
             <SidebarMenu>
                 {navItems.map((navItem) => {
                     const isDefaultOpen = navItem?.items?.length > 0
-                        && navItem.items.some((subItem) => subItem.url === pathname)
+                        && navItem.items.some((subItem) => pathname.startsWith(subItem.url))
                     return (
                         <NavMainItem key={navItem.title} item={navItem} isDefaultOpen={isDefaultOpen} />
                     )

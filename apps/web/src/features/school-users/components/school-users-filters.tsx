@@ -13,7 +13,11 @@ import {
 
 const ROLES = ["ADMIN", "FACULTY", "STUDENT", "GUARDIAN"] as const;
 
-export function SchoolUsersFilters() {
+interface Props {
+  isRoleFilterable?: boolean;
+}
+
+export function SchoolUsersFilters({ isRoleFilterable = false }: Props) {
   const [search, setSearch] = useQueryState("search", { defaultValue: "" });
   const [role, setRole] = useQueryState("role", { defaultValue: "" });
 
@@ -34,22 +38,24 @@ export function SchoolUsersFilters() {
         onChange={(e) => setInputValue(e.target.value)}
         className="max-w-xs"
       />
-      <Select
-        value={role || "all"}
-        onValueChange={(value) => setRole(value === "all" ? null : value)}
-      >
-        <SelectTrigger className="w-40">
-          <SelectValue placeholder="All roles" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all">All roles</SelectItem>
-          {ROLES.map((r) => (
-            <SelectItem key={r} value={r}>
-              {r.charAt(0) + r.slice(1).toLowerCase()}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+      {isRoleFilterable && (
+        <Select
+          value={role || "all"}
+          onValueChange={(value) => setRole(value === "all" ? null : value)}
+        >
+          <SelectTrigger className="w-40">
+            <SelectValue placeholder="All roles" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All roles</SelectItem>
+            {ROLES.map((r) => (
+              <SelectItem key={r} value={r}>
+                {r.charAt(0) + r.slice(1).toLowerCase()}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      )}
     </div>
   );
 }
