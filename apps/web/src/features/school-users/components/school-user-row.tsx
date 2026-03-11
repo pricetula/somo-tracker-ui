@@ -1,6 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import type { SchoolUserSearchResult } from "@/features/school-users/types";
+import { nameToColor } from "@/lib/utils/name-to-color";
 
 interface SchoolUserRowProps {
   user: SchoolUserSearchResult;
@@ -22,6 +23,8 @@ export function SchoolUserRow({ user, style }: SchoolUserRowProps) {
 
   const fullName = [user.first_name, user.last_name].filter(Boolean).join(" ") || "—";
 
+  const color = nameToColor(fullName);
+
   return (
     <div
       style={style}
@@ -29,7 +32,11 @@ export function SchoolUserRow({ user, style }: SchoolUserRowProps) {
     >
       <Avatar className="size-8 shrink-0">
         <AvatarImage src={user.photo_url} alt={fullName} />
-        <AvatarFallback className="text-xs">{initials || "?"}</AvatarFallback>
+        {
+          fullName?.length && (
+            <AvatarFallback className="text-xs text-white" style={{ backgroundColor: color }}>{initials || "?"}</AvatarFallback>
+          )
+        }
       </Avatar>
       <div className="flex-1 min-w-0">
         <p className="text-sm font-medium truncate">{fullName}</p>
