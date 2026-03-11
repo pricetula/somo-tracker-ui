@@ -15,42 +15,14 @@ import {
 } from "@/components/ui/sidebar"
 import { UsersIcon, Settings2Icon } from "lucide-react"
 
-const navItems = [
-  {
-    title: "Users",
-    url: "/students",
-    icon: <UsersIcon />,
-    items: [
-      { title: "Students", url: "/students" },
-      { title: "Guardians", url: "/guardians" },
-      { title: "Faculty", url: "/faculty" },
-    ],
-  },
-  {
-    title: "Settings",
-    url: "/settings",
-    icon: <Settings2Icon />,
-    items: [
-      { title: "System Settings", url: "/settings" },
-    ],
-  },
-]
-
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const pathname = usePathname()
-
-  const items = navItems.map((item) => ({
-    ...item,
-    isActive: item.items.some((sub) => pathname.startsWith(sub.url)),
-  }))
-
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <SchoolSwitcher />
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={items} />
+        <NavMain />
       </SidebarContent>
       <SidebarFooter>
         <NavUser />
