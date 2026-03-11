@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/sidebar"
 import { ChevronsUpDownIcon, SparklesIcon, BadgeCheckIcon, CreditCardIcon, BellIcon, LogOutIcon } from "lucide-react"
 import { useMe } from "@/features/me/api/use-me"
+import { UserAvatar } from "../user-avatar"
 
 export function NavUser() {
   const { isMobile } = useSidebar()
@@ -44,10 +45,11 @@ export function NavUser() {
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage src={avatar} alt={name} />
-                <AvatarFallback className="rounded-lg">{initials}</AvatarFallback>
-              </Avatar>
+              <UserAvatar
+                firstName={firstName}
+                lastName={lastName}
+                photoUrl={avatar}
+              />
               <div className="grid flex-1 text-start text-sm leading-tight">
                 <span className="truncate font-medium">{name}</span>
                 <span className="truncate text-xs">{email}</span>
@@ -63,10 +65,11 @@ export function NavUser() {
           >
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
-                <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={avatar} alt={name} />
-                  <AvatarFallback className="rounded-lg">{initials}</AvatarFallback>
-                </Avatar>
+                <UserAvatar
+                  firstName={firstName}
+                  lastName={lastName}
+                  photoUrl={avatar}
+                />
                 <div className="grid flex-1 text-start text-sm leading-tight">
                   <span className="truncate font-medium">{name}</span>
                   <span className="truncate text-xs">{email}</span>
