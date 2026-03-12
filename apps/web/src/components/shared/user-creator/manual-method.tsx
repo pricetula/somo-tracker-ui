@@ -4,23 +4,30 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { AddUser } from "@/lib/importer-engine";
+import type { Cohort } from "@/features/cohorts/types";
+import type { UserCreatorConfig } from "./user-creator";
 
 interface Row {
     first_name: string;
     last_name: string;
     email: string;
+    phone: string;
+    cohort_id: string;
+    registration_number: string;
 }
 
 interface ManualMethodProps {
     onImport: (users: AddUser[]) => Promise<{ success: boolean; error?: string }>;
     onReset: () => void;
+    config?: UserCreatorConfig;
+    cohorts?: Cohort[];
 }
 
 function emptyRow(): Row {
-    return { first_name: "", last_name: "", email: "" };
+    return { first_name: "", last_name: "", email: "", phone: "", cohort_id: "", registration_number: "" };
 }
 
-export function ManualMethod({ onImport, onReset }: ManualMethodProps) {
+export function ManualMethod({ onImport, onReset, config, cohorts }: ManualMethodProps) {
     const [rows, setRows] = useState<Row[]>([emptyRow()]);
     const [errors, setErrors] = useState<string[]>([]);
     const [submitting, setSubmitting] = useState(false);
@@ -57,6 +64,11 @@ export function ManualMethod({ onImport, onReset }: ManualMethodProps) {
             first_name: r.first_name.trim(),
             last_name: r.last_name.trim(),
             email: r.email.trim(),
+            ...(config?.showPhone && r.phone.trim() ? { phone: r.phone.trim() } : {}),
+            ...(config?.showCohort && r.cohort_id ? { cohort_id: r.cohort_id } : {}),
+            ...(config?.showRegistrationNumber && r.registration_number.trim()
+                ? { registration_number: r.registration_number.trim() }
+                : {}),
         }));
         const result = await onImport(users);
         setSubmitting(false);
@@ -118,6 +130,43 @@ export function ManualMethod({ onImport, onReset }: ManualMethodProps) {
                                     onChange={(e) => updateRow(i, "email", e.target.value)}
                                 />
                             </div>
+                            {config?.showPhone && (
+                                <div className="flex-1 min-w-0">
+                                    <Input
+                                        placeholder="Phone"
+                                        type="tel"
+                                        value={row.phone}
+                                        onChange={(e) => updateRow(i, "phone", e.target.value)}
+                                    />
+                                </div>
+                            )}
+                            {config?.showCohort && (
+                                <div className="flex-1 min-w-0">
+                                    <select
+                                        className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm focus:border-ring focus:outline-none focus:ring-1 focus:ring-ring"
+                                        value={row.cohort_id}
+                                        onChange={(e) => updateRow(i, "cohort_id", e.target.value)}
+                                    >
+                                        <option value="">Cohort (optional)</option>
+                                        {cohorts?.map((c) => (
+                                            <option key={c.id} value={c.id}>
+                                                {c.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            )}
+                            {config?.showRegistrationNumber && (
+                                <div className="flex-1 min-w-0">
+                                    <Input
+                                        placeholder="Reg. number"
+                                        value={row.registration_number}
+                                        onChange={(e) =>
+                                            updateRow(i, "registration_number", e.target.value)
+                                        }
+                                    />
+                                </div>
+                            )}
                             <Button
                                 variant="ghost"
                                 size="sm"

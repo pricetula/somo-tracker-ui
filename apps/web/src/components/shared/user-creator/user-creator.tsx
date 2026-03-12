@@ -3,9 +3,16 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import type { AddUser } from "@/lib/importer-engine";
+import type { Cohort } from "@/features/cohorts/types";
 import { ManualMethod } from "./manual-method";
 import { CsvMethod } from "./csv-method";
 import { ExcelMethod } from "./excel-method";
+
+export interface UserCreatorConfig {
+    showPhone?: boolean;
+    showCohort?: boolean;
+    showRegistrationNumber?: boolean;
+}
 
 type Method = "manual" | "csv" | "excel";
 
@@ -39,9 +46,11 @@ const METHOD_OPTIONS: MethodOption[] = [
 
 interface UserCreatorProps {
     onImport: (users: AddUser[]) => Promise<{ success: boolean; error?: string }>;
+    config?: UserCreatorConfig;
+    cohorts?: Cohort[];
 }
 
-export function UserCreator({ onImport }: UserCreatorProps) {
+export function UserCreator({ onImport, config, cohorts }: UserCreatorProps) {
     const [method, setMethod] = useState<Method | null>(null);
 
     function reset() {
@@ -79,8 +88,10 @@ export function UserCreator({ onImport }: UserCreatorProps) {
                 </Button>
             </div>
 
-            {method === "manual" && <ManualMethod onImport={onImport} onReset={reset} />}
-            {method === "csv" && <CsvMethod onImport={onImport} />}
+            {method === "manual" && (
+                <ManualMethod onImport={onImport} onReset={reset} config={config} cohorts={cohorts} />
+            )}
+            {method === "csv" && <CsvMethod onImport={onImport} config={config} />}
             {method === "excel" && <ExcelMethod />}
         </div>
     );

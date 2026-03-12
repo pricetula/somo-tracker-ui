@@ -19,6 +19,7 @@ export default function AddGuardiansModal() {
             description="Upload a CSV file to import guardians into your school."
             onImport={handleImport}
             onClose={() => router.back()}
+            config={{ showPhone: true }}
         />
     );
 }
