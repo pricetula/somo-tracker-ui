@@ -13,7 +13,6 @@ interface StepFieldMappingProps {
 const REQUIRED_FIELDS: { key: keyof FieldMapping; label: string }[] = [
     { key: "first_name", label: "First Name" },
     { key: "last_name", label: "Last Name" },
-    { key: "email", label: "Email" },
 ];
 
 export function StepFieldMapping({
@@ -27,7 +26,7 @@ export function StepFieldMapping({
         onMappingChange({ ...mapping, [key]: value || undefined });
     }
 
-    const canProceed = mapping.first_name || mapping.last_name || mapping.email;
+    const canProceed = mapping.first_name || mapping.last_name;
 
     return (
         <div className="space-y-6">
