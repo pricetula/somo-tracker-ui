@@ -12,8 +12,13 @@
     "build:public": "pnpm --filter public build",
     "lint": "pnpm -r lint",
     "test": "pnpm -r test",
-    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "prepare": "husky"
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint-config-prettier": "^10.1.8",
+    "husky": "^9.1.7",
+    "prettier": "^3.8.1"
+  }
 }
