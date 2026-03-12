@@ -10,13 +10,14 @@ import { SchoolUserRow } from "./school-user-row";
 const ROW_HEIGHT = 56;
 const OVERSCAN = 5;
 
-export function SchoolUsersList() {
+interface SchoolUsersListProps {
+  role: string;
+}
+
+export function SchoolUsersList({ role }: SchoolUsersListProps) {
   const [search] = useQueryState("search", { defaultValue: "" });
-  const [role] = useQueryState("role", { defaultValue: "" });
-
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
-    useInfiniteSchoolUsers({ search: search || undefined, role: role || undefined });
-
+    useInfiniteSchoolUsers({ search: search || undefined, role });
   const allItems = data?.pages.flatMap((p) => (p.success ? (p.data?.items ?? []) : [])) ?? [];
   const totalCount = (data?.pages[0]?.success ? data.pages[0].data?.total_count : undefined) ?? 0;
 

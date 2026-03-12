@@ -31,7 +31,7 @@ export async function SchoolUsersPage({ role, addHref, search, isRoleFilterable 
       <HydrationBoundary state={dehydrate(queryClient)}>
         <div className="flex flex-col h-full gap-4">
           <div className="flex justify-between">
-            <SchoolUsersFilters isRoleFilterable={isRoleFilterable} />
+            <SchoolUsersFilters role={role} />
             <Button asChild size="icon">
               <Link href={addHref}>
                 <Plus href={addHref} />
@@ -39,7 +39,7 @@ export async function SchoolUsersPage({ role, addHref, search, isRoleFilterable 
             </Button>
           </div>
           <div className="flex-1 rounded-lg border overflow-hidden">
-            <SchoolUsersList />
+            <SchoolUsersList role={role} />
           </div>
         </div>
       </HydrationBoundary>

@@ -3,10 +3,10 @@
 import { Input } from "@/components/ui/input";
 
 interface Props {
-  isRoleFilterable?: boolean;
+  role: string;
 }
 
-export function SchoolUsersFilters({ isRoleFilterable = false }: Props) {
+export function SchoolUsersFilters({ role }: Props) {
   return (
     <div className="flex gap-3">
       <Input
