@@ -3,7 +3,6 @@ import { Geist, Geist_Mono, Inter } from "next/font/google";
 import { Providers } from "@/components/shared/providers";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
-import GlobalPrefetchedQueries from "@/components/shared/global-prefetched-queries";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -31,7 +30,7 @@ export default function RootLayout({
         <html lang="en" className={inter.variable}>
             <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
                 <Providers>
-                    <GlobalPrefetchedQueries>{children}</GlobalPrefetchedQueries>
+                    {children}
                 </Providers>
                 <Toaster />
             </body>

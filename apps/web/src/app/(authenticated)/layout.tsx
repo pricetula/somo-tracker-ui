@@ -1,5 +1,6 @@
 import AuthGuard from "@/features/auth/components/auth-guard";
 import { AppLayoutServer } from "@/components/shared/app-layout/app-layout-server";
+import GlobalPrefetchedQueries from "@/components/shared/global-prefetched-queries";
 
 export default async function AuthenticatedLayout({
     children,
@@ -10,10 +11,12 @@ export default async function AuthenticatedLayout({
 }) {
     return (
         <AuthGuard checkIsOnboarded>
-            <AppLayoutServer>
-                {children}
-                {modal}
-            </AppLayoutServer>
+            <GlobalPrefetchedQueries>
+                <AppLayoutServer>
+                    {children}
+                    {modal}
+                </AppLayoutServer>
+            </GlobalPrefetchedQueries>
         </AuthGuard>
     );
 }
