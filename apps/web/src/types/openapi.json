@@ -2228,6 +2228,79 @@
                 }
             }
         },
+        "/faculty": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Imports a list of faculty members, creating user accounts, school memberships, and optional cohort assignments in a single transaction. Rows missing both first_name and last_name are skipped.",
+                "tags": [
+                    "Faculty"
+                ],
+                "summary": "Batch import faculty",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/internal_faculty_delivery_http.importFacultyRequest"
+                                }
+                            }
+                        }
+                    },
+                    "description": "List of faculty to import",
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/grade-ranges": {
             "get": {
                 "security": [
@@ -2602,6 +2675,79 @@
                     },
                     "400": {
                         "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/guardians": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Imports a list of guardians, creating user accounts and school memberships in a single transaction. Rows missing both first_name and last_name are skipped.",
+                "tags": [
+                    "Guardians"
+                ],
+                "summary": "Batch import guardians",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/internal_guardian_delivery_http.importGuardianRequest"
+                                }
+                            }
+                        }
+                    },
+                    "description": "List of guardians to import",
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -3137,7 +3283,7 @@
                         }
                     },
                     {
-                        "description": "Role filter (ADMIN, FACULTY, STUDENT, GUARDIAN)",
+                        "description": "Comma-separated role filter (e.g. ADMIN,FACULTY,STUDENT,GUARDIAN)",
                         "name": "role",
                         "in": "query",
                         "schema": {
@@ -5606,6 +5752,29 @@
                     }
                 }
             },
+            "internal_faculty_delivery_http.importFacultyRequest": {
+                "type": "object",
+                "properties": {
+                    "cohort_id": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "registration_number": {
+                        "type": "string"
+                    }
+                }
+            },
             "internal_graderange_delivery_http.addGradeRangeRequest": {
                 "type": "object",
                 "properties": {
@@ -5666,6 +5835,23 @@
                     }
                 }
             },
+            "internal_guardian_delivery_http.importGuardianRequest": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "phone": {
+                        "type": "string"
+                    }
+                }
+            },
             "internal_guardianstudent_delivery_http.addGuardianStudentRequest": {
                 "type": "object",
                 "properties": {
@@ -5699,9 +5885,6 @@
             "internal_institute_delivery_http.updateInstituteInput": {
                 "type": "object",
                 "properties": {
-                    "id": {
-                        "type": "string"
-                    },
                     "name": {
                         "type": "string"
                     }
@@ -5839,6 +6022,12 @@
                         "type": "string"
                     },
                     "last_name": {
+                        "type": "string"
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "registration_number": {
                         "type": "string"
                     }
                 }
@@ -6274,6 +6463,9 @@
                     "id": {
                         "type": "string"
                     },
+                    "institute_id": {
+                        "type": "string"
+                    },
                     "is_correct": {
                         "type": "boolean"
                     },
@@ -6418,6 +6610,9 @@
                     "id": {
                         "type": "string"
                     },
+                    "institute_id": {
+                        "type": "string"
+                    },
                     "start_time": {
                         "type": "string"
                     }
@@ -6548,6 +6743,9 @@
                         "type": "string"
                     },
                     "id": {
+                        "type": "string"
+                    },
+                    "institute_id": {
                         "type": "string"
                     },
                     "marks": {
@@ -6762,6 +6960,9 @@
                     "id": {
                         "type": "string"
                     },
+                    "institute_id": {
+                        "type": "string"
+                    },
                     "name": {
                         "type": "string"
                     },
@@ -6777,6 +6978,9 @@
                         "type": "string"
                     },
                     "id": {
+                        "type": "string"
+                    },
+                    "institute_id": {
                         "type": "string"
                     },
                     "name": {
@@ -6844,6 +7048,9 @@
                         "type": "string"
                     },
                     "id": {
+                        "type": "string"
+                    },
+                    "institute_id": {
                         "type": "string"
                     },
                     "item_order": {

@@ -2164,6 +2164,84 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/faculty": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Batch import faculty
+         * @description Imports a list of faculty members, creating user accounts, school memberships, and optional cohort assignments in a single transaction. Rows missing both first_name and last_name are skipped.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description List of faculty to import */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["internal_faculty_delivery_http.importFacultyRequest"][];
+                };
+            };
+            responses: {
+                /** @description Created */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Unprocessable Entity */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/grade-ranges": {
         parameters: {
             query?: never;
@@ -2526,6 +2604,84 @@ export interface paths {
         };
         put?: never;
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/guardians": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Batch import guardians
+         * @description Imports a list of guardians, creating user accounts and school memberships in a single transaction. Rows missing both first_name and last_name are skipped.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description List of guardians to import */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["internal_guardian_delivery_http.importGuardianRequest"][];
+                };
+            };
+            responses: {
+                /** @description Created */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Unprocessable Entity */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
         delete?: never;
         options?: never;
         head?: never;
@@ -3042,7 +3198,7 @@ export interface paths {
                 query?: {
                     /** @description Search term */
                     search?: string;
-                    /** @description Role filter (ADMIN, FACULTY, STUDENT, GUARDIAN) */
+                    /** @description Comma-separated role filter (e.g. ADMIN,FACULTY,STUDENT,GUARDIAN) */
                     role?: string;
                     /** @description Page size (default 10) */
                     limit?: number;
@@ -5134,6 +5290,14 @@ export interface components {
             id?: string;
             start_time?: string;
         };
+        "internal_faculty_delivery_http.importFacultyRequest": {
+            cohort_id?: string;
+            email?: string;
+            first_name?: string;
+            last_name?: string;
+            phone?: string;
+            registration_number?: string;
+        };
         "internal_graderange_delivery_http.addGradeRangeRequest": {
             description?: string;
             grade_order?: number;
@@ -5154,6 +5318,12 @@ export interface components {
             min_percentage?: number;
             name?: string;
         };
+        "internal_guardian_delivery_http.importGuardianRequest": {
+            email?: string;
+            first_name?: string;
+            last_name?: string;
+            phone?: string;
+        };
         "internal_guardianstudent_delivery_http.addGuardianStudentRequest": {
             guardian_id?: string;
             student_id?: string;
@@ -5166,7 +5336,6 @@ export interface components {
             name?: string;
         };
         "internal_institute_delivery_http.updateInstituteInput": {
-            id?: string;
             name?: string;
         };
         "internal_question_delivery_http.addQuestionRequest": {
@@ -5215,6 +5384,8 @@ export interface components {
             email?: string;
             first_name?: string;
             last_name?: string;
+            phone?: string;
+            registration_number?: string;
         };
         "internal_studentexam_delivery_http.addStudentExamsRequest": {
             exam_session_id?: string;
@@ -5315,6 +5486,7 @@ export interface components {
             answer_order?: number;
             description?: string;
             id?: string;
+            institute_id?: string;
             is_correct?: boolean;
             question_id?: string;
         };
@@ -5367,6 +5539,7 @@ export interface components {
             end_time?: string;
             exam_id?: string;
             id?: string;
+            institute_id?: string;
             start_time?: string;
         };
         "somo-tracker-api_internal_graderange.GradeRange": {
@@ -5413,6 +5586,7 @@ export interface components {
         "somo-tracker-api_internal_question.Question": {
             description?: string;
             id?: string;
+            institute_id?: string;
             marks?: number;
             question_type?: string;
             topic_id?: string;
@@ -5482,12 +5656,14 @@ export interface components {
         "somo-tracker-api_internal_subject.Subject": {
             description?: string;
             id?: string;
+            institute_id?: string;
             name?: string;
             year_group_id?: string;
         };
         "somo-tracker-api_internal_topic.Topic": {
             description?: string;
             id?: string;
+            institute_id?: string;
             name?: string;
             subject_id?: string;
         };
@@ -5508,6 +5684,7 @@ export interface components {
         "somo-tracker-api_internal_yeargroup.YearGroup": {
             education_system_id?: string;
             id?: string;
+            institute_id?: string;
             item_order?: number;
             name?: string;
         };
