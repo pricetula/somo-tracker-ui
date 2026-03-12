@@ -1,3 +1,7 @@
+"use client";
+
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { UserAvatar } from "@/components/shared/user-avatar";
 import { Badge } from "@/components/ui/badge";
 import type { SchoolUserSearchResult } from "@/features/school-users/types";
@@ -14,8 +18,17 @@ const ROLE_VARIANT: Record<string, "default" | "secondary" | "outline"> = {
     GUARDIAN: "outline",
 };
 
+const ROLE_HREF: Record<string, (id: string) => string> = {
+    STUDENT: (id: string) => `/students/${id}`,
+    FACULTY: (id: string) => `/faculty/${id}`,
+    ADMIN: (id: string) => `/admins/${id}`,
+    GUARDIAN: (id: string) => `/guardians/${id}`,
+};
+
 export function SchoolUserRow({ user, style }: SchoolUserRowProps) {
+    const router = useRouter();
     const fullName = [user.first_name, user.last_name].filter(Boolean).join(" ") || "—";
+    const href = user.role ? ROLE_HREF[user.role]?.(user.user_id || '') : undefined;
 
     return (
         <div
@@ -28,7 +41,18 @@ export function SchoolUserRow({ user, style }: SchoolUserRowProps) {
                 photoUrl={user.photo_url || ""}
             />
             <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium truncate">{fullName}</p>
+                {href ? (
+                    <Link
+                        href={href}
+                        prefetch={false}
+                        onMouseEnter={() => router.prefetch(href)}
+                        className="text-sm font-medium truncate hover:underline"
+                    >
+                        {fullName}
+                    </Link>
+                ) : (
+                    <p className="text-sm font-medium truncate">{fullName}</p>
+                )}
                 <p className="text-xs text-muted-foreground truncate">{user.email}</p>
             </div>
             {user.registration_number && (
