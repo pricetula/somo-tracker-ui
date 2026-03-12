@@ -1,0 +1,8 @@
+node_modules
+.next
+out
+build
+dist
+pnpm-lock.yaml
+apps/web/src/types/openapi.json
+apps/web/src/types/api.ts

@@ -1,72 +1,102 @@
-"use client"
+"use client";
 
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible"
-import {
-  SidebarGroup,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
-} from "@/components/ui/sidebar"
-import { ChevronRightIcon } from "lucide-react"
+import * as React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-export function NavMain({
-  items,
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import {
+    SidebarGroup,
+    SidebarGroupLabel,
+    SidebarMenu,
+    SidebarMenuButton,
+    SidebarMenuItem,
+    SidebarMenuSub,
+    SidebarMenuSubButton,
+    SidebarMenuSubItem,
+} from "@/components/ui/sidebar";
+import { ChevronRightIcon, Settings2Icon, UsersIcon } from "lucide-react";
+
+const navItems = [
+    {
+        title: "Users",
+        url: "/students",
+        icon: <UsersIcon />,
+        items: [
+            { title: "Students", url: "/students" },
+            { title: "Guardians", url: "/guardians" },
+            { title: "Faculty", url: "/faculty" },
+        ],
+    },
+    {
+        title: "Settings",
+        url: "/settings",
+        icon: <Settings2Icon />,
+        items: [{ title: "System Settings", url: "/settings" }],
+    },
+];
+
+function NavMainItem({
+    item,
+    isDefaultOpen,
 }: {
-  items: {
-    title: string
-    url: string
-    icon?: React.ReactNode
-    isActive?: boolean
-    items?: {
-      title: string
-      url: string
-    }[]
-  }[]
+    item: {
+        title: string;
+        url: string;
+        icon?: React.ReactNode;
+        isActive?: boolean;
+        items?: { title: string; url: string }[];
+    };
+    isDefaultOpen: boolean;
 }) {
-  return (
-    <SidebarGroup>
-      <SidebarGroupLabel>Platform</SidebarGroupLabel>
-      <SidebarMenu>
-        {items.map((item) => (
-          <Collapsible
-            key={item.title}
-            asChild
-            defaultOpen={item.isActive}
-            className="group/collapsible"
-          >
+    return (
+        <Collapsible asChild defaultOpen={isDefaultOpen} className="group/collapsible">
             <SidebarMenuItem>
-              <CollapsibleTrigger asChild>
-                <SidebarMenuButton tooltip={item.title}>
-                  {item.icon}
-                  <span>{item.title}</span>
-                  <ChevronRightIcon className="ms-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-                </SidebarMenuButton>
-              </CollapsibleTrigger>
-              <CollapsibleContent>
-                <SidebarMenuSub>
-                  {item.items?.map((subItem) => (
-                    <SidebarMenuSubItem key={subItem.title}>
-                      <SidebarMenuSubButton asChild>
-                        <a href={subItem.url}>
-                          <span>{subItem.title}</span>
-                        </a>
-                      </SidebarMenuSubButton>
-                    </SidebarMenuSubItem>
-                  ))}
-                </SidebarMenuSub>
-              </CollapsibleContent>
+                <CollapsibleTrigger asChild>
+                    <SidebarMenuButton tooltip={item.title}>
+                        {item.icon}
+                        <span>{item.title}</span>
+                        <ChevronRightIcon className="ms-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                    </SidebarMenuButton>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                    <SidebarMenuSub>
+                        {item.items?.map((subItem) => (
+                            <SidebarMenuSubItem key={subItem.title}>
+                                <SidebarMenuSubButton asChild isActive={true}>
+                                    <Link href={subItem.url}>
+                                        <span>{subItem.title}</span>
+                                    </Link>
+                                </SidebarMenuSubButton>
+                            </SidebarMenuSubItem>
+                        ))}
+                    </SidebarMenuSub>
+                </CollapsibleContent>
             </SidebarMenuItem>
-          </Collapsible>
-        ))}
-      </SidebarMenu>
-    </SidebarGroup>
-  )
+        </Collapsible>
+    );
+}
+
+export function NavMain() {
+    const pathname = usePathname();
+
+    return (
+        <SidebarGroup>
+            <SidebarGroupLabel>Platform</SidebarGroupLabel>
+            <SidebarMenu>
+                {navItems.map((navItem) => {
+                    const isDefaultOpen =
+                        navItem?.items?.length > 0 &&
+                        navItem.items.some((subItem) => pathname.startsWith(subItem.url));
+                    return (
+                        <NavMainItem
+                            key={navItem.title}
+                            item={navItem}
+                            isDefaultOpen={isDefaultOpen}
+                        />
+                    );
+                })}
+            </SidebarMenu>
+        </SidebarGroup>
+    );
 }

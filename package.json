@@ -1,19 +1,24 @@
 {
-  "name": "projects",
-  "private": true,
-  "packageManager": "pnpm@10.28.2",
-  "engines": {
-    "node": ">=18"
-  },
-  "scripts": {
-    "dev:web": "pnpm --filter web dev",
-    "dev:public": "pnpm --filter public dev",
-    "build:web": "pnpm --filter web build",
-    "build:public": "pnpm --filter public build",
-    "lint": "pnpm -r lint",
-    "test": "pnpm -r test",
-    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\""
-  },
-  "dependencies": {},
-  "devDependencies": {}
+    "name": "projects",
+    "private": true,
+    "packageManager": "pnpm@10.28.2",
+    "engines": {
+        "node": ">=18"
+    },
+    "scripts": {
+        "dev:web": "pnpm --filter web dev",
+        "dev:public": "pnpm --filter public dev",
+        "build:web": "pnpm --filter web build",
+        "build:public": "pnpm --filter public build",
+        "lint": "pnpm -r lint",
+        "test": "pnpm -r test",
+        "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+        "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
+        "prepare": "husky"
+    },
+    "devDependencies": {
+        "eslint-config-prettier": "^10.1.8",
+        "husky": "^9.1.7",
+        "prettier": "^3.8.1"
+    }
 }

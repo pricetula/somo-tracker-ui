@@ -292,8 +292,8 @@ export interface paths {
         get?: never;
         put?: never;
         /**
-         * Send invitation email
-         * @description Sends an invitation email to a new user to join the caller's school. Requires authentication.
+         * Send invitation emails
+         * @description Sends invitation emails to one or more recipients to join the caller's school. Requires authentication.
          */
         post: {
             parameters: {
@@ -302,10 +302,10 @@ export interface paths {
                 path?: never;
                 cookie?: never;
             };
-            /** @description Recipient email, school ID and role */
+            /** @description List of recipients with email and role */
             requestBody: {
                 content: {
-                    "application/json": components["schemas"]["internal_auth_delivery_http.send_invitation_email_input"];
+                    "application/json": components["schemas"]["internal_auth_delivery_http.send_invitation_email_input"][];
                 };
             };
             responses: {
@@ -593,6 +593,356 @@ export interface paths {
                 };
             };
         };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/cohort-faculty": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Add cohort faculty
+         * @description Assigns one or more faculty members to a cohort.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description Cohort faculty assignment payload */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["internal_cohortfaculty_delivery_http.addCohortFacultyRequest"];
+                };
+            };
+            responses: {
+                /** @description Created */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_cohortfaculty.CohortFaculty"][];
+                    };
+                };
+                /** @description Unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Unprocessable Entity */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        /**
+         * Delete cohort faculty
+         * @description Removes one or more faculty members from a cohort.
+         */
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description Delete payload */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["internal_cohortfaculty_delivery_http.deleteCohortFacultyRequest"];
+                };
+            };
+            responses: {
+                /** @description No Content */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Unprocessable Entity */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/cohort-faculty/{cohort_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get cohort faculty
+         * @description Returns all faculty members assigned to a cohort.
+         */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Cohort UUID */
+                    cohort_id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_cohortfaculty.CohortFaculty"][];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/cohort-students": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Add cohort students
+         * @description Assigns one or more students to a cohort.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description Cohort student assignment payload */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["internal_cohortstudent_delivery_http.addCohortStudentsRequest"];
+                };
+            };
+            responses: {
+                /** @description Created */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_cohortstudent.CohortStudent"][];
+                    };
+                };
+                /** @description Unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Unprocessable Entity */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        /**
+         * Delete cohort students
+         * @description Removes one or more students from a cohort.
+         */
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description Delete payload */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["internal_cohortstudent_delivery_http.deleteCohortStudentsRequest"];
+                };
+            };
+            responses: {
+                /** @description No Content */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Unprocessable Entity */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/cohort-students/{cohort_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get cohort students
+         * @description Returns all students assigned to a cohort.
+         */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Cohort UUID */
+                    cohort_id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_cohortstudent.CohortStudent"][];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -1079,6 +1429,172 @@ export interface paths {
                 };
                 /** @description Unprocessable Entity */
                 422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/exam-questions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Add exam questions
+         * @description Assigns one or more questions to an exam.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description Exam questions payload */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["internal_examquestion_delivery_http.addExamQuestionsRequest"];
+                };
+            };
+            responses: {
+                /** @description Created */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_examquestion.ExamQuestion"][];
+                    };
+                };
+                /** @description Unprocessable Entity */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        /**
+         * Delete exam questions
+         * @description Removes one or more questions from an exam.
+         */
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description Delete payload */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["internal_examquestion_delivery_http.deleteExamQuestionsRequest"];
+                };
+            };
+            responses: {
+                /** @description No Content */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Unprocessable Entity */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/exam-questions/{exam_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get exam questions
+         * @description Returns all questions assigned to an exam.
+         */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Exam UUID */
+                    exam_id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_examquestion.ExamQuestion"][];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -2984,6 +3500,579 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/student-exam-question-attempts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Update student exam question attempt
+         * @description Updates a student's answer and marks for a question.
+         */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description Update payload */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["internal_studentexamquestionattempt_delivery_http.updateAttemptRequest"];
+                };
+            };
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_studentexamquestionattempt.StudentExamQuestionAttempt"];
+                    };
+                };
+                /** @description Unprocessable Entity */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        /**
+         * Add student exam question attempts
+         * @description Records one or more question attempts for a student exam.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description Attempts payload */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["internal_studentexamquestionattempt_delivery_http.addAttemptsRequest"];
+                };
+            };
+            responses: {
+                /** @description Created */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_studentexamquestionattempt.StudentExamQuestionAttempt"][];
+                    };
+                };
+                /** @description Unprocessable Entity */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        /**
+         * Delete student exam question attempts
+         * @description Deletes all question attempts for a given student and exam session.
+         */
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description Delete payload */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["internal_studentexamquestionattempt_delivery_http.deleteAttemptsRequest"];
+                };
+            };
+            responses: {
+                /** @description No Content */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Unprocessable Entity */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/student-exam-question-attempts/{student_id}/{exam_session_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get student exam question attempts
+         * @description Returns all question attempts for a given student and exam session.
+         */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Student UUID */
+                    student_id: string;
+                    /** @description ExamSession UUID */
+                    exam_session_id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_studentexamquestionattempt.StudentExamQuestionAttempt"][];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/student-exams": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Update student exam
+         * @description Updates evaluation details for a student exam.
+         */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description Student exam update payload */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["internal_studentexam_delivery_http.updateStudentExamRequest"];
+                };
+            };
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_studentexam.StudentExam"];
+                    };
+                };
+                /** @description Unprocessable Entity */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        /**
+         * Add student exams
+         * @description Registers one or more students for an exam session.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description Student exam registration payload */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["internal_studentexam_delivery_http.addStudentExamsRequest"];
+                };
+            };
+            responses: {
+                /** @description Created */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_studentexam.StudentExam"][];
+                    };
+                };
+                /** @description Unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Unprocessable Entity */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        /**
+         * Delete student exams
+         * @description Removes one or more student exam registrations.
+         */
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description Delete payload */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["internal_studentexam_delivery_http.deleteStudentExamsRequest"];
+                };
+            };
+            responses: {
+                /** @description No Content */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Unprocessable Entity */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/student-exams/session/{exam_session_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get student exams by exam session
+         * @description Returns all student exams for a given exam session.
+         */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description ExamSession UUID */
+                    exam_session_id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_studentexam.StudentExam"][];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/student-exams/student/{student_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get student exams by student
+         * @description Returns all exams for a given student.
+         */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Student UUID */
+                    student_id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_studentexam.StudentExam"][];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/students": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Batch import students
+         * @description Imports a list of students, creating user accounts, school memberships, and optional cohort enrollments in a single transaction. Rows missing both first_name and last_name are skipped.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description List of students to import */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["internal_student_delivery_http.importStudentRequest"][];
+                };
+            };
+            responses: {
+                /** @description Created */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Unprocessable Entity */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/subjects": {
         parameters: {
             query?: never;
@@ -3668,6 +4757,262 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/year-groups": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get year groups by education system
+         * @description Returns all year groups for a given education system UUID.
+         */
+        get: {
+            parameters: {
+                query: {
+                    /** @description EducationSystem UUID */
+                    education_system_id: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_yeargroup.YearGroup"][];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        /**
+         * Update year group
+         * @description Updates a year group by UUID.
+         */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description Year group update payload */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["internal_yeargroup_delivery_http.updateYearGroupRequest"];
+                };
+            };
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_yeargroup.YearGroup"];
+                    };
+                };
+                /** @description Unprocessable Entity */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        /**
+         * Add year groups
+         * @description Creates one or more year groups under an education system.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description Array of year groups to create */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["internal_yeargroup_delivery_http.addYearGroupRequest"][];
+                };
+            };
+            responses: {
+                /** @description Created */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_yeargroup.YearGroup"][];
+                    };
+                };
+                /** @description Unprocessable Entity */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        /**
+         * Delete year groups
+         * @description Deletes one or more year groups by UUID.
+         */
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description IDs to delete */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["internal_yeargroup_delivery_http.deleteYearGroupsByIDsRequest"];
+                };
+            };
+            responses: {
+                /** @description No Content */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Unprocessable Entity */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "*/*": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/year-groups/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get year group by ID
+         * @description Returns a single year group by UUID.
+         */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description YearGroup UUID */
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_yeargroup.YearGroup"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -3696,7 +5041,6 @@ export interface components {
         "internal_auth_delivery_http.send_invitation_email_input": {
             email?: string;
             role?: components["schemas"]["somo-tracker-api_internal_user.Role"];
-            school_id?: string;
         };
         "internal_auth_delivery_http.verify_token_input": {
             token?: string;
@@ -3714,6 +5058,22 @@ export interface components {
             id?: string;
             name?: string;
             year_group_id?: string;
+        };
+        "internal_cohortfaculty_delivery_http.addCohortFacultyRequest": {
+            cohort_id?: string;
+            user_ids?: string[];
+        };
+        "internal_cohortfaculty_delivery_http.deleteCohortFacultyRequest": {
+            cohort_id?: string;
+            user_ids?: string[];
+        };
+        "internal_cohortstudent_delivery_http.addCohortStudentsRequest": {
+            cohort_id?: string;
+            user_ids?: string[];
+        };
+        "internal_cohortstudent_delivery_http.deleteCohortStudentsRequest": {
+            cohort_id?: string;
+            user_ids?: string[];
         };
         "internal_educationsystem_delivery_http.addEducationSystemRequest": {
             description?: string;
@@ -3746,6 +5106,18 @@ export interface components {
             name?: string;
             subject_id?: string;
             year_group_id?: string;
+        };
+        "internal_examquestion_delivery_http.addExamQuestionItemRequest": {
+            question_id?: string;
+            question_order?: number;
+        };
+        "internal_examquestion_delivery_http.addExamQuestionsRequest": {
+            exam_id?: string;
+            questions?: components["schemas"]["internal_examquestion_delivery_http.addExamQuestionItemRequest"][];
+        };
+        "internal_examquestion_delivery_http.deleteExamQuestionsRequest": {
+            exam_id?: string;
+            question_ids?: string[];
         };
         "internal_examsession_delivery_http.addExamSessionRequest": {
             date?: string;
@@ -3838,6 +5210,51 @@ export interface components {
             role?: components["schemas"]["somo-tracker-api_internal_user.Role"];
             user_id?: string;
         };
+        "internal_student_delivery_http.importStudentRequest": {
+            cohort_id?: string;
+            email?: string;
+            first_name?: string;
+            last_name?: string;
+        };
+        "internal_studentexam_delivery_http.addStudentExamsRequest": {
+            exam_session_id?: string;
+            student_ids?: string[];
+        };
+        "internal_studentexam_delivery_http.deleteStudentExamsRequest": {
+            exam_session_ids?: string[];
+            student_id?: string;
+        };
+        "internal_studentexam_delivery_http.updateStudentExamRequest": {
+            comments?: string;
+            exam_session_id?: string;
+            grade_range_id?: string;
+            is_evaluated?: boolean;
+            marks_obtained?: number;
+            percentage_obtained?: number;
+            student_id?: string;
+        };
+        "internal_studentexamquestionattempt_delivery_http.addAttemptItemRequest": {
+            answer_id?: string;
+            duration_to_answer_seconds?: number;
+            question_id?: string;
+        };
+        "internal_studentexamquestionattempt_delivery_http.addAttemptsRequest": {
+            attempts?: components["schemas"]["internal_studentexamquestionattempt_delivery_http.addAttemptItemRequest"][];
+            exam_session_id?: string;
+            student_id?: string;
+        };
+        "internal_studentexamquestionattempt_delivery_http.deleteAttemptsRequest": {
+            exam_session_id?: string;
+            student_id?: string;
+        };
+        "internal_studentexamquestionattempt_delivery_http.updateAttemptRequest": {
+            answer_id?: string;
+            duration_to_answer_seconds?: number;
+            exam_session_id?: string;
+            marks_obtained?: number;
+            question_id?: string;
+            student_id?: string;
+        };
         "internal_subject_delivery_http.addSubjectRequest": {
             description?: string;
             name?: string;
@@ -3866,17 +5283,34 @@ export interface components {
         };
         "internal_user_delivery_http.updateUserRequest": {
             first_name?: string;
-            id?: string;
             last_name?: string;
             phone?: string;
         };
+        "internal_yeargroup_delivery_http.addYearGroupRequest": {
+            education_system_id?: string;
+            item_order?: number;
+            name?: string;
+        };
+        "internal_yeargroup_delivery_http.deleteYearGroupsByIDsRequest": {
+            ids?: string[];
+        };
+        "internal_yeargroup_delivery_http.updateYearGroupRequest": {
+            id?: string;
+            item_order?: number;
+            name?: string;
+        };
         "somo-tracker-api_internal_activitylog.ActivityLog": {
-            activity_type?: string;
+            activity_type?: components["schemas"]["somo-tracker-api_internal_activitylog.ActivityType"];
             id?: string;
             institute_id?: string;
+            ip_address?: string;
+            metadata?: number[];
             timestamp?: string;
+            user_agent?: string;
             user_id?: string;
         };
+        /** @enum {string} */
+        "somo-tracker-api_internal_activitylog.ActivityType": "user_login" | "user_logout" | "create_admin" | "update_admin" | "delete_admin" | "create_faculty" | "update_faculty" | "delete_faculty" | "create_student" | "update_student" | "delete_student" | "create_guardian" | "update_guardian" | "delete_guardian" | "create_education_system" | "update_education_system" | "delete_education_system" | "create_year_group" | "update_year_group" | "delete_year_group" | "create_institute" | "update_institute" | "delete_institute" | "create_school" | "update_school" | "delete_school" | "create_cohorts" | "update_cohorts" | "delete_cohorts" | "create_subject" | "update_subject" | "delete_subject" | "create_topic" | "update_topic" | "delete_topic" | "create_exam_grade_ranges" | "update_exam_grade_range" | "delete_exam_grade_range" | "create_exam" | "update_exam" | "delete_exam" | "create_exam_session" | "update_exam_session" | "delete_exam_session" | "create_student_exams" | "update_student_exams" | "delete_student_exams" | "create_question" | "update_question" | "delete_question" | "create_answer" | "update_answer" | "delete_answer" | "create_exam_session_question" | "update_exam_session_question" | "delete_exam_session_question" | "create_student_exam_question_attempts" | "update_student_exam_question_attempts" | "delete_student_exam_question_attempts" | "create_cohort_faculty" | "delete_cohort_faculty" | "create_cohort_students" | "delete_cohort_students" | "create_exam_questions" | "delete_exam_questions";
         "somo-tracker-api_internal_answer.Answer": {
             answer_order?: number;
             description?: string;
@@ -3891,6 +5325,17 @@ export interface components {
             school_id?: string;
             year_group_id?: string;
         };
+        "somo-tracker-api_internal_cohortfaculty.CohortFaculty": {
+            assigned_at?: string;
+            cohort_id?: string;
+            user_id?: string;
+        };
+        "somo-tracker-api_internal_cohortstudent.CohortStudent": {
+            cohort_id?: string;
+            joined_at?: string;
+            user_id?: string;
+            valid_until?: string;
+        };
         /** @description Standard error envelope returned on failure. */
         "somo-tracker-api_internal_common_apperror.ErrorResponse": {
             /** @example something went wrong */
@@ -3902,6 +5347,7 @@ export interface components {
             name?: string;
         };
         "somo-tracker-api_internal_exam.Exam": {
+            deleted_at?: string;
             description?: string;
             id?: string;
             institute_id?: string;
@@ -3910,6 +5356,11 @@ export interface components {
             name?: string;
             subject_id?: string;
             year_group_id?: string;
+        };
+        "somo-tracker-api_internal_examquestion.ExamQuestion": {
+            exam_id?: string;
+            question_id?: string;
+            question_order?: number;
         };
         "somo-tracker-api_internal_examsession.ExamSession": {
             date?: string;
@@ -3944,6 +5395,7 @@ export interface components {
             email?: string;
             expires_at?: string;
             id?: string;
+            institute_id?: string;
             role?: components["schemas"]["somo-tracker-api_internal_user.Role"];
             school_id?: string;
             updated_at?: string;
@@ -4007,6 +5459,26 @@ export interface components {
             role?: components["schemas"]["somo-tracker-api_internal_user.Role"];
             user_id?: string;
         };
+        "somo-tracker-api_internal_studentexam.StudentExam": {
+            comments?: string;
+            exam_session_code?: string;
+            exam_session_id?: string;
+            grade_range_id?: string;
+            institute_id?: string;
+            is_evaluated?: boolean;
+            marks_obtained?: number;
+            percentage_obtained?: number;
+            student_id?: string;
+        };
+        "somo-tracker-api_internal_studentexamquestionattempt.StudentExamQuestionAttempt": {
+            answer_id?: string;
+            attempted_at?: string;
+            duration_to_answer_seconds?: number;
+            exam_session_id?: string;
+            marks_obtained?: number;
+            question_id?: string;
+            student_id?: string;
+        };
         "somo-tracker-api_internal_subject.Subject": {
             description?: string;
             id?: string;
@@ -4032,6 +5504,12 @@ export interface components {
             phone?: string;
             photo_url?: string;
             updated_at?: string;
+        };
+        "somo-tracker-api_internal_yeargroup.YearGroup": {
+            education_system_id?: string;
+            id?: string;
+            item_order?: number;
+            name?: string;
         };
     };
     responses: never;

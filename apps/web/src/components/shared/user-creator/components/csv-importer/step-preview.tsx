@@ -13,7 +13,13 @@ interface StepPreviewProps {
 
 const PREVIEW_LIMIT = 20;
 
-export function StepPreview({ result, onConfirm, onBack, importing, importError }: StepPreviewProps) {
+export function StepPreview({
+    result,
+    onConfirm,
+    onBack,
+    importing,
+    importError,
+}: StepPreviewProps) {
     const { preview, validCount, skippedCount } = result;
     const total = validCount + skippedCount;
     const rows = preview.slice(0, PREVIEW_LIMIT);
@@ -22,9 +28,15 @@ export function StepPreview({ result, onConfirm, onBack, importing, importError 
         <div className="space-y-4">
             {/* Summary bar */}
             <div className="flex gap-6 rounded-lg bg-gray-50 border border-gray-200 px-4 py-3 text-sm">
-                <span className="text-gray-600">Total: <strong>{total}</strong></span>
-                <span className="text-green-700">Valid: <strong>{validCount}</strong></span>
-                <span className="text-red-600">Skipped: <strong>{skippedCount}</strong></span>
+                <span className="text-gray-600">
+                    Total: <strong>{total}</strong>
+                </span>
+                <span className="text-green-700">
+                    Valid: <strong>{validCount}</strong>
+                </span>
+                <span className="text-red-600">
+                    Skipped: <strong>{skippedCount}</strong>
+                </span>
             </div>
 
             {/* Preview table */}
@@ -46,16 +58,25 @@ export function StepPreview({ result, onConfirm, onBack, importing, importError 
                                 className={row.status === "skipped" ? "bg-red-50" : "bg-white"}
                             >
                                 <td className="px-4 py-2 text-gray-400">{row.index + 1}</td>
-                                <td className="px-4 py-2">{row.first_name || <span className="text-gray-300">—</span>}</td>
-                                <td className="px-4 py-2">{row.last_name || <span className="text-gray-300">—</span>}</td>
-                                <td className="px-4 py-2">{row.email || <span className="text-gray-300">—</span>}</td>
+                                <td className="px-4 py-2">
+                                    {row.first_name || <span className="text-gray-300">—</span>}
+                                </td>
+                                <td className="px-4 py-2">
+                                    {row.last_name || <span className="text-gray-300">—</span>}
+                                </td>
+                                <td className="px-4 py-2">
+                                    {row.email || <span className="text-gray-300">—</span>}
+                                </td>
                                 <td className="px-4 py-2">
                                     {row.status === "ready" ? (
                                         <span className="inline-flex items-center gap-1 text-green-700 font-medium">
                                             <CheckCircle className="w-3.5 h-3.5" /> Ready
                                         </span>
                                     ) : (
-                                        <span className="inline-flex items-center gap-1 text-red-600 font-medium" title={row.skipReason}>
+                                        <span
+                                            className="inline-flex items-center gap-1 text-red-600 font-medium"
+                                            title={row.skipReason}
+                                        >
                                             <XCircle className="w-3.5 h-3.5" /> Skipped
                                         </span>
                                     )}
@@ -71,9 +92,7 @@ export function StepPreview({ result, onConfirm, onBack, importing, importError 
                 )}
             </div>
 
-            {importError && (
-                <p className="text-sm text-red-600">{importError}</p>
-            )}
+            {importError && <p className="text-sm text-red-600">{importError}</p>}
             <div className="flex justify-between pt-2">
                 <button
                     onClick={onBack}

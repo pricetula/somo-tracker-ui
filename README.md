@@ -2,10 +2,10 @@
 
 **SomoTracker** is a modern academic progression platform. This monorepo contains two frontend applications managed with [pnpm workspaces](https://pnpm.io/workspaces).
 
-| App | Path | Framework | Purpose |
-|-----|------|-----------|---------|
-| `web` | `apps/web` | Next.js (App Router) | Authenticated product dashboard |
-| `public` | `apps/public` | SvelteKit | Marketing website |
+| App      | Path          | Framework            | Purpose                         |
+| -------- | ------------- | -------------------- | ------------------------------- |
+| `web`    | `apps/web`    | Next.js (App Router) | Authenticated product dashboard |
+| `public` | `apps/public` | SvelteKit            | Marketing website               |
 
 ---
 
@@ -65,6 +65,7 @@ Next.js 16 App Router app for authenticated users. Feature-driven architecture.
 **Stack:** Next.js · React 19 · TanStack Query v5 · Zustand · React Hook Form · Zod · Tailwind CSS · Shadcn
 
 **Structure:**
+
 ```
 src/
 ├── app/
@@ -83,6 +84,7 @@ src/
 ```
 
 **Sync API types from backend:**
+
 ```bash
 pnpm --filter web types:sync
 ```
@@ -96,6 +98,7 @@ SvelteKit marketing site. Minimal and isolated from the product app.
 **Stack:** SvelteKit 2 · Svelte 5 · Tailwind CSS · Bits UI
 
 **Structure:**
+
 ```
 src/
 ├── routes/          # File-based routing

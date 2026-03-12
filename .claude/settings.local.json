@@ -1,11 +1,11 @@
 {
-  "permissions": {
-    "allow": [
-      "Bash(sudo tee:*)",
-      "Bash(/dev/null:*)",
-      "Bash(pnpm install:*)",
-      "Bash(grep:*)",
-      "Bash(python3:*)"
-    ]
-  }
+    "permissions": {
+        "allow": [
+            "Bash(sudo tee:*)",
+            "Bash(/dev/null:*)",
+            "Bash(pnpm install:*)",
+            "Bash(grep:*)",
+            "Bash(python3:*)"
+        ]
+    }
 }

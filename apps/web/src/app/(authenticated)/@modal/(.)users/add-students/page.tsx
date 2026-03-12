@@ -1,33 +1,39 @@
-"use client"
+"use client";
 
-import { useRouter } from "next/navigation"
-import { CsvImporter } from "@/components/importer/csv-importer"
+import { useRouter } from "next/navigation";
+import { CsvImporter } from "@/components/shared/user-creator/components/csv-importer";
+import { bulkAddStudents } from "@/features/students/api/actions";
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog"
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogDescription,
+} from "@/components/ui/dialog";
 
 export default function AddStudentsModal() {
-  const router = useRouter()
+    const router = useRouter();
 
-  function handleClose() {
-    router.back()
-  }
+    function handleClose() {
+        router.back();
+    }
 
-  return (
-    <Dialog open onOpenChange={(open) => { if (!open) handleClose() }}>
-      <DialogContent className="max-w-2xl">
-        <DialogHeader>
-          <DialogTitle>Add students</DialogTitle>
-          <DialogDescription>
-            Upload a CSV file to import students into your school.
-          </DialogDescription>
-        </DialogHeader>
-        <CsvImporter />
-      </DialogContent>
-    </Dialog>
-  )
+    return (
+        <Dialog
+            open
+            onOpenChange={(open) => {
+                if (!open) handleClose();
+            }}
+        >
+            <DialogContent className="max-w-2xl">
+                <DialogHeader>
+                    <DialogTitle>Add students</DialogTitle>
+                    <DialogDescription>
+                        Upload a CSV file to import students into your school.
+                    </DialogDescription>
+                </DialogHeader>
+                <CsvImporter onImport={bulkAddStudents} />
+            </DialogContent>
+        </Dialog>
+    );
 }
