@@ -94,20 +94,15 @@ export function validate(mappedRows: Record<string, string>[]): ValidationResult
                 status: "skipped",
                 skipReason: "Missing first and last name",
             });
-        } else if (!email) {
-            preview.push({
-                index: i,
+        } else {
+            preview.push({ index: i, first_name, last_name, email, phone, registration_number, status: "ready" });
+            data.push({
                 first_name,
                 last_name,
                 email,
-                phone,
-                registration_number,
-                status: "skipped",
-                skipReason: "Missing email",
+                ...(phone ? { phone } : {}),
+                ...(registration_number ? { registration_number } : {}),
             });
-        } else {
-            preview.push({ index: i, first_name, last_name, email, phone, registration_number, status: "ready" });
-            data.push({ first_name, last_name, email, ...(phone ? { phone } : {}), ...(registration_number ? { registration_number } : {}) });
         }
     }
 

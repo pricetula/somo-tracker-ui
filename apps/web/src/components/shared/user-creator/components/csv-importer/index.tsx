@@ -45,7 +45,7 @@ export function CsvImporter({ onImport, config }: CsvImporterProps) {
     }
 
     const validationResult = useMemo<ValidationResult | null>(() => {
-        if (!mapping.first_name && !mapping.last_name && !mapping.email) return null;
+        if (!mapping.first_name && !mapping.last_name) return null;
         const full: FieldMapping = {
             first_name: mapping.first_name ?? "",
             last_name: mapping.last_name ?? "",

@@ -17,6 +17,10 @@ const REQUIRED_FIELDS: { key: keyof FieldMapping; label: string }[] = [
     { key: "last_name", label: "Last Name" },
 ];
 
+const BASE_OPTIONAL_FIELDS: { key: keyof FieldMapping; label: string }[] = [
+    { key: "email", label: "Email" },
+];
+
 export function StepFieldMapping({
     headers,
     mapping,
@@ -32,6 +36,7 @@ export function StepFieldMapping({
     const canProceed = mapping.first_name || mapping.last_name;
 
     const optionalFields: { key: keyof FieldMapping; label: string }[] = [
+        ...BASE_OPTIONAL_FIELDS,
         ...(config?.showPhone ? [{ key: "phone" as keyof FieldMapping, label: "Phone" }] : []),
         ...(config?.showRegistrationNumber
             ? [{ key: "registration_number" as keyof FieldMapping, label: "Registration Number" }]

@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { UserCreatorModal } from "@/components/shared/user-creator/user-creator-modal";
 import { bulkAddGuardians } from "@/features/guardians/api/actions";
+import { USER_CREATOR_CONFIG } from "../../configs";
 
 export default function AddGuardiansModal() {
     const router = useRouter();
@@ -19,7 +20,7 @@ export default function AddGuardiansModal() {
             description="Upload a CSV file to import guardians into your school."
             onImport={handleImport}
             onClose={() => router.back()}
-            config={{ showPhone: true }}
+            config={USER_CREATOR_CONFIG}
         />
     );
 }

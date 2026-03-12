@@ -6,6 +6,7 @@ import { UserCreatorModal } from "@/components/shared/user-creator/user-creator-
 import { bulkAddFaculty } from "@/features/faculty/api/actions";
 import { fetchCohorts } from "@/features/cohorts/api/fetch-cohorts";
 import { cohortsQueryKey } from "@/features/cohorts/api/use-cohorts";
+import { USER_CREATOR_CONFIG } from "../../configs";
 
 export default function AddFacultyModal() {
     const router = useRouter();
@@ -27,7 +28,7 @@ export default function AddFacultyModal() {
             description="Upload a CSV file to import faculty members into your school."
             onImport={handleImport}
             onClose={() => router.back()}
-            config={{ showPhone: true, showCohort: true, showRegistrationNumber: true }}
+            config={USER_CREATOR_CONFIG}
             cohorts={cohorts}
         />
     );
