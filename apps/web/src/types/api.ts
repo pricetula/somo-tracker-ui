@@ -61,6 +61,84 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/admins/{user_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get admin profile
+         * @description Returns an admin's profile. School scope is derived from the authenticated user.
+         */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Admin user ID */
+                    user_id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_schooluser.AdminProfile"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/answers": {
         parameters: {
             query?: never;
@@ -2242,6 +2320,84 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/faculty/{user_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get faculty profile
+         * @description Returns a faculty member's profile with their assigned cohorts. School scope is derived from the authenticated user.
+         */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Faculty user ID */
+                    user_id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_schooluser.FacultyProfile"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/grade-ranges": {
         parameters: {
             query?: never;
@@ -2682,6 +2838,84 @@ export interface paths {
                 };
             };
         };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/guardians/{user_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get guardian profile
+         * @description Returns a guardian's profile with their linked students. School scope is derived from the authenticated user.
+         */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Guardian user ID */
+                    user_id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_schooluser.GuardianProfile"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -4229,6 +4463,84 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/students/{user_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get student profile
+         * @description Returns a student's profile with their cohorts and linked guardians. School scope is derived from the authenticated user.
+         */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Student user ID */
+                    user_id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_schooluser.StudentProfile"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/subjects": {
         parameters: {
             query?: never;
@@ -5607,10 +5919,45 @@ export interface components {
         };
         /** @enum {string} */
         "somo-tracker-api_internal_school.SchoolType": "LEARNING_INSTITUTE" | "HOME_SCHOOL" | "ORGANIZATION";
+        "somo-tracker-api_internal_schooluser.AdminProfile": {
+            created_at?: string;
+            email?: string;
+            first_name?: string;
+            id?: string;
+            last_name?: string;
+            phone?: string;
+            photo_url?: string;
+            role?: components["schemas"]["somo-tracker-api_internal_user.Role"];
+            updated_at?: string;
+        };
         "somo-tracker-api_internal_schooluser.CohortInfo": {
             cohort_id?: string;
             cohort_name?: string;
             year_group?: string;
+        };
+        "somo-tracker-api_internal_schooluser.FacultyProfile": {
+            cohorts?: components["schemas"]["somo-tracker-api_internal_schooluser.CohortInfo"][];
+            created_at?: string;
+            email?: string;
+            first_name?: string;
+            id?: string;
+            last_name?: string;
+            phone?: string;
+            photo_url?: string;
+            role?: components["schemas"]["somo-tracker-api_internal_user.Role"];
+            updated_at?: string;
+        };
+        "somo-tracker-api_internal_schooluser.GuardianProfile": {
+            created_at?: string;
+            email?: string;
+            first_name?: string;
+            id?: string;
+            last_name?: string;
+            phone?: string;
+            photo_url?: string;
+            role?: components["schemas"]["somo-tracker-api_internal_user.Role"];
+            students?: components["schemas"]["somo-tracker-api_internal_schooluser.UserRef"][];
+            updated_at?: string;
         };
         "somo-tracker-api_internal_schooluser.SchoolUser": {
             registration_number?: string;
@@ -5632,6 +5979,26 @@ export interface components {
             registration_number?: string;
             role?: components["schemas"]["somo-tracker-api_internal_user.Role"];
             user_id?: string;
+        };
+        "somo-tracker-api_internal_schooluser.StudentProfile": {
+            cohorts?: components["schemas"]["somo-tracker-api_internal_schooluser.CohortInfo"][];
+            created_at?: string;
+            email?: string;
+            first_name?: string;
+            guardians?: components["schemas"]["somo-tracker-api_internal_schooluser.UserRef"][];
+            id?: string;
+            last_name?: string;
+            phone?: string;
+            photo_url?: string;
+            registration_number?: string;
+            role?: components["schemas"]["somo-tracker-api_internal_user.Role"];
+            updated_at?: string;
+        };
+        "somo-tracker-api_internal_schooluser.UserRef": {
+            first_name?: string;
+            id?: string;
+            last_name?: string;
+            photo_url?: string;
         };
         "somo-tracker-api_internal_studentexam.StudentExam": {
             comments?: string;
