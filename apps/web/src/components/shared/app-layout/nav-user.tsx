@@ -36,7 +36,6 @@ export function NavUser() {
     const name = `${firstName} ${lastName}`.trim();
     const email = me?.user_email ?? "";
     const avatar = me?.user_photo_url ?? "";
-    const initials = `${firstName[0]}${lastName[0]}`.toUpperCase() ?? "U";
 
     return (
         <SidebarMenu>
