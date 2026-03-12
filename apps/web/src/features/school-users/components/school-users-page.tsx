@@ -16,15 +16,9 @@ interface SchoolUsersPageProps {
     role: string;
     addHref: string;
     search?: string;
-    isRoleFilterable?: boolean;
 }
 
-export async function SchoolUsersPage({
-    role,
-    addHref,
-    search,
-    isRoleFilterable = false,
-}: SchoolUsersPageProps) {
+export async function SchoolUsersPage({ role, addHref, search }: SchoolUsersPageProps) {
     const filters = { search: search || undefined, role };
     const queryClient = getQueryClient();
     await queryClient.prefetchInfiniteQuery({
