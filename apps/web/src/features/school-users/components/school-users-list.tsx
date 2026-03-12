@@ -33,6 +33,7 @@ export function SchoolUsersList({ role }: SchoolUsersListProps) {
     const getScrollElement = useCallback(() => parentRef.current, []);
     const estimateSize = useCallback(() => ROW_HEIGHT, []);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const virtualizer = useVirtualizer({
         count: hasNextPage ? allItems.length + 1 : allItems.length,
         getScrollElement,
