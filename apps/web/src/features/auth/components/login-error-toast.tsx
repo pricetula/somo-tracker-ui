@@ -5,16 +5,16 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 interface LoginErrorToastProps {
-  message: string;
+    message: string;
 }
 
 export function LoginErrorToast({ message }: LoginErrorToastProps) {
-  const router = useRouter();
+    const router = useRouter();
 
-  useEffect(() => {
-    toast.error(message);
-    router.replace("/login");
-  }, [message, router]);
+    useEffect(() => {
+        toast.error(message);
+        router.replace("/login");
+    }, [message, router]);
 
-  return null;
+    return null;
 }

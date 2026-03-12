@@ -1,10 +1,10 @@
 import { SchoolUsersPage } from "@/features/school-users/components/school-users-page";
 
 export default async function FacultyPage({
-  searchParams,
+    searchParams,
 }: {
-  searchParams: Promise<{ search?: string }>;
+    searchParams: Promise<{ search?: string }>;
 }) {
-  const { search } = await searchParams;
-  return <SchoolUsersPage role="FACULTY" addHref="/faculty/add" addLabel="Add faculty" search={search} />;
+    const { search } = await searchParams;
+    return <SchoolUsersPage role="ADMIN,FACULTY" addHref="/faculty/add" search={search} />;
 }

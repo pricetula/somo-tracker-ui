@@ -4,20 +4,20 @@ import { fetchEducationSystems, fetchEducationSystem } from "./fetch-education-s
 export const educationSystemsQueryKey = ["education-systems"] as const;
 
 export function useEducationSystems() {
-  return useSuspenseQuery({
-    queryKey: educationSystemsQueryKey,
-    queryFn: fetchEducationSystems,
-    staleTime: Infinity,
-  });
+    return useSuspenseQuery({
+        queryKey: educationSystemsQueryKey,
+        queryFn: fetchEducationSystems,
+        staleTime: Infinity,
+    });
 }
 
 export function educationSystemQueryKey(id: string) {
-  return ["education-systems", id] as const;
+    return ["education-systems", id] as const;
 }
 
 export function useEducationSystem(id: string) {
-  return useQuery({
-    queryKey: educationSystemQueryKey(id),
-    queryFn: () => fetchEducationSystem(id),
-  });
+    return useQuery({
+        queryKey: educationSystemQueryKey(id),
+        queryFn: () => fetchEducationSystem(id),
+    });
 }

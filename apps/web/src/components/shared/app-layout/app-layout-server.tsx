@@ -5,15 +5,15 @@ import { getSchoolsByInstitute } from "@/features/school/api/actions";
 import { AppLayout } from "@/components/shared/app-layout/layout";
 
 export async function AppLayoutServer({ children }: { children: React.ReactNode }) {
-  const queryClient = getQueryClient();
-  await queryClient.prefetchQuery({
-    queryKey: schoolsQueryKey,
-    queryFn: getSchoolsByInstitute,
-  });
+    const queryClient = getQueryClient();
+    await queryClient.prefetchQuery({
+        queryKey: schoolsQueryKey,
+        queryFn: getSchoolsByInstitute,
+    });
 
-  return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <AppLayout>{children}</AppLayout>
-    </HydrationBoundary>
-  );
+    return (
+        <HydrationBoundary state={dehydrate(queryClient)}>
+            <AppLayout>{children}</AppLayout>
+        </HydrationBoundary>
+    );
 }
