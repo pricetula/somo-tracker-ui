@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { useQueryState } from "nuqs";
 import { Loader2 } from "lucide-react";
@@ -8,7 +8,7 @@ import { useInfiniteSchoolUsers } from "@/features/school-users/api/use-school-u
 import { SchoolUserRow } from "./school-user-row";
 
 const ROW_HEIGHT = 56;
-const OVERSCAN = 10; // Slightly higher overscan helps with smoother scrolling on fast networks
+const OVERSCAN = 10;
 
 interface SchoolUsersListProps {
     role: string;
@@ -16,26 +16,32 @@ interface SchoolUsersListProps {
 
 export function SchoolUsersList({ role }: SchoolUsersListProps) {
     const [search] = useQueryState("search", { defaultValue: "" });
+
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
         useInfiniteSchoolUsers({ search: search || undefined, role });
 
-    const allItems = data?.pages.flatMap((p) => (p.success ? (p.data?.items ?? []) : [])) ?? [];
-    const totalCount = (data?.pages[0]?.success ? data.pages[0].data?.total_count : undefined) ?? 0;
+    const allItems =
+        data?.pages.flatMap((p) => (p.success ? p.data?.items ?? [] : [])) ?? [];
+
+    const totalCount =
+        (data?.pages[0]?.success ? data.pages[0].data?.total_count : undefined) ??
+        0;
 
     const parentRef = useRef<HTMLDivElement>(null);
 
+    // Make functions stable for TanStack Virtual
+    const getScrollElement = useCallback(() => parentRef.current, []);
+    const estimateSize = useCallback(() => ROW_HEIGHT, []);
+
     const virtualizer = useVirtualizer({
         count: hasNextPage ? allItems.length + 1 : allItems.length,
-        getScrollElement: () => parentRef.current,
-        estimateSize: () => ROW_HEIGHT,
+        getScrollElement,
+        estimateSize,
         overscan: OVERSCAN,
     });
 
     const virtualItems = virtualizer.getVirtualItems();
 
-    // Fix for the Infinite Scroll Effect
-    // We only want to trigger fetchNextPage when the index of the last visible item
-    // hits the threshold of our current data length.
     useEffect(() => {
         const lastItem = virtualItems[virtualItems.length - 1];
         if (!lastItem) return;
@@ -61,7 +67,7 @@ export function SchoolUsersList({ role }: SchoolUsersListProps) {
             <div
                 ref={parentRef}
                 className="flex-1 overflow-auto scrollbar-hide"
-                style={{ contain: 'strict' }} // Optimization for layout engine
+                style={{ contain: "strict" }}
             >
                 <div
                     style={{ height: `${virtualizer.getTotalSize()}px` }}
@@ -75,8 +81,6 @@ export function SchoolUsersList({ role }: SchoolUsersListProps) {
                             <div
                                 key={virtualRow.key}
                                 data-index={virtualRow.index}
-                                // We use the ref directly. To solve the stability warning,
-                                // ensure the parent virtualizer options are stable.
                                 ref={virtualizer.measureElement}
                                 className="absolute top-0 left-0 w-full"
                                 style={{
