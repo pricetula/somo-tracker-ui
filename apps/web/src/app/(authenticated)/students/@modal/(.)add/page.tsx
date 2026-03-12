@@ -5,20 +5,20 @@ import { UserCreatorModal } from "@/components/shared/user-creator/user-creator-
 import { bulkAddStudents } from "@/features/students/api/actions";
 
 export default function AddStudentsModal() {
-  const router = useRouter();
+    const router = useRouter();
 
-  async function handleImport(...args: Parameters<typeof bulkAddStudents>) {
-    const result = await bulkAddStudents(...args);
-    if (result.success) router.refresh();
-    return result;
-  }
+    async function handleImport(...args: Parameters<typeof bulkAddStudents>) {
+        const result = await bulkAddStudents(...args);
+        if (result.success) router.refresh();
+        return result;
+    }
 
-  return (
-    <UserCreatorModal
-      title="Add students"
-      description="Upload a CSV file to import students into your school."
-      onImport={handleImport}
-      onClose={() => router.back()}
-    />
-  );
+    return (
+        <UserCreatorModal
+            title="Add students"
+            description="Upload a CSV file to import students into your school."
+            onImport={handleImport}
+            onClose={() => router.back()}
+        />
+    );
 }

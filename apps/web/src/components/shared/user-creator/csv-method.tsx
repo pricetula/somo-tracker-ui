@@ -4,9 +4,9 @@ import { CsvImporter } from "@/components/shared/user-creator/components/csv-imp
 import type { AddUser } from "@/lib/importer-engine";
 
 interface CsvMethodProps {
-  onImport: (users: AddUser[]) => Promise<{ success: boolean; error?: string }>;
+    onImport: (users: AddUser[]) => Promise<{ success: boolean; error?: string }>;
 }
 
 export function CsvMethod({ onImport }: CsvMethodProps) {
-  return <CsvImporter onImport={onImport} />;
+    return <CsvImporter onImport={onImport} />;
 }

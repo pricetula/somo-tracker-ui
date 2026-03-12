@@ -3,20 +3,20 @@ import { createInstitute, updateInstitute } from "@/features/institutes/api/acti
 import type { AddInstituteRequest, UpdateInstituteRequest } from "@/features/institutes/types";
 
 export function useCreateInstitute() {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: (body: AddInstituteRequest) => createInstitute(body),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["institutes"] });
-      queryClient.invalidateQueries({ queryKey: ["me"] });
-    },
-  });
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (body: AddInstituteRequest) => createInstitute(body),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["institutes"] });
+            queryClient.invalidateQueries({ queryKey: ["me"] });
+        },
+    });
 }
 
 export function useUpdateInstitute() {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: (body: UpdateInstituteRequest) => updateInstitute(body),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["institutes"] }),
-  });
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (body: UpdateInstituteRequest) => updateInstitute(body),
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ["institutes"] }),
+    });
 }

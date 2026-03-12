@@ -20,11 +20,11 @@ export function UserAvatar({ photoUrl, firstName, lastName }: UserAvatarProps) {
     return (
         <Avatar className="size-8 shrink-0">
             <AvatarImage src={photoUrl} alt={fullName} />
-            {
-                fullName?.length && (
-                    <AvatarFallback className="text-xs text-white" style={{ backgroundColor: color }}>{initials || "?"}</AvatarFallback>
-                )
-            }
+            {fullName?.length && (
+                <AvatarFallback className="text-xs text-white" style={{ backgroundColor: color }}>
+                    {initials || "?"}
+                </AvatarFallback>
+            )}
         </Avatar>
     );
 }

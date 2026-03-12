@@ -2,14 +2,14 @@ import { apiClient } from "@/lib/api-client";
 import type { NextRequest } from "next/server";
 
 export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ path: string[] }> }
+    request: NextRequest,
+    { params }: { params: Promise<{ path: string[] }> }
 ) {
-  const { path } = await params;
-  const searchParams = request.nextUrl.searchParams.toString();
-  const backendPath = `/${path.join("/")}${searchParams ? `?${searchParams}` : ""}`;
+    const { path } = await params;
+    const searchParams = request.nextUrl.searchParams.toString();
+    const backendPath = `/${path.join("/")}${searchParams ? `?${searchParams}` : ""}`;
 
-  const res = await apiClient(backendPath);
-  const data = await res.json();
-  return Response.json(data, { status: res.status });
+    const res = await apiClient(backendPath);
+    const data = await res.json();
+    return Response.json(data, { status: res.status });
 }

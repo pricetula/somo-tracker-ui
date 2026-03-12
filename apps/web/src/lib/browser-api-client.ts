@@ -4,7 +4,7 @@
  * which handles auth cookie forwarding server-side.
  */
 export async function browserApiClient(path: string): Promise<Response> {
-  return fetch(`/api/proxy${path}`, {
-    headers: { "Content-Type": "application/json" },
-  });
+    return fetch(`/api/proxy${path}`, {
+        headers: { "Content-Type": "application/json" },
+    });
 }

@@ -3,11 +3,11 @@ import type { ActionResult } from "@/types/action-result";
 import type { Me } from "@/features/me/types";
 
 export async function fetchMe(): Promise<ActionResult<Me>> {
-  try {
-    const res = await browserApiClient("/me");
-    if (!res.ok) return { success: false, error: "Failed to fetch user.", code: res.status };
-    return { success: true, data: await res.json() };
-  } catch {
-    return { success: false, error: "Unable to reach the server.", code: 503 };
-  }
+    try {
+        const res = await browserApiClient("/me");
+        if (!res.ok) return { success: false, error: "Failed to fetch user.", code: res.status };
+        return { success: true, data: await res.json() };
+    } catch {
+        return { success: false, error: "Unable to reach the server.", code: 503 };
+    }
 }

@@ -10,55 +10,57 @@ import { Input } from "@/components/ui/input";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 
 interface CreateInstituteFormProps {
-  onSuccess?: () => void;
+    onSuccess?: () => void;
 }
 
 export function CreateInstituteForm({ onSuccess }: CreateInstituteFormProps) {
-  const createInstitute = useCreateInstitute();
+    const createInstitute = useCreateInstitute();
 
-  const form = useForm<CreateInstituteFormValues>({
-    resolver: zodResolver(createInstituteSchema),
-    defaultValues: { name: "" },
-  });
-
-  function onSubmit(values: CreateInstituteFormValues) {
-    createInstitute.mutate(values, {
-      onSuccess: (result) => {
-        if (!result.success) {
-          form.setError("root", { message: result.error });
-          return;
-        }
-        onSuccess?.();
-      },
-      onError: () => {
-        form.setError("root", { message: "An unexpected error occurred. Please try again." });
-      },
+    const form = useForm<CreateInstituteFormValues>({
+        resolver: zodResolver(createInstituteSchema),
+        defaultValues: { name: "" },
     });
-  }
 
-  return (
-    <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
-      <FieldGroup>
-        <Field data-invalid={!!form.formState.errors.name}>
-          <FieldLabel htmlFor="name">Institute name</FieldLabel>
-          <Input
-            id="name"
-            placeholder="My Institute"
-            disabled={createInstitute.isPending}
-            {...form.register("name")}
-          />
-          <FieldError errors={[form.formState.errors.name]} />
-        </Field>
+    function onSubmit(values: CreateInstituteFormValues) {
+        createInstitute.mutate(values, {
+            onSuccess: (result) => {
+                if (!result.success) {
+                    form.setError("root", { message: result.error });
+                    return;
+                }
+                onSuccess?.();
+            },
+            onError: () => {
+                form.setError("root", {
+                    message: "An unexpected error occurred. Please try again.",
+                });
+            },
+        });
+    }
 
-        {form.formState.errors.root && (
-          <p className="text-destructive text-sm">{form.formState.errors.root.message}</p>
-        )}
+    return (
+        <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
+            <FieldGroup>
+                <Field data-invalid={!!form.formState.errors.name}>
+                    <FieldLabel htmlFor="name">Institute name</FieldLabel>
+                    <Input
+                        id="name"
+                        placeholder="My Institute"
+                        disabled={createInstitute.isPending}
+                        {...form.register("name")}
+                    />
+                    <FieldError errors={[form.formState.errors.name]} />
+                </Field>
 
-        <Button type="submit" disabled={createInstitute.isPending}>
-          {createInstitute.isPending && <Loader2 className="animate-spin" />}
-          {createInstitute.isPending ? "Creating…" : "Create institute"}
-        </Button>
-      </FieldGroup>
-    </form>
-  );
+                {form.formState.errors.root && (
+                    <p className="text-destructive text-sm">{form.formState.errors.root.message}</p>
+                )}
+
+                <Button type="submit" disabled={createInstitute.isPending}>
+                    {createInstitute.isPending && <Loader2 className="animate-spin" />}
+                    {createInstitute.isPending ? "Creating…" : "Create institute"}
+                </Button>
+            </FieldGroup>
+        </form>
+    );
 }

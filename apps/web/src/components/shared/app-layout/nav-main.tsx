@@ -1,14 +1,10 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+import * as React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-import {
-    Collapsible,
-    CollapsibleContent,
-    CollapsibleTrigger,
-} from "@/components/ui/collapsible"
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import {
     SidebarGroup,
     SidebarGroupLabel,
@@ -18,8 +14,8 @@ import {
     SidebarMenuSub,
     SidebarMenuSubButton,
     SidebarMenuSubItem,
-} from "@/components/ui/sidebar"
-import { ChevronRightIcon, Settings2Icon, UsersIcon } from "lucide-react"
+} from "@/components/ui/sidebar";
+import { ChevronRightIcon, Settings2Icon, UsersIcon } from "lucide-react";
 
 const navItems = [
     {
@@ -36,31 +32,25 @@ const navItems = [
         title: "Settings",
         url: "/settings",
         icon: <Settings2Icon />,
-        items: [
-            { title: "System Settings", url: "/settings" },
-        ],
+        items: [{ title: "System Settings", url: "/settings" }],
     },
-]
+];
 
 function NavMainItem({
     item,
     isDefaultOpen,
 }: {
     item: {
-        title: string
-        url: string
-        icon?: React.ReactNode
-        isActive?: boolean
-        items?: { title: string; url: string }[]
-    }
-    isDefaultOpen: boolean
+        title: string;
+        url: string;
+        icon?: React.ReactNode;
+        isActive?: boolean;
+        items?: { title: string; url: string }[];
+    };
+    isDefaultOpen: boolean;
 }) {
     return (
-        <Collapsible
-            asChild
-            defaultOpen={isDefaultOpen}
-            className="group/collapsible"
-        >
+        <Collapsible asChild defaultOpen={isDefaultOpen} className="group/collapsible">
             <SidebarMenuItem>
                 <CollapsibleTrigger asChild>
                     <SidebarMenuButton tooltip={item.title}>
@@ -84,24 +74,29 @@ function NavMainItem({
                 </CollapsibleContent>
             </SidebarMenuItem>
         </Collapsible>
-    )
+    );
 }
 
 export function NavMain() {
-    const pathname = usePathname()
+    const pathname = usePathname();
 
     return (
         <SidebarGroup>
             <SidebarGroupLabel>Platform</SidebarGroupLabel>
             <SidebarMenu>
                 {navItems.map((navItem) => {
-                    const isDefaultOpen = navItem?.items?.length > 0
-                        && navItem.items.some((subItem) => pathname.startsWith(subItem.url))
+                    const isDefaultOpen =
+                        navItem?.items?.length > 0 &&
+                        navItem.items.some((subItem) => pathname.startsWith(subItem.url));
                     return (
-                        <NavMainItem key={navItem.title} item={navItem} isDefaultOpen={isDefaultOpen} />
-                    )
+                        <NavMainItem
+                            key={navItem.title}
+                            item={navItem}
+                            isDefaultOpen={isDefaultOpen}
+                        />
+                    );
                 })}
             </SidebarMenu>
         </SidebarGroup>
-    )
+    );
 }

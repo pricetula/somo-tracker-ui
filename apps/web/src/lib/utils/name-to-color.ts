@@ -6,7 +6,7 @@ const avatarColors = [
     "#044696", // blue
     "#270981", // purple
     "#72083f", // pink
-    "#056b7b"  // cyan
+    "#056b7b", // cyan
 ];
 
 export function nameToColor(name: string) {

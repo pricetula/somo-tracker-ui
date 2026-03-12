@@ -25,15 +25,28 @@ export function StepFileUpload({ onParsed }: StepFileUploadProps) {
 
     return (
         <div
-            className={`flex flex-col items-center justify-center border-2 border-dashed rounded-xl p-12 transition-colors cursor-pointer ${dragging ? "border-blue-500 bg-blue-50" : "border-gray-300 bg-gray-50 hover:border-blue-400"
-                }`}
+            className={`flex flex-col items-center justify-center border-2 border-dashed rounded-xl p-12 transition-colors cursor-pointer ${
+                dragging
+                    ? "border-blue-500 bg-blue-50"
+                    : "border-gray-300 bg-gray-50 hover:border-blue-400"
+            }`}
             onClick={() => inputRef.current?.click()}
-            onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
+            onDragOver={(e) => {
+                e.preventDefault();
+                setDragging(true);
+            }}
             onDragLeave={() => setDragging(false)}
-            onDrop={(e) => { e.preventDefault(); setDragging(false); const file = e.dataTransfer.files[0]; if (file) handleFile(file); }}
+            onDrop={(e) => {
+                e.preventDefault();
+                setDragging(false);
+                const file = e.dataTransfer.files[0];
+                if (file) handleFile(file);
+            }}
         >
             <UploadCloud className="w-10 h-10 text-gray-400 mb-4" />
-            <p className="text-sm font-medium text-gray-700">Drop a CSV file here, or click to browse</p>
+            <p className="text-sm font-medium text-gray-700">
+                Drop a CSV file here, or click to browse
+            </p>
             <p className="text-xs text-gray-400 mt-1">.csv files only</p>
             {error && <p className="text-xs text-red-500 mt-3">{error}</p>}
             <input
@@ -41,7 +54,10 @@ export function StepFileUpload({ onParsed }: StepFileUploadProps) {
                 type="file"
                 accept=".csv"
                 className="hidden"
-                onChange={(e) => { const file = e.target.files?.[0]; if (file) handleFile(file); }}
+                onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) handleFile(file);
+                }}
             />
         </div>
     );
