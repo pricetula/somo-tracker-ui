@@ -50,7 +50,7 @@ export function SchoolUsersList({ role }: SchoolUsersListProps) {
     }, [virtualItems, allItems.length, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
     return (
-        <div className="flex flex-col h-full bg-background">
+        <div className="flex flex-col h-[calc(100vh-160px)] overflow-y-auto bg-background">
             <div className="flex items-center justify-between px-4 py-2 border-b text-xs text-muted-foreground bg-muted/30">
                 <span>{totalCount} users found</span>
                 {(isFetching || isFetchingNextPage) && (
