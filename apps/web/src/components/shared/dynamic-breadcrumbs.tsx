@@ -46,7 +46,7 @@ export function DynamicBreadcrumbs() {
         <Breadcrumb>
             <BreadcrumbList className="flex-nowrap overflow-x-auto">
                 {!shouldCollapse &&
-                    crumbs.map((crumb, index) => (
+                    crumbs.map((crumb) => (
                         <BreadcrumbItem key={crumb.href}>
                             {crumb.isLast ? (
                                 <BreadcrumbPage className="max-w-[160px] truncate">
