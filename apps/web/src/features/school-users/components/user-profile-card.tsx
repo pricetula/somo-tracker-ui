@@ -22,12 +22,12 @@ export function UserProfileCard({
     const fullName = [firstName, lastName].filter(Boolean).join(" ") || "—";
 
     return (
-        <div className="flex items-start gap-4 p-6">
+        <div className="flex items-start gap-4 mt-4">
             <UserAvatar
                 firstName={firstName || ""}
                 lastName={lastName || ""}
                 photoUrl={photoUrl || ""}
-    
+
             />
             <div className="space-y-1">
                 <h1 className="text-xl font-semibold">{fullName}</h1>
