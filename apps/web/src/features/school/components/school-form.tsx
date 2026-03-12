@@ -1,6 +1,6 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { schoolFormSchema, type SchoolFormValues, type School } from "@/features/school/types";
@@ -34,6 +34,11 @@ export function SchoolForm({ school, onSuccess }: SchoolFormProps) {
             education_system_id: school?.education_system_id ?? "",
             is_home_school: school?.is_home_school ?? false,
         },
+    });
+
+    const educationSystemId = useWatch({
+        control: form.control,
+        name: "education_system_id",
     });
 
     function onSubmit(values: SchoolFormValues) {
@@ -125,7 +130,7 @@ export function SchoolForm({ school, onSuccess }: SchoolFormProps) {
                 <Field data-invalid={!!form.formState.errors.education_system_id}>
                     <FieldLabel>Education System</FieldLabel>
                     <EducationSystemCombobox
-                        value={form.watch("education_system_id")}
+                        value={educationSystemId}
                         onChange={(system) =>
                             form.setValue("education_system_id", system?.id ?? "", {
                                 shouldValidate: true,
@@ -178,8 +183,8 @@ export function SchoolForm({ school, onSuccess }: SchoolFormProps) {
                             ? "Saving…"
                             : "Save changes"
                         : isPending
-                          ? "Creating…"
-                          : "Create school"}
+                            ? "Creating…"
+                            : "Create school"}
                 </Button>
             </FieldGroup>
         </form>
