@@ -1,6 +1,8 @@
-import { apiClient } from "@/lib/api-client";
-import { UserProfileCard } from "@/features/school-users/components/user-profile-card";
-import type { AdminProfile } from "@/features/school-users/types";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { getQueryClient } from "@/lib/get-query-client";
+import { getAdminProfile } from "@/features/school-users/api/actions";
+import { adminProfileQueryKey } from "@/features/school-users/api/use-school-user-profile";
+import { AdminProfileDetail } from "@/features/school-users/components/admin-profile-detail";
 
 export default async function AdminDetailPage({
     params,
@@ -8,26 +10,15 @@ export default async function AdminDetailPage({
     params: Promise<{ userId: string }>;
 }) {
     const { userId } = await params;
-
-    const res = await apiClient(`/admins/${userId}`);
-    const profile: AdminProfile | null = res.ok ? await res.json() : null;
-
-    if (!profile) {
-        return (
-            <div className="p-6">
-                <p className="text-muted-foreground text-sm">Admin not found.</p>
-            </div>
-        );
-    }
+    const queryClient = getQueryClient();
+    await queryClient.prefetchQuery({
+        queryKey: adminProfileQueryKey(userId),
+        queryFn: () => getAdminProfile(userId),
+    });
 
     return (
-        <UserProfileCard
-            firstName={profile.first_name}
-            lastName={profile.last_name}
-            email={profile.email}
-            phone={profile.phone}
-            photoUrl={profile.photo_url}
-            role={profile.role}
-        />
+        <HydrationBoundary state={dehydrate(queryClient)}>
+            <AdminProfileDetail userId={userId} />
+        </HydrationBoundary>
     );
 }

@@ -7,6 +7,10 @@ import type {
     SchoolUserSearchResponse,
     AddSchoolUserRequest,
     UpdateSchoolUserRequest,
+    StudentProfile,
+    FacultyProfile,
+    GuardianProfile,
+    AdminProfile,
 } from "@/features/school-users/types";
 import type { SchoolUsersParams } from "./fetch-school-users";
 
@@ -57,6 +61,54 @@ export async function updateSchoolUser(
         });
         if (!res.ok)
             return { success: false, error: "Failed to update school user.", code: res.status };
+        return { success: true, data: await res.json() };
+    } catch {
+        return { success: false, error: "Unable to reach the server.", code: 503 };
+    }
+}
+
+export async function getStudentProfile(userId: string): Promise<ActionResult<StudentProfile>> {
+    try {
+        const res = await apiClient(`/students/${userId}`);
+        if (!res.ok)
+            return { success: false, error: "Failed to fetch student profile.", code: res.status };
+        return { success: true, data: await res.json() };
+    } catch {
+        return { success: false, error: "Unable to reach the server.", code: 503 };
+    }
+}
+
+export async function getFacultyProfile(userId: string): Promise<ActionResult<FacultyProfile>> {
+    try {
+        const res = await apiClient(`/faculty/${userId}`);
+        if (!res.ok)
+            return { success: false, error: "Failed to fetch faculty profile.", code: res.status };
+        return { success: true, data: await res.json() };
+    } catch {
+        return { success: false, error: "Unable to reach the server.", code: 503 };
+    }
+}
+
+export async function getGuardianProfile(userId: string): Promise<ActionResult<GuardianProfile>> {
+    try {
+        const res = await apiClient(`/guardians/${userId}`);
+        if (!res.ok)
+            return {
+                success: false,
+                error: "Failed to fetch guardian profile.",
+                code: res.status,
+            };
+        return { success: true, data: await res.json() };
+    } catch {
+        return { success: false, error: "Unable to reach the server.", code: 503 };
+    }
+}
+
+export async function getAdminProfile(userId: string): Promise<ActionResult<AdminProfile>> {
+    try {
+        const res = await apiClient(`/admins/${userId}`);
+        if (!res.ok)
+            return { success: false, error: "Failed to fetch admin profile.", code: res.status };
         return { success: true, data: await res.json() };
     } catch {
         return { success: false, error: "Unable to reach the server.", code: 503 };

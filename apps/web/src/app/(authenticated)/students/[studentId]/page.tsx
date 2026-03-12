@@ -1,6 +1,8 @@
-import { apiClient } from "@/lib/api-client";
-import { UserProfileCard } from "@/features/school-users/components/user-profile-card";
-import type { StudentProfile } from "@/features/school-users/types";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { getQueryClient } from "@/lib/get-query-client";
+import { getStudentProfile } from "@/features/school-users/api/actions";
+import { studentProfileQueryKey } from "@/features/school-users/api/use-school-user-profile";
+import { StudentProfileDetail } from "@/features/school-users/components/student-profile-detail";
 
 export default async function StudentDetailPage({
     params,
@@ -8,27 +10,15 @@ export default async function StudentDetailPage({
     params: Promise<{ studentId: string }>;
 }) {
     const { studentId } = await params;
-
-    const res = await apiClient(`/students/${studentId}`);
-    const profile: StudentProfile | null = res.ok ? await res.json() : null;
-
-    if (!profile) {
-        return (
-            <div className="p-6">
-                <p className="text-muted-foreground text-sm">Student not found.</p>
-            </div>
-        );
-    }
+    const queryClient = getQueryClient();
+    await queryClient.prefetchQuery({
+        queryKey: studentProfileQueryKey(studentId),
+        queryFn: () => getStudentProfile(studentId),
+    });
 
     return (
-        <UserProfileCard
-            firstName={profile.first_name}
-            lastName={profile.last_name}
-            email={profile.email}
-            phone={profile.phone}
-            photoUrl={profile.photo_url}
-            role={profile.role}
-            registrationNumber={profile.registration_number}
-        />
+        <HydrationBoundary state={dehydrate(queryClient)}>
+            <StudentProfileDetail userId={studentId} />
+        </HydrationBoundary>
     );
 }
