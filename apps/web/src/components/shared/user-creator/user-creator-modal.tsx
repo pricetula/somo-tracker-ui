@@ -20,7 +20,14 @@ interface UserCreatorModalProps {
     cohorts?: Cohort[];
 }
 
-export function UserCreatorModal({ title, description, onImport, onClose, config, cohorts }: UserCreatorModalProps) {
+export function UserCreatorModal({
+    title,
+    description,
+    onImport,
+    onClose,
+    config,
+    cohorts,
+}: UserCreatorModalProps) {
     return (
         <Dialog
             open

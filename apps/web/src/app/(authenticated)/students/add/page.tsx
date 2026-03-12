@@ -16,7 +16,11 @@ export default function AddStudentsPage() {
 
     return (
         <div className="flex flex-col gap-4">
-            <UserCreator onImport={bulkAddStudents} config={USER_CREATOR_CONFIG} cohorts={cohorts} />
+            <UserCreator
+                onImport={bulkAddStudents}
+                config={USER_CREATOR_CONFIG}
+                cohorts={cohorts}
+            />
         </div>
     );
 }

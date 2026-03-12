@@ -24,7 +24,14 @@ interface ManualMethodProps {
 }
 
 function emptyRow(): Row {
-    return { first_name: "", last_name: "", email: "", phone: "", cohort_id: "", registration_number: "" };
+    return {
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone: "",
+        cohort_id: "",
+        registration_number: "",
+    };
 }
 
 export function ManualMethod({ onImport, onReset, config, cohorts }: ManualMethodProps) {

@@ -89,7 +89,12 @@ export function UserCreator({ onImport, config, cohorts }: UserCreatorProps) {
             </div>
 
             {method === "manual" && (
-                <ManualMethod onImport={onImport} onReset={reset} config={config} cohorts={cohorts} />
+                <ManualMethod
+                    onImport={onImport}
+                    onReset={reset}
+                    config={config}
+                    cohorts={cohorts}
+                />
             )}
             {method === "csv" && <CsvMethod onImport={onImport} config={config} />}
             {method === "excel" && <ExcelMethod />}

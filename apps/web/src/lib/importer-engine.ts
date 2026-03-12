@@ -95,7 +95,15 @@ export function validate(mappedRows: Record<string, string>[]): ValidationResult
                 skipReason: "Missing first and last name",
             });
         } else {
-            preview.push({ index: i, first_name, last_name, email, phone, registration_number, status: "ready" });
+            preview.push({
+                index: i,
+                first_name,
+                last_name,
+                email,
+                phone,
+                registration_number,
+                status: "ready",
+            });
             data.push({
                 first_name,
                 last_name,
@@ -122,7 +130,13 @@ export function autoMap(headers: string[]): Partial<FieldMapping> {
     const lastNameMatches = ["last_name", "last name", "lastname", "surname", "family name"];
     const emailMatches = ["email", "email address", "e-mail"];
     const phoneMatches = ["phone", "phone number", "mobile", "mobile number", "telephone"];
-    const registrationNumberMatches = ["registration_number", "registration number", "reg number", "reg no", "regno"];
+    const registrationNumberMatches = [
+        "registration_number",
+        "registration number",
+        "reg number",
+        "reg no",
+        "regno",
+    ];
 
     const find = (candidates: string[]) =>
         headers[lower.findIndex((h) => candidates.includes(h))] ?? undefined;
