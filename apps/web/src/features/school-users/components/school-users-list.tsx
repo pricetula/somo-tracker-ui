@@ -20,12 +20,9 @@ export function SchoolUsersList({ role }: SchoolUsersListProps) {
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
         useInfiniteSchoolUsers({ search: search || undefined, role });
 
-    const allItems =
-        data?.pages.flatMap((p) => (p.success ? p.data?.items ?? [] : [])) ?? [];
+    const allItems = data?.pages.flatMap((p) => (p.success ? (p.data?.items ?? []) : [])) ?? [];
 
-    const totalCount =
-        (data?.pages[0]?.success ? data.pages[0].data?.total_count : undefined) ??
-        0;
+    const totalCount = (data?.pages[0]?.success ? data.pages[0].data?.total_count : undefined) ?? 0;
 
     const parentRef = useRef<HTMLDivElement>(null);
 
@@ -47,11 +44,7 @@ export function SchoolUsersList({ role }: SchoolUsersListProps) {
         const lastItem = virtualItems[virtualItems.length - 1];
         if (!lastItem) return;
 
-        if (
-            lastItem.index >= allItems.length - 1 &&
-            hasNextPage &&
-            !isFetchingNextPage
-        ) {
+        if (lastItem.index >= allItems.length - 1 && hasNextPage && !isFetchingNextPage) {
             fetchNextPage();
         }
     }, [virtualItems, allItems.length, hasNextPage, isFetchingNextPage, fetchNextPage]);

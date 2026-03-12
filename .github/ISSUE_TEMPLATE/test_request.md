@@ -36,8 +36,8 @@ assignees: ""
 
 ## Current Coverage
 
-**Current coverage:** **_%
-**Target coverage:** _**%
+**Current coverage:** **\_%
+**Target coverage:** \_**%
 
 ## Test Scenarios Needed
 

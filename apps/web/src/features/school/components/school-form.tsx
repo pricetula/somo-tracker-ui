@@ -183,8 +183,8 @@ export function SchoolForm({ school, onSuccess }: SchoolFormProps) {
                             ? "Saving…"
                             : "Save changes"
                         : isPending
-                            ? "Creating…"
-                            : "Create school"}
+                          ? "Creating…"
+                          : "Create school"}
                 </Button>
             </FieldGroup>
         </form>
