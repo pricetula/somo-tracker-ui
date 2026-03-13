@@ -57,16 +57,15 @@ export function UserProfileCard({
 
     function handleConfirm() {
         if (!editable) return;
+        let registration_number = draft.registrationNumber || registrationNumber || "";
         updateProfile(
             {
                 userId,
                 userFields: {
+                    registration_number,
                     first_name: draft.firstName,
                     last_name: draft.lastName,
                     phone: draft.phone,
-                    ...(registrationNumber !== undefined
-                        ? { registration_number: draft.registrationNumber }
-                        : {}),
                 },
                 queryKey: profileQueryKey,
             },
@@ -88,7 +87,7 @@ export function UserProfileCard({
                     <>
                         <div className="flex gap-2">
                             <Input
-                                className="h-7 text-sm font-semibold"
+                                className="h-7 w-48 text-sm font-semibold"
                                 value={draft.firstName}
                                 onChange={(e) =>
                                     setDraft((d) => ({ ...d, firstName: e.target.value }))
@@ -96,13 +95,31 @@ export function UserProfileCard({
                                 placeholder="First name"
                             />
                             <Input
-                                className="h-7 text-sm font-semibold"
+                                className="h-7 w-48 text-sm font-semibold"
                                 value={draft.lastName}
                                 onChange={(e) =>
                                     setDraft((d) => ({ ...d, lastName: e.target.value }))
                                 }
                                 placeholder="Last name"
                             />
+                            <div className="flex">
+                                <button
+                                    onClick={handleConfirm}
+                                    disabled={isPending}
+                                    className="p-1 rounded hover:bg-muted text-muted-foreground hover:text-foreground disabled:opacity-50"
+                                    aria-label="Save"
+                                >
+                                    <Check className="size-4" />
+                                </button>
+                                <button
+                                    onClick={handleCancel}
+                                    disabled={isPending}
+                                    className="p-1 rounded hover:bg-muted text-muted-foreground hover:text-foreground disabled:opacity-50"
+                                    aria-label="Cancel"
+                                >
+                                    <X className="size-4" />
+                                </button>
+                            </div>
                         </div>
                         {role && (
                             <p className="text-sm text-muted-foreground capitalize">
@@ -110,71 +127,54 @@ export function UserProfileCard({
                             </p>
                         )}
                         {email && <p className="text-sm">{email}</p>}
-                        <Input
-                            className="h-7 text-sm"
-                            value={draft.phone}
-                            onChange={(e) => setDraft((d) => ({ ...d, phone: e.target.value }))}
-                            placeholder="Phone"
-                        />
-                        {registrationNumber !== undefined && (
+                        <div className="flex gap-2">
                             <Input
-                                className="h-7 text-xs"
-                                value={draft.registrationNumber}
-                                onChange={(e) =>
-                                    setDraft((d) => ({ ...d, registrationNumber: e.target.value }))
-                                }
-                                placeholder="Registration number"
+                                className="h-7 w-48 text-sm"
+                                value={draft.phone}
+                                onChange={(e) => setDraft((d) => ({ ...d, phone: e.target.value }))}
+                                placeholder="Phone"
                             />
-                        )}
+                            {role !== "GUARDIAN" && (
+                                <Input
+                                    className="h-7 w-48 text-xs"
+                                    value={draft.registrationNumber}
+                                    onChange={(e) =>
+                                        setDraft((d) => ({ ...d, registrationNumber: e.target.value }))
+                                    }
+                                    placeholder="Registration number"
+                                />
+                            )}
+                        </div>
                     </>
                 ) : (
                     <>
-                        <h1 className="text-xl font-semibold">{fullName}</h1>
+                        <div className="flex gap-2">
+                            <h1 className="text-xl font-semibold">{fullName}</h1>
+                            {editable && (
+                                <button
+                                    onClick={handleEdit}
+                                    className="p-1 rounded hover:bg-muted text-muted-foreground hover:text-foreground opacity-0 group-hover:opacity-100 transition-opacity"
+                                    aria-label="Edit"
+                                >
+                                    <Pencil className="size-4" />
+                                </button>
+                            )}
+                        </div>
                         {role && (
                             <p className="text-sm text-muted-foreground capitalize">
                                 {role.charAt(0) + role.slice(1).toLowerCase()}
                             </p>
                         )}
                         {email && <p className="text-sm">{email}</p>}
-                        {phone && <p className="text-sm text-muted-foreground">{phone}</p>}
-                        {registrationNumber && (
-                            <p className="text-xs text-muted-foreground">#{registrationNumber}</p>
-                        )}
+                        <div className="flex gap-2 items-center">
+                            {phone && <p className="text-sm text-muted-foreground">{phone}</p>}
+                            {registrationNumber && (
+                                <p className="text-xs text-muted-foreground">#{registrationNumber}</p>
+                            )}
+                        </div>
                     </>
                 )}
             </div>
-            {editable && (
-                <div className="flex gap-1">
-                    {editing ? (
-                        <>
-                            <button
-                                onClick={handleConfirm}
-                                disabled={isPending}
-                                className="p-1 rounded hover:bg-muted text-muted-foreground hover:text-foreground disabled:opacity-50"
-                                aria-label="Save"
-                            >
-                                <Check className="size-4" />
-                            </button>
-                            <button
-                                onClick={handleCancel}
-                                disabled={isPending}
-                                className="p-1 rounded hover:bg-muted text-muted-foreground hover:text-foreground disabled:opacity-50"
-                                aria-label="Cancel"
-                            >
-                                <X className="size-4" />
-                            </button>
-                        </>
-                    ) : (
-                        <button
-                            onClick={handleEdit}
-                            className="p-1 rounded hover:bg-muted text-muted-foreground hover:text-foreground opacity-0 group-hover:opacity-100 transition-opacity"
-                            aria-label="Edit"
-                        >
-                            <Pencil className="size-4" />
-                        </button>
-                    )}
-                </div>
-            )}
         </div>
     );
 }

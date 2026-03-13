@@ -11,7 +11,7 @@ interface StepPreviewProps {
     importError?: string | null;
 }
 
-const PREVIEW_LIMIT = 20;
+const PREVIEW_LIMIT = 5;
 
 export function StepPreview({
     result,

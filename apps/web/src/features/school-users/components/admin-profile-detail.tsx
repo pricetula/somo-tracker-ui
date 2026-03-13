@@ -27,6 +27,7 @@ export function AdminProfileDetail({ userId }: { userId: string }) {
             photoUrl={profile.photo_url}
             role={profile.role}
             userId={profile.id}
+            registrationNumber={profile.registration_number}
             profileQueryKey={adminProfileQueryKey(userId)}
         />
     );

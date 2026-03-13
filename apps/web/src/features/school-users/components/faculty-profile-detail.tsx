@@ -27,6 +27,7 @@ export function FacultyProfileDetail({ userId }: { userId: string }) {
             photoUrl={profile.photo_url}
             role={profile.role}
             userId={profile.id}
+            registrationNumber={profile.registration_number}
             profileQueryKey={facultyProfileQueryKey(userId)}
         />
     );
