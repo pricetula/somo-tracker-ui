@@ -58,10 +58,7 @@ export function SchoolUsersList({ role }: SchoolUsersListProps) {
                 )}
             </div>
 
-            <div
-                ref={parentRef}
-                className="flex-1 overflow-auto scrollbar-hide min-h-0"
-            >
+            <div ref={parentRef} className="flex-1 overflow-auto scrollbar-hide min-h-0">
                 <div
                     style={{ height: `${virtualizer.getTotalSize()}px` }}
                     className="relative w-full"

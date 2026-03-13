@@ -1,6 +1,9 @@
 "use client";
 
-import { facultyProfileQueryKey, useFacultyProfile } from "@/features/school-users/api/use-school-user-profile";
+import {
+    facultyProfileQueryKey,
+    useFacultyProfile,
+} from "@/features/school-users/api/use-school-user-profile";
 import { UserProfileCard } from "./user-profile-card";
 
 export function FacultyProfileDetail({ userId }: { userId: string }) {

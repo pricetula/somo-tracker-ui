@@ -28,7 +28,7 @@ const ROLE_HREF: Record<string, (id: string) => string> = {
 export function SchoolUserRow({ user, style }: SchoolUserRowProps) {
     const router = useRouter();
     const fullName = [user.first_name, user.last_name].filter(Boolean).join(" ") || "—";
-    const href = user.role ? ROLE_HREF[user.role]?.(user.user_id || '') : undefined;
+    const href = user.role ? ROLE_HREF[user.role]?.(user.user_id || "") : undefined;
 
     return (
         <div

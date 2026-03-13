@@ -78,8 +78,7 @@ export async function updateUser(
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ ...body, id: userId }),
         });
-        if (!res.ok)
-            return { success: false, error: "Failed to update user.", code: res.status };
+        if (!res.ok) return { success: false, error: "Failed to update user.", code: res.status };
         return { success: true, data: await res.json() };
     } catch {
         return { success: false, error: "Unable to reach the server.", code: 503 };

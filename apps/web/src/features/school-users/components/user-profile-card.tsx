@@ -64,7 +64,9 @@ export function UserProfileCard({
                     first_name: draft.firstName,
                     last_name: draft.lastName,
                     phone: draft.phone,
-                    ...(registrationNumber !== undefined ? { registration_number: draft.registrationNumber } : {}),
+                    ...(registrationNumber !== undefined
+                        ? { registration_number: draft.registrationNumber }
+                        : {}),
                 },
                 queryKey: profileQueryKey,
             },
@@ -88,13 +90,17 @@ export function UserProfileCard({
                             <Input
                                 className="h-7 text-sm font-semibold"
                                 value={draft.firstName}
-                                onChange={(e) => setDraft((d) => ({ ...d, firstName: e.target.value }))}
+                                onChange={(e) =>
+                                    setDraft((d) => ({ ...d, firstName: e.target.value }))
+                                }
                                 placeholder="First name"
                             />
                             <Input
                                 className="h-7 text-sm font-semibold"
                                 value={draft.lastName}
-                                onChange={(e) => setDraft((d) => ({ ...d, lastName: e.target.value }))}
+                                onChange={(e) =>
+                                    setDraft((d) => ({ ...d, lastName: e.target.value }))
+                                }
                                 placeholder="Last name"
                             />
                         </div>

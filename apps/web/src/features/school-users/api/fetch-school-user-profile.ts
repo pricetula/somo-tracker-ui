@@ -29,9 +29,7 @@ export async function fetchFacultyProfile(userId: string): Promise<ActionResult<
     }
 }
 
-export async function fetchGuardianProfile(
-    userId: string
-): Promise<ActionResult<GuardianProfile>> {
+export async function fetchGuardianProfile(userId: string): Promise<ActionResult<GuardianProfile>> {
     try {
         const res = await browserApiClient(`/guardians/${userId}`);
         if (!res.ok)

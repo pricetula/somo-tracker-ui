@@ -1,6 +1,9 @@
 "use client";
 
-import { guardianProfileQueryKey, useGuardianProfile } from "@/features/school-users/api/use-school-user-profile";
+import {
+    guardianProfileQueryKey,
+    useGuardianProfile,
+} from "@/features/school-users/api/use-school-user-profile";
 import { UserProfileCard } from "./user-profile-card";
 
 export function GuardianProfileDetail({ userId }: { userId: string }) {

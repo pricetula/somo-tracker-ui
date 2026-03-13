@@ -4,11 +4,7 @@ import { getAdminProfile } from "@/features/school-users/api/actions";
 import { adminProfileQueryKey } from "@/features/school-users/api/use-school-user-profile";
 import { AdminProfileDetail } from "@/features/school-users/components/admin-profile-detail";
 
-export default async function AdminDetailPage({
-    params,
-}: {
-    params: Promise<{ userId: string }>;
-}) {
+export default async function AdminDetailPage({ params }: { params: Promise<{ userId: string }> }) {
     const { userId } = await params;
     const queryClient = getQueryClient();
     await queryClient.prefetchQuery({
