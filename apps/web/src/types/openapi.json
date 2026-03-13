@@ -67,6 +67,83 @@
                 }
             }
         },
+        "/admins/{user_id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Returns an admin's profile. School scope is derived from the authenticated user.",
+                "tags": [
+                    "School Users"
+                ],
+                "summary": "Get admin profile",
+                "parameters": [
+                    {
+                        "description": "Admin user ID",
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_schooluser.AdminProfile"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/answers": {
             "put": {
                 "security": [
@@ -2228,6 +2305,156 @@
                 }
             }
         },
+        "/faculty": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Imports a list of faculty members, creating user accounts, school memberships, and optional cohort assignments in a single transaction. Rows missing both first_name and last_name are skipped.",
+                "tags": [
+                    "Faculty"
+                ],
+                "summary": "Batch import faculty",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/internal_faculty_delivery_http.importFacultyRequest"
+                                }
+                            }
+                        }
+                    },
+                    "description": "List of faculty to import",
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/faculty/{user_id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Returns a faculty member's profile with their assigned cohorts. School scope is derived from the authenticated user.",
+                "tags": [
+                    "Faculty"
+                ],
+                "summary": "Get faculty profile",
+                "parameters": [
+                    {
+                        "description": "Faculty user ID",
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_schooluser.FacultyProfile"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/grade-ranges": {
             "get": {
                 "security": [
@@ -2602,6 +2829,156 @@
                     },
                     "400": {
                         "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/guardians": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Imports a list of guardians, creating user accounts and school memberships in a single transaction. Rows missing both first_name and last_name are skipped.",
+                "tags": [
+                    "Guardians"
+                ],
+                "summary": "Batch import guardians",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/internal_guardian_delivery_http.importGuardianRequest"
+                                }
+                            }
+                        }
+                    },
+                    "description": "List of guardians to import",
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/guardians/{user_id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Returns a guardian's profile with their linked students. School scope is derived from the authenticated user.",
+                "tags": [
+                    "Guardians"
+                ],
+                "summary": "Get guardian profile",
+                "parameters": [
+                    {
+                        "description": "Guardian user ID",
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_schooluser.GuardianProfile"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -3137,7 +3514,7 @@
                         }
                     },
                     {
-                        "description": "Role filter (ADMIN, FACULTY, STUDENT, GUARDIAN)",
+                        "description": "Comma-separated role filter (e.g. ADMIN,FACULTY,STUDENT,GUARDIAN)",
                         "name": "role",
                         "in": "query",
                         "schema": {
@@ -4247,6 +4624,83 @@
                 }
             }
         },
+        "/students/{user_id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Returns a student's profile with their cohorts and linked guardians. School scope is derived from the authenticated user.",
+                "tags": [
+                    "Students"
+                ],
+                "summary": "Get student profile",
+                "parameters": [
+                    {
+                        "description": "Student user ID",
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_schooluser.StudentProfile"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/subjects": {
             "put": {
                 "security": [
@@ -4844,7 +5298,7 @@
                         "ApiKeyAuth": []
                     }
                 ],
-                "description": "Updates basic profile fields (first name, last name, phone) for a user.",
+                "description": "Updates profile fields for a user that belongs to the caller's school. Updates registration_number in school_users if provided.",
                 "tags": [
                     "Users"
                 ],
@@ -4866,7 +5320,27 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/somo-tracker-api_internal_user.User"
+                                    "$ref": "#/components/schemas/internal_user_delivery_http.updateUserRequest"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
                                 }
                             }
                         }
@@ -5606,6 +6080,29 @@
                     }
                 }
             },
+            "internal_faculty_delivery_http.importFacultyRequest": {
+                "type": "object",
+                "properties": {
+                    "cohort_id": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "registration_number": {
+                        "type": "string"
+                    }
+                }
+            },
             "internal_graderange_delivery_http.addGradeRangeRequest": {
                 "type": "object",
                 "properties": {
@@ -5666,6 +6163,23 @@
                     }
                 }
             },
+            "internal_guardian_delivery_http.importGuardianRequest": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "phone": {
+                        "type": "string"
+                    }
+                }
+            },
             "internal_guardianstudent_delivery_http.addGuardianStudentRequest": {
                 "type": "object",
                 "properties": {
@@ -5699,9 +6213,6 @@
             "internal_institute_delivery_http.updateInstituteInput": {
                 "type": "object",
                 "properties": {
-                    "id": {
-                        "type": "string"
-                    },
                     "name": {
                         "type": "string"
                     }
@@ -5839,6 +6350,12 @@
                         "type": "string"
                     },
                     "last_name": {
+                        "type": "string"
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "registration_number": {
                         "type": "string"
                     }
                 }
@@ -6043,13 +6560,22 @@
             "internal_user_delivery_http.updateUserRequest": {
                 "type": "object",
                 "properties": {
+                    "email": {
+                        "type": "string"
+                    },
                     "first_name": {
+                        "type": "string"
+                    },
+                    "id": {
                         "type": "string"
                     },
                     "last_name": {
                         "type": "string"
                     },
                     "phone": {
+                        "type": "string"
+                    },
+                    "registration_number": {
                         "type": "string"
                     }
                 }
@@ -6274,6 +6800,9 @@
                     "id": {
                         "type": "string"
                     },
+                    "institute_id": {
+                        "type": "string"
+                    },
                     "is_correct": {
                         "type": "boolean"
                     },
@@ -6418,6 +6947,9 @@
                     "id": {
                         "type": "string"
                     },
+                    "institute_id": {
+                        "type": "string"
+                    },
                     "start_time": {
                         "type": "string"
                     }
@@ -6550,6 +7082,9 @@
                     "id": {
                         "type": "string"
                     },
+                    "institute_id": {
+                        "type": "string"
+                    },
                     "marks": {
                         "type": "integer"
                     },
@@ -6615,6 +7150,38 @@
                     "Organization"
                 ]
             },
+            "somo-tracker-api_internal_schooluser.AdminProfile": {
+                "type": "object",
+                "properties": {
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "photo_url": {
+                        "type": "string"
+                    },
+                    "role": {
+                        "$ref": "#/components/schemas/somo-tracker-api_internal_user.Role"
+                    },
+                    "updated_at": {
+                        "type": "string"
+                    }
+                }
+            },
             "somo-tracker-api_internal_schooluser.CohortInfo": {
                 "type": "object",
                 "properties": {
@@ -6625,6 +7192,82 @@
                         "type": "string"
                     },
                     "year_group": {
+                        "type": "string"
+                    }
+                }
+            },
+            "somo-tracker-api_internal_schooluser.FacultyProfile": {
+                "type": "object",
+                "properties": {
+                    "cohorts": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/somo-tracker-api_internal_schooluser.CohortInfo"
+                        }
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "photo_url": {
+                        "type": "string"
+                    },
+                    "role": {
+                        "$ref": "#/components/schemas/somo-tracker-api_internal_user.Role"
+                    },
+                    "updated_at": {
+                        "type": "string"
+                    }
+                }
+            },
+            "somo-tracker-api_internal_schooluser.GuardianProfile": {
+                "type": "object",
+                "properties": {
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "photo_url": {
+                        "type": "string"
+                    },
+                    "role": {
+                        "$ref": "#/components/schemas/somo-tracker-api_internal_user.Role"
+                    },
+                    "students": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/somo-tracker-api_internal_schooluser.UserRef"
+                        }
+                    },
+                    "updated_at": {
                         "type": "string"
                     }
                 }
@@ -6691,6 +7334,70 @@
                         "$ref": "#/components/schemas/somo-tracker-api_internal_user.Role"
                     },
                     "user_id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "somo-tracker-api_internal_schooluser.StudentProfile": {
+                "type": "object",
+                "properties": {
+                    "cohorts": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/somo-tracker-api_internal_schooluser.CohortInfo"
+                        }
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "guardians": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/somo-tracker-api_internal_schooluser.UserRef"
+                        }
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "photo_url": {
+                        "type": "string"
+                    },
+                    "registration_number": {
+                        "type": "string"
+                    },
+                    "role": {
+                        "$ref": "#/components/schemas/somo-tracker-api_internal_user.Role"
+                    },
+                    "updated_at": {
+                        "type": "string"
+                    }
+                }
+            },
+            "somo-tracker-api_internal_schooluser.UserRef": {
+                "type": "object",
+                "properties": {
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "photo_url": {
                         "type": "string"
                     }
                 }
@@ -6762,6 +7469,9 @@
                     "id": {
                         "type": "string"
                     },
+                    "institute_id": {
+                        "type": "string"
+                    },
                     "name": {
                         "type": "string"
                     },
@@ -6777,6 +7487,9 @@
                         "type": "string"
                     },
                     "id": {
+                        "type": "string"
+                    },
+                    "institute_id": {
                         "type": "string"
                     },
                     "name": {
@@ -6844,6 +7557,9 @@
                         "type": "string"
                     },
                     "id": {
+                        "type": "string"
+                    },
+                    "institute_id": {
                         "type": "string"
                     },
                     "item_order": {

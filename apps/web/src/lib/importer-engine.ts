@@ -4,6 +4,9 @@ export interface AddUser {
     first_name: string;
     last_name: string;
     email: string;
+    phone?: string;
+    cohort_id?: string;
+    registration_number?: string;
 }
 
 export interface RowStatus {
@@ -11,6 +14,8 @@ export interface RowStatus {
     first_name: string;
     last_name: string;
     email: string;
+    phone?: string;
+    registration_number?: string;
     status: "ready" | "skipped";
     skipReason?: string;
 }
@@ -19,6 +24,8 @@ export interface FieldMapping {
     first_name: string;
     last_name: string;
     email: string;
+    phone?: string;
+    registration_number?: string;
 }
 
 export interface ParseResult {
@@ -55,6 +62,10 @@ export function transform(
         first_name: row[mapping.first_name] ?? "",
         last_name: row[mapping.last_name] ?? "",
         email: row[mapping.email] ?? "",
+        ...(mapping.phone ? { phone: row[mapping.phone] ?? "" } : {}),
+        ...(mapping.registration_number
+            ? { registration_number: row[mapping.registration_number] ?? "" }
+            : {}),
     }));
 }
 
@@ -67,6 +78,8 @@ export function validate(mappedRows: Record<string, string>[]): ValidationResult
         const first_name = row.first_name?.trim() ?? "";
         const last_name = row.last_name?.trim() ?? "";
         const email = row.email?.trim() ?? "";
+        const phone = row.phone?.trim() || undefined;
+        const registration_number = row.registration_number?.trim() || undefined;
 
         const missingName = !first_name && !last_name;
 
@@ -76,21 +89,28 @@ export function validate(mappedRows: Record<string, string>[]): ValidationResult
                 first_name,
                 last_name,
                 email,
+                phone,
+                registration_number,
                 status: "skipped",
                 skipReason: "Missing first and last name",
             });
-        } else if (!email) {
+        } else {
             preview.push({
                 index: i,
                 first_name,
                 last_name,
                 email,
-                status: "skipped",
-                skipReason: "Missing email",
+                phone,
+                registration_number,
+                status: "ready",
             });
-        } else {
-            preview.push({ index: i, first_name, last_name, email, status: "ready" });
-            data.push({ first_name, last_name, email });
+            data.push({
+                first_name,
+                last_name,
+                email,
+                ...(phone ? { phone } : {}),
+                ...(registration_number ? { registration_number } : {}),
+            });
         }
     }
 
@@ -109,6 +129,14 @@ export function autoMap(headers: string[]): Partial<FieldMapping> {
     const firstNameMatches = ["first_name", "first name", "firstname", "given name"];
     const lastNameMatches = ["last_name", "last name", "lastname", "surname", "family name"];
     const emailMatches = ["email", "email address", "e-mail"];
+    const phoneMatches = ["phone", "phone number", "mobile", "mobile number", "telephone"];
+    const registrationNumberMatches = [
+        "registration_number",
+        "registration number",
+        "reg number",
+        "reg no",
+        "regno",
+    ];
 
     const find = (candidates: string[]) =>
         headers[lower.findIndex((h) => candidates.includes(h))] ?? undefined;
@@ -116,10 +144,14 @@ export function autoMap(headers: string[]): Partial<FieldMapping> {
     const fn = find(firstNameMatches);
     const ln = find(lastNameMatches);
     const em = find(emailMatches);
+    const ph = find(phoneMatches);
+    const rn = find(registrationNumberMatches);
 
     if (fn) mapping.first_name = fn;
     if (ln) mapping.last_name = ln;
     if (em) mapping.email = em;
+    if (ph) mapping.phone = ph;
+    if (rn) mapping.registration_number = rn;
 
     return mapping;
 }

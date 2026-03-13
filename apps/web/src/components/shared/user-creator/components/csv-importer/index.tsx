@@ -9,6 +9,7 @@ import {
     transform,
     validate,
 } from "@/lib/importer-engine";
+import type { UserCreatorConfig } from "../../user-creator";
 import { StepFileUpload } from "./step-file-upload";
 import { StepFieldMapping } from "./step-field-mapping";
 import { StepPreview } from "./step-preview";
@@ -24,9 +25,10 @@ const STEPS: Step[] = ["upload", "mapping", "preview"];
 
 interface CsvImporterProps {
     onImport: (users: AddUser[]) => Promise<{ success: boolean; error?: string }>;
+    config?: UserCreatorConfig;
 }
 
-export function CsvImporter({ onImport }: CsvImporterProps) {
+export function CsvImporter({ onImport, config }: CsvImporterProps) {
     const [step, setStep] = useState<Step>("upload");
     const [headers, setHeaders] = useState<string[]>([]);
     const [rawRows, setRawRows] = useState<Record<string, string>[]>([]);
@@ -43,11 +45,13 @@ export function CsvImporter({ onImport }: CsvImporterProps) {
     }
 
     const validationResult = useMemo<ValidationResult | null>(() => {
-        if (!mapping.first_name && !mapping.last_name && !mapping.email) return null;
+        if (!mapping.first_name && !mapping.last_name) return null;
         const full: FieldMapping = {
             first_name: mapping.first_name ?? "",
             last_name: mapping.last_name ?? "",
             email: mapping.email ?? "",
+            phone: mapping.phone,
+            registration_number: mapping.registration_number,
         };
         const mapped = transform(rawRows, full);
         return validate(mapped);
@@ -124,6 +128,7 @@ export function CsvImporter({ onImport }: CsvImporterProps) {
                     onMappingChange={setMapping}
                     onNext={() => setStep("preview")}
                     onBack={() => setStep("upload")}
+                    config={config}
                 />
             )}
 
