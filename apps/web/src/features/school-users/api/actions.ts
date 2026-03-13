@@ -61,8 +61,7 @@ export async function deleteSchoolUsers(
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body),
         });
-        if (!res.ok)
-            return { success: false, error: await res.text(), code: res.status };
+        if (!res.ok) return { success: false, error: await res.text(), code: res.status };
         return { success: true, data: undefined };
     } catch {
         return { success: false, error: "Unable to reach the server.", code: 503 };
