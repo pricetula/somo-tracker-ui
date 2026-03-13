@@ -26,6 +26,7 @@ const navItems = [
             { title: "Students", url: "/students" },
             { title: "Guardians", url: "/guardians" },
             { title: "Faculty", url: "/faculty" },
+            { title: "Admins", url: "/admins" },
         ],
     },
     {
