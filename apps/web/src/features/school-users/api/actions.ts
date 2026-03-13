@@ -7,6 +7,7 @@ import type {
     SchoolUserSearchResponse,
     AddSchoolUserRequest,
     UpdateSchoolUserRequest,
+    DeleteSchoolUsersRequest,
     UpdateUserRequest,
     StudentProfile,
     FacultyProfile,
@@ -46,6 +47,23 @@ export async function addSchoolUsers(
         if (!res.ok)
             return { success: false, error: "Failed to add school users.", code: res.status };
         return { success: true, data: await res.json() };
+    } catch {
+        return { success: false, error: "Unable to reach the server.", code: 503 };
+    }
+}
+
+export async function deleteSchoolUsers(
+    body: DeleteSchoolUsersRequest
+): Promise<ActionResult<void>> {
+    try {
+        const res = await apiClient("/users", {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+        });
+        if (!res.ok)
+            return { success: false, error: await res.text(), code: res.status };
+        return { success: true, data: undefined };
     } catch {
         return { success: false, error: "Unable to reach the server.", code: 503 };
     }

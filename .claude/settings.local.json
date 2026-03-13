@@ -1,11 +1,22 @@
 {
-    "permissions": {
-        "allow": [
-            "Bash(sudo tee:*)",
-            "Bash(/dev/null:*)",
-            "Bash(pnpm install:*)",
-            "Bash(grep:*)",
-            "Bash(python3:*)"
-        ]
-    }
+  "permissions": {
+    "allow": [
+      "Bash(sudo tee:*)",
+      "Bash(/dev/null:*)",
+      "Bash(pnpm install:*)",
+      "Bash(grep:*)",
+      "Bash(python3:*)",
+      "Bash(find /Users/pricetulak/Projects/somotracker/somo-tracker-ui/apps/web/src -type f \\\\\\( -name \"*.ts\" -o -name \"*.tsx\" \\\\\\) 2>/dev/null | head -50)",
+      "Bash(find /Users/pricetulak/Projects/somotracker/somo-tracker-ui/apps/web/src -type f \\\\\\( -name \"*swagger*\" -o -name \"*openapi*\" -o -name \"*api*\" \\\\\\) 2>/dev/null | grep -v node_modules)",
+      "Bash(ls -la /Users/pricetulak/Projects/somotracker/somo-tracker-ui/apps/web/src/app/\\\\\\(authenticated\\\\\\)/@modal/\\\\\\(.\\\\\\)users/)",
+      "Bash(cat /Users/pricetulak/Projects/somotracker/somo-tracker-ui/apps/web/src/app/\\\\\\(authenticated\\\\\\)/@modal/\\\\\\(.\\\\\\)users/invite/page.tsx)",
+      "Bash(ls -la \"/Users/pricetulak/Projects/somotracker/somo-tracker-ui/apps/web/src/app/\\(authenticated\\)/@modal/\\(.\\)users/add-students/\")",
+      "Bash(cat \"/Users/pricetulak/Projects/somotracker/somo-tracker-ui/apps/web/src/app/\\(authenticated\\)/@modal/\\(.\\)users/add-students/page.tsx\")",
+      "Bash(cat \"/Users/pricetulak/Projects/somotracker/somo-tracker-ui/apps/web/src/app/\\(authenticated\\)/faculty/page.tsx\")",
+      "Bash(cat \"/Users/pricetulak/Projects/somotracker/somo-tracker-ui/apps/web/src/app/\\(authenticated\\)/admins/page.tsx\")",
+      "Bash(cat \"/Users/pricetulak/Projects/somotracker/somo-tracker-ui/apps/web/src/app/\\(authenticated\\)/students/page.tsx\")",
+      "Bash(cd /Users/pricetulak/Projects/somotracker/somo-tracker-ui/apps/web && pnpm tsc --noEmit 2>&1 | head -40)",
+      "Bash(pnpm tsc:*)"
+    ]
+  }
 }

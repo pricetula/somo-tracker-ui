@@ -3604,7 +3604,60 @@ export interface paths {
                 };
             };
         };
-        delete?: never;
+        /**
+         * Delete school users
+         * @description Soft-deletes one or more school users by user ID.
+         */
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description IDs to delete */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["internal_schooluser_delivery_http.deleteSchoolUsersRequest"];
+                };
+            };
+            responses: {
+                /** @description No Content */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
         options?: never;
         head?: never;
         patch?: never;
@@ -5698,6 +5751,9 @@ export interface components {
             id?: string;
             name?: string;
             website?: string;
+        };
+        "internal_schooluser_delivery_http.deleteSchoolUsersRequest": {
+            ids?: string[];
         };
         "internal_schooluser_delivery_http.addSchoolUserRequest": {
             registration_number?: string;

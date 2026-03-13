@@ -1,10 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback, useState } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { useQueryState } from "nuqs";
-import { Loader2 } from "lucide-react";
+import { Loader2, Trash2 } from "lucide-react";
+import { toast } from "sonner";
 import { useInfiniteSchoolUsers } from "@/features/school-users/api/use-school-users";
+import { useDeleteSchoolUsers } from "@/features/school-users/api/use-school-users-mutations";
 import { SchoolUserRow } from "./school-user-row";
 
 const ROW_HEIGHT = 56;
@@ -16,6 +18,7 @@ interface SchoolUsersListProps {
 
 export function SchoolUsersList({ role }: SchoolUsersListProps) {
     const [search] = useQueryState("search", { defaultValue: "" });
+    const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
 
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
         useInfiniteSchoolUsers({ search: search || undefined, role });
@@ -24,9 +27,10 @@ export function SchoolUsersList({ role }: SchoolUsersListProps) {
 
     const totalCount = (data?.pages[0]?.success ? data.pages[0].data?.total_count : undefined) ?? 0;
 
+    const { mutate: deleteUsers, isPending: isDeleting } = useDeleteSchoolUsers();
+
     const parentRef = useRef<HTMLDivElement>(null);
 
-    // Make functions stable for TanStack Virtual
     const getScrollElement = useCallback(() => parentRef.current, []);
     const estimateSize = useCallback(() => ROW_HEIGHT, []);
 
@@ -49,13 +53,107 @@ export function SchoolUsersList({ role }: SchoolUsersListProps) {
         }
     }, [virtualItems, allItems.length, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
+    // Clear selection when search/role changes
+    useEffect(() => {
+        setSelectedIds(new Set());
+    }, [search, role]);
+
+    const handleToggleSelect = useCallback((userId: string) => {
+        setSelectedIds((prev) => {
+            const next = new Set(prev);
+            if (next.has(userId)) {
+                next.delete(userId);
+            } else {
+                next.add(userId);
+            }
+            return next;
+        });
+    }, []);
+
+    const handleToggleAll = useCallback(() => {
+        if (selectedIds.size === allItems.length && allItems.length > 0) {
+            setSelectedIds(new Set());
+        } else {
+            setSelectedIds(new Set(allItems.map((u) => u.user_id || "").filter(Boolean)));
+        }
+    }, [selectedIds.size, allItems]);
+
+    const handleDeleteSelected = useCallback(() => {
+        const ids = Array.from(selectedIds);
+        deleteUsers(
+            { ids },
+            {
+                onSuccess: () => {
+                    setSelectedIds(new Set());
+                    toast.success(`${ids.length} user${ids.length > 1 ? "s" : ""} deleted.`);
+                },
+                onError: () => {
+                    toast.error("Failed to delete users.");
+                },
+            }
+        );
+    }, [selectedIds, deleteUsers]);
+
+    const handleDeleteSingle = useCallback(
+        (userId: string) => {
+            deleteUsers(
+                { ids: [userId] },
+                {
+                    onSuccess: () => {
+                        setSelectedIds((prev) => {
+                            const next = new Set(prev);
+                            next.delete(userId);
+                            return next;
+                        });
+                        toast.success("User deleted.");
+                    },
+                    onError: () => {
+                        toast.error("Failed to delete user.");
+                    },
+                }
+            );
+        },
+        [deleteUsers]
+    );
+
+    const allSelected = allItems.length > 0 && selectedIds.size === allItems.length;
+    const someSelected = selectedIds.size > 0 && !allSelected;
+
     return (
         <div className="flex flex-col h-[calc(100vh-160px)] overflow-y-auto bg-background">
             <div className="flex items-center justify-between px-4 py-2 border-b text-xs text-muted-foreground bg-muted/30">
-                <span>{totalCount} users found</span>
-                {(isFetching || isFetchingNextPage) && (
-                    <Loader2 className="size-3 animate-spin text-primary" />
-                )}
+                <div className="flex items-center gap-3">
+                    <input
+                        type="checkbox"
+                        checked={allSelected}
+                        ref={(el) => {
+                            if (el) el.indeterminate = someSelected;
+                        }}
+                        onChange={handleToggleAll}
+                        className="size-4 rounded border-border accent-primary cursor-pointer"
+                        aria-label="Select all"
+                    />
+                    <span>{totalCount} users found</span>
+                </div>
+                <div className="flex items-center gap-2">
+                    {selectedIds.size > 0 && (
+                        <button
+                            onClick={handleDeleteSelected}
+                            disabled={isDeleting}
+                            className="flex items-center gap-1.5 text-xs text-destructive hover:text-destructive/80 transition-colors disabled:opacity-50"
+                        >
+                            {isDeleting ? (
+                                <Loader2 className="size-3 animate-spin" />
+                            ) : (
+                                <Trash2 className="size-3" />
+                            )}
+                            Delete {selectedIds.size} selected
+                        </button>
+                    )}
+                    {(isFetching || isFetchingNextPage) && (
+                        <Loader2 className="size-3 animate-spin text-primary" />
+                    )}
+                </div>
             </div>
 
             <div ref={parentRef} className="flex-1 overflow-auto scrollbar-hide min-h-0">
@@ -85,6 +183,9 @@ export function SchoolUsersList({ role }: SchoolUsersListProps) {
                                     <SchoolUserRow
                                         user={user}
                                         style={{ height: `${ROW_HEIGHT}px` }}
+                                        selected={selectedIds.has(user.user_id || "")}
+                                        onToggleSelect={handleToggleSelect}
+                                        onDelete={handleDeleteSingle}
                                     />
                                 )}
                             </div>

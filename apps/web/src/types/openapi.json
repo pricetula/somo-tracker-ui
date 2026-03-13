@@ -3726,6 +3726,64 @@
                         }
                     }
                 }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Soft-deletes one or more school users by user ID.",
+                "tags": [
+                    "School Users"
+                ],
+                "summary": "Delete school users",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/internal_schooluser_delivery_http.deleteSchoolUsersRequest"
+                            }
+                        }
+                    },
+                    "description": "IDs to delete",
+                    "required": true
+                },
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "/schools": {
@@ -6306,6 +6364,17 @@
                     },
                     "website": {
                         "type": "string"
+                    }
+                }
+            },
+            "internal_schooluser_delivery_http.deleteSchoolUsersRequest": {
+                "type": "object",
+                "properties": {
+                    "ids": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
                     }
                 }
             },
