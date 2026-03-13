@@ -57,7 +57,7 @@ export function UserProfileCard({
 
     function handleConfirm() {
         if (!editable) return;
-        let registration_number = draft.registrationNumber || registrationNumber || "";
+        const registration_number = draft.registrationNumber || registrationNumber || "";
         updateProfile(
             {
                 userId,
