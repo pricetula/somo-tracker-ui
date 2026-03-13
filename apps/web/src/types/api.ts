@@ -5948,6 +5948,7 @@ export interface components {
             last_name?: string;
             phone?: string;
             photo_url?: string;
+            registration_number?: string;
             role?: components["schemas"]["somo-tracker-api_internal_user.Role"];
             updated_at?: string;
         };
@@ -5965,6 +5966,7 @@ export interface components {
             last_name?: string;
             phone?: string;
             photo_url?: string;
+            registration_number?: string;
             role?: components["schemas"]["somo-tracker-api_internal_user.Role"];
             updated_at?: string;
         };
