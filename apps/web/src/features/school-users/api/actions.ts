@@ -7,6 +7,7 @@ import type {
     SchoolUserSearchResponse,
     AddSchoolUserRequest,
     UpdateSchoolUserRequest,
+    UpdateUserRequest,
     StudentProfile,
     FacultyProfile,
     GuardianProfile,
@@ -61,6 +62,24 @@ export async function updateSchoolUser(
         });
         if (!res.ok)
             return { success: false, error: "Failed to update school user.", code: res.status };
+        return { success: true, data: await res.json() };
+    } catch {
+        return { success: false, error: "Unable to reach the server.", code: 503 };
+    }
+}
+
+export async function updateUser(
+    userId: string,
+    body: UpdateUserRequest
+): Promise<ActionResult<UpdateUserRequest>> {
+    try {
+        const res = await apiClient("/users", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ ...body, id: userId }),
+        });
+        if (!res.ok)
+            return { success: false, error: "Failed to update user.", code: res.status };
         return { success: true, data: await res.json() };
     } catch {
         return { success: false, error: "Unable to reach the server.", code: 503 };

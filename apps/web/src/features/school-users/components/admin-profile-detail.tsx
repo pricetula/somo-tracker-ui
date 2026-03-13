@@ -1,6 +1,6 @@
 "use client";
 
-import { useAdminProfile } from "@/features/school-users/api/use-school-user-profile";
+import { adminProfileQueryKey, useAdminProfile } from "@/features/school-users/api/use-school-user-profile";
 import { UserProfileCard } from "./user-profile-card";
 
 export function AdminProfileDetail({ userId }: { userId: string }) {
@@ -23,6 +23,8 @@ export function AdminProfileDetail({ userId }: { userId: string }) {
             phone={profile.phone}
             photoUrl={profile.photo_url}
             role={profile.role}
+            userId={profile.id}
+            profileQueryKey={adminProfileQueryKey(userId)}
         />
     );
 }

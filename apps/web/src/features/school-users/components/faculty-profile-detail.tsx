@@ -1,6 +1,6 @@
 "use client";
 
-import { useFacultyProfile } from "@/features/school-users/api/use-school-user-profile";
+import { facultyProfileQueryKey, useFacultyProfile } from "@/features/school-users/api/use-school-user-profile";
 import { UserProfileCard } from "./user-profile-card";
 
 export function FacultyProfileDetail({ userId }: { userId: string }) {
@@ -23,6 +23,8 @@ export function FacultyProfileDetail({ userId }: { userId: string }) {
             phone={profile.phone}
             photoUrl={profile.photo_url}
             role={profile.role}
+            userId={profile.id}
+            profileQueryKey={facultyProfileQueryKey(userId)}
         />
     );
 }

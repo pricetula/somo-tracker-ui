@@ -18,3 +18,5 @@ export type GuardianProfile =
     components["schemas"]["somo-tracker-api_internal_schooluser.GuardianProfile"];
 export type AdminProfile =
     components["schemas"]["somo-tracker-api_internal_schooluser.AdminProfile"];
+export type UpdateUserRequest =
+    components["schemas"]["internal_user_delivery_http.updateUserRequest"];

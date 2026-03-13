@@ -1,10 +1,59 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
     fetchStudentProfile,
     fetchFacultyProfile,
     fetchGuardianProfile,
     fetchAdminProfile,
 } from "./fetch-school-user-profile";
+import { updateUser } from "./actions";
+import type {
+    StudentProfile,
+    FacultyProfile,
+    GuardianProfile,
+    AdminProfile,
+    UpdateUserRequest,
+} from "@/features/school-users/types";
+import type { ActionResult } from "@/types/action-result";
+
+type AnyProfile = StudentProfile | FacultyProfile | GuardianProfile | AdminProfile;
+
+interface UpdateProfileVars {
+    userId: string;
+    userFields: UpdateUserRequest;
+    queryKey: readonly unknown[];
+}
+
+export function useUpdateProfile() {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: async ({ userId, userFields }: UpdateProfileVars) => {
+            await updateUser(userId, userFields);
+        },
+        onMutate: async ({ queryKey, userFields }) => {
+            await queryClient.cancelQueries({ queryKey });
+            const previous = queryClient.getQueryData(queryKey);
+            queryClient.setQueryData(queryKey, (old: ActionResult<AnyProfile> | undefined) => {
+                if (!old?.success) return old;
+                return {
+                    ...old,
+                    data: {
+                        ...old.data,
+                        ...userFields,
+                    },
+                };
+            });
+            return { previous };
+        },
+        onError: (_err, { queryKey }, context) => {
+            if (context?.previous !== undefined) {
+                queryClient.setQueryData(queryKey, context.previous);
+            }
+        },
+        onSettled: (_data, _err, { queryKey }) => {
+            queryClient.invalidateQueries({ queryKey });
+        },
+    });
+}
 
 export function studentProfileQueryKey(userId: string) {
     return ["school-users", "profile", "student", userId] as const;

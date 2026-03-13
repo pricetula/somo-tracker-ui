@@ -1,6 +1,6 @@
 "use client";
 
-import { useStudentProfile } from "@/features/school-users/api/use-school-user-profile";
+import { studentProfileQueryKey, useStudentProfile } from "@/features/school-users/api/use-school-user-profile";
 import { UserProfileCard } from "./user-profile-card";
 
 export function StudentProfileDetail({ userId }: { userId: string }) {
@@ -24,6 +24,8 @@ export function StudentProfileDetail({ userId }: { userId: string }) {
             photoUrl={profile.photo_url}
             role={profile.role}
             registrationNumber={profile.registration_number}
+            userId={profile.id}
+            profileQueryKey={studentProfileQueryKey(userId)}
         />
     );
 }
