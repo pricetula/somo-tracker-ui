@@ -5298,7 +5298,7 @@
                         "ApiKeyAuth": []
                     }
                 ],
-                "description": "Updates basic profile fields (first name, last name, phone) for a user.",
+                "description": "Updates profile fields for a user that belongs to the caller's school. Updates registration_number in school_users if provided.",
                 "tags": [
                     "Users"
                 ],
@@ -5320,7 +5320,27 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/somo-tracker-api_internal_user.User"
+                                    "$ref": "#/components/schemas/internal_user_delivery_http.updateUserRequest"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
                                 }
                             }
                         }
@@ -6540,13 +6560,22 @@
             "internal_user_delivery_http.updateUserRequest": {
                 "type": "object",
                 "properties": {
+                    "email": {
+                        "type": "string"
+                    },
                     "first_name": {
+                        "type": "string"
+                    },
+                    "id": {
                         "type": "string"
                     },
                     "last_name": {
                         "type": "string"
                     },
                     "phone": {
+                        "type": "string"
+                    },
+                    "registration_number": {
                         "type": "string"
                     }
                 }

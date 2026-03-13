@@ -5113,7 +5113,7 @@ export interface paths {
         get?: never;
         /**
          * Update user
-         * @description Updates basic profile fields (first name, last name, phone) for a user.
+         * @description Updates profile fields for a user that belongs to the caller's school. Updates registration_number in school_users if provided.
          */
         put: {
             parameters: {
@@ -5135,7 +5135,25 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["somo-tracker-api_internal_user.User"];
+                        "application/json": components["schemas"]["internal_user_delivery_http.updateUserRequest"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
                     };
                 };
                 /** @description Unprocessable Entity */
@@ -5765,9 +5783,12 @@ export interface components {
             name?: string;
         };
         "internal_user_delivery_http.updateUserRequest": {
+            email?: string;
             first_name?: string;
+            id?: string;
             last_name?: string;
             phone?: string;
+            registration_number?: string;
         };
         "internal_yeargroup_delivery_http.addYearGroupRequest": {
             education_system_id?: string;
