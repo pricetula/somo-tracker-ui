@@ -139,7 +139,10 @@ export function UserProfileCard({
                                     className="h-7 w-48 text-xs"
                                     value={draft.registrationNumber}
                                     onChange={(e) =>
-                                        setDraft((d) => ({ ...d, registrationNumber: e.target.value }))
+                                        setDraft((d) => ({
+                                            ...d,
+                                            registrationNumber: e.target.value,
+                                        }))
                                     }
                                     placeholder="Registration number"
                                 />
@@ -169,7 +172,9 @@ export function UserProfileCard({
                         <div className="flex gap-2 items-center">
                             {phone && <p className="text-sm text-muted-foreground">{phone}</p>}
                             {registrationNumber && (
-                                <p className="text-xs text-muted-foreground">#{registrationNumber}</p>
+                                <p className="text-xs text-muted-foreground">
+                                    #{registrationNumber}
+                                </p>
                             )}
                         </div>
                     </>
