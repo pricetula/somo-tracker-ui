@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { AddUser } from "@/lib/importer-engine";
-import type { Cohort } from "@/features/cohorts/types";
+type Cohort = { id: string; name: string };
 import type { UserCreatorConfig } from "./user-creator";
 
 interface Row {

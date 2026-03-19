@@ -1,12 +1,14 @@
-import { useQuery } from "@tanstack/react-query";
-import { fetchMe } from "./fetch-me";
+"use client";
 
-export const meQueryKey = ["me"] as const;
+import { useQuery } from "@tanstack/react-query";
+import { getMeAction } from "@/features/me/api/actions";
+
+export const ME_QUERY_KEY = ["me"] as const;
 
 export function useMe() {
     return useQuery({
-        queryKey: meQueryKey,
-        queryFn: fetchMe,
-        staleTime: 1000 * 60 * 5,
+        queryKey: ME_QUERY_KEY,
+        queryFn: () => getMeAction(),
+        staleTime: 5 * 60 * 1000,
     });
 }

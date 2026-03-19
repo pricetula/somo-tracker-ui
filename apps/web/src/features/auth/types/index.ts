@@ -1,12 +1,14 @@
-import * as z from "zod";
-import type { components } from "@/types/api";
+import { z } from "zod";
 
-export const magicLinkSchema = z.object({
-    email: z.email({
-        message: "Please enter a valid email address.",
-    }),
+export const sendMagicLinkSchema = z.object({
+    email: z.string().email("Please enter a valid email address"),
+    full_name: z.string().optional(),
 });
 
-export type MagicLinkInput = z.infer<typeof magicLinkSchema>;
+export type SendMagicLinkInput = z.infer<typeof sendMagicLinkSchema>;
 
-export type Role = components["schemas"]["somo-tracker-api_internal_user.Role"];
+export const verifyMagicLinkSchema = z.object({
+    token: z.string().min(1, "Token is required"),
+});
+
+export type VerifyMagicLinkInput = z.infer<typeof verifyMagicLinkSchema>;

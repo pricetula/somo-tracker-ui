@@ -1,10 +1,13 @@
-import GlobalPrefetchedQueries from "@/components/shared/global-prefetched-queries";
-import AuthGuard from "@/features/auth/components/auth-guard";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
-export default async function AuthenticatedLayout({ children }: { children: React.ReactNode }) {
-    return (
-        <AuthGuard>
-            <GlobalPrefetchedQueries>{children}</GlobalPrefetchedQueries>
-        </AuthGuard>
-    );
+export default async function OnboardingLayout({ children }: { children: React.ReactNode }) {
+    const cookieStore = await cookies();
+    const sessionToken = cookieStore.get("session_token");
+
+    if (!sessionToken) {
+        redirect("/login");
+    }
+
+    return <>{children}</>;
 }

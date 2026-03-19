@@ -31,11 +31,10 @@ export function NavUser() {
     const { data } = useMe();
 
     const me = data?.success ? data.data : null;
-    const firstName = me?.user_first_name ?? "";
-    const lastName = me?.user_last_name ?? "";
-    const name = `${firstName} ${lastName}`.trim();
-    const email = me?.user_email ?? "";
-    const avatar = me?.user_photo_url ?? "";
+    const name = (me?.user?.fullName ?? "").split(" ");
+    const firstName = name[0];
+    const lastName = name[1];
+    const email = me?.user?.email ?? "";
 
     return (
         <SidebarMenu>
@@ -46,11 +45,7 @@ export function NavUser() {
                             size="lg"
                             className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
                         >
-                            <UserAvatar
-                                firstName={firstName}
-                                lastName={lastName}
-                                photoUrl={avatar}
-                            />
+                            <UserAvatar firstName={firstName} lastName={lastName} photoUrl="" />
                             <div className="grid flex-1 text-start text-sm leading-tight">
                                 <span className="truncate font-medium">{name}</span>
                                 <span className="truncate text-xs">{email}</span>
@@ -66,11 +61,7 @@ export function NavUser() {
                     >
                         <DropdownMenuLabel className="p-0 font-normal">
                             <div className="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
-                                <UserAvatar
-                                    firstName={firstName}
-                                    lastName={lastName}
-                                    photoUrl={avatar}
-                                />
+                                <UserAvatar firstName={firstName} lastName={lastName} photoUrl="" />
                                 <div className="grid flex-1 text-start text-sm leading-tight">
                                     <span className="truncate font-medium">{name}</span>
                                     <span className="truncate text-xs">{email}</span>

@@ -1,26 +1,25 @@
 "use server";
 
-import { cookies } from "next/headers";
 import { apiClient } from "@/lib/api-client";
 import type { ActionResult } from "@/types/action-result";
-import type { Me } from "@/features/me/types";
+import type { Membership } from "@/features/me/types";
 
-export async function getMe(): Promise<ActionResult<Me>> {
+export async function getMeAction(): Promise<ActionResult<Membership>> {
     try {
-        const res = await apiClient("/me");
+        const response = await apiClient("/me");
 
-        if (res.status === 401) {
-            (await cookies()).delete("session_token");
-            return { success: false, error: "Session expired.", code: 401 };
+        if (!response.ok) {
+            const body = await response.json().catch(() => ({}));
+            return {
+                success: false,
+                error: (body as { message?: string }).message ?? "Failed to fetch user data.",
+                code: response.status,
+            };
         }
 
-        if (!res.ok) {
-            return { success: false, error: "Failed to fetch user.", code: res.status };
-        }
-
-        const data: Me = await res.json();
+        const data: Membership = await response.json();
         return { success: true, data };
     } catch {
-        return { success: false, error: "Unable to reach the server.", code: 503 };
+        return { success: false, error: "Something went wrong. Please try again." };
     }
 }

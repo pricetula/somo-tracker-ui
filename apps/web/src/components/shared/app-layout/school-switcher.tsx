@@ -18,9 +18,9 @@ import {
     useSidebar,
 } from "@/components/ui/sidebar";
 import { useMe } from "@/features/me/api/use-me";
-import { useSchools } from "@/features/school/api/use-schools";
 import { ChevronsUpDownIcon, PlusIcon } from "lucide-react";
-import { School } from "@/features/school/types";
+
+type School = { id?: string; name?: string };
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useRouter } from "next/navigation";
 
@@ -28,10 +28,9 @@ export function SchoolSwitcher() {
     const router = useRouter();
     const { isMobile } = useSidebar();
     const { data: meData } = useMe();
-    const { data: schoolsData } = useSchools();
 
-    const schools = schoolsData?.success ? schoolsData.data : [];
-    const activeSchoolId = meData?.success ? meData.data?.school_id : undefined;
+    const schools: School[] = [];
+    const activeSchoolId = meData?.success ? meData.data?.schoolID : undefined;
     const activeSchool = schools?.find((s) => s.id === activeSchoolId) ?? schools?.[0];
     const initialSchoolName = activeSchool?.name?.[0]?.toUpperCase?.() ?? "U";
 

@@ -8,7 +8,7 @@ import {
     DialogDescription,
 } from "@/components/ui/dialog";
 import type { AddUser } from "@/lib/importer-engine";
-import type { Cohort } from "@/features/cohorts/types";
+type Cohort = { id: string; name: string };
 import { UserCreator, type UserCreatorConfig } from "./user-creator";
 
 interface UserCreatorModalProps {
