@@ -6,3 +6,9 @@ export const sendMagicLinkSchema = z.object({
 });
 
 export type SendMagicLinkInput = z.infer<typeof sendMagicLinkSchema>;
+
+export const verifyMagicLinkSchema = z.object({
+    token: z.string().min(1, "Token is required"),
+});
+
+export type VerifyMagicLinkInput = z.infer<typeof verifyMagicLinkSchema>;

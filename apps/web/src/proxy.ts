@@ -8,27 +8,19 @@ export function proxy(request: NextRequest) {
 
     const { pathname } = request.nextUrl;
 
-    const isPublicRoutes = publicRoutes.some(
-        (route) => pathname.startsWith(route) && pathname !== "/"
-    );
+    const isPublicRoute = publicRoutes.some((route) => pathname.startsWith(route));
     const isLogoutRoute = pathname === "/logout";
 
-    if (!isPublicRoutes && !sessionToken) {
-        return NextResponse.redirect(new URL("/login", request.url));
-    }
-
-    if (isPublicRoutes && !isLogoutRoute && sessionToken) {
+    // Redirect authenticated users away from public routes (e.g. /login → /)
+    if (isPublicRoute && !isLogoutRoute && sessionToken) {
         return NextResponse.redirect(new URL("/", request.url));
     }
 
     const requestHeaders = new Headers(request.headers);
-
     requestHeaders.set("x-current-path", pathname);
 
     return NextResponse.next({
-        request: {
-            headers: requestHeaders,
-        },
+        request: { headers: requestHeaders },
     });
 }
 
