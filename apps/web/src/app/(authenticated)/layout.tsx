@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { getMeAction } from "@/features/me/api/actions";
 
 export default async function AuthenticatedLayout({
     children,
@@ -11,6 +12,18 @@ export default async function AuthenticatedLayout({
 
     if (!sessionToken) {
         redirect("/login");
+    }
+
+    const result = await getMeAction();
+
+    if (!result.success) {
+        redirect(result.code === 401 ? "/logout" : "/login");
+    }
+
+    const { school, tenant } = result.data;
+
+    if (!tenant || !school) {
+        redirect("/onboarding");
     }
 
     return <>{children}</>;

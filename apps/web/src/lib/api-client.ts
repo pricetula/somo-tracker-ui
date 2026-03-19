@@ -15,11 +15,12 @@ export async function apiClient(path: string, options: RequestOptions = {}): Pro
 
     const headers: Record<string, string> = {
         "Content-Type": "application/json",
+        credentials: "include",
         ...options.headers,
     };
 
     if (sessionToken) {
-        headers["Authorization"] = `Bearer ${sessionToken}`;
+        headers["Cookie"] = `session_token=${sessionToken}`;
     }
 
     return fetch(`${backendUrl}${path}`, { ...options, headers });
