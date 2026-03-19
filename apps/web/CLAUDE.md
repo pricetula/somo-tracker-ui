@@ -1,5 +1,11 @@
 # CLAUDE.md
 
+## API reference
+
+Use `src/types/api.ts` as reference for api requests and responses.
+
+---
+
 ## Tech Stack
 
 **Core:** Next.js 15+ App Router • React 19 • TypeScript 5+
