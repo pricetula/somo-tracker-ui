@@ -31,7 +31,11 @@ export function OnboardForm() {
                     type="text"
                     placeholder="Acme Academy"
                     required
-                    aria-describedby={!state.success && state.validationErrors?.tenant_name ? "tenant-name-error" : undefined}
+                    aria-describedby={
+                        !state.success && state.validationErrors?.tenant_name
+                            ? "tenant-name-error"
+                            : undefined
+                    }
                 />
                 {!state.success && state.validationErrors?.tenant_name && (
                     <p id="tenant-name-error" className="text-sm text-destructive">
@@ -48,7 +52,11 @@ export function OnboardForm() {
                     type="text"
                     placeholder="Acme High School"
                     required
-                    aria-describedby={!state.success && state.validationErrors?.school_name ? "school-name-error" : undefined}
+                    aria-describedby={
+                        !state.success && state.validationErrors?.school_name
+                            ? "school-name-error"
+                            : undefined
+                    }
                 />
                 {!state.success && state.validationErrors?.school_name && (
                     <p id="school-name-error" className="text-sm text-destructive">

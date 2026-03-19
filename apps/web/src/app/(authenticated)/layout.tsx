@@ -2,11 +2,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { getMeAction } from "@/features/me/api/actions";
 
-export default async function AuthenticatedLayout({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
+export default async function AuthenticatedLayout({ children }: { children: React.ReactNode }) {
     const cookieStore = await cookies();
     const sessionToken = cookieStore.get("session_token");
 
