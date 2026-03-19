@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import type { AddUser } from "@/lib/importer-engine";
-import type { Cohort } from "@/features/cohorts/types";
+type Cohort = { id: string; name: string };
 import { ManualMethod } from "./manual-method";
 import { CsvMethod } from "./csv-method";
 import { ExcelMethod } from "./excel-method";

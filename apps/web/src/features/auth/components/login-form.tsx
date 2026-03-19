@@ -27,12 +27,7 @@ export function LoginForm() {
         <form action={formAction} className="space-y-4">
             <div className="space-y-2">
                 <Label htmlFor="full_name">Full name (optional)</Label>
-                <Input
-                    id="full_name"
-                    name="full_name"
-                    type="text"
-                    placeholder="Jane Smith"
-                />
+                <Input id="full_name" name="full_name" type="text" placeholder="Jane Smith" />
             </div>
 
             <div className="space-y-2">
