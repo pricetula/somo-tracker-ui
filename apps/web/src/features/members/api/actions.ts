@@ -27,8 +27,7 @@ export async function addMembersInBulk(
 
             if (!response.ok) {
                 const body = await response.json().catch(() => ({}));
-                const message =
-                    (body as { message?: string }).message ?? "Failed to add students.";
+                const message = (body as { message?: string }).message ?? "Failed to add students.";
                 return { success: false, error: message };
             }
 
@@ -57,8 +56,7 @@ export async function addMembersInBulk(
 
         if (!response.ok) {
             const body = await response.json().catch(() => ({}));
-            const message =
-                (body as { message?: string }).message ?? "Failed to send invitations.";
+            const message = (body as { message?: string }).message ?? "Failed to send invitations.";
             return { success: false, error: message };
         }
 

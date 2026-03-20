@@ -73,7 +73,10 @@ export interface ValidateOptions {
     emailRequired?: boolean;
 }
 
-export function validate(mappedRows: Record<string, string>[], options: ValidateOptions = {}): ValidationResult {
+export function validate(
+    mappedRows: Record<string, string>[],
+    options: ValidateOptions = {}
+): ValidationResult {
     const preview: RowStatus[] = [];
     const data: AddUser[] = [];
 

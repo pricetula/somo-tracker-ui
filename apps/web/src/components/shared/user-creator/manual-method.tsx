@@ -131,7 +131,9 @@ export function ManualMethod({ onImport, onReset, config, cohorts }: ManualMetho
                             </div>
                             <div className="flex-1 min-w-0">
                                 <Input
-                                    placeholder={config?.emailOptional ? "Email (optional)" : "Email *"}
+                                    placeholder={
+                                        config?.emailOptional ? "Email (optional)" : "Email *"
+                                    }
                                     type="email"
                                     value={row.email}
                                     onChange={(e) => updateRow(i, "email", e.target.value)}
