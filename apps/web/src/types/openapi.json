@@ -2682,6 +2682,74 @@
                         }
                     }
                 }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Creates multiple student accounts with optional student group enrollment. Only admins.",
+                "tags": [
+                    "members"
+                ],
+                "summary": "Bulk add students",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/internal_membership_delivery_http.bulkAddStudentsRequest"
+                            }
+                        }
+                    },
+                    "description": "Students payload",
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/somo-tracker-api_internal_common_apperror.ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "/students/{id}/parents": {
@@ -5087,6 +5155,18 @@
                     "email": {
                         "type": "string"
                     },
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "registration_number": {
+                        "type": "string"
+                    },
                     "role": {
                         "type": "string"
                     }
@@ -5099,6 +5179,17 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/internal_invitation_delivery_http.inviteItem"
+                        }
+                    }
+                }
+            },
+            "internal_membership_delivery_http.bulkAddStudentsRequest": {
+                "type": "object",
+                "properties": {
+                    "students": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/internal_membership_delivery_http.studentItem"
                         }
                     }
                 }
@@ -5125,6 +5216,29 @@
                         "type": "string"
                     },
                     "user_id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "internal_membership_delivery_http.studentItem": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "registration_number": {
+                        "type": "string"
+                    },
+                    "student_group_id": {
                         "type": "string"
                     }
                 }
@@ -5616,6 +5730,9 @@
                     "isActive": {
                         "type": "boolean"
                     },
+                    "registrationNumber": {
+                        "type": "string"
+                    },
                     "role": {
                         "$ref": "#/components/schemas/somo-tracker-api_internal_membership.Role"
                     },
@@ -5724,6 +5841,9 @@
                         "type": "string"
                     },
                     "id": {
+                        "type": "string"
+                    },
+                    "phone": {
                         "type": "string"
                     },
                     "updatedAt": {

@@ -12,6 +12,7 @@ export interface UserCreatorConfig {
     showPhone?: boolean;
     showCohort?: boolean;
     showRegistrationNumber?: boolean;
+    emailOptional?: boolean;
 }
 
 type Method = "manual" | "csv" | "excel";

@@ -12,13 +12,9 @@ interface StepFieldMappingProps {
     config?: UserCreatorConfig;
 }
 
-const REQUIRED_FIELDS: { key: keyof FieldMapping; label: string }[] = [
+const BASE_REQUIRED_FIELDS: { key: keyof FieldMapping; label: string }[] = [
     { key: "first_name", label: "First Name" },
     { key: "last_name", label: "Last Name" },
-];
-
-const BASE_OPTIONAL_FIELDS: { key: keyof FieldMapping; label: string }[] = [
-    { key: "email", label: "Email" },
 ];
 
 export function StepFieldMapping({
@@ -33,10 +29,19 @@ export function StepFieldMapping({
         onMappingChange({ ...mapping, [key]: value || undefined });
     }
 
-    const canProceed = mapping.first_name || mapping.last_name;
+    const emailRequired = !config?.emailOptional;
+
+    const requiredFields: { key: keyof FieldMapping; label: string }[] = [
+        ...BASE_REQUIRED_FIELDS,
+        ...(emailRequired ? [{ key: "email" as keyof FieldMapping, label: "Email" }] : []),
+    ];
+
+    const canProceed = emailRequired
+        ? (mapping.first_name || mapping.last_name) && mapping.email
+        : mapping.first_name || mapping.last_name;
 
     const optionalFields: { key: keyof FieldMapping; label: string }[] = [
-        ...BASE_OPTIONAL_FIELDS,
+        ...(!emailRequired ? [{ key: "email" as keyof FieldMapping, label: "Email" }] : []),
         ...(config?.showPhone ? [{ key: "phone" as keyof FieldMapping, label: "Phone" }] : []),
         ...(config?.showRegistrationNumber
             ? [{ key: "registration_number" as keyof FieldMapping, label: "Registration Number" }]
@@ -50,7 +55,7 @@ export function StepFieldMapping({
             </p>
 
             <div className="space-y-4">
-                {REQUIRED_FIELDS.map(({ key, label }) => (
+                {requiredFields.map(({ key, label }) => (
                     <div key={key} className="flex items-center gap-4">
                         <label className="w-40 text-sm font-medium text-gray-700 shrink-0">
                             {label}

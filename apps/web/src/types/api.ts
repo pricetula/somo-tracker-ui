@@ -2425,7 +2425,69 @@ export interface paths {
             };
         };
         put?: never;
-        post?: never;
+        /**
+         * Bulk add students
+         * @description Creates multiple student accounts with optional student group enrollment. Only admins.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description Students payload */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["internal_membership_delivery_http.bulkAddStudentsRequest"];
+                };
+            };
+            responses: {
+                /** @description Created */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Forbidden */
+                403: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["somo-tracker-api_internal_common_apperror.ErrorResponse"];
+                    };
+                };
+            };
+        };
         delete?: never;
         options?: never;
         head?: never;
@@ -4374,10 +4436,17 @@ export interface components {
         };
         "internal_invitation_delivery_http.inviteItem": {
             email?: string;
+            first_name?: string;
+            last_name?: string;
+            phone?: string;
+            registration_number?: string;
             role?: string;
         };
         "internal_invitation_delivery_http.sendBulkRequest": {
             invitations?: components["schemas"]["internal_invitation_delivery_http.inviteItem"][];
+        };
+        "internal_membership_delivery_http.bulkAddStudentsRequest": {
+            students?: components["schemas"]["internal_membership_delivery_http.studentItem"][];
         };
         "internal_membership_delivery_http.memberWithUserResponse": {
             created_at?: string;
@@ -4387,6 +4456,14 @@ export interface components {
             membership_id?: string;
             role?: string;
             user_id?: string;
+        };
+        "internal_membership_delivery_http.studentItem": {
+            email?: string;
+            first_name?: string;
+            last_name?: string;
+            phone?: string;
+            registration_number?: string;
+            student_group_id?: string;
         };
         "internal_onboarding_delivery_http.onboardRequest": {
             school_name?: string;
@@ -4556,6 +4633,7 @@ export interface components {
             createdAt?: string;
             id?: string;
             isActive?: boolean;
+            registrationNumber?: string;
             role?: components["schemas"]["somo-tracker-api_internal_membership.Role"];
             school?: components["schemas"]["somo-tracker-api_internal_school.School"];
             schoolID?: string;
@@ -4590,6 +4668,7 @@ export interface components {
             externalAuthID?: string;
             fullName?: string;
             id?: string;
+            phone?: string;
             updatedAt?: string;
         };
     };

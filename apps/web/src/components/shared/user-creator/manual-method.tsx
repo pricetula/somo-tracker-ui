@@ -56,7 +56,7 @@ export function ManualMethod({ onImport, onReset, config, cohorts }: ManualMetho
     function validate(): boolean {
         const newErrors = rows.map((row) => {
             if (!row.first_name.trim() && !row.last_name.trim()) return "Missing name";
-            if (!row.email.trim()) return "Missing email";
+            if (!config?.emailOptional && !row.email.trim()) return "Missing email";
             return "";
         });
         setErrors(newErrors);
@@ -72,7 +72,7 @@ export function ManualMethod({ onImport, onReset, config, cohorts }: ManualMetho
             last_name: r.last_name.trim(),
             email: r.email.trim(),
             ...(config?.showPhone && r.phone.trim() ? { phone: r.phone.trim() } : {}),
-            ...(config?.showCohort && r.cohort_id ? { cohort_id: r.cohort_id } : {}),
+            ...(config?.showCohort && r.cohort_id ? { student_group_id: r.cohort_id } : {}),
             ...(config?.showRegistrationNumber && r.registration_number.trim()
                 ? { registration_number: r.registration_number.trim() }
                 : {}),
@@ -131,7 +131,7 @@ export function ManualMethod({ onImport, onReset, config, cohorts }: ManualMetho
                             </div>
                             <div className="flex-1 min-w-0">
                                 <Input
-                                    placeholder="Email"
+                                    placeholder={config?.emailOptional ? "Email (optional)" : "Email *"}
                                     type="email"
                                     value={row.email}
                                     onChange={(e) => updateRow(i, "email", e.target.value)}

@@ -3,9 +3,9 @@ import Papa from "papaparse";
 export interface AddUser {
     first_name: string;
     last_name: string;
-    email: string;
+    email?: string;
     phone?: string;
-    cohort_id?: string;
+    student_group_id?: string;
     registration_number?: string;
 }
 
@@ -13,7 +13,7 @@ export interface RowStatus {
     index: number;
     first_name: string;
     last_name: string;
-    email: string;
+    email?: string;
     phone?: string;
     registration_number?: string;
     status: "ready" | "skipped";
@@ -69,7 +69,11 @@ export function transform(
     }));
 }
 
-export function validate(mappedRows: Record<string, string>[]): ValidationResult {
+export interface ValidateOptions {
+    emailRequired?: boolean;
+}
+
+export function validate(mappedRows: Record<string, string>[], options: ValidateOptions = {}): ValidationResult {
     const preview: RowStatus[] = [];
     const data: AddUser[] = [];
 
@@ -77,11 +81,12 @@ export function validate(mappedRows: Record<string, string>[]): ValidationResult
         const row = mappedRows[i];
         const first_name = row.first_name?.trim() ?? "";
         const last_name = row.last_name?.trim() ?? "";
-        const email = row.email?.trim() ?? "";
+        const email = row.email?.trim() || undefined;
         const phone = row.phone?.trim() || undefined;
         const registration_number = row.registration_number?.trim() || undefined;
 
         const missingName = !first_name && !last_name;
+        const missingEmail = options.emailRequired && !email;
 
         if (missingName) {
             preview.push({
@@ -93,6 +98,17 @@ export function validate(mappedRows: Record<string, string>[]): ValidationResult
                 registration_number,
                 status: "skipped",
                 skipReason: "Missing first and last name",
+            });
+        } else if (missingEmail) {
+            preview.push({
+                index: i,
+                first_name,
+                last_name,
+                email,
+                phone,
+                registration_number,
+                status: "skipped",
+                skipReason: "Missing email",
             });
         } else {
             preview.push({
@@ -107,7 +123,7 @@ export function validate(mappedRows: Record<string, string>[]): ValidationResult
             data.push({
                 first_name,
                 last_name,
-                email,
+                ...(email ? { email } : {}),
                 ...(phone ? { phone } : {}),
                 ...(registration_number ? { registration_number } : {}),
             });

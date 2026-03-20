@@ -54,8 +54,8 @@ export function CsvImporter({ onImport, config }: CsvImporterProps) {
             registration_number: mapping.registration_number,
         };
         const mapped = transform(rawRows, full);
-        return validate(mapped);
-    }, [rawRows, mapping]);
+        return validate(mapped, { emailRequired: !config?.emailOptional });
+    }, [rawRows, mapping, config]);
 
     async function handleConfirm() {
         if (!validationResult) return;
